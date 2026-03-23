@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Settings — KNOCKSSTUDiOS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --bg:#000;
+      --accent:#7fd0ff;
+      --accent-2:#9f5bff;
+      --muted:#6f9fd0;
+      --panel-bg:radial-gradient(circle at top,#07111f 0,#02040a 55%,#000 100%);
+      --glass-border:rgba(127,208,255,0.35);
+      --text:#e5f3ff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
+    html,body{height:100%}
+    body{
+      background:#02030a;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      overflow:hidden;
+    }
+    .center{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px}
+    .container{
+      width:100%;
+      max-width:600px;
+      background:var(--panel-bg);
+      border-radius:20px;
+      padding:30px;
+      border:1px solid var(--glass-border);
+      box-shadow:0 0 40px rgba(127,208,255,0.12), inset 0 0 30px rgba(0,0,0,0.7);
+    }
+    h1{
+      font-size:1.8rem;
+      letter-spacing:0.15em;
+      color:var(--accent);
+      margin-bottom:20px;
+      font-weight:800;
+      text-align:center;
+    }
+    .section{
+      margin-bottom:24px;
+      padding-bottom:16px;
+      border-bottom:1px solid rgba(127,208,255,0.15);
+    }
+    .label{
+      font-size:0.85rem;
+      color:var(--muted);
+      margin-bottom:6px;
+      display:block;
+    }
+    .input{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(127,208,255,0.25);
+      background:rgba(0,0,0,0.4);
+      color:var(--text);
+      font-size:0.9rem;
+      margin-bottom:10px;
+    }
+    .btn{
+      width:100%;
+      padding:12px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+      font-size:0.85rem;
+      margin-top:10px;
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      color:#041018;
+      box-shadow:0 6px 24px rgba(31,209,255,0.18);
+    }
+    .btn-ghost{
+      background:transparent;
+      border:1px solid rgba(127,208,255,0.22);
+      color:var(--accent);
+    }
+    .footer-links{
+      margin-top:20px;
+      text-align:center;
+    }
+    .footer-links a{
+      color:var(--accent);
+      font-size:0.85rem;
+      text-decoration:none;
+      display:block;
+      margin-top:6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center">
+    <div class="container">
+
+      <h1>SETTINGS</h1>
+
+      <div class="section">
+        <label class="label">Display Name</label>
+        <input id="name" class="input" type="text" placeholder="Your name" />
+
+        <label class="label">Email</label>
+        <input id="email" class="input" type="email" placeholder="Email" />
+
+        <label class="label">Age</label>
+        <input id="age" class="input" type="text" placeholder="Age" />
+
+        <button class="btn btn-primary" id="save-btn">Save Changes</button>
+      </div>
+
+      <div class="section">
+        <label class="label">Reset Account</label>
+        <button class="btn btn-ghost" id="reset-btn">Reset All Data</button>
+      </div>
+
+      <div class="footer-links">
+        <a href="dashboard.html">← Back to Dashboard</a>
+        <a href="index.html">Return to Home</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    function loadState(){
+      const raw = localStorage.getItem("knocks_state_v1");
+      if(!raw) return null;
+      try{ return JSON.parse(raw); }
+      catch(e){ return null; }
+    }
+
+    function saveState(state){
+      localStorage.setItem("knocks_state_v1", JSON.stringify(state));
+    }
+
+    let state = loadState() || {
+      name:"Guest",
+      email:"guest@studio.com",
+      age:"13+",
+      tier:"Free",
+      coins:2000,
+      logs:[]
+    };
+
+    $("name").value = state.name || "";
+    $("email").value = state.email || "";
+    $("age").value = state.age || "";
+
+    $("save-btn").addEventListener("click", ()=>{
+      state.name = $("name").value.trim() || "Guest";
+      state.email = $("email").value.trim() || "guest@studio.com";
+      state.age = $("age").value.trim() || "?";
+
+      state.logs.push(`[${new Date().toISOString()}] Settings updated.`);
+
+      saveState(state);
+      alert("Settings saved.");
+    });
+
+    $("reset-btn").addEventListener("click", ()=>{
+      localStorage.removeItem("knocks_state_v1");
+      alert("All data reset.");
+      location.reload();
+    });
+  </script>
+
+</body>
+</html>
