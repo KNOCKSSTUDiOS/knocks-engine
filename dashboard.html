@@ -21,7 +21,6 @@
       background:var(--bg);
       color:var(--text);
       -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
       overflow:hidden;
     }
     .center{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
@@ -70,7 +69,7 @@
         <div class="hud">
           <div class="hud-top">
             <div><strong>KNOCKSSTUDiOS</strong> — Lab-Legends</div>
-            <div class="small">Dashboard • Local prototype</div>
+            <div class="small">Dashboard • 9K Ultra Engine</div>
           </div>
 
           <div class="hud-main">
@@ -80,7 +79,7 @@
                   <div class="logo" id="logo">KNOCKSSTUDiOS ENGINE</div>
                   <div style="display:flex;gap:10px;align-items:center">
                     <div class="small muted">Signed in as <span id="user-email-display">guest</span></div>
-                    <div class="status-pill" id="owner-pill" style="display:none">OWNER MODE</div>
+                    <div class="status-pill" id="age-pill">Age: ?</div>
                   </div>
                 </div>
 
@@ -97,7 +96,6 @@
                             <button class="btn btn-ghost" id="watchad-btn">Watch Ad (+10)</button>
                             <button class="btn btn-ghost" id="uploadvid-btn">Upload 5sec Video (+1000)</button>
                           </div>
-                          <div style="margin-top:12px" class="small muted">Upload a 5-second intro video once to earn 1,000 coins.</div>
                         </div>
 
                         <div style="min-width:220px">
@@ -106,28 +104,28 @@
                             <div class="small muted" id="tier-label">Free</div>
                             <button class="btn btn-primary" id="open-sub-btn">Manage Subscription</button>
                           </div>
-                          <div style="margin-top:10px" class="small muted">Coins can be used in the Marketplace to buy assets and templates.</div>
+                          <div style="margin-top:10px" class="small muted">Auto-upgrades happen without interrupting your work.</div>
                         </div>
                       </div>
                     </div>
 
                     <div class="panel" style="margin-top:12px">
                       <h3>School of Hard Knocks</h3>
-                      <div class="small muted">Start learning: Blender, Engine, Coding, Animation, Prompts.</div>
+                      <div class="small muted">Learn coding, rendering, animation, engine logic, and more.</div>
                       <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-                        <button class="btn btn-ghost" id="start-blender">Blender School</button>
-                        <button class="btn btn-ghost" id="start-engine">Engine School</button>
-                        <button class="btn btn-ghost" id="start-code">Coding School</button>
-                        <button class="btn btn-ghost" id="start-anim">Animation</button>
+                        <button class="btn btn-ghost">Coding Track</button>
+                        <button class="btn btn-ghost">Rendering Track</button>
+                        <button class="btn btn-ghost">Animation Track</button>
+                        <button class="btn btn-ghost">Certification</button>
                       </div>
                     </div>
 
                     <div class="panel" style="margin-top:12px">
                       <h3>Marketplace (Preview)</h3>
-                      <div class="small muted">Browse assets, models, music, and templates. Selling tools unlock at Creator tier.</div>
+                      <div class="small muted">Buy skins, assets, music, and templates.</div>
                       <div style="display:flex;gap:8px;margin-top:12px">
-                        <button class="btn btn-ghost" id="open-shop">Open Shop</button>
-                        <button class="btn btn-ghost" id="sell-item" disabled>Sell Item (Creator+)</button>
+                        <button class="btn btn-ghost">Open Shop</button>
+                        <button class="btn btn-ghost">Sell Item (Creator+)</button>
                       </div>
                     </div>
                   </div>
@@ -137,46 +135,45 @@
                       <h3>Your Robot Mentor</h3>
                       <div class="robot-card">
                         <div class="robot-avatar" id="robot-avatar">
-                          <svg width="84" height="84" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <svg width="84" height="84" viewBox="0 0 24 24" fill="none">
                             <rect x="3" y="4" width="18" height="14" rx="2" stroke="#7fd0ff" stroke-width="0.9" fill="rgba(127,208,255,0.02)"/>
                             <circle cx="8.5" cy="10.5" r="1.6" fill="#7fd0ff"/>
                             <circle cx="15.5" cy="10.5" r="1.6" fill="#7fd0ff"/>
                             <rect x="7" y="15" width="10" height="1.6" rx="0.8" fill="#7fd0ff"/>
                           </svg>
                         </div>
-                        <div class="robot-name" id="robot-name">Assigning...</div>
-                        <div class="small muted" id="robot-desc">Your personal mentor will guide you through lessons and the shop.</div>
+                        <div class="robot-name" id="robot-name">Loading...</div>
+                        <div class="small muted" id="robot-desc">Your personal guide.</div>
                         <div style="display:flex;gap:8px;margin-top:8px">
-                          <button class="btn btn-primary" id="customize-robot">Customize</button>
-                          <button class="btn btn-ghost" id="reassign-robot">Reassign</button>
+                          <button class="btn btn-primary" id="customize-robot">Skins</button>
+                          <button class="btn btn-ghost" id="reassign-robot">Change Mentor</button>
                         </div>
                       </div>
                     </div>
 
                     <div class="panel" style="margin-top:12px">
                       <h3>Radio</h3>
-                      <div class="small muted">O2N Stations — robot-themed, royalty-free.</div>
+                      <div class="small muted">Stations by your mentor.</div>
                       <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
                         <select id="radio-select" style="padding:8px;border-radius:8px;border:1px solid rgba(127,208,255,0.35);background:rgba(0,0,0,0.6);color:var(--text);font-size:0.85rem">
-                          <option value="ambient">Ambient — Workshop</option>
-                          <option value="synthwave">Synthwave — Night Ops</option>
-                          <option value="cinematic">Cinematic — Story Mode</option>
-                          <option value="lofi">Lo-Fi — Focus</option>
+                          <option value="bolt">Bolt — Fun & Upbeat</option>
+                          <option value="echo">Echo — Calm & Focus</option>
+                          <option value="forge">Forge — Tech & Synth</option>
                         </select>
                         <button class="btn btn-primary" id="play-radio">Play</button>
                       </div>
-                      <div style="margin-top:10px" class="small muted">Music is platform-owned and private to your account.</div>
                     </div>
 
                     <div class="panel" style="margin-top:12px">
-                      <h3>Admin</h3>
-                      <div class="small muted">Owner/admin access is gated by a secure key.</div>
-                      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
-                        <button class="btn btn-ghost" id="enter-admin-key">Enter Admin Key</button>
-                        <button class="btn btn-ghost" id="view-logs">View Logs</button>
+                      <h3>Payments</h3>
+                      <div class="small muted">We accept:</div>
+                      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+                        <span class="small muted" style="padding:4px 8px;border:1px solid var(--glass-border);border-radius:999px">Visa</span>
+                        <span class="small muted" style="padding:4px 8px;border:1px solid var(--glass-border);border-radius:999px">Mastercard</span>
+                        <span class="small muted" style="padding:4px 8px;border:1px solid var(--glass-border);border-radius:999px">Cash App</span>
                       </div>
-                      <div style="margin-top:10px" class="small muted">Owner account gets lifetime creation privileges and full console.</div>
                     </div>
+
                   </div>
                 </div>
 
@@ -189,28 +186,19 @@
 
       <div style="width:360px;min-width:260px">
         <div class="panel">
-          <h3>Quick Actions</h3>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            <button class="btn btn-primary" id="open-sub-quick">Upgrade / Subscribe</button>
-            <button class="btn btn-ghost" id="open-market">Marketplace</button>
-            <button class="btn btn-ghost" id="open-school">School of Hard Knocks</button>
-          </div>
-        </div>
-
-        <div class="panel" style="margin-top:12px">
           <h3>Account</h3>
           <div class="small muted">Name: <span id="user-name-display">Guest</span></div>
           <div class="small muted">Tier: <strong id="user-tier">Free</strong></div>
           <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
             <button class="btn btn-ghost" id="signout-btn">Sign Out</button>
-            <button class="btn btn-ghost" id="reset-btn">Reset Local Data</button>
+            <button class="btn btn-ghost" id="reset-btn">Reset Data</button>
           </div>
-          <div style="margin-top:10px"><a href="index.html" class="small muted" style="text-decoration:none;color:var(--muted)">← Back to landing</a></div>
+          <div style="margin-top:10px"><a href="index.html" class="small muted">← Back to landing</a></div>
         </div>
 
         <div class="panel" style="margin-top:12px">
           <h3>Prototype Notes</h3>
-          <div class="small muted">This is a local prototype. Payments, uploads, and audio playback are simulated. Use as a blueprint for integration.</div>
+          <div class="small muted">This is a local prototype. Payments, uploads, and audio playback are simulated.</div>
         </div>
       </div>
     </div>
@@ -222,7 +210,7 @@
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
         <div>
           <div style="font-weight:800;color:var(--accent);letter-spacing:0.12em">Subscriptions</div>
-          <div class="small muted">Choose a plan that unlocks more courses, robot features, and marketplace tools.</div>
+          <div class="small muted">Choose a plan that fits your journey.</div>
         </div>
         <div><button class="btn btn-ghost" id="close-modal">Close</button></div>
       </div>
@@ -235,7 +223,7 @@
             <li>2,000 coins on signup</li>
             <li>Daily check-in +25 coins</li>
             <li>Basic robot mentor</li>
-            <li>Limited School lessons</li>
+            <li>Intro School lessons</li>
             <li>Marketplace browse</li>
           </ul>
           <div style="margin-top:10px"><button class="btn btn-primary select-tier" data-tier="Free">Current</button></div>
@@ -243,446 +231,35 @@
 
         <div class="tier" data-tier="Creator">
           <h4>Creator</h4>
-          <div class="price">$9.99 / month</div>
+          <div class="price">$8.99 / month</div>
           <ul>
             <li>Full School access</li>
-            <li>Custom robot themes</li>
+            <li>Extra robot skins</li>
             <li>Sell in Marketplace</li>
             <li>+500 coins / month</li>
+            <li>Auto-upgrade</li>
           </ul>
-          <div style="margin-top:10px"><button class="btn btn-primary select-tier" data-tier="Creator">Subscribe</button></div>
+          <div style="margin-top:10px"><button class="btn btn-primary select-tier" data-tier="Creator">Upgrade</button></div>
         </div>
 
         <div class="tier" data-tier="Legend">
           <h4>Legend</h4>
-          <div class="price">$29.99 / month</div>
+          <div class="price">$19.99 / month</div>
           <ul>
-            <li>TitanGine features</li>
-            <li>Priority marketplace</li>
-            <li>Advanced robot mentor</li>
+            <li>9K Ultra Engine previews</li>
+            <li>Advanced coding & rendering</li>
+            <li>Legend skins</li>
             <li>+2,000 coins / month</li>
+            <li>Auto-upgrade</li>
           </ul>
-          <div style="margin-top:10px"><button class="btn btn-primary select-tier" data-tier="Legend">Subscribe</button></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Admin Modal -->
-  <div class="modal-backdrop" id="admin-backdrop" style="display:none">
-    <div class="modal" style="max-width:760px">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div>
-          <div style="font-weight:800;color:var(--accent);letter-spacing:0.12em">Admin Console</div>
-          <div class="small muted">Owner controls, logs, and toggles.</div>
-        </div>
-        <div><button class="btn btn-ghost" id="close-admin">Close</button></div>
-      </div>
-
-      <div class="admin-panel">
-        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-          <div class="toggle" id="toggle-lifetime">
-            <input type="checkbox" id="lifetime-checkbox" style="accent-color: #7fd0ff"/>
-            <label for="lifetime-checkbox" style="margin-left:6px" class="small muted">Owner: Lifetime free creations</label>
-          </div>
-          <div class="small muted">Owner email: <strong id="owner-email">knocks@knocksstudios</strong></div>
-        </div>
-
-        <div>
-          <div class="small muted">Recent Logs</div>
-          <div class="log" id="admin-logs"></div>
-        </div>
-
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-primary" id="export-logs">Export Logs (simulate)</button>
-          <button class="btn btn-ghost" id="clear-logs">Clear Logs</button>
+          <div style="margin-top:10px"><button class="btn btn-primary select-tier" data-tier="Legend">Go Legend</button></div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    const DEFAULT_OWNER_EMAIL = "knocks@knocksstudios";
-    const OWNER_KEY = "KNOCKS-OWNER-KEY-9KULTRA";
     const $ = (id) => document.getElementById(id);
-    const nowISO = () => new Date().toISOString();
-
-    const defaultState = {
-      name: "Guest",
-      email: "guest@local",
-      tier: "Free",
-      coins: 0,
-      lastCheckIn: null,
-      adCountToday: 0,
-      lastAdReset: null,
-      uploadedVideo: false,
-      robot: null,
-      owner: false,
-      logs: []
-    };
 
     function loadState() {
-      const raw = localStorage.getItem("knocks_state_v1");
-      if (!raw) {
-        const init = {...defaultState};
-        init.coins = 2000;
-        init.logs.push(`[${nowISO()}] Initial signup reward: +2000 coins`);
-        saveState(init);
-        return init;
-      }
-      try {
-        const s = JSON.parse(raw);
-        return {...defaultState, ...s};
-      } catch (e) {
-        localStorage.removeItem("knocks_state_v1");
-        return loadState();
-      }
-    }
-
-    function saveState(state) {
-      localStorage.setItem("knocks_state_v1", JSON.stringify(state));
-      renderState(state);
-    }
-
-    function renderState(state) {
-      $("coins-count").textContent = state.coins;
-      $("user-name-display").textContent = state.name || "Guest";
-      $("user-email-display").textContent = state.email || "guest@local";
-      $("user-tier").textContent = state.tier || "Free";
-      $("tier-label").textContent = state.tier || "Free";
-
-      if (!state.robot) {
-        $("robot-name").textContent = "Assigning...";
-        $("robot-desc").textContent = "Your personal mentor will guide you.";
-      } else {
-        $("robot-name").textContent = state.robot.name;
-        $("robot-desc").textContent = state.robot.desc;
-      }
-
-      $("owner-pill").style.display = state.owner ? "inline-block" : "none";
-
-      const logsEl = $("admin-logs");
-      if (logsEl) {
-        logsEl.innerHTML = state.logs.slice().reverse().map(l => `<div style="font-family:monospace;font-size:0.85rem;color:#bcd9ff;margin-bottom:6px">${l}</div>`).join("");
-      }
-    }
-
-    function assignRobot(state, force=false) {
-      if (state.robot && !force) return state;
-      const themes = [
-        {name:"Bolt",desc:"Energetic mentor — quick tips and templates",color:"#7fd0ff"},
-        {name:"Echo",desc:"Calm guide — focus and composition",color:"#9f5bff"},
-        {name:"Forge",desc:"Technical mentor — shaders and pipelines",color:"#ffd36b"},
-        {name:"Nyx",desc:"Cinematic mentor — story and camera",color:"#9fe0ff"},
-        {name:"Rivet",desc:"Hands-on mentor — modeling and rigs",color:"#c7ffb3"}
-      ];
-      const pick = themes[Math.floor(Math.random()*themes.length)];
-      state.robot = {
-        id: `robot_${Date.now()}`,
-        name: pick.name,
-        desc: pick.desc,
-        themeColor: pick.color,
-        assignedAt: nowISO()
-      };
-      state.logs.push(`[${nowISO()}] Robot assigned: ${state.robot.name}`);
-      saveState(state);
-      return state;
-    }
-
-    function canCheckIn(state) {
-      if (!state.lastCheckIn) return true;
-      const last = new Date(state.lastCheckIn);
-      const now = new Date();
-      return now.toDateString() !== last.toDateString();
-    }
-
-    function doCheckIn(state) {
-      if (!canCheckIn(state)) {
-        alert("You already checked in today. Come back tomorrow.");
-        return state;
-      }
-      state.coins += 25;
-      state.lastCheckIn = nowISO();
-      state.logs.push(`[${nowISO()}] Daily check-in: +25 coins`);
-      saveState(state);
-      return state;
-    }
-
-    function resetAdCountIfNeeded(state) {
-      if (!state.lastAdReset) {
-        state.lastAdReset = nowISO();
-        state.adCountToday = 0;
-        return state;
-      }
-      const last = new Date(state.lastAdReset);
-      const now = new Date();
-      if (now.toDateString() !== last.toDateString()) {
-        state.adCountToday = 0;
-        state.lastAdReset = nowISO();
-      }
-      return state;
-    }
-
-    function watchAd(state) {
-      state = resetAdCountIfNeeded(state);
-      if (state.adCountToday >= 7) {
-        alert("Ad watch limit reached for today (7).");
-        return state;
-      }
-      state.adCountToday += 1;
-      state.coins += 10;
-      state.logs.push(`[${nowISO()}] Watched ad #${state.adCountToday}: +10 coins`);
-      saveState(state);
-      return state;
-    }
-
-    function uploadVideo(state) {
-      if (state.uploadedVideo) {
-        alert("You already uploaded your 5-second intro and received the reward.");
-        return state;
-      }
-      state.uploadedVideo = true;
-      state.coins += 1000;
-      state.logs.push(`[${nowISO()}] Uploaded 5s intro: +1000 coins`);
-      saveState(state);
-      return state;
-    }
-
-    function subscribeToTier(state, tier) {
-      if (tier === state.tier) {
-        alert(`You are already on the ${tier} tier.`);
-        return state;
-      }
-      state.tier = tier;
-      if (tier === "Creator") {
-        state.coins += 500;
-        state.logs.push(`[${nowISO()}] Subscribed to Creator: +500 coins (simulated)`);
-      } else if (tier === "Legend") {
-        state.coins += 2000;
-        state.logs.push(`[${nowISO()}] Subscribed to Legend: +2000 coins (simulated)`);
-      }
-      saveState(state);
-      alert(`Subscription updated to ${tier} (simulated).`);
-      return state;
-    }
-
-    function enterAdminKey(state, key) {
-      if (key === OWNER_KEY) {
-        state.owner = true;
-        state.logs.push(`[${nowISO()}] Admin key accepted — owner mode enabled`);
-        saveState(state);
-        return {ok:true, state};
-      } else {
-        state.logs.push(`[${nowISO()}] Admin key attempt failed`);
-        saveState(state);
-        return {ok:false, state};
-      }
-    }
-
-    function exportLogs(state) {
-      const blob = new Blob([state.logs.join("\n")], {type:"text/plain;charset=utf-8"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "knocks_logs.txt";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      state.logs.push(`[${nowISO()}] Logs exported`);
-      saveState(state);
-    }
-
-    function clearLogs(state) {
-      state.logs = [];
-      state.logs.push(`[${nowISO()}] Logs cleared by admin`);
-      saveState(state);
-    }
-
-    function resetLocalData() {
-      if (!confirm("Reset local prototype data? This will clear localStorage for this demo.")) return;
-      localStorage.removeItem("knocks_state_v1");
-      location.href = "signup.html";
-    }
-
-    let state = loadState();
-    assignRobot(state);
-    renderState(state);
-
-    $("checkin-btn").addEventListener("click", () => {
-      state = loadState();
-      state = doCheckIn(state);
-    });
-
-    $("watchad-btn").addEventListener("click", () => {
-      state = loadState();
-      state = watchAd(state);
-    });
-
-    $("uploadvid-btn").addEventListener("click", () => {
-      state = loadState();
-      const ok = confirm("Simulate uploading a 5-second intro video to earn 1000 coins?");
-      if (ok) {
-        state = uploadVideo(state);
-      }
-    });
-
-    const modal = $("modal-backdrop");
-    $("open-sub-btn").addEventListener("click", () => modal.style.display = "flex");
-    $("open-sub-quick").addEventListener("click", () => modal.style.display = "flex");
-    $("close-modal").addEventListener("click", () => modal.style.display = "none");
-
-    document.querySelectorAll(".select-tier").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const tier = e.currentTarget.dataset.tier;
-        state = loadState();
-        subscribeToTier(state, tier);
-        modal.style.display = "none";
-      });
-    });
-
-    $("reassign-robot").addEventListener("click", () => {
-      state = loadState();
-      if (!confirm("Reassigning will pick a new robot theme. Continue?")) return;
-      assignRobot(state, true);
-      alert("Robot reassigned.");
-    });
-
-    $("customize-robot").addEventListener("click", () => {
-      alert("Robot customization UI is a next-step feature. This prototype assigns themes automatically.");
-    });
-
-    $("play-radio").addEventListener("click", () => {
-      const station = $("radio-select").value;
-      alert(`Playing station: ${station} (simulated). Music is platform-owned O2N.`);
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Played radio station: ${station}`);
-      saveState(state);
-    });
-
-    $("start-blender").addEventListener("click", () => {
-      alert("Opening Blender School (simulated).");
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Entered Blender School`);
-      saveState(state);
-    });
-    $("start-engine").addEventListener("click", () => {
-      alert("Opening Engine School (simulated).");
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Entered Engine School`);
-      saveState(state);
-    });
-    $("start-code").addEventListener("click", () => {
-      alert("Opening Coding School (simulated).");
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Entered Coding School`);
-      saveState(state);
-    });
-    $("start-anim").addEventListener("click", () => {
-      alert("Opening Animation School (simulated).");
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Entered Animation School`);
-      saveState(state);
-    });
-
-    $("open-shop").addEventListener("click", () => {
-      alert("Opening Marketplace (simulated). Browse-only for Free tier.");
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Opened Marketplace`);
-      saveState(state);
-    });
-
-    $("open-market").addEventListener("click", () => {
-      alert("Opening Marketplace (simulated).");
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Opened Marketplace via quick action`);
-      saveState(state);
-    });
-
-    $("open-school").addEventListener("click", () => {
-      alert("Opening School of Hard Knocks (simulated).");
-      state = loadState();
-      state.logs.push(`[${nowISO()}] Opened School via quick action`);
-      saveState(state);
-    });
-
-    $("signout-btn").addEventListener("click", () => {
-      if (!confirm("Sign out (local prototype)?")) return;
-      state = loadState();
-      state.name = "Guest";
-      state.email = "guest@local";
-      state.owner = false;
-      saveState(state);
-      alert("Signed out locally. You can sign up again.");
-      location.href = "signup.html";
-    });
-
-    $("reset-btn").addEventListener("click", resetLocalData);
-
-    $("enter-admin-key").addEventListener("click", () => {
-      const key = prompt("Enter admin key to unlock owner console (prototype):");
-      if (!key) return;
-      const res = enterAdminKey(loadState(), key);
-      if (res.ok) {
-        alert("Owner mode enabled. Opening admin console.");
-        openAdminConsole();
-      } else {
-        alert("Invalid admin key.");
-      }
-    });
-
-    function openAdminConsole() {
-      const st = loadState();
-      $("admin-backdrop").style.display = "flex";
-      $("lifetime-checkbox").checked = !!st.lifetimeFree;
-      $("owner-email").textContent = DEFAULT_OWNER_EMAIL;
-      renderState(st);
-    }
-
-    $("close-admin").addEventListener("click", () => {
-      $("admin-backdrop").style.display = "none";
-    });
-
-    $("view-logs").addEventListener("click", () => {
-      openAdminConsole();
-    });
-
-    $("export-logs").addEventListener("click", () => {
-      const st = loadState();
-      exportLogs(st);
-      alert("Logs exported (simulated).");
-    });
-
-    $("clear-logs").addEventListener("click", () => {
-      if (!confirm("Clear admin logs?")) return;
-      const st = loadState();
-      clearLogs(st);
-      alert("Logs cleared.");
-    });
-
-    $("lifetime-checkbox").addEventListener("change", (e) => {
-      const st = loadState();
-      st.lifetimeFree = e.target.checked;
-      st.logs.push(`[${nowISO()}] Owner lifetimeFree set to ${e.target.checked}`);
-      saveState(st);
-      alert("Owner lifetime free creations toggled (simulated).");
-    });
-
-    $("logo").addEventListener("click", () => {
-      alert("This is your engine dashboard. Landing, signup, and login are now separate pages like a real site.");
-    });
-
-    window.addEventListener("load", () => {
-      state = loadState();
-      assignRobot(state);
-      renderState(state);
-    });
-
-    setInterval(() => {
-      state = loadState();
-      state = resetAdCountIfNeeded(state);
-      saveState(state);
-    }, 60000);
-  </script>
-</body>
-  </html>
+      const raw = localStorage.getItem("knocks_state
