@@ -1,136 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>Sign Up — KNOCKSSTUDiOS Engine</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root{
-      --bg:#02030a;
-      --accent:#7fd0ff;
-      --accent-2:#9f5bff;
-      --muted:#7b8aa8;
-      --text:#e5f3ff;
-    }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
-    html,body{height:100%}
-    body{
-      background:radial-gradient(circle at top,#07111f 0,#02040a 45%,#000 100%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-    }
-    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
-    .card{
-      max-width:480px;width:100%;
-      border-radius:20px;
-      border:1px solid rgba(127,208,255,0.4);
-      background:radial-gradient(circle at top,#0b1b30 0,#02040a 55%,#000 100%);
-      box-shadow:0 0 80px rgba(0,0,0,0.9),0 0 60px rgba(127,208,255,0.18);
-      padding:26px 24px;
-    }
-    .badge{
-      font-size:0.8rem;
-      letter-spacing:0.22em;
-      text-transform:uppercase;
-      color:var(--muted);
-      margin-bottom:8px;
-    }
-    h1{
-      font-size:1.3rem;
-      letter-spacing:0.16em;
-      text-transform:uppercase;
-      color:var(--accent);
-      margin-bottom:14px;
-    }
-    .sub{font-size:0.9rem;color:var(--text);opacity:0.9;margin-bottom:18px;}
-    .label{font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--muted);margin-bottom:4px;margin-top:10px}
-    .input{
-      width:100%;
-      padding:10px 12px;
-      border-radius:10px;
-      border:1px solid rgba(127,208,255,0.35);
-      background:rgba(0,0,0,0.6);
-      color:var(--text);
-      font-size:0.9rem;
-    }
-    .input:focus{
-      outline:none;
-      border-color:var(--accent);
-      box-shadow:0 0 0 1px rgba(127,208,255,0.4);
-    }
-    .btn{
-      margin-top:18px;
-      width:100%;
-      padding:10px 18px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-      font-size:0.8rem;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      color:#041018;
-      box-shadow:0 8px 28px rgba(31,209,255,0.25);
-    }
-    .footer{
-      margin-top:14px;
-      font-size:0.8rem;
-      color:var(--muted);
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    a{color:var(--accent);text-decoration:none;font-size:0.8rem}
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <div class="badge">Sign up • Lab Legends Engine</div>
-      <h1>Create your operator profile</h1>
-      <div class="sub">This doesn’t create a real account yet. It stores your name and email locally and drops you into the engine dashboard.</div>
-
-      <form id="signup-form">
-        <div class="label">Name</div>
-        <input class="input" id="name" required placeholder="KNOCKS" />
-
-        <div class="label">Email</div>
-        <input class="input" id="email" type="email" required placeholder="you@studio.com" />
-
-        <button class="btn" type="submit">Enter Engine</button>
-      </form>
-
-      <div class="footer">
-        <span><a href="login.html">Already have a local profile? Log in</a></span>
-        <span><a href="index.html">← Back to landing</a></span>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    document.getElementById("signup-form").addEventListener("submit", function(e){
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      if(!name || !email) return;
-      const state = {
-        name,
-        email,
-        tier:"Free",
-        coins:2000,
-        lastCheckIn:null,
-        adCountToday:0,
-        lastAdReset:null,
-        uploadedVideo:false,
-        robot:null,
-        owner: email.toLowerCase()==="knocks@knocksstudios",
-        logs:[`[${new Date().toISOString()}] Signup: ${name} <${email}> +2000 coins`]
-      };
-      localStorage.setItem("knocks_state_v1", JSON.stringify(state));
-      window.location.href = "dashboard.html";
-    });
-  </script>
-</body>
-</html>
+<div class="label" style="margin-top:14px">Choose your robot guide</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap" id="robot-choices">
+  <label style="flex:1;min-width:120px;padding:8px;border-radius:10px;border:1px solid rgba(127,208,255,0.35);background:rgba(0,0,0,0.6);cursor:pointer;font-size:0.8rem;color:#9aa4c0">
+    <input type="radio" name="robot" value="Bolt" checked style="margin-right:6px" />
+    Bolt — energetic, fun, kid‑friendly
+  </label>
+  <label style="flex:1;min-width:120px;padding:8px;border-radius:10px;border:1px solid rgba(127,208,255,0.35);background:rgba(0,0,0,0.6);cursor:pointer;font-size:0.8rem;color:#9aa4c0">
+    <input type="radio" name="robot" value="Echo" style="margin-right:6px" />
+    Echo — calm, patient, explains slowly
+  </label>
+  <label style="flex:1;min-width:120px;padding:8px;border-radius:10px;border:1px solid rgba(127,208,255,0.35);background:rgba(0,0,0,0.6);cursor:pointer;font-size:0.8rem;color:#9aa4c0">
+    <input type="radio" name="robot" value="Forge" style="margin-right:6px" />
+    Forge — builder, coding & engine
+  </label>
+</div>
