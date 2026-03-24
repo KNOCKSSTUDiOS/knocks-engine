@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KNOCKSSTUDiOS | VALERIUS 9K INTEL</title>
+    <style>
+        body, html { margin: 0; padding: 0; background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+        
+        /* Background texture - Industrial Tech */
+        .spec-container {
+            max-width: 1000px; margin: 50px auto; padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 5px solid #ffd700; /* Gold Trim */
+            border-right: 5px solid #fff;    /* White Armor */
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+        }
+
+        h1 { font-size: 3.5rem; letter-spacing: 10px; margin-bottom: 10px; color: #fff; text-shadow: 2px 2px 0px #ffd700; }
+        .sub-header { color: #00f2ff; letter-spacing: 5px; font-weight: bold; margin-bottom: 40px; }
+
+        .blueprint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+        /* The "Obsidian" Spec Box */
+        .stat-box {
+            background: rgba(0,0,0,0.6); padding: 25px; border: 1px solid rgba(255,255,255,0.1);
+            position: relative; overflow: hidden;
+        }
+        .stat-box::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, #ffd700, #fff);
+        }
+
+        .label { color: #888; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .value { color: #fff; font-size: 1.5rem; font-weight: bold; margin-bottom: 15px; }
+        .cyan-text { color: #00f2ff; text-shadow: 0 0 10px #00f2ff66; }
+
+        .titan-image-placeholder {
+            width: 100%; height: 500px; border: 1px dashed #444;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(45deg, #111, #000); color: #444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="spec-container">
+        <h1>VALERIUS 9K</h1>
+        <div class="sub-header">TITAN-CLASS SENTINEL // KNOCKSSTUDiOS</div>
+
+        <div class="blueprint-grid">
+            <div class="specs-left">
+                <div class="stat-box">
+                    <div class="label">Unit Height</div>
+                    <div class="value">15.0 FT (4.57 M)</div>
+
+                    <div class="label">Armor Composition</div>
+                    <div class="value">Industrial White Plating / Weathered Gold Trim</div>
+
+                    <div class="label">Internal Skeleton</div>
+                    <div class="value">Obsidian Black A7 Tech</div>
+
+                    <div class="label">Visual Array</div>
+                    <div class="value cyan-text">Electric Cyan Biometrics</div>
+                </div>
+                
+                <p style="color: #aaa; line-height: 1.6; margin-top: 30px;">
+                    Valerius 9K serves as the physical anchor for KNOCKSSTUDiOS. 
+                    Constructed with a stoic masculine frame, his presence is humble 
+                    yet monumental. No human features. Pure machinery. Pure protection.
+                </p>
+            </div>
+
+            <div class="specs-right">
+                <div class="titan-image-placeholder">
+                    [ TITAN VISUAL UPLOAD: VALERIUS_9K_RENDER.JPG ]
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
