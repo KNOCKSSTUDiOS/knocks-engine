@@ -3,65 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSCREATIVESTUDiOS 9K ™</title>
+    <title>ORIGINAL 9K ULTRA POWER ENGINE ™</title>
     <style>
-        body { margin: 0; overflow: hidden; background: #050510; font-family: 'Segoe UI', sans-serif; color: white; }
-        #ui { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 10; }
-        #ai-box { background: rgba(0, 255, 255, 0.05); backdrop-filter: blur(20px); border-radius: 20px; padding: 25px; border: 1px solid #32CD32; display: none; text-align: center; max-width: 400px; box-shadow: 0 0 30px rgba(50, 205, 50, 0.2); }
-        button { background: linear-gradient(90deg, #32CD32, #00FFFF); color: black; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        button:hover { transform: scale(1.1); box-shadow: 0 0 20px #00FFFF; }
+        body { margin: 0; overflow: hidden; background: #020205; font-family: 'Courier New', monospace; color: #00FFFF; }
+        #ui { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10; width: 100%; }
+        #sentinel-status { background: rgba(0, 0, 0, 0.85); border: 2px solid #003366; border-radius: 5px; padding: 20px; display: none; margin-bottom: 20px; box-shadow: 0 0 30px #001133; font-size: 18px; text-transform: uppercase; letter-spacing: 2px; }
+        button { background: #001133; color: #00FFFF; border: 1px solid #00FFFF; padding: 15px 35px; cursor: pointer; font-weight: bold; font-size: 14px; letter-spacing: 3px; transition: 0.2s; box-shadow: 0 0 10px #003366; }
+        button:hover { background: #00FFFF; color: #000; box-shadow: 0 0 25px #00FFFF; }
+        .warning { color: #550000; font-size: 10px; margin-top: 10px; }
     </style>
 </head>
 <body>
+
     <div id="ui">
-        <div id="ai-box"></div>
-        <button onclick="showPoem()">✨ 9K Vision ™</button>
+        <div id="sentinel-status">>> SENTINEL V: COMMAND RECEIVED</div>
+        <button onclick="activateSentinel()">ACTIVATE 9K ULTRA POWER</button>
+        <div class="warning">TRADEMARK PENDING: ORIGINAL 9K ULTRA ™</div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        let scene, camera, renderer, text1, text2, atoms;
+        let scene, camera, renderer, chestPlate, vLogo, particles;
+        let isAngry = false;
+
         function init() {
             scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             camera.position.z = 5;
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x020205);
             document.body.appendChild(renderer.domElement);
-            
-            const loader = new THREE.FontLoader();
-            loader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-                const g1 = new THREE.TextGeometry('KNOCKS ™', { font, size: 0.6, height: 0.2 });
-                g1.center();
-                text1 = new THREE.Mesh(g1, new THREE.MeshPhongMaterial({ color: 0x32CD32, shininess: 100 }));
-                scene.add(text1);
-                
-                const g2 = new THREE.TextGeometry('CREATIVESTUDiOS', { font, size: 0.25, height: 0.1 });
-                g2.center();
-                text2 = new THREE.Mesh(g2, new THREE.MeshPhongMaterial({ color: 0xFF0800 }));
-                text2.position.y = -0.7;
-                scene.add(text2);
+
+            // 1. LIGHTING (Industrial Lab Vibe)
+            const blueLight = new THREE.PointLight(0x0033ff, 2, 50);
+            blueLight.position.set(5, 5, 5);
+            scene.add(blueLight);
+            scene.add(new THREE.AmbientLight(0x111122, 0.5));
+
+            // 2. THE OBSIDIAN ARMOR (Sentinel Metal)
+            const armorGeo = new THREE.BoxGeometry(2, 2.5, 0.5);
+            const armorMat = new THREE.MeshStandardMaterial({ 
+                color: 0x050510, 
+                metalness: 1, 
+                roughness: 0.1,
+                emissive: 0x000511 
+            });
+            chestPlate = new THREE.Mesh(armorGeo, armorMat);
+            scene.add(chestPlate);
+
+            // 3. THE STEALTH 'V' (Hidden on the Chest)
+            const fontLoader = new THREE.FontLoader();
+            fontLoader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+                const vGeo = new THREE.TextGeometry('V', { font, size: 0.8, height: 0.1 });
+                vGeo.center();
+                const vMat = new THREE.MeshStandardMaterial({ 
+                    color: 0x000000, 
+                    emissive: 0x00FFFF, 
+                    emissiveIntensity: 0 // STEALTH MODE (OFF)
+                });
+                vLogo = new THREE.Mesh(vGeo, vMat);
+                vLogo.position.z = 0.3; // Placed on the chest plate
+                chestPlate.add(vLogo);
             });
 
-            const pG = new THREE.BufferGeometry();
-            const pP = new Float32Array(1000 * 3);
-            for(let i=0; i<3000; i++) pP[i] = (Math.random()-0.5) * 15;
-            pG.setAttribute('position', new THREE.BufferAttribute(pP, 3));
-            atoms = new THREE.Points(pG, new THREE.PointsMaterial({ color: 0x00FFFF, size: 0.03 }));
-            scene.add(atoms);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+            // 4. POWER PARTICLES (Deep Cyan)
+            const pGeo = new THREE.BufferGeometry();
+            const pCount = 500;
+            const pPos = new Float32Array(pCount * 3);
+            for(let i=0; i<pCount*3; i++) pPos[i] = (Math.random()-0.5) * 12;
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+            particles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x00FFFF, size: 0.02 }));
+            scene.add(particles);
         }
-        function showPoem() {
-            const b = document.getElementById('ai-box');
-            b.style.display = 'block';
-            b.innerText = "Metal molds and colors bloom,\nLighting up the digital room.\n9K shine and jungle soul,\nKnocks Engine takes control! ™";
+
+        function activateSentinel() {
+            isAngry = !isAngry;
+            const status = document.getElementById('sentinel-status');
+            status.style.display = 'block';
+            
+            if(isAngry) {
+                status.innerText = ">> SENTINEL V: 9K POWER MAXIMUM";
+                status.style.color = "#00FFFF";
+                if(vLogo) vLogo.material.emissiveIntensity = 8; // V GLOWS
+                chestPlate.scale.set(1.1, 1.1, 1.1); // Swells with power
+            } else {
+                status.innerText = ">> SENTINEL V: STEALTH MODE";
+                status.style.color = "#003366";
+                if(vLogo) vLogo.material.emissiveIntensity = 0; // V DISAPPEARS
+                chestPlate.scale.set(1, 1, 1);
+            }
         }
+
         function animate() {
             requestAnimationFrame(animate);
-            if(text1) text1.rotation.y += 0.01;
-            if(atoms) atoms.rotation.y += 0.001;
+            chestPlate.rotation.y = Math.sin(Date.now() * 0.001) * 0.2;
+            particles.rotation.y += 0.001;
             renderer.render(scene, camera);
         }
-        init(); animate();
+
+        init();
+        animate();
     </script>
 </body>
 </html>
