@@ -3,111 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORIGINAL 9K ULTRA POWER ENGINE ™</title>
+    <title>9K ULTRA | SECURE GATEWAY</title>
     <style>
-        body { margin: 0; overflow: hidden; background: #010103; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #00FFFF; }
-        #interface { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 100; width: 100%; }
-        #sentinel-v-display { background: rgba(0, 5, 15, 0.9); border: 1px solid #003366; padding: 25px; border-radius: 2px; margin-bottom: 20px; display: none; box-shadow: 0 0 40px #001133; }
-        .command-text { font-size: 20px; font-weight: bold; text-transform: uppercase; letter-spacing: 4px; color: #00FFFF; text-shadow: 0 0 10px #00FFFF; }
-        .sub-text { font-size: 12px; color: #003366; margin-top: 10px; letter-spacing: 2px; }
-        button { background: transparent; color: #00FFFF; border: 2px solid #00FFFF; padding: 18px 45px; cursor: pointer; font-size: 16px; font-weight: 900; letter-spacing: 5px; transition: all 0.4s ease; text-transform: uppercase; }
-        button:hover { background: #00FFFF; color: #000; box-shadow: 0 0 50px #00FFFF; }
+        body { background: #010103; color: #00FFFF; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
+        .login-frame { width: 380px; background: #050510; border: 2px solid #003366; padding: 40px; box-shadow: 0 0 60px #000; position: relative; border-radius: 5px; }
+        .sentinel-header { text-align: center; margin-bottom: 30px; border-bottom: 1px solid #002244; padding-bottom: 15px; }
+        .v-logo { font-size: 50px; font-weight: 900; color: #00FFFF; text-shadow: 0 0 20px #00FFFF; margin-bottom: 10px; }
+        
+        /* TILES & INPUTS */
+        input { width: 100%; background: #000; border: 1px solid #003366; padding: 12px; color: #00FFFF; margin-bottom: 15px; box-sizing: border-box; outline: none; }
+        input:focus { border-color: #00FFFF; box-shadow: 0 0 10px #003366; }
+        
+        /* PAYMENT ARRAY */
+        .payment-methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; border-top: 1px solid #002244; pt: 15px; }
+        .pay-tile { background: #001122; border: 1px solid #003366; padding: 8px; font-size: 9px; text-align: center; color: #008888; border-radius: 3px; }
+        
+        /* BUTTONS */
+        .btn-main { background: #00FFFF; color: #000; border: none; width: 100%; padding: 15px; font-weight: 900; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+        .btn-info { background: transparent; color: #008888; border: 1px solid #003366; width: 100%; padding: 10px; margin-top: 10px; font-size: 11px; cursor: pointer; }
+        
+        .status-light { width: 8px; height: 8px; background: #00FF00; border-radius: 50%; display: inline-block; margin-right: 10px; box-shadow: 0 0 5px #00FF00; }
     </style>
 </head>
 <body>
 
-    <div id="interface">
-        <div id="sentinel-v-display">
-            <div class="command-text" id="status-line">SENTINEL V: STANDBY</div>
-            <div class="sub-text">POWERED BY AI LAB LEGENDS | KNOCKSSTUDiOS ™</div>
-        </div>
-        <button onmousedown="sentinelMad()" onmouseup="sentinelStealth()" ontouchstart="sentinelMad()" ontouchend="sentinelStealth()">ENGAGE 9K ULTRA</button>
+<div class="login-frame">
+    <div class="sentinel-header">
+        <div class="v-logo">V</div>
+        <div style="font-size: 12px; letter-spacing: 3px;"><span class="status-on"></span>SENTINEL V AUTHENTICATION</div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        let scene, camera, renderer, armor, vLogo, glowLights;
+    <form action="dashboard.html">
+        <input type="text" placeholder="CITIZEN ID / EMAIL" required>
+        <input type="password" placeholder="ENCRYPTION KEY" required>
+        
+        <button type="submit" class="btn-main">INITIALIZE 9K CORE</button>
+    </form>
 
-        function init() {
-            scene = new THREE.Scene();
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 0, 5);
+    <button class="btn-info" onclick="alert('9K ULTRA ENGINE: 15FT SENTINEL CLASS. TRADEMARK PENDING KNOCKSSTUDiOS.')">ENGINE INFORMATION [i]</button>
 
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            document.body.appendChild(renderer.domElement);
+    <div style="font-size: 10px; margin-top: 25px; color: #004466; text-align: center;">SECURE PAYMENT CHANNELS:</div>
+    <div class="payment-methods">
+        <div class="pay-tile">CASHAPP</div>
+        <div class="pay-tile">APPLE</div>
+        <div class="pay-tile">VISA</div>
+        <div class="pay-tile">BTC</div>
+    </div>
 
-            // 1. INDUSTRIAL LIGHTING
-            const pLight = new THREE.PointLight(0x0044ff, 1, 100);
-            pLight.position.set(10, 10, 10);
-            scene.add(pLight);
-            scene.add(new THREE.AmbientLight(0x050505, 0.5));
+    <div style="text-align: center; font-size: 9px; color: #002244; margin-top: 20px;">
+        UNIQUE THEME GENERATED PER SIGN-UP<br>
+        © 2026 LAB LEGENDS DIVISION
+    </div>
+</div>
 
-            // 2. THE 15FT SENTINEL BODY (OBSIDIAN TITANIUM)
-            const armorGeo = new THREE.BoxGeometry(2.2, 3, 0.8);
-            const armorMat = new THREE.MeshStandardMaterial({ 
-                color: 0x020205, // Midnight Obsidian
-                metalness: 1, 
-                roughness: 0.05,
-                emissive: 0x000000
-            });
-            armor = new THREE.Mesh(armorGeo, armorMat);
-            scene.add(armor);
-
-            // 3. THE STEALTH 'V' CHEST PLATE (HIDDEN)
-            const loader = new THREE.FontLoader();
-            loader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-                const vGeo = new THREE.TextGeometry('V', { font, size: 1.2, height: 0.1 });
-                vGeo.center();
-                const vMat = new THREE.MeshStandardMaterial({ 
-                    color: 0x000000, 
-                    emissive: 0x00FFFF, 
-                    emissiveIntensity: 0 // FULL STEALTH
-                });
-                vLogo = new THREE.Mesh(vGeo, vMat);
-                vLogo.position.z = 0.41; // Flush against chest
-                armor.add(vLogo);
-            });
-        }
-
-        function sentinelMad() {
-            const display = document.getElementById('sentinel-v-display');
-            const status = document.getElementById('status-line');
-            display.style.display = 'block';
-            status.innerText = "9K ULTRA: MAD MODE ACTIVE";
-            status.style.color = "#FF0000"; // Red Warning Text
-            
-            if(vLogo) vLogo.material.emissiveIntensity = 15; // THE V IGNITES
-            armor.scale.set(1.05, 1.05, 1.05); // Expansion
-            renderer.setClearColor(0x050000); // Screen turns dark red tint
-        }
-
-        function sentinelStealth() {
-            const status = document.getElementById('status-line');
-            status.innerText = "SENTINEL V: STEALTH RE-ENGAGED";
-            status.style.color = "#00FFFF";
-            
-            if(vLogo) vLogo.material.emissiveIntensity = 0; // V DISAPPEARS
-            armor.scale.set(1, 1, 1);
-            renderer.setClearColor(0x010103);
-            setTimeout(() => { document.getElementById('sentinel-v-display').style.display = 'none'; }, 2000);
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            armor.rotation.y = Math.sin(Date.now() * 0.0005) * 0.15;
-            renderer.render(scene, camera);
-        }
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-        init();
-        animate();
-    </script>
 </body>
 </html>
