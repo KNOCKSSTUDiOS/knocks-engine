@@ -6,172 +6,80 @@
     <title>KNOCKSSTUDiOS | Valerius 9K Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background: #050505; /* Deep Obsidian */
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            overflow: hidden;
-            color: white;
-        }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #050505; font-family: 'Segoe UI', sans-serif; overflow: hidden; color: white; }
+        
+        /* Branding */
+        .brand-overlay { position: absolute; top: 8%; width: 100%; text-align: center; font-size: 2.5rem; font-weight: 900; letter-spacing: 12px; color: rgba(255, 255, 255, 0.15); text-transform: uppercase; z-index: 1; }
 
-        /* KNOCKSSTUDiOS Branding Overlay */
-        .brand-overlay {
-            position: absolute;
-            top: 10%;
-            width: 100%;
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: 15px;
-            color: rgba(255, 255, 255, 0.1);
-            text-transform: uppercase;
-            z-index: 1;
-        }
+        /* 9K Eye Scanner */
+        .eye-container { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: 380px; height: 380px; z-index: 2; transition: filter 0.5s ease; }
+        .eye-scanner { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #00f2ff; box-shadow: 0 0 40px #00f2ff66; background: radial-gradient(circle, #000 40%, #111 100%); position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .laser-line { position: absolute; width: 150%; height: 2px; background: #00f2ff; box-shadow: 0 0 15px #00f2ff; animation: scan 3.5s ease-in-out infinite; }
+        @keyframes scan { 0%, 100% { top: 25%; opacity: 0.4; } 50% { top: 75%; opacity: 1; } }
 
-        /* The Biometric 9K Eye Container */
-        .eye-container {
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 400px;
-            height: 400px;
-            z-index: 2;
-        }
+        /* UI Tiles */
+        .ui-tiles { position: absolute; bottom: 15%; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 3; }
+        .glass-tile { padding: 18px 45px; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #eee; }
+        .glass-tile:hover { background: rgba(0, 242, 255, 0.15); border-color: #00f2ff; box-shadow: 0 0 25px #00f2ff44; transform: translateY(-3px); }
 
-        /* The Moving Eye / Laser Scan */
-        .eye-scanner {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 4px solid #00f2ff; /* Electric Cyan */
-            box-shadow: 0 0 50px #00f2ff, inset 0 0 30px #00f2ff;
-            background: radial-gradient(circle, #000 30%, #111 100%);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+        /* THE SIGN-UP PORTAL (The Popup) */
+        #signup-portal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
+            width: 400px; padding: 40px; background: rgba(10, 10, 10, 0.85); backdrop-filter: blur(25px);
+            border: 1px solid rgba(0, 242, 255, 0.3); border-radius: 15px; z-index: 100;
+            opacity: 0; pointer-events: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        #signup-portal.active { opacity: 1; pointer-events: auto; transform: translate(-50%, -50%) scale(1); }
+        .portal-header { font-size: 1.5rem; margin-bottom: 20px; color: #00f2ff; text-align: center; letter-spacing: 3px; font-weight: bold; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 5px; box-sizing: border-box; }
+        .submit-btn { width: 100%; padding: 15px; margin-top: 20px; background: #00f2ff; color: #000; border: none; font-weight: bold; cursor: pointer; border-radius: 5px; text-transform: uppercase; }
+        .close-btn { position: absolute; top: 15px; right: 15px; color: #666; cursor: pointer; font-size: 1.2rem; }
 
-        .laser-line {
-            position: absolute;
-            width: 150%;
-            height: 2px;
-            background: #00f2ff;
-            box-shadow: 0 0 20px #00f2ff;
-            animation: scan 3s ease-in-out infinite;
-        }
-
-        @keyframes scan {
-            0%, 100% { top: 20%; transform: rotate(-5deg); opacity: 0.5; }
-            50% { top: 80%; transform: rotate(5deg); opacity: 1; }
-        }
-
-        /* Glass Tiles UI */
-        .ui-tiles {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 20px;
-            z-index: 3;
-        }
-
-        .glass-tile {
-            padding: 20px 40px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: 0.3s;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .glass-tile:hover {
-            background: rgba(0, 242, 255, 0.2);
-            border-color: #00f2ff;
-            box-shadow: 0 0 20px #00f2ff;
-            transform: translateY(-5px);
-        }
-
-        /* Rotating Payment Sign (Bottom Left Corner) */
-        #payment-display {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            padding: 15px 25px;
-            border: 2px solid #fff;
-            border-radius: 5px;
-            background: rgba(0,0,0,0.8);
-            font-size: 1.2rem;
-            font-weight: bold;
-            transition: all 0.5s ease;
-            z-index: 10;
-            min-width: 180px;
-            text-align: center;
-        }
-
-        #method-name {
-            transition: opacity 0.5s ease;
-        }
+        /* Payment Sign */
+        #payment-display { position: fixed; bottom: 25px; left: 25px; padding: 12px 20px; border: 1px solid #fff; border-radius: 4px; background: rgba(0,0,0,0.9); font-size: 1rem; font-weight: bold; transition: 0.5s; z-index: 10; min-width: 160px; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="brand-overlay">KNOCKSSTUDiOS</div>
+    <div class="brand-overlay" id="main-brand">KNOCKSSTUDiOS</div>
 
-    <div class="eye-container">
+    <div class="eye-container" id="eye-box">
         <div class="eye-scanner">
             <div class="laser-line"></div>
-            <div style="width: 100px; height: 100px; background: #000; border: 2px solid #ffd700; border-radius: 50%; box-shadow: 0 0 15px #ffd700;"></div>
+            <div style="width: 80px; height: 80px; background: #000; border: 2px solid #ffd700; border-radius: 50%; box-shadow: 0 0 20px #ffd70044;"></div>
         </div>
     </div>
 
     <div class="ui-tiles">
-        <div class="glass-tile">Login</div>
-        <div class="glass-tile">Sign Up</div>
+        <div class="glass-tile" onclick="alert('Biometric Login Initializing...')">Login</div>
+        <div class="glass-tile" onclick="openPortal()">Sign Up</div>
     </div>
 
-    <div id="payment-display">
-        <span id="method-name">Initializing...</span>
+    <div id="signup-portal">
+        <span class="close-btn" onclick="closePortal()">&times;</span>
+        <div class="portal-header">ACCESS REQUEST</div>
+        <input type="text" placeholder="FULL NAME">
+        <input type="email" placeholder="EMAIL ADDRESS">
+        <input type="password" placeholder="CREATE ACCESS KEY">
+        <button class="submit-btn">AUTHORIZE</button>
     </div>
+
+    <div id="payment-display"><span id="method-name">SCANNING...</span></div>
 
     <script>
+        // Portal Controls
+        function openPortal() {
+            document.getElementById('signup-portal').classList.add('active');
+            document.getElementById('eye-box').style.filter = "blur(10px) brightness(0.3)";
+        }
+        function closePortal() {
+            document.getElementById('signup-portal').classList.remove('active');
+            document.getElementById('eye-box').style.filter = "blur(0px) brightness(1)";
+        }
+
+        // Payment Display
         const paymentMethods = [
             { name: "VISA", color: "#FFD700", icon: "fa-cc-visa" },
             { name: "MASTERCARD", color: "#FF4500", icon: "fa-cc-mastercard" },
             { name: "AMEX", color: "#00C851", icon: "fa-cc-amex" },
             { name: "BITCOIN", color: "#00B0FF", icon: "fa-bitcoin-sign" }
-        ];
-
-        let index = 0;
-        const display = document.getElementById("payment-display");
-        const text = document.getElementById("method-name");
-
-        function updatePayments() {
-            const method = paymentMethods[index];
-            text.style.opacity = 0;
-
-            setTimeout(() => {
-                text.innerHTML = `<i class="fa-solid ${method.icon}"></i> ${method.name}`;
-                display.style.borderColor = method.color;
-                display.style.color = method.color;
-                display.style.boxShadow = `0 0 20px ${method.color}66`;
-                text.style.opacity = 1;
-                index = (index + 1) % paymentMethods.length;
-            }, 500);
-        }
-
-        setInterval(updatePayments, 2000);
-        updatePayments();
-    </script>
-</body>
-</html>
