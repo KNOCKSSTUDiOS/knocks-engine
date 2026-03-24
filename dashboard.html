@@ -3,56 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K ULTRA DATABASE | KNOCKSSTUDiOS</title>
+    <title>9K ULTRA | ACADEMY, STORE & MARKETPLACE</title>
     <style>
         body { background: #010103; color: #00FFFF; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
-        header { border-bottom: 2px solid #003366; padding-bottom: 20px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; }
+        header { border-bottom: 2px solid #003366; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
         h1 { letter-spacing: 5px; text-transform: uppercase; font-size: 22px; margin: 0; }
+        .section-header { background: #003366; color: #fff; padding: 10px 20px; font-size: 14px; margin: 30px 0 15px 0; letter-spacing: 3px; display: flex; justify-content: space-between; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .data-card { background: rgba(0, 5, 15, 0.9); border: 1px solid #003366; padding: 20px; position: relative; transition: 0.3s; }
-        .data-card:hover { border-color: #00FFFF; box-shadow: 0 0 20px #002244; }
-        .v-badge { position: absolute; top: 10px; right: 10px; color: #003366; font-weight: 900; font-size: 20px; }
-        .status-on { color: #00ff00; font-size: 10px; letter-spacing: 1px; }
-        .btn-back { color: #00FFFF; text-decoration: none; border: 1px solid #00FFFF; padding: 8px 15px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
-        .btn-back:hover { background: #00FFFF; color: #000; }
-        .media-box { width: 100%; height: 180px; background: #000; border: 1px solid #001122; margin: 15px 0; display: flex; align-items: center; justify-content: center; color: #002244; font-size: 12px; }
+        .card { background: rgba(0, 5, 15, 0.9); border: 1px solid #003366; padding: 20px; position: relative; transition: 0.3s; }
+        .card:hover { border-color: #00FFFF; box-shadow: 0 0 25px #001133; }
+        .tier-label { color: #008888; font-size: 10px; text-transform: uppercase; font-weight: bold; }
+        .price { color: #00FF00; font-size: 18px; margin: 10px 0; }
+        .btn { display: block; width: 100%; padding: 12px; background: transparent; border: 1px solid #00FFFF; color: #00FFFF; text-align: center; text-decoration: none; margin-top: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .btn:hover { background: #00FFFF; color: #000; }
+        .sell-btn { border-color: #00FF00; color: #00FF00; }
+        .sell-btn:hover { background: #00FF00; color: #000; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>>> 9K_ULTRA_DATABASE_</h1>
-    <a href="index.html" class="btn-back">Return to Command</a>
+    <h1>>> SCHOOL_OF_HARD_KNOCKS_</h1>
+    <a href="index.html" style="color: #00FFFF; text-decoration: none; font-size: 12px;">← EXIT TO CORE</a>
 </header>
 
+<div class="section-header"><span>MEMBERSHIP TIERS</span> <span>[AUTH: 9K_ULTRA]</span></div>
 <div class="grid">
-    <div class="data-card">
-        <div class="v-badge">V</div>
-        <span class="status-on">● CORE_ACTIVE</span>
-        <h3>FILE: SENTINEL_V_PROTOTYPE</h3>
-        <div class="media-box">[ ENCRYPTED VIDEO DATA ]</div>
-        <p style="font-size: 12px; color: #008888;">Observation: 15ft height confirmed. Obsidian armor integrity at 100%. Voice rasp calibration set to 'Demanding'.</p>
+    <div class="card">
+        <div class="tier-label">Basic Legend</div>
+        <h3>STUDENT ACCESS</h3>
+        <p>Access to basic rendering tutorials and the School of Hard Knocks forum.</p>
+        <div class="price">$19.99 /mo</div>
+        <button class="btn">SUBSCRIBE</button>
     </div>
-
-    <div class="data-card">
-        <div class="v-badge">V</div>
-        <span class="status-on">● CORE_ACTIVE</span>
-        <h3>FILE: TITANGINE_9K_SPEC</h3>
-        <div class="media-box">[ 3D ASSET: AI CORE ]</div>
-        <p style="font-size: 12px; color: #008888;">System: Reactive Cyan lighting integrated into chest plate stealth-mesh. Triggers on audio spike.</p>
-    </div>
-
-    <div class="data-card">
-        <div class="v-badge">V</div>
-        <span class="status-on">● CORE_ACTIVE</span>
-        <h3>FILE: MEMBER_DNA_RECORDS</h3>
-        <div class="media-box">[ IMAGE: ACCESS CARD ]</div>
-        <p style="font-size: 12px; color: #008888;">Registry: Knocks Studios / Lab Legends Division. All citizens verified under 9K Ultra protocol.</p>
+    <div class="card" style="border-color: #00FFFF;">
+        <div class="tier-label" style="color: #00FFFF;">Pro Titan</div>
+        <h3>CREATOR PASS</h3>
+        <p>Full 9K Engine assets + Sell your designs in the marketplace. (10% Commission)</p>
+        <div class="price">$49.99 /mo</div>
+        <button class="btn">SUBSCRIBE</button>
     </div>
 </div>
 
-<footer style="margin-top: 60px; text-align: center; font-size: 10px; color: #002244; letter-spacing: 3px;">
-    TRADEMARK PENDING © 2026 KNOCKSSTUDiOS ™ | ORIGINAL 9K ULTRA POWER
+<div class="section-header"><span>COMMUNITY MARKETPLACE</span> <span>[BUY & SELL]</span></div>
+<div class="grid">
+    <div class="card">
+        <div class="tier-label">User: Legend_Art_01</div>
+        <h3>CUSTOM SENTINEL SKIN</h3>
+        <p>A custom red-chrome skin for the Sentinel V frame.</p>
+        <div class="price">$25.00</div>
+        <button class="btn">BUY INDIVIDUALLY</button>
+    </div>
+    <div class="card">
+        <div class="tier-label">User: 9K_Master</div>
+        <h3>RENDERED V-LOGO CONCEPT</h3>
+        <p>High-poly design for digital storefronts.</p>
+        <div class="price">$15.00</div>
+        <button class="btn">BUY INDIVIDUALLY</button>
+    </div>
+    <div class="card" style="border: 2px dashed #00FF00; display: flex; align-items: center; justify-content: center; text-align: center;">
+        <div>
+            <h3>SELL YOUR CREATION</h3>
+            <p>Upload your 9K Ultra designs and start earning.</p>
+            <button class="btn sell-btn">LIST NEW ITEM</button>
+        </div>
+    </div>
+</div>
+
+<footer style="margin-top: 60px; text-align: center; font-size: 10px; color: #003366; letter-spacing: 2px;">
+    MARKETPLACE SECURED BY KNOCKSSTUDiOS ™ | LEGENDS DIVISION
 </footer>
 
 </body>
