@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K ULTRA | ACADEMY, STORE & MARKETPLACE</title>
+    <title>9K ULTRA | ACADEMY, MARKET & EVENTS</title>
     <style>
-        body { background: #010103; color: #00FFFF; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
+        body { background: #010103; color: #00FFFF; font-family: 'Courier New', monospace; margin: 0; padding: 20px; line-height: 1.6; }
         header { border-bottom: 2px solid #003366; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
         h1 { letter-spacing: 5px; text-transform: uppercase; font-size: 22px; margin: 0; }
-        .section-header { background: #003366; color: #fff; padding: 10px 20px; font-size: 14px; margin: 30px 0 15px 0; letter-spacing: 3px; display: flex; justify-content: space-between; }
+        .section-header { background: #003366; color: #fff; padding: 10px 20px; font-size: 14px; margin: 30px 0 15px 0; letter-spacing: 3px; display: flex; justify-content: space-between; border-left: 5px solid #00FFFF; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .card { background: rgba(0, 5, 15, 0.9); border: 1px solid #003366; padding: 20px; position: relative; transition: 0.3s; }
         .card:hover { border-color: #00FFFF; box-shadow: 0 0 25px #001133; }
@@ -16,8 +16,6 @@
         .price { color: #00FF00; font-size: 18px; margin: 10px 0; }
         .btn { display: block; width: 100%; padding: 12px; background: transparent; border: 1px solid #00FFFF; color: #00FFFF; text-align: center; text-decoration: none; margin-top: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
         .btn:hover { background: #00FFFF; color: #000; }
-        .sell-btn { border-color: #00FF00; color: #00FF00; }
-        .sell-btn:hover { background: #00FF00; color: #000; }
     </style>
 </head>
 <body>
@@ -27,52 +25,49 @@
     <a href="index.html" style="color: #00FFFF; text-decoration: none; font-size: 12px;">← EXIT TO CORE</a>
 </header>
 
-<div class="section-header"><span>MEMBERSHIP TIERS</span> <span>[AUTH: 9K_ULTRA]</span></div>
+<div class="section-header"><span>MEMBERSHIP TIERS</span> <span>[SIGN_UP]</span></div>
 <div class="grid">
     <div class="card">
-        <div class="tier-label">Basic Legend</div>
-        <h3>STUDENT ACCESS</h3>
-        <p>Access to basic rendering tutorials and the School of Hard Knocks forum.</p>
-        <div class="price">$19.99 /mo</div>
-        <button class="btn">SUBSCRIBE</button>
+        <div class="tier-label">Initiate</div>
+        <h3>FREE SIGN-UP</h3>
+        <p>Browse the marketplace and watch public 9K tutorials.</p>
+        <div class="price">$0.00</div>
+        <button class="btn" style="border-color:#888; color:#888;">JOIN FREE</button>
     </div>
     <div class="card" style="border-color: #00FFFF;">
         <div class="tier-label" style="color: #00FFFF;">Pro Titan</div>
         <h3>CREATOR PASS</h3>
-        <p>Full 9K Engine assets + Sell your designs in the marketplace. (10% Commission)</p>
+        <p>Full 9K Assets + Sell Art + Enter Competitions.</p>
         <div class="price">$49.99 /mo</div>
-        <button class="btn">SUBSCRIBE</button>
+        <button class="btn">ACTIVATE PRO</button>
     </div>
 </div>
 
-<div class="section-header"><span>COMMUNITY MARKETPLACE</span> <span>[BUY & SELL]</span></div>
+<div class="section-header"><span>LIVE EVENTS</span> <span>[WIN_PRIZES]</span></div>
 <div class="grid">
-    <div class="card">
-        <div class="tier-label">User: Legend_Art_01</div>
-        <h3>CUSTOM SENTINEL SKIN</h3>
-        <p>A custom red-chrome skin for the Sentinel V frame.</p>
-        <div class="price">$25.00</div>
-        <button class="btn">BUY INDIVIDUALLY</button>
-    </div>
-    <div class="card">
-        <div class="tier-label">User: 9K_Master</div>
-        <h3>RENDERED V-LOGO CONCEPT</h3>
-        <p>High-poly design for digital storefronts.</p>
-        <div class="price">$15.00</div>
-        <button class="btn">BUY INDIVIDUALLY</button>
-    </div>
-    <div class="card" style="border: 2px dashed #00FF00; display: flex; align-items: center; justify-content: center; text-align: center;">
-        <div>
-            <h3>SELL YOUR CREATION</h3>
-            <p>Upload your 9K Ultra designs and start earning.</p>
-            <button class="btn sell-btn">LIST NEW ITEM</button>
-        </div>
+    <div class="card" style="border-color: #FFD700;">
+        <div class="tier-label" style="color: #FFD700;">ACTIVE</div>
+        <h3>SENTINEL RENDER CHALLENGE</h3>
+        <p>Best 15ft V-Armor animation wins $500.</p>
+        <button class="btn" style="border-color: #FFD700; color: #FFD700;">ENTER NOW</button>
     </div>
 </div>
 
 <footer style="margin-top: 60px; text-align: center; font-size: 10px; color: #003366; letter-spacing: 2px;">
-    MARKETPLACE SECURED BY KNOCKSSTUDiOS ™ | LEGENDS DIVISION
+    SYSTEMS STABLE. POWERED BY KNOCKSSTUDiOS ™
 </footer>
+
+<script>
+    function speakSentinel() {
+        const msg = new SpeechSynthesisUtterance();
+        msg.text = "WELCOME TO THE SCHOOL OF HARD KNOCKS. I AM SENTINEL V. THE 9K ULTRA ENGINE IS AT YOUR COMMAND. DO NOT WASTE MY TIME.";
+        msg.pitch = 0.1; 
+        msg.rate = 0.7; 
+        window.speechSynthesis.speak(msg);
+    }
+    // Triggers as soon as the page is clicked or loaded
+    window.addEventListener('click', speakSentinel, { once: true });
+</script>
 
 </body>
 </html>
