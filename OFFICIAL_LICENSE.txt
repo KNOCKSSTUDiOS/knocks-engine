@@ -1,0 +1,28 @@
+===========================================================
+OFFICIAL LICENSE: KNOCKS ENGINE 9K BRAND KIT ™
+COPYRIGHT (C) 2026. ALL RIGHTS RESERVED.
+===========================================================
+
+1. OWNERSHIP:
+All code, 3D assets (Metal_Laser_Eye), and visual styles 
+(Extravagant Jungle Palette, 9K Metal Molding) are the 
+exclusive property of the KNOCKS Engine Brand.
+
+2. TRADEMARK:
+The "9K Style," "Metal Molding Realism," and the specific 
+"Jungle of Colors" gradient are protected under pending 
+Trademarks (™). 
+
+3. RESTRICTIONS:
+- NO UNAUTHORIZED COPYING.
+- NO RE-DISTRIBUTION of the shaders or branding.
+- This style is independent. Any resemblance to existing 
+  corporate movie styles is coincidental; this is a 
+  unique "Knocks-Original" creation.
+
+4. SECURITY:
+Any attempt to bypass the 'Security.h' or 'SecureStyle.h' 
+protocols is a violation of this license.
+
+"The Shine is Ours. The Style is Private."
+===========================================================
