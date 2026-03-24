@@ -1,27 +1,25 @@
 #include <iostream>
-#include <string>
 #include "../include/MetalMoldingMaterial.h"
+#include "../include/Security.h"
+#include "../styles/MetalPresets.h"
 
 int main() {
-    // 1. Setup the 9K Metal Material
-    KnocksEngine::MetalMoldingMaterial metalStyle;
-    
-    // 2. Point the engine to your new files
-    std::string modelPath = "assets/Metal_Laser_Eye.obj";
-    std::string shaderPath = "shaders/RainbowGlow.glsl";
+    KnocksEngine::SecureStyle security;
+    KnocksEngine::MetalMoldingMaterial jungleMetal;
 
-    std::cout << "--- 9K ENGINE: LOADING ASSETS ---" << std::endl;
-    std::cout << "Loading Model: " << modelPath << std::endl;
-    std::cout << "Applying Shader: " << shaderPath << std::endl;
+    // Run security check first
+    security.ValidateSystem();
 
-    // 3. Run the "Laser Eye" Logic
-    std::cout << "\n[SYSTEM STATUS]" << std::endl;
-    std::cout << "> Metal Texture: HIGH-GLOSS (Roughness: " << metalStyle.roughness << ")" << std::endl;
-    std::cout << "> Rainbow Gradient: ACTIVE" << std::endl;
-    
-    // Simulate the animation loop
-    metalStyle.Update(0.016f);
-    std::cout << "> Animation: Metal_Laser_Eye is rotating and glowing." << std::endl;
+    std::cout << "=== KNOCKS 9K BRAND KIT: ACTIVE ===" << std::endl;
+    std::cout << "STYLE: EXTRAVAGANT JUNGLE (NEON)" << std::endl;
+    std::cout << "COLORS: ELECTRIC BLUE, LIME GREEN, CANDY RED" << std::endl;
+    std::cout << "METAL SHINE: MAX" << std::endl;
+
+    // The metal moves and shines in the "Jungle" shader
+    jungleMetal.Update(0.016f);
+
+    std::cout << ">>> Brand Security: VERIFIED" << std::endl;
+    std::cout << ">>> Status: Shining and moving with 9K Style!" << std::endl;
 
     return 0;
 }
