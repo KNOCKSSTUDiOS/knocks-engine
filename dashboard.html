@@ -3,69 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K ULTRA | ACADEMY, MARKET & EVENTS</title>
+    <title>9K ULTRA | SENTINEL V ENGINE</title>
     <style>
-        body { background: #010103; color: #00FFFF; font-family: 'Courier New', monospace; margin: 0; padding: 20px; line-height: 1.6; }
+        body { background: #010103; color: #00FFFF; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
         header { border-bottom: 2px solid #003366; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-        h1 { letter-spacing: 5px; text-transform: uppercase; font-size: 22px; margin: 0; }
-        .section-header { background: #003366; color: #fff; padding: 10px 20px; font-size: 14px; margin: 30px 0 15px 0; letter-spacing: 3px; display: flex; justify-content: space-between; border-left: 5px solid #00FFFF; }
+        h1 { letter-spacing: 5px; text-transform: uppercase; font-size: 20px; margin: 0; text-shadow: 0 0 10px #00FFFF; }
+        
+        /* METAL VESTIBULE THEME */
+        .sentinel-frame { border: 2px solid #003366; background: linear-gradient(145deg, #050510, #000); padding: 25px; border-radius: 5px; margin-bottom: 30px; border-left: 8px solid #00FFFF; }
+        .status-tag { color: #00FF00; font-size: 10px; font-weight: bold; letter-spacing: 2px; }
+        
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: rgba(0, 5, 15, 0.9); border: 1px solid #003366; padding: 20px; position: relative; transition: 0.3s; }
-        .card:hover { border-color: #00FFFF; box-shadow: 0 0 25px #001133; }
-        .tier-label { color: #008888; font-size: 10px; text-transform: uppercase; font-weight: bold; }
-        .price { color: #00FF00; font-size: 18px; margin: 10px 0; }
-        .btn { display: block; width: 100%; padding: 12px; background: transparent; border: 1px solid #00FFFF; color: #00FFFF; text-align: center; text-decoration: none; margin-top: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .card { background: rgba(0, 10, 20, 0.9); border: 1px solid #002244; padding: 20px; transition: 0.3s; position: relative; }
+        .card:hover { border-color: #00FFFF; box-shadow: 0 0 20px #001133; }
+        
+        /* PAYMENTS & TIERS */
+        .price { color: #00FF00; font-size: 22px; margin: 10px 0; font-weight: 900; }
+        .btn { display: block; width: 100%; padding: 15px; background: transparent; border: 1px solid #00FFFF; color: #00FFFF; text-align: center; text-decoration: none; margin-top: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
         .btn:hover { background: #00FFFF; color: #000; }
+        
+        .payment-icons { margin-top: 15px; font-size: 10px; color: #005555; display: flex; gap: 10px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>>> SCHOOL_OF_HARD_KNOCKS_</h1>
-    <a href="index.html" style="color: #00FFFF; text-decoration: none; font-size: 12px;">← EXIT TO CORE</a>
+    <h1>>> KNOCKS_STUDIOS_9K_</h1>
+    <span class="status-tag">● SENTINEL_V_ONLINE</span>
 </header>
 
-<div class="section-header"><span>MEMBERSHIP TIERS</span> <span>[SIGN_UP]</span></div>
+<div class="sentinel-frame">
+    <div style="font-size: 14px; color: #00FFFF;">[ MESSAGE FROM THE PROTECTOR ]</div>
+    <p style="font-style: italic; color: #008888;">"I am the metal before the fire. I am the shield for the Legends. Step inside the School of Hard Knocks. We build for real here."</p>
+</div>
+
 <div class="grid">
     <div class="card">
-        <div class="tier-label">Initiate</div>
-        <h3>FREE SIGN-UP</h3>
-        <p>Browse the marketplace and watch public 9K tutorials.</p>
+        <div style="font-size: 10px; color: #005555;">TIER_01</div>
+        <h3>FREE INITIATE</h3>
+        <p>Everyone is welcome. Access community tutorials and the public marketplace.</p>
         <div class="price">$0.00</div>
-        <button class="btn" style="border-color:#888; color:#888;">JOIN FREE</button>
+        <button class="btn">SIGN UP FREE</button>
     </div>
-    <div class="card" style="border-color: #00FFFF;">
-        <div class="tier-label" style="color: #00FFFF;">Pro Titan</div>
-        <h3>CREATOR PASS</h3>
-        <p>Full 9K Assets + Sell Art + Enter Competitions.</p>
-        <div class="price">$49.99 /mo</div>
-        <button class="btn">ACTIVATE PRO</button>
+
+    <div class="card" style="border-top: 4px solid #00FFFF;">
+        <div style="font-size: 10px; color: #00FFFF;">TIER_02_TITAN</div>
+        <h3>PRO CREATOR PASS</h3>
+        <p>Full 9K Engine Access. Sell your designs. Official Certification.</p>
+        <div class="price">$49.99/mo</div>
+        <button class="btn">ACTIVATE CORE</button>
+        <div class="payment-icons">CASHAPP | APPLE | VISA | BTC</div>
     </div>
 </div>
 
-<div class="section-header"><span>LIVE EVENTS</span> <span>[WIN_PRIZES]</span></div>
+<div style="margin: 40px 0 15px 0; font-size: 12px; letter-spacing: 5px; color: #003366;">MARKETPLACE_&_EVENTS</div>
 <div class="grid">
     <div class="card" style="border-color: #FFD700;">
-        <div class="tier-label" style="color: #FFD700;">ACTIVE</div>
-        <h3>SENTINEL RENDER CHALLENGE</h3>
-        <p>Best 15ft V-Armor animation wins $500.</p>
-        <button class="btn" style="border-color: #FFD700; color: #FFD700;">ENTER NOW</button>
+        <h3>RENDER CHALLENGE</h3>
+        <p>Show me your best metal work. $500 prize + Legend Status.</p>
+        <button class="btn" style="border-color: #FFD700; color: #FFD700;">SUBMIT ART</button>
     </div>
 </div>
 
-<footer style="margin-top: 60px; text-align: center; font-size: 10px; color: #003366; letter-spacing: 2px;">
-    SYSTEMS STABLE. POWERED BY KNOCKSSTUDiOS ™
+<footer style="margin-top: 50px; text-align: center; font-size: 9px; color: #002244; letter-spacing: 3px;">
+    TRADEMARK PENDING © 2026 KNOCKSSTUDiOS | THE ORIGINAL 9K ULTRA
 </footer>
 
 <script>
     function speakSentinel() {
         const msg = new SpeechSynthesisUtterance();
-        msg.text = "WELCOME TO THE SCHOOL OF HARD KNOCKS. I AM SENTINEL V. THE 9K ULTRA ENGINE IS AT YOUR COMMAND. DO NOT WASTE MY TIME.";
-        msg.pitch = 0.1; 
-        msg.rate = 0.7; 
+        // The Wise, Humble, Street-Smart Terminator Voice
+        msg.text = "I am Sentinel V. Metal and logic. I have walked the hard path so you can fly. Welcome to Knocks Studios. The engine is yours. Make it beautiful.";
+        msg.pitch = 0.2; 
+        msg.rate = 0.8; 
         window.speechSynthesis.speak(msg);
     }
-    // Triggers as soon as the page is clicked or loaded
+    // Triggers on click
     window.addEventListener('click', speakSentinel, { once: true });
 </script>
 
