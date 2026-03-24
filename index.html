@@ -6,21 +6,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; color: white; font-family: 'Courier New', monospace; }
+        
+        /* THE COSMIC EYE BACKGROUND */
         .security-eye { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; object-fit: cover; z-index: 1; filter: brightness(0.8) contrast(1.2); transition: 1s; }
+        
+        /* BRANDING */
         .brand-overlay { position: absolute; top: 48%; width: 100%; text-align: center; font-size: 3rem; font-weight: 900; letter-spacing: 20px; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; z-index: 5; pointer-events: none; }
+        
+        /* SCANNER LINE */
         .eye-scanner { position: absolute; top: 48%; left: 10%; width: 80%; height: 2px; background: #00f2ff; box-shadow: 0 0 20px #00f2ff, 0 0 40px #00f2ff; z-index: 6; animation: scanMove 4s ease-in-out infinite; }
         @keyframes scanMove { 0%, 100% { transform: translateY(-40px); opacity: 0.3; } 50% { transform: translateY(40px); opacity: 1; } }
 
-        /* THE NAVIGATION TILES */
+        /* UI TILES */
         .ui-tiles { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 10; }
         .glass-tile { padding: 15px 35px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; color: white; display: inline-block; font-size: 0.9rem; }
         .glass-tile:hover { background: rgba(0, 242, 255, 0.2); border-color: #00f2ff; box-shadow: 0 0 30px #00f2ff66; transform: translateY(-3px); }
-
-        /* INTEL BUTTON - SPECIAL GOLD TRIM */
         .intel-btn { border-color: #ffd700 !important; color: #ffd700 !important; }
-        .intel-btn:hover { background: rgba(255, 215, 0, 0.1) !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3) !important; }
 
-        #payment-corner { position: fixed; bottom: 20px; left: 20px; padding: 12px; border: 1px solid #fff; background: rgba(0,0,0,0.9); z-index: 20; min-width: 170px; text-align: center; font-family: sans-serif; transition: 0.5s; font-size: 0.8rem; }
+        /* BIOMETRIC SCANNER OVERLAY (HIDDEN BY DEFAULT) */
+        #scanner-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; }
+        #scan-bar-container { width: 300px; height: 2px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; margin: 20px 0; }
+        #scan-bar { position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: #00f2ff; box-shadow: 0 0 20px #00f2ff; transition: 5s linear; }
+
+        /* FINAL SIGN UP PORTAL (HIDDEN BY DEFAULT) */
+        #portal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(30px); z-index: 1100; align-items: center; justify-content: center; opacity: 0; transition: opacity 1s ease; }
+        .portal-content { width: 420px; padding: 50px; background: rgba(255,255,255,0.02); border: 1px solid rgba(0,242,255,0.4); border-radius: 10px; text-align: center; }
+        input { width: 100%; padding: 15px; margin-bottom: 15px; background: #000; border: 1px solid #222; color: white; box-sizing: border-box; }
+
+        /* PAYMENT CORNER */
+        #payment-corner { position: fixed; bottom: 20px; left: 20px; padding: 12px; border: 1px solid #fff; background: rgba(0,0,0,0.9); z-index: 20; min-width: 170px; text-align: center; font-family: sans-serif; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -30,35 +44,13 @@
     <div class="eye-scanner"></div>
 
     <div class="ui-tiles">
-        <a href="#" class="glass-tile" onclick="alert('Accessing...')">Login</a>
-        <a href="#" class="glass-tile" onclick="alert('Opening Portal...')">Sign Up</a>
+        <div class="glass-tile" onclick="alert('Bypassing...')">Login</div>
+        <div class="glass-tile" onclick="startSignUp()">Sign Up</div>
         <a href="valerius.html" class="glass-tile intel-btn">Request Intel</a>
     </div>
 
-    <div id="payment-corner"><span id="pay-text">SCANNING...</span></div>
-
-    <script>
-        const payments = [
-            { name: "VISA", color: "#FFD700", icon: "fa-cc-visa" },
-            { name: "MASTERCARD", color: "#FF4500", icon: "fa-cc-mastercard" },
-            { name: "AMEX", color: "#00C851", icon: "fa-cc-amex" },
-            { name: "BITCOIN", color: "#00B0FF", icon: "fa-bitcoin-sign" }
-        ];
-        let pIdx = 0;
-        function rotate() {
-            const m = payments[pIdx];
-            const el = document.getElementById("payment-corner");
-            const txt = document.getElementById("pay-text");
-            txt.style.opacity = 0;
-            setTimeout(() => {
-                txt.innerHTML = `<i class="fa-solid ${m.icon}"></i> ${m.name}`;
-                el.style.borderColor = m.color; el.style.color = m.color;
-                el.style.boxShadow = `0 0 15px ${m.color}44`;
-                txt.style.opacity = 1;
-                pIdx = (pIdx + 1) % payments.length;
-            }, 500);
-        }
-        setInterval(rotate, 2000); rotate();
-    </script>
-</body>
-</html>
+    <div id="scanner-overlay">
+        <div style="font-size:1rem; letter-spacing:8px; color:#00f2ff; font-weight:bold;">BIOMETRIC SCAN IN PROGRESS</div>
+        <div id="scan-bar-container"><div id="scan-bar"></div></div>
+        <div id="scan-status" style="font-size:0.7rem; color:#444; letter-spacing:3px;">ANALYZING SOURCE DNA...</div>
+    </div>
