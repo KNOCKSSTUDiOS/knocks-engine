@@ -6,56 +6,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; color: white; font-family: 'Courier New', monospace; }
-        
-        /* THE COSMIC EYE (SECURITY) */
-        .security-eye {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 100%; height: 100%; object-fit: cover; z-index: 1;
-            filter: brightness(0.8) contrast(1.2);
-        }
+        .security-eye { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; object-fit: cover; z-index: 1; filter: brightness(0.8) contrast(1.2); transition: 1s; }
+        .brand-overlay { position: absolute; top: 48%; width: 100%; text-align: center; font-size: 3rem; font-weight: 900; letter-spacing: 20px; color: rgba(255, 255, 255, 0.3); text-transform: uppercase; z-index: 5; pointer-events: none; }
+        .eye-scanner { position: absolute; top: 48%; left: 10%; width: 80%; height: 2px; background: #00f2ff; box-shadow: 0 0 20px #00f2ff, 0 0 40px #00f2ff; z-index: 6; animation: scanMove 4s ease-in-out infinite; }
+        @keyframes scanMove { 0%, 100% { transform: translateY(-40px); opacity: 0.3; } 50% { transform: translateY(40px); opacity: 1; } }
 
-        /* KNOCKSSTUDiOS BRANDING OVER THE EYE */
-        .brand-overlay {
-            position: absolute; top: 48%; width: 100%; text-align: center;
-            font-size: 3rem; font-weight: 900; letter-spacing: 20px;
-            color: rgba(255, 255, 255, 0.3); text-transform: uppercase; z-index: 5;
-            pointer-events: none;
-        }
+        /* THE NAVIGATION TILES */
+        .ui-tiles { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 10; }
+        .glass-tile { padding: 15px 35px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; color: white; display: inline-block; font-size: 0.9rem; }
+        .glass-tile:hover { background: rgba(0, 242, 255, 0.2); border-color: #00f2ff; box-shadow: 0 0 30px #00f2ff66; transform: translateY(-3px); }
 
-        /* ELECTRIC SCANNER LINE */
-        .eye-scanner {
-            position: absolute; top: 48%; left: 10%; width: 80%; height: 2px;
-            background: #00f2ff; box-shadow: 0 0 20px #00f2ff, 0 0 40px #00f2ff;
-            z-index: 6; animation: scanMove 4s ease-in-out infinite;
-        }
+        /* INTEL BUTTON - SPECIAL GOLD TRIM */
+        .intel-btn { border-color: #ffd700 !important; color: #ffd700 !important; }
+        .intel-btn:hover { background: rgba(255, 215, 0, 0.1) !important; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3) !important; }
 
-        @keyframes scanMove {
-            0%, 100% { transform: translateY(-40px); opacity: 0.3; }
-            50% { transform: translateY(40px); opacity: 1; }
-        }
-
-        /* ACCESS TILES */
-        .ui-tiles { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; z-index: 10; }
-        .glass-tile { padding: 20px 50px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; }
-        .glass-tile:hover { background: rgba(0, 242, 255, 0.2); border-color: #00f2ff; box-shadow: 0 0 30px #00f2ff66; }
-
-        /* PAYMENT SIGN (BOTTOM LEFT) */
-        #payment-corner { position: fixed; bottom: 20px; left: 20px; padding: 15px; border: 1px solid #fff; background: rgba(0,0,0,0.9); z-index: 20; min-width: 180px; text-align: center; font-family: sans-serif; transition: 0.5s; }
+        #payment-corner { position: fixed; bottom: 20px; left: 20px; padding: 12px; border: 1px solid #fff; background: rgba(0,0,0,0.9); z-index: 20; min-width: 170px; text-align: center; font-family: sans-serif; transition: 0.5s; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
     <img src="InShot_20260324_100938914.jpg" class="security-eye" id="eye-bg">
-
     <div class="brand-overlay">KNOCKSSTUDiOS</div>
     <div class="eye-scanner"></div>
 
     <div class="ui-tiles">
-        <div class="glass-tile" onclick="alert('Scanning Biometrics...')">Login</div>
-        <div class="glass-tile" onclick="document.getElementById('portal').style.display='block'">Sign Up</div>
+        <a href="#" class="glass-tile" onclick="alert('Accessing...')">Login</a>
+        <a href="#" class="glass-tile" onclick="alert('Opening Portal...')">Sign Up</a>
+        <a href="valerius.html" class="glass-tile intel-btn">Request Intel</a>
     </div>
 
-    <div id="payment-corner"><span id="pay-text">INITIALIZING...</span></div>
+    <div id="payment-corner"><span id="pay-text">SCANNING...</span></div>
 
     <script>
         const payments = [
@@ -73,7 +53,7 @@
             setTimeout(() => {
                 txt.innerHTML = `<i class="fa-solid ${m.icon}"></i> ${m.name}`;
                 el.style.borderColor = m.color; el.style.color = m.color;
-                el.style.boxShadow = `0 0 15px ${m.color}55`;
+                el.style.boxShadow = `0 0 15px ${m.color}44`;
                 txt.style.opacity = 1;
                 pIdx = (pIdx + 1) % payments.length;
             }, 500);
