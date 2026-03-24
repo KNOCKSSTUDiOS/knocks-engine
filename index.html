@@ -1,101 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>KNOCKSSTUDiOS — Welcome</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root{
-      --bg:#000;
-      --accent:#7fd0ff;
-      --accent-2:#9f5bff;
-      --muted:#6f9fd0;
-      --panel-bg:radial-gradient(circle at top,#07111f 0,#02040a 55%,#000 100%);
-      --glass-border:rgba(127,208,255,0.35);
-      --text:#e5f3ff;
-    }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
-    html,body{height:100%}
-    body{
-      background:#02030a;
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      overflow:hidden;
-    }
-    .center{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px}
-    .container{
-      width:100%;
-      max-width:900px;
-      background:var(--panel-bg);
-      border-radius:20px;
-      padding:30px;
-      border:1px solid var(--glass-border);
-      box-shadow:0 0 40px rgba(127,208,255,0.12), inset 0 0 30px rgba(0,0,0,0.7);
-      text-align:center;
-    }
-    h1{
-      font-size:2.4rem;
-      letter-spacing:0.15em;
-      color:var(--accent);
-      margin-bottom:10px;
-      font-weight:800;
-    }
-    h2{
-      font-size:1.1rem;
-      color:var(--muted);
-      margin-bottom:20px;
-      letter-spacing:0.05em;
-    }
-    .btn{
-      display:inline-block;
-      padding:12px 22px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-      font-size:0.85rem;
-      margin:8px;
-    }
-    .btn-primary{
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      color:#041018;
-      box-shadow:0 6px 24px rgba(31,209,255,0.18);
-    }
-    .btn-ghost{
-      background:transparent;
-      border:1px solid rgba(127,208,255,0.22);
-      color:var(--accent);
-    }
-    .footer{
-      margin-top:30px;
-      font-size:0.8rem;
-      color:var(--muted);
-    }
-    @media(max-width:600px){
-      h1{font-size:1.8rem}
-      h2{font-size:1rem}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNOCKSCREATIVESTUDiOS 9K ™</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #050510; font-family: 'Segoe UI', sans-serif; color: white; }
+        #ui { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 15px; z-index: 10; }
+        #ai-box { background: rgba(0, 255, 255, 0.05); backdrop-filter: blur(20px); border-radius: 20px; padding: 25px; border: 1px solid #32CD32; display: none; text-align: center; max-width: 400px; box-shadow: 0 0 30px rgba(50, 205, 50, 0.2); }
+        button { background: linear-gradient(90deg, #32CD32, #00FFFF); color: black; border: none; padding: 12px 24px; border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        button:hover { transform: scale(1.1); box-shadow: 0 0 20px #00FFFF; }
+    </style>
 </head>
 <body>
-
-  <div class="center">
-    <div class="container">
-      <h1>KNOCKSSTUDiOS</h1>
-      <h2>Lab Legends • 9K Ultra Engine Preview</h2>
-
-      <div>
-        <button class="btn btn-primary" onclick="location.href='signup.html'">Sign Up</button>
-        <button class="btn btn-ghost" onclick="location.href='login.html'">Log In</button>
-      </div>
-
-      <div class="footer">
-        © 2026 KNOCKSSTUDiOS — Prototype Preview  
-      </div>
+    <div id="ui">
+        <div id="ai-box"></div>
+        <button onclick="showPoem()">✨ 9K Vision ™</button>
     </div>
-  </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        let scene, camera, renderer, text1, text2, atoms;
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+            
+            const loader = new THREE.FontLoader();
+            loader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+                const g1 = new THREE.TextGeometry('KNOCKS ™', { font, size: 0.6, height: 0.2 });
+                g1.center();
+                text1 = new THREE.Mesh(g1, new THREE.MeshPhongMaterial({ color: 0x32CD32, shininess: 100 }));
+                scene.add(text1);
+                
+                const g2 = new THREE.TextGeometry('CREATIVESTUDiOS', { font, size: 0.25, height: 0.1 });
+                g2.center();
+                text2 = new THREE.Mesh(g2, new THREE.MeshPhongMaterial({ color: 0xFF0800 }));
+                text2.position.y = -0.7;
+                scene.add(text2);
+            });
 
+            const pG = new THREE.BufferGeometry();
+            const pP = new Float32Array(1000 * 3);
+            for(let i=0; i<3000; i++) pP[i] = (Math.random()-0.5) * 15;
+            pG.setAttribute('position', new THREE.BufferAttribute(pP, 3));
+            atoms = new THREE.Points(pG, new THREE.PointsMaterial({ color: 0x00FFFF, size: 0.03 }));
+            scene.add(atoms);
+            scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+        }
+        function showPoem() {
+            const b = document.getElementById('ai-box');
+            b.style.display = 'block';
+            b.innerText = "Metal molds and colors bloom,\nLighting up the digital room.\n9K shine and jungle soul,\nKnocks Engine takes control! ™";
+        }
+        function animate() {
+            requestAnimationFrame(animate);
+            if(text1) text1.rotation.y += 0.01;
+            if(atoms) atoms.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        init(); animate();
+    </script>
 </body>
 </html>
