@@ -2,23 +2,16 @@
 #define KNOCKS_INTRO_H
 
 #include <iostream>
-#include <string>
 
 namespace KnocksEngine {
     class IntroSpeech {
     public:
-        void PlayIntro(std::string lang) {
-            if (lang == "en") {
-                std::cout << "\n[SPEECH GENERATOR - ENGLISH]" << std::endl;
-                std::cout << "Metal molds and colors bloom," << std::endl;
-                std::cout << "Lighting up the digital room." << std::endl;
-                std::cout << "9K shine and jungle soul," << std::endl;
-                std::cout << "Knocks Engine takes control! ™" << std::endl;
-            } else if (lang == "es") {
-                std::cout << "\n[GENERADOR DE DISCURSO - ESPAÑOL]" << std::endl;
-                std::cout << "El metal brilla, el color florece," << std::endl;
-                std::cout << "En la jungla 9K, el arte crece." << std::endl;
-            }
+        void PlaySentinelCommand() {
+            std::cout << "\n[9K ULTRA - SENTINEL V VOICE OUTPUT]" << std::endl;
+            std::cout << ">> INITIALIZING ORIGINAL 9K ULTRA POWER ENGINE." << std::endl;
+            std::cout << ">> POWER STATUS: OPTIMAL. ALL SYSTEMS LIVE." << std::endl;
+            std::cout << ">> MOLDING TITANGINE CORE... 9K TITANIUM REINFORCED." << std::endl;
+            std::cout << ">> THE SHINE IS ABSOLUTE. THE AUTHORITY IS ORIGINAL." << std::endl;
         }
     };
 }
