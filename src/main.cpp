@@ -4,7 +4,9 @@
 #include "../include/Security.h"
 #include "../styles/MetalPresets.h"
 
-int main() {
+int main(KnocksEngine::GlobalSpeaker voice;
+std::cout << voice.GetGreeting("es") << std::endl; // Now it speaks Spanish!
+) {
     KnocksEngine::SecureStyle security;
     KnocksEngine::MetalMoldingMaterial jungleMetal;
 
