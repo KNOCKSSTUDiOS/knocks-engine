@@ -2,31 +2,25 @@
 #include "../i18n/Dictionary.h"
 #include "../include/MetalMoldingMaterial.h"
 #include "../include/Security.h"
-#include "../styles/MetalPresets.h"
+#include "../include/AudioReactive.h" // New voice tech!
 
 int main() {
-    // 1. Initialize International Voice & Security
     KnocksEngine::GlobalSpeaker voice;
     KnocksEngine::SecureStyle security;
     KnocksEngine::MetalMoldingMaterial jungleMetal;
+    KnocksEngine::AudioShine voiceSensor;
 
-    // 2. Security Check (Privacy Lock)
     security.ValidateSystem();
 
-    // 3. International Welcome Message
-    std::cout << voice.GetGreeting("es") << " (ES)" << std::endl; 
-    std::cout << voice.GetGreeting("en") << " (EN)" << std::endl;
+    // The Global Brand Greeting
+    std::cout << voice.GetGreeting("en") << " | " << voice.GetGreeting("es") << std::endl;
 
-    std::cout << "\n=== KNOCKS 9K BRAND KIT: ACTIVE ===" << std::endl;
-    std::cout << "STYLE: EXTRAVAGANT JUNGLE (NEON)" << std::endl;
-    std::cout << "COLORS: ELECTRIC BLUE, LIME GREEN, CANDY RED" << std::endl;
-    std::cout << "METAL SHINE: MAX" << std::endl;
+    // Simulate Voice Interaction
+    voiceSensor.ReactToVoice(85.0f); // High-energy voice detection
+    std::cout << "\n[9K VOICE-TO-SHINE SENSOR]" << std::endl;
+    std::cout << "> Voice Intensity detected. Metal Glow boosted by: " << voiceSensor.intensity << "x" << std::endl;
 
-    // 4. Run the 9K Animation
-    jungleMetal.Update(0.016f);
-
-    std::cout << ">>> Brand Security: VERIFIED" << std::endl;
-    std::cout << ">>> Status: Shining and moving with 9K Style! ™" << std::endl;
+    std::cout << "\n>>> KNOCKS 9K JUNGLE STATUS: SECURE & SHINING ™" << std::endl;
 
     return 0;
 }
