@@ -1,26 +1,18 @@
-#include <iostream>
-#include "../i18n/Dictionary.h"
-#include "../include/MetalMoldingMaterial.h"
-#include "../include/Security.h"
-#include "../include/AudioReactive.h" // New voice tech!
-
-int main() {
+// 1. Initialize Global Assets
     KnocksEngine::GlobalSpeaker voice;
     KnocksEngine::SecureStyle security;
-    KnocksEngine::MetalMoldingMaterial jungleMetal;
+    KnocksEngine::MetalMoldingMaterial ultraMetal; // Refined name
     KnocksEngine::AudioShine voiceSensor;
+    KnocksEngine::IntroSpeech sentinel;         // Sentinel V protocol
 
-    security.ValidateSystem();
+    // ... Security Check ...
 
-    // The Global Brand Greeting
-    std::cout << voice.GetGreeting("en") << " | " << voice.GetGreeting("es") << std::endl;
+    // 2. Play the Sentinel Command
+    sentinel.PlaySentinelCommand();
 
-    // Simulate Voice Interaction
-    voiceSensor.ReactToVoice(85.0f); // High-energy voice detection
-    std::cout << "\n[9K VOICE-TO-SHINE SENSOR]" << std::endl;
-    std::cout << "> Voice Intensity detected. Metal Glow boosted by: " << voiceSensor.intensity << "x" << std::endl;
+    // 3. Ultra Power Status
+    std::cout << "\n=== ORIGINAL 9K ULTRA POWER ENGINE ACTIVE ===" << std::endl;
+    std::cout << "STATUS: POWERED BY AI LAB LEGENDS" << std::endl;
+    std::cout << "CORE: TITANGINE [SENTINEL V] ONLINE" << std::endl;
 
-    std::cout << "\n>>> KNOCKS 9K JUNGLE STATUS: SECURE & SHINING ™" << std::endl;
-
-    return 0;
-}
+    // ... Rest of the 9K Ultra logic ...
