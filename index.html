@@ -2,68 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | Valerius 9K Source</title>
+    <title>KNOCKSSTUDiOS | SECURITY GATE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; font-family: 'Courier New', monospace; overflow: hidden; color: white; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; color: white; font-family: 'Courier New', monospace; }
+        
+        /* THE COSMIC EYE (SECURITY) */
+        .security-eye {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100%; height: 100%; object-fit: cover; z-index: 1;
+            filter: brightness(0.8) contrast(1.2);
+        }
 
-        /* The REAL Cosmic Background from your image */
-        .cosmic-background {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 110%; /* Slight overscan for immersion */
-            height: auto;
-            min-height: 110%;
-            z-index: 1;
-            opacity: 0.9;
-            filter: saturate(1.2) contrast(1.1); /* Enhance the deep colors */
+        /* KNOCKSSTUDiOS BRANDING OVER THE EYE */
+        .brand-overlay {
+            position: absolute; top: 48%; width: 100%; text-align: center;
+            font-size: 3rem; font-weight: 900; letter-spacing: 20px;
+            color: rgba(255, 255, 255, 0.3); text-transform: uppercase; z-index: 5;
             pointer-events: none;
         }
 
-        /* Branding: Fixed KNOCKSSTUDiOS over the scan */
-        .brand-overlay {
-            position: absolute;
-            top: 45%;
-            width: 100%;
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: 15px;
-            color: rgba(255, 255, 255, 0.2);
-            text-transform: uppercase;
-            z-index: 5;
-            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+        /* ELECTRIC SCANNER LINE */
+        .eye-scanner {
+            position: absolute; top: 48%; left: 10%; width: 80%; height: 2px;
+            background: #00f2ff; box-shadow: 0 0 20px #00f2ff, 0 0 40px #00f2ff;
+            z-index: 6; animation: scanMove 4s ease-in-out infinite;
         }
 
-        /* The Laser Scan: Interactions with the text */
-        .scan-container {
-            position: absolute;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 50px;
-            z-index: 6;
-            overflow: hidden;
+        @keyframes scanMove {
+            0%, 100% { transform: translateY(-40px); opacity: 0.3; }
+            50% { transform: translateY(40px); opacity: 1; }
         }
 
-        .laser-line {
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: #00f2ff;
-            box-shadow: 0 0 15px #00f2ff, 0 0 30px #00f2ff;
-            animation: scan 3s ease-in-out infinite;
-        }
+        /* ACCESS TILES */
+        .ui-tiles { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; z-index: 10; }
+        .glass-tile { padding: 20px 50px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; }
+        .glass-tile:hover { background: rgba(0, 242, 255, 0.2); border-color: #00f2ff; box-shadow: 0 0 30px #00f2ff66; }
 
-        @keyframes scan {
-            0% { top: 0%; transform: rotate(-1deg); opacity: 0.2; }
-            50% { top: 100%; transform: rotate(1deg); opacity: 1; }
-            100% { top: 0%; transform: rotate(-1deg); opacity: 0.2; }
-        }
+        /* PAYMENT SIGN (BOTTOM LEFT) */
+        #payment-corner { position: fixed; bottom: 20px; left: 20px; padding: 15px; border: 1px solid #fff; background: rgba(0,0,0,0.9); z-index: 20; min-width: 180px; text-align: center; font-family: sans-serif; transition: 0.5s; }
+    </style>
+</head>
+<body>
 
-        /* Glass Tiles: Same as before, matching the aesthetic */
-        .ui-tiles { position: absolute; bottom: 15%; left: 50%;
+    <img src="InShot_20260324_100938914.jpg" class="security-eye" id="eye-bg">
+
+    <div class="brand-overlay">KNOCKSSTUDiOS</div>
+    <div class="eye-scanner"></div>
+
+    <div class="ui-tiles">
+        <div class="glass-tile" onclick="alert('Scanning Biometrics...')">Login</div>
+        <div class="glass-tile" onclick="document.getElementById('portal').style.display='block'">Sign Up</div>
+    </div>
+
+    <div id="payment-corner"><span id="pay-text">INITIALIZING...</span></div>
+
+    <script>
+        const payments = [
+            { name: "VISA", color: "#FFD700", icon: "fa-cc-visa" },
+            { name: "MASTERCARD", color: "#FF4500", icon: "fa-cc-mastercard" },
+            { name: "AMEX", color: "#00C851", icon: "fa-cc-amex" },
+            { name: "BITCOIN", color: "#00B0FF", icon: "fa-bitcoin-sign" }
+        ];
+        let pIdx = 0;
+        function rotate() {
+            const m = payments[pIdx];
+            const el = document.getElementById("payment-corner");
+            const txt = document.getElementById("pay-text");
+            txt.style.opacity = 0;
+            setTimeout(() => {
+                txt.innerHTML = `<i class="fa-solid ${m.icon}"></i> ${m.name}`;
+                el.style.borderColor = m.color; el.style.color = m.color;
+                el.style.boxShadow = `0 0 15px ${m.color}55`;
+                txt.style.opacity = 1;
+                pIdx = (pIdx + 1) % payments.length;
+            }, 500);
+        }
+        setInterval(rotate, 2000); rotate();
+    </script>
+</body>
+</html>
