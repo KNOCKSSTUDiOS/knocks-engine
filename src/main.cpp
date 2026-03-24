@@ -1,3 +1,4 @@
+#include "../i18n/Dictionary.h"
 #include <iostream>
 #include "../include/MetalMoldingMaterial.h"
 #include "../include/Security.h"
