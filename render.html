@@ -9,7 +9,7 @@
         body { margin: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
         
         .engine-wrap { width: 90%; max-width: 900px; border: 1px solid #111; background: rgba(5,5,5,0.95); padding: 50px; position: relative; backdrop-filter: blur(20px); box-shadow: 0 0 40px rgba(0,0,0,1); }
-        .engine-wrap::before { content: "UNRESTRICTED_ACCESS_v9.4"; position: absolute; top: 10px; left: 10px; font-size: 0.5rem; color: var(--gold); letter-spacing: 2px; }
+        .engine-wrap::before { content: "TRADEMARK_PROTECTION_ACTIVE"; position: absolute; top: 10px; left: 10px; font-size: 0.5rem; color: var(--gold); letter-spacing: 2px; }
 
         .header { border-bottom: 1px solid #222; padding-bottom: 20px; margin-bottom: 30px; }
         .header h1 { font-size: 1.5rem; letter-spacing: 8px; color: var(--neon); margin: 0; }
@@ -23,7 +23,18 @@
             width: 100%; background: #000; border: 1px solid #333; color: #fff; 
             padding: 12px; font-family: 'Courier New'; outline: none; font-size: 0.8rem; box-sizing: border-box;
         }
-        select:focus, input:focus { border-color: var(--neon); }
+
+        /* WATERMARK PREVIEW AREA */
+        .render-display { 
+            width: 100%; height: 200px; background: #050505; border: 1px solid #111; 
+            margin-bottom: 20px; position: relative; display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .watermark-overlay { 
+            position: absolute; color: rgba(255, 215, 0, 0.15); font-size: 2rem; 
+            font-weight: 900; letter-spacing: 15px; pointer-events: none; text-transform: uppercase;
+            transform: rotate(-15deg); display: none;
+        }
 
         .progress-container { height: 2px; background: #111; margin: 40px 0; overflow: hidden; }
         .bar { width: 0%; height: 100%; background: var(--gold); box-shadow: 0 0 15px var(--gold); transition: 0.1s; }
@@ -33,11 +44,10 @@
             font-weight: 900; border: none; cursor: pointer; letter-spacing: 5px; font-size: 1rem;
             transition: 0.3s;
         }
-        .ignite-btn:hover { background: #fff; box-shadow: 0 0 50px rgba(255,255,255,0.2); }
-        .ignite-btn:disabled { background: #111; color: #333; cursor: not-allowed; }
-
-        #console { font-size: 0.65rem; color: var(--gold); margin-top: 20px; min-height: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        #coin-info { text-align: right; font-size: 0.7rem; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px; }
+        .ignite-btn:hover { background: #fff; }
+        
+        #console { font-size: 0.65rem; color: var(--gold); margin-top: 20px; min-height: 20px; text-transform: uppercase; }
+        #coin-info { text-align: right; font-size: 0.7rem; color: var(--gold); margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -45,11 +55,84 @@
     <div class="engine-wrap">
         <div class="header">
             <h1>9K_RENDER_CORE</h1>
-            <p>FULL_STYLE_CAPABILITY // NEUTRAL_PROXY_OUTPUT</p>
+            <p>TRADEMARKED_OUTPUT_ENGINE // KNOCKSSTUDiOS</p>
+        </div>
+
+        <div class="render-display" id="display">
+            <div class="watermark-overlay" id="wm">KNOCKSSTUDiOS</div>
+            <div id="status-text" style="font-size: 0.6rem; color: #222;">PREVIEW_WINDOW_LOCKED</div>
         </div>
 
         <div class="matrix-grid">
             <div class="input-group">
-                <label>TARGET_AESTHETIC</label>
+                <label>AESTHETIC_SIGNATURE</label>
                 <select id="style">
-                    <option value="stylized_
+                    <option>STYLIZED_3D_HQ</option>
+                    <option>HAND-DRAWN_CELL_v4</option>
+                    <option>PHOTOREAL_PHYSICS</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>RESOLUTION</label>
+                <select id="res">
+                    <option>9K_ULTRA_RAW</option>
+                    <option>8K_CINEMATIC</option>
+                </select>
+            </div>
+            <div class="input-group" style="grid-column: span 2;">
+                <label>PROMPT_STRING</label>
+                <input type="text" id="prompt" placeholder="ENTER PROJECT SPECS...">
+            </div>
+        </div>
+
+        <div id="coin-info">CREDITS: 2000</div>
+        <button class="ignite-btn" id="burn-btn" onclick="startRender()">iNiTiATE 9K BURN</button>
+        <div class="progress-container"><div class="bar" id="fill"></div></div>
+        <div id="console">SYSTEM_READY...</div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="index.html" style="color: #222; text-decoration: none; font-size: 0.6rem;">[ DISCONNECT ]</a>
+        </div>
+    </div>
+
+    <script>
+        let credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
+        document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
+
+        function startRender() {
+            if(credits < 1000) { alert("INSUFFICIENT CREDITS"); return; }
+            const prompt = document.getElementById('prompt').value;
+            if(!prompt) return;
+
+            credits -= 1000;
+            localStorage.setItem('knocks_credits', credits);
+            document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
+            document.getElementById('burn-btn').disabled = true;
+
+            let progress = 0;
+            const bar = document.getElementById('fill');
+            const log = document.getElementById('console');
+            const wm = document.getElementById('wm');
+            const status = document.getElementById('status-text');
+
+            const run = setInterval(() => {
+                progress += 1;
+                bar.style.width = progress + "%";
+                status.innerText = "PROCESSING_FRAME_" + Math.floor(progress * 2.4);
+
+                if(progress == 20) log.innerText = "INJECTING_TRADEMARK_SIGNATURE...";
+                if(progress == 50) log.innerText = "APPLYING_9K_WATERMARK_LAYER...";
+                if(progress == 80) log.innerText = "FINALIZING_SECURE_RENDER...";
+
+                if(progress >= 100) {
+                    clearInterval(run);
+                    log.innerText = "SUCCESS: TRADEMARK_VERIFIED.";
+                    status.innerText = "RENDER_COMPLETE";
+                    wm.style.display = "block"; // THE WATERMARK APPEARS HERE
+                    alert("RENDER COMPLETE: TRADEMARK APPLIED.");
+                }
+            }, 50);
+        }
+    </script>
+</body>
+</html>
