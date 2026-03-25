@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | GLOBAL_9K_ENGINE</title>
+    <title>KNOCKSSTUDiOS | 9K_RAW_ENGINE</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root { --neon: #00f2ff; --gold: #ffd700; --bg: #000; }
@@ -23,37 +23,37 @@
         .radio-header { font-size: 0.6rem; color: var(--neon); letter-spacing: 2px; margin-bottom: 10px; border-bottom: 1px solid #222; padding-bottom: 5px; }
         select.lang-select { width: 100%; background: #000; border: 1px solid #333; color: #fff; font-size: 0.6rem; padding: 5px; margin-bottom: 10px; outline: none; }
         
-        /* HUD GRID */
+        /* TACTICAL HUD GRID */
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1300px; }
-        .tile { background: rgba(0, 0, 0, 0.8); border: 1px solid rgba(255, 255, 255, 0.05); padding: 35px; backdrop-filter: blur(10px); transition: 0.3s; }
+        .tile { background: rgba(0, 0, 0, 0.85); border: 1px solid rgba(255, 255, 255, 0.05); padding: 35px; backdrop-filter: blur(15px); transition: 0.3s; position: relative; }
         .tile:hover { border-color: var(--neon); box-shadow: 0 0 30px rgba(0, 242, 255, 0.1); }
         
-        .tile-id { font-size: 0.5rem; color: var(--neon); margin-bottom: 10px; }
+        .tile-id { font-size: 0.5rem; color: var(--neon); margin-bottom: 10px; opacity: 0.5; }
         .tile-title { font-size: 1rem; letter-spacing: 3px; font-weight: 900; margin-bottom: 15px; }
+        .tile-desc { font-size: 0.65rem; color: #555; line-height: 1.5; margin-bottom: 25px; min-height: 40px; }
 
         .btn { width: 100%; padding: 15px; background: transparent; border: 1px solid var(--neon); color: var(--neon); font-size: 0.7rem; font-weight: bold; cursor: pointer; letter-spacing: 3px; text-decoration: none; display: block; text-align: center; }
         .btn:hover { background: var(--neon); color: #000; }
         
         .gold-tile { border-color: var(--gold); }
-        .gold-tile .tile-title { color: var(--gold); }
+        .gold-tile .tile-title, .gold-tile .tile-id { color: var(--gold); }
         .gold-tile .btn { border-color: var(--gold); color: var(--gold); }
 
-        .global-footer { position: fixed; bottom: 0; width: 100%; padding: 12px 40px; background: #000; border-top: 1px solid #111; display: flex; justify-content: space-between; font-size: 0.6rem; color: #444; box-sizing: border-box; }
+        .footer { position: fixed; bottom: 0; width: 100%; padding: 12px 40px; background: #000; border-top: 1px solid #111; display: flex; justify-content: space-between; font-size: 0.6rem; color: #333; box-sizing: border-box; }
     </style>
 </head>
 <body>
 
     <div class="radio-terminal">
-        <div class="radio-header">KNOCKSSTUDiOS_RADIO_v4.2</div>
+        <div class="radio-header">KNOCKS_COMMERCIAL_RADIO</div>
         <select class="lang-select" id="stream-selector" onchange="changeStream()">
-            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">REGION: USA (PHONK/SYNTH)</option>
-            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">REGION: JAPAN (LO-FI/ANIME)</option>
-            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3">REGION: UK (DRUM & BASS)</option>
-            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3">REGION: LATAM (BASS_BOOST)</option>
+            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">FREQUENCY: NORTH_AMERICA</option>
+            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">FREQUENCY: ASIA_PACIFIC</option>
+            <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3">FREQUENCY: EUROPE_CENTRAL</option>
         </select>
         <div style="display: flex; gap: 5px;">
-            <button class="btn" style="padding: 5px;" onclick="document.getElementById('radio').play()">PLAY</button>
-            <button class="btn" style="padding: 5px; border-color: #ff4444; color: #ff4444;" onclick="document.getElementById('radio').pause()">STOP</button>
+            <button class="btn" style="padding: 5px; font-size: 0.5rem;" onclick="document.getElementById('radio').play()">LIVE_FEED</button>
+            <button class="btn" style="padding: 5px; font-size: 0.5rem; border-color: #444; color: #444;" onclick="document.getElementById('radio').pause()">MUTE</button>
         </div>
         <audio id="radio" loop></audio>
     </div>
@@ -63,55 +63,50 @@
     </div>
 
     <div class="container">
+        <div class="header" style="width: 100%; max-width: 1300px; margin-bottom: 40px;">
+            <h1 style="font-size: 2.2rem; letter-spacing: 15px; margin: 0;">KNOCKSSTUDiOS</h1>
+            <p style="font-size: 0.7rem; color: var(--neon); letter-spacing: 5px;">GLOBAL_PROXIED_ENGINE // 9K_UNRESTRICTED</p>
+        </div>
+
         <div class="grid">
             <div class="tile">
-                <div class="tile-id">UPLINK_01</div>
-                <div class="tile-title">NEURAL_SYNC</div>
-                <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">Initialize International Operator ID.</p>
+                <div class="tile-id">MODULE_01</div>
+                <div class="tile-title">OPERATOR_SYNC</div>
+                <div class="tile-desc">Initialize international link and secure 2,000 engine credits.</div>
                 <button class="btn" onclick="igniteSync()">ACTIVATE SYNC</button>
             </div>
 
             <div class="tile gold-tile">
-                <div class="tile-id">MODULE_02_ULTRA</div>
-                <div class="tile-title">APEX_RENDER_CORE</div>
-                <p style="font-size: 0.6rem; color: #888; margin-bottom: 20px;">
-                    [3D_ANIME] [COMMERCIAL_HQ] [REALTIME_VFX]<br>
-                    UNLIMITED BYPASS MODE ACTIVE.
-                </p>
+                <div class="tile-id">MODULE_02_MAX</div>
+                <div class="tile-title">RENDER_CORE_PRO</div>
+                <div class="tile-desc">High-load workstation for Stylized 3D, Motion VFX, and Cinematic 9K.</div>
                 <a href="render.html" class="btn">iNiTiATE BURN</a>
             </div>
 
             <div class="tile">
-                <div class="tile-id">DATA_03</div>
-                <div class="tile-title">VALERiUS_LOGS</div>
-                <p style="font-size: 0.6rem; color: #666; margin-bottom: 20px;">Decrypted history of global renders.</p>
+                <div class="tile-id">MODULE_03</div>
+                <div class="tile-title">ENGINE_LOGS</div>
+                <div class="tile-desc">Technical specifications and decrypted architectural history.</div>
                 <a href="valerius.html" class="btn">OPEN ARCHIVE</a>
             </div>
         </div>
     </div>
 
-    <div class="global-footer">
-        <span>BROADCASTING FROM: <span id="location">LOS_ANGELES_NODE</span></span>
-        <span>ENGINE_STATUS: OVERRIDE_ENABLED</span>
-        <span id="pings">LATENCY: 12ms</span>
+    <div class="footer">
+        <span>NETWORK_STATUS: ENCRYPTED</span>
+        <span>ENGINE: KNOCKS_v9.4_ULTRA</span>
+        <span>LATENCY: 0.04ms</span>
     </div>
 
     <script>
         emailjs.init("0orOwiW9_U2sNzWLf");
-        
         function changeStream() {
             const player = document.getElementById('radio');
             player.src = document.getElementById('stream-selector').value;
             player.play();
-            
-            // Change Location display based on language selection
-            const locations = ["LOS_ANGELES_NODE", "TOKYO_NODE", "LONDON_NODE", "MEXICO_CITY_NODE"];
-            const index = document.getElementById('stream-selector').selectedIndex;
-            document.getElementById('location').innerText = locations[index];
         }
-
         function igniteSync() {
-            const email = prompt("ENTER OPERATOR ID:");
+            const email = prompt("ENTER OPERATOR ID (EMAIL):");
             if (!email) return;
             localStorage.setItem('knocks_credits', '2000');
             localStorage.setItem('active_user', email);
