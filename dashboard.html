@@ -2,85 +2,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K ULTRA | SENTINEL V ENGINE</title>
+    <title>KNOCKSSTUDiOS | COMMAND CENTER</title>
     <style>
-        body { background: #010103; color: #00FFFF; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
-        header { border-bottom: 2px solid #003366; padding-bottom: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-        h1 { letter-spacing: 5px; text-transform: uppercase; font-size: 20px; margin: 0; text-shadow: 0 0 10px #00FFFF; }
-        
-        /* METAL VESTIBULE THEME */
-        .sentinel-frame { border: 2px solid #003366; background: linear-gradient(145deg, #050510, #000); padding: 25px; border-radius: 5px; margin-bottom: 30px; border-left: 8px solid #00FFFF; }
-        .status-tag { color: #00FF00; font-size: 10px; font-weight: bold; letter-spacing: 2px; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .card { background: rgba(0, 10, 20, 0.9); border: 1px solid #002244; padding: 20px; transition: 0.3s; position: relative; }
-        .card:hover { border-color: #00FFFF; box-shadow: 0 0 20px #001133; }
-        
-        /* PAYMENTS & TIERS */
-        .price { color: #00FF00; font-size: 22px; margin: 10px 0; font-weight: 900; }
-        .btn { display: block; width: 100%; padding: 15px; background: transparent; border: 1px solid #00FFFF; color: #00FFFF; text-align: center; text-decoration: none; margin-top: 15px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-        .btn:hover { background: #00FFFF; color: #000; }
-        
-        .payment-icons { margin-top: 15px; font-size: 10px; color: #005555; display: flex; gap: 10px; }
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 50px; }
+        .panel { border: 1px solid #222; padding: 20px; background: #050505; }
+        h1, h2 { letter-spacing: 5px; color: #00f2ff; text-transform: none; }
+        .stat { font-size: 2rem; color: #ffd700; font-weight: bold; }
+        .log { background: #000; border: 1px solid #111; height: 200px; overflow-y: auto; padding: 10px; font-size: 0.8rem; color: #555; }
+        .btn { 
+            padding: 10px 20px; background: transparent; border: 1px solid #ffd700; color: #ffd700; 
+            cursor: pointer; font-weight: bold; margin-top: 10px;
+        }
+        .btn:hover { background: #ffd700; color: #000; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>>> KNOCKS_STUDIOS_9K_</h1>
-    <span class="status-tag">● SENTINEL_V_ONLINE</span>
-</header>
+    <h1>COMMAND CENTER // KNOCKSSTUDiOS</h1>
+    
+    <div class="grid">
+        <div class="panel">
+            <h2>ACTiVE RENDERS</h2>
+            <div class="stat" id="render-count">0</div>
+            <p>5sec HQ Queue</p>
+            <button class="btn" onclick="simulateRender()">iNiTiATE MANUAL RENDER</button>
+        </div>
 
-<div class="sentinel-frame">
-    <div style="font-size: 14px; color: #00FFFF;">[ MESSAGE FROM THE PROTECTOR ]</div>
-    <p style="font-style: italic; color: #008888;">"I am the metal before the fire. I am the shield for the Legends. Step inside the School of Hard Knocks. We build for real here."</p>
-</div>
-
-<div class="grid">
-    <div class="card">
-        <div style="font-size: 10px; color: #005555;">TIER_01</div>
-        <h3>FREE INITIATE</h3>
-        <p>Everyone is welcome. Access community tutorials and the public marketplace.</p>
-        <div class="price">$0.00</div>
-        <button class="btn">SIGN UP FREE</button>
+        <div class="panel">
+            <h2>ECONOMY CONTROL</h2>
+            <div class="stat">COiN GATEWAY</div>
+            <input type="text" id="user-target" placeholder="USER_iD" style="background:#000; border:1px solid #333; color:#fff; padding:5px;">
+            <button class="btn" onclick="injectCoins()">iNJECT 2000 COiNS</button>
+        </div>
     </div>
 
-    <div class="card" style="border-top: 4px solid #00FFFF;">
-        <div style="font-size: 10px; color: #00FFFF;">TIER_02_TITAN</div>
-        <h3>PRO CREATOR PASS</h3>
-        <p>Full 9K Engine Access. Sell your designs. Official Certification.</p>
-        <div class="price">$49.99/mo</div>
-        <button class="btn">ACTIVATE CORE</button>
-        <div class="payment-icons">CASHAPP | APPLE | VISA | BTC</div>
+    <div class="panel" style="margin-top: 20px;">
+        <h2>SYSTEM LOGS</h2>
+        <div class="log" id="system-log">
+            [19:22:29] DEPLOYMENT SUCCESSFUL: knocks-engine-hbla.vercel.app<br>
+            [19:23:00] ENGINE iDiNG...
+        </div>
     </div>
-</div>
 
-<div style="margin: 40px 0 15px 0; font-size: 12px; letter-spacing: 5px; color: #003366;">MARKETPLACE_&_EVENTS</div>
-<div class="grid">
-    <div class="card" style="border-color: #FFD700;">
-        <h3>RENDER CHALLENGE</h3>
-        <p>Show me your best metal work. $500 prize + Legend Status.</p>
-        <button class="btn" style="border-color: #FFD700; color: #FFD700;">SUBMIT ART</button>
-    </div>
-</div>
+    <script>
+        function logAction(msg) {
+            const log = document.getElementById('system-log');
+            log.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
+            log.scrollTop = log.scrollHeight;
+        }
 
-<footer style="margin-top: 50px; text-align: center; font-size: 9px; color: #002244; letter-spacing: 3px;">
-    TRADEMARK PENDING © 2026 KNOCKSSTUDiOS | THE ORIGINAL 9K ULTRA
-</footer>
+        function simulateRender() {
+            logAction("STARTiNG 5SEC HQ RENDER...");
+            document.getElementById('render-count').innerText = "1";
+            setTimeout(() => {
+                logAction("RENDER COMPLETE. FiLE ENCRYPTED.");
+                document.getElementById('render-count').innerText = "0";
+            }, 5000);
+        }
 
-<script>
-    function speakSentinel() {
-        const msg = new SpeechSynthesisUtterance();
-        // The Wise, Humble, Street-Smart Terminator Voice
-        msg.text = "I am Sentinel V. Metal and logic. I have walked the hard path so you can fly. Welcome to Knocks Studios. The engine is yours. Make it beautiful.";
-        msg.pitch = 0.2; 
-        msg.rate = 0.8; 
-        window.speechSynthesis.speak(msg);
-    }
-    // Triggers on click
-    window.addEventListener('click', speakSentinel, { once: true });
-</script>
-
+        function injectCoins() {
+            const user = document.getElementById('user-target').value;
+            if(user) {
+                logAction(`iNJECTiNG 2000 COiNS TO ${user}...`);
+                alert(`SUCCESS: 2000 CREDiTS SENT TO ${user}`);
+            }
+        }
+    </script>
 </body>
 </html>
