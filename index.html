@@ -2,79 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>KNOCKSSTUDiOS | LIVE GATE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNOCKSSTUDiOS | LIVE</title>
     <style>
         body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; color: white; font-family: 'Courier New', monospace; }
-        
-        /* THE DEPTH ENGINE (Canvas for the Electric Waves) */
-        #particleCanvas { position: fixed; inset: 0; z-index: 1; }
 
-        /* THE COSMIC EYE SINGULARITY (Layered for 3D Effect) */
-        .eye-singularity {
+        /* THE COSMO EYE & MULTI-COLOR RIM */
+        .cosmo-container {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 350px; height: 350px; z-index: 5;
-            background: radial-gradient(circle, #fff 0%, #00f2ff 10%, #ff00ff 30%, transparent 70%);
-            filter: blur(2px); animation: eyeBreathe 3s infinite alternate;
+            width: 450px; height: 450px; z-index: 2;
         }
 
-        /* The Spinning Multi-Color Rim */
-        .color-rim {
-            position: absolute; top: 50%; left: 50%; width: 420px; height: 420px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 3px solid transparent;
-            background: linear-gradient(#000, #000) padding-box,
-                        conic-gradient(#00f2ff, #ff00ff, #ffd700, #00f2ff) border-box;
-            box-shadow: 0 0 80px rgba(0, 242, 255, 0.6);
-            animation: spin 8s linear infinite;
+        .rim-animation {
+            position: absolute; inset: 0; border-radius: 50%;
+            padding: 4px;
+            background: conic-gradient(from 0deg, #00f2ff, #ff00ff, #ffd700, #00f2ff);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            animation: rotateRim 4s linear infinite;
+            filter: drop-shadow(0 0 15px #00f2ff);
         }
 
-        @keyframes eyeBreathe { from { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.05); } }
-        @keyframes spin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
-
-        /* THE SIGNATURE: KNOCKSSTUDiOS */
-        .signature-branding {
+        .eye-core {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 3.5rem; font-weight: 900; letter-spacing: 20px;
-            z-index: 10; text-transform: none; /* Keeps the 'i' lowercase */
-            color: white; text-shadow: 0 0 20px #00f2ff, 0 0 40px #ff00ff;
-            pointer-events: none;
+            width: 60px; height: 60px; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 40px #fff, 0 0 80px #00f2ff, 0 0 120px #ff00ff;
+            animation: breathe 2s infinite ease-in-out;
         }
+
+        @keyframes rotateRim { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes breathe { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; } 50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; } }
+
+        /* THE BRANDING: KNOCKSSTUDiOS */
+        .signature-text {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-size: clamp(1.5rem, 6vw, 3.5rem); font-weight: 900; letter-spacing: 15px;
+            z-index: 10; pointer-events: none; text-transform: none;
+            color: #fff; text-shadow: 0 0 20px rgba(0, 242, 255, 0.7);
+        }
+
+        /* LIVE ELECTRIC WAVES */
+        #waveCanvas { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
         /* UI BUTTONS */
-        .nav-gate { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; gap: 30px; z-index: 20; }
-        .gate-btn { 
-            padding: 18px 50px; background: rgba(0,0,0,0.8); border: 2px solid #00f2ff; color: #00f2ff; 
-            font-weight: bold; letter-spacing: 5px; cursor: pointer; transition: 0.5s; text-transform: uppercase;
+        .ui-nav { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 20; }
+        .btn { 
+            padding: 15px 40px; background: rgba(0,0,0,0.7); border: 1px solid #00f2ff; color: #00f2ff; 
+            font-weight: bold; letter-spacing: 3px; cursor: pointer; transition: 0.3s;
         }
-        .gate-btn:hover { background: #00f2ff; color: #000; box-shadow: 0 0 60px #00f2ff; letter-spacing: 8px; }
+        .btn:hover { background: #00f2ff; color: #000; box-shadow: 0 0 30px #00f2ff; transform: scale(1.1); }
     </style>
 </head>
 <body>
 
-    <canvas id="particleCanvas"></canvas>
-    <div class="color-rim"></div>
-    <div class="eye-singularity"></div>
-    
-    <div class="signature-branding">KNOCKSSTUDiOS</div>
+    <canvas id="waveCanvas"></canvas>
 
-    <div class="nav-gate">
-        <button class="gate-btn" onclick="igniteSystem()">LOGIN</button>
-        <button class="gate-btn" onclick="igniteSystem()">SIGN UP</button>
+    <div class="cosmo-container">
+        <div class="rim-animation"></div>
+        <div class="eye-core"></div>
+    </div>
+
+    <div class="signature-text">KNOCKSSTUDiOS</div>
+
+    <div class="ui-nav">
+        <div class="btn" onclick="triggerSystem()">LOGiN</div>
+        <div class="btn" onclick="triggerSystem()">SiGN UP</div>
     </div>
 
     <script>
-        // --- 1. THE ELECTRIC WAVE ENGINE ---
-        const canvas = document.getElementById('particleCanvas');
+        // 1. WAVE ENGINE (Electric Blue Waves)
+        const canvas = document.getElementById('waveCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        function drawWaves() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = '#00f2ff';
-            ctx.lineWidth = 1.5;
+        function animateWaves() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = 'rgba(0, 242, 255, 0.3)';
+            ctx.lineWidth = 2;
             ctx.beginPath();
-            let time = Date.now() * 0.002;
-            for(let i=0; i<canvas.width; i+=10) {
-                let y = (canvas.height/2) + Math.sin(i * 0.
+            let t = Date.now() * 0.001;
+            for (let x = 0; x < canvas.width; x += 5) {
+                let y = (canvas.height / 2) + Math.sin(x * 0.01 + t) * 50 + Math.cos(x * 0.02 - t) * 20;
+                ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            requestAnimationFrame(animateWaves);
+        }
+        animateWaves();
+
+        // 2. AUDIO ENGINE (Sword Whoosh & Bass)
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function triggerSystem() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            // SWORD WHOOSH
+            const osc = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(1200, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.3);
+            g.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3);
+            osc.connect(g); g.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+
+            // BACKGROUND BASS
+            const bass = audioCtx.createOscillator();
+            const bGain = audioCtx.createGain();
+            bass.type = 'triangle'; bass.frequency.setValueAtTime(40, audioCtx.currentTime);
+            bGain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            bass.connect(bGain); bGain.connect(audioCtx.destination);
+            bass.start();
+
+            alert("iDENTiTY VERiFiED: WELCOME TO KNOCKSSTUDiOS");
+        }
+    </script>
+</body>
+</html>
