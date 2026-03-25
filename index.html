@@ -3,50 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOLLYWOODiMAGiNG.STUDiO | 9K ULTRA</title>
+    <title>9K_ULTRA_APEX | HOLLYWOODiMAGiNG</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow: hidden; }
-        .video-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-        #bg-vid { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(25%) contrast(150%); }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, transparent 20%, #000 100%); }
-        .eye-wrap { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; }
-        .plasma-rim { width: 350px; height: 350px; border-radius: 50%; padding: 4px; background: conic-gradient(from 0deg, #00f2ff, #ff00ff, #ffd700, #00f2ff); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; animation: spin 3s linear infinite; }
-        .core-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: #fff; border-radius: 50%; box-shadow: 0 0 60px #fff, 0 0 120px #00f2ff; animation: pulse 1.5s infinite alternate; }
-        .brand { position: absolute; top: 50%; width: 100%; text-align: center; transform: translateY(-50%); font-size: clamp(1rem, 6vw, 2.5rem); font-weight: 900; letter-spacing: 12px; z-index: 10; text-shadow: 0 0 30px #00f2ff; pointer-events: none; }
-        .ui-nav { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 20; align-items: center; }
-        .btn { padding: 18px 60px; background: rgba(0,0,0,0.8); border: 1px solid #00f2ff; color: #00f2ff; font-weight: bold; cursor: pointer; letter-spacing: 5px; transition: 0.3s; text-decoration: none; text-align: center; }
-        .btn:hover { background: #00f2ff; color: #000; box-shadow: 0 0 50px #00f2ff; }
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes pulse { from { scale: 0.8; opacity: 0.5; } to { scale: 1.1; opacity: 1; } }
-    </style>
-</head>
-<body>
-    <div class="video-bg">
-        <video autoplay muted loop playsinline id="bg-vid">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-blue-and-purple-ink-flowing-in-water-41221-large.mp4" type="video/mp4">
-        </video>
-        <div class="overlay"></div>
-    </div>
-    <div class="eye-wrap"><div class="plasma-rim"></div><div class="core-glow"></div></div>
-    <div class="brand">HOLLYWOODiMAGiNG.STUDiO</div>
-    <div class="ui-nav">
-        <button class="btn" onclick="igniteEngine()">ACTiVATE 2000 COiNS</button>
-        <div style="display: flex; gap: 10px;">
-            <a href="valerius.html" class="btn" style="padding: 10px 20px; font-size: 0.7rem;">VALERiUS iNTEL</a>
-            <a href="render.html" class="btn" style="padding: 10px 20px; font-size: 0.7rem;">RENDER CORE</a>
-        </div>
-    </div>
-    <script>
-        emailjs.init("0orOwiW9_U2sNzWLf");
-        function igniteEngine() {
-            const email = prompt("ENTER EMAiL:");
-            if (!email) return;
-            localStorage.setItem('knocks_credits', '2000');
-            localStorage.setItem('active_user', email);
-            emailjs.send("service_default", "template_default", { to_email: email })
-                .then(() => { window.location.href = "store.html"; }, () => { window.location.href = "store.html"; });
+        :root { --neon: #00f2ff; --gold: #ffd700; --bg: #000; }
+        body, html { margin: 0; padding: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; overflow: hidden; height: 100vh; }
+        
+        /* BACKGROUND ENGINE */
+        .vid-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; filter: brightness(20%) contrast(150%); }
+        video { width: 100%; height: 100%; object-fit: cover; }
+        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 50%, rgba(0, 242, 255, 0.02) 50%); background-size: 100% 4px; z-index: 5; pointer-events: none; }
+
+        .container { position: relative; z-index: 10; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 40px; }
+        
+        /* HEADER */
+        .header { text-align: left; width: 100%; max-width: 1300px; margin-bottom: 40px; border-left: 2px solid var(--neon); padding-left: 20px; }
+        .header h1 { font-size: 2.5rem; letter-spacing: 15px; margin: 0; color: #fff; text-transform: uppercase; }
+        .header p { font-size: 0.7rem; color: var(--neon); letter-spacing: 4px; opacity: 0.7; }
+
+        /* TACTICAL GRID */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1300px; }
+        
+        .tile { 
+            background: rgba(255, 255, 255, 0.02); 
+            border: 1px solid rgba(0, 242, 255, 0.1); 
+            padding: 40px; 
+            position: relative; 
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
         }
-    </script>
-</body>
-</html>
+        .tile:hover { 
+            background: rgba(0, 242, 255, 0.05); 
+            border-color: var(--neon); 
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* DATA DECORATION */
+        .tile::after { content: "SYS_v9.4_OK"; position: absolute; bottom: 10px; right: 10px; font-size: 0.5rem; color: var(--neon); opacity: 0.3; }
+        
+        .tile-id { font-size: 0.6rem; color: var(--neon); margin-bottom: 10px; opacity: 0.6; }
+        .tile-title { font-size: 1.2rem; letter-spacing: 4px; font-weight: 900; margin-bottom: 15px; }
+        .tile-desc { font-size: 0.75rem; color: #666; line-height: 1.5; margin-bottom: 25px; min-height: 45px; }
+
+        .btn { 
+            width: 100%; padding: 15px; background: transparent; border: 1px solid var(--neon); 
+            color: var(--neon); font-size: 0.8rem; font-weight: bold; cursor: pointer; 
+            letter-spacing: 3px; text-decoration: none; display: block; text-align: center;
+            transition: 0.2s;
+        }
+        .btn:
