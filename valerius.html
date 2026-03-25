@@ -3,78 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALERiUS_LOGS | KNOCKS_PROXIED_ENGINE</title>
+    <title>VALERiUS_LOGS | ENGINE_SPECIFICATIONS</title>
     <style>
-        :root { --neon: #00f2ff; --bg: #000; }
-        body { margin: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; padding: 40px; }
+        :root { --neon: #00f2ff; --gold: #ffd700; --bg: #000; }
+        body { margin: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; padding: 40px; overflow-x: hidden; }
         
-        .header { border-bottom: 1px solid #111; padding-bottom: 20px; margin-bottom: 50px; }
-        .header h1 { font-size: 1.8rem; letter-spacing: 12px; color: var(--neon); margin: 0; }
-        .header p { font-size: 0.6rem; color: #444; letter-spacing: 4px; margin-top: 5px; }
+        .header { border-bottom: 1px solid #111; padding-bottom: 20px; margin-bottom: 50px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+        .header h1 { font-size: 1.8rem; letter-spacing: 12px; color: var(--neon); margin: 0; text-transform: uppercase; }
+        .header p { font-size: 0.6rem; color: #444; letter-spacing: 4px; margin-top: 10px; }
         
-        .log-container { max-width: 1100px; margin: 0 auto; }
-        .log-entry { border-left: 1px solid #222; padding: 30px; margin-bottom: 30px; background: rgba(255,255,255,0.01); transition: 0.3s; }
-        .log-entry:hover { background: rgba(0, 242, 255, 0.02); border-left-color: var(--neon); }
+        .log-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .log-entry { border: 1px solid #0a0a0a; border-left: 2px solid #222; padding: 40px; background: rgba(255,255,255,0.01); transition: 0.4s; position: relative; }
+        .log-entry:hover { background: rgba(0, 242, 255, 0.03); border-left-color: var(--neon); transform: translateX(10px); }
         
-        .entry-tag { font-size: 0.5rem; color: var(--neon); text-transform: uppercase; margin-bottom: 10px; opacity: 0.6; }
-        .entry-title { font-size: 1rem; font-weight: 900; letter-spacing: 3px; margin-bottom: 15px; }
-        .entry-data { font-size: 0.75rem; color: #888; line-height: 1.8; }
+        .entry-tag { font-size: 0.55rem; color: var(--neon); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px; opacity: 0.6; }
+        .entry-title { font-size: 1.1rem; font-weight: 900; letter-spacing: 4px; margin-bottom: 20px; color: #fff; }
+        .entry-data { font-size: 0.8rem; color: #777; line-height: 1.8; max-width: 800px; }
         
-        .tech-spec { display: flex; gap: 10px; margin-top: 20px; }
-        .pill { font-size: 0.55rem; padding: 4px 10px; border: 1px solid #333; color: #555; border-radius: 2px; }
+        .tech-matrix { display: flex; gap: 12px; margin-top: 25px; }
+        .pill { font-size: 0.55rem; padding: 6px 12px; border: 1px solid #1a1a1a; color: #444; border-radius: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .log-entry:hover .pill { border-color: var(--neon); color: var(--neon); }
         
-        .footer-nav { position: fixed; bottom: 30px; width: calc(100% - 80px); display: flex; justify-content: space-between; font-size: 0.6rem; color: #222; }
-        a { color: inherit; text-decoration: none; }
-        a:hover { color: var(--neon); }
+        .footer-nav { position: fixed; bottom: 30px; width: calc(100% - 80px); display: flex; justify-content: space-between; font-size: 0.6rem; color: #222; z-index: 100; }
+        a { color: inherit; text-decoration: none; transition: 0.2s; letter-spacing: 2px; }
+        a:hover { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+
+        /* DECORATION */
+        .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px); background-size: 100px 100px; z-index: -1; pointer-events: none; }
     </style>
 </head>
 <body>
 
+    <div class="bg-grid"></div>
+
     <div class="log-container">
         <div class="header">
-            <h1>ENGINE_SPECIFICATIONS</h1>
-            <p>KNOCKS_v9.4_ULTRA_CORE // NEUTRAL_DASHBOARD</p>
+            <h1>VALERiUS_ENGINE_LOGS</h1>
+            <p>KNOCKS_v9.4_ULTRA // PROXY_STABILIZATION_ACTIVE</p>
         </div>
 
         <div class="log-entry">
-            <div class="entry-tag">LOG_ID: STYLIZED_3D_CORE</div>
-            <div class="entry-title">PROPRIETARY SUB-SURFACE SCATTERING (SSS)</div>
+            <div class="entry-tag">FILE_REF: 3D_STYLIZATION_SUBSURFACE</div>
+            <div class="entry-title">ADVANCED TEXTURE SCATTERING</div>
             <div class="entry-data">
-                Advanced physics-based rendering for high-fidelity stylized assets. Capable of generating cinematic "soft-surface" textures and global illumination signatures consistent with major global animation standards.
+                Proprietary render logic for high-fidelity stylized materials. Executes complex light-trapping algorithms to deliver cinematic surface quality and global illumination without external server reliance.
             </div>
-            <div class="tech-spec">
-                <div class="pill">9K_NATIVE</div><div class="pill">RAY_TRACING</div><div class="pill">UNRESTRICTED</div>
-            </div>
-        </div>
-
-        <div class="log-entry">
-            <div class="entry-tag">LOG_ID: VECTOR_CELL_INTERP</div>
-            <div class="entry-title">DYNAMIC NEURAL HAND-DRAWN AESTHETIC</div>
-            <div class="entry-data">
-                High-load cell-shading matrix for non-photorealistic rendering. Integrates dynamic line-weighting and 2.5D depth mapping for high-end international stylized production.
-            </div>
-            <div class="tech-spec">
-                <div class="pill">CELL_SHADE_v4</div><div class="pill">BYPASS_ENABLED</div><div class="pill">9K_OUTPUT</div>
+            <div class="tech-matrix">
+                <div class="pill">9K_NATIVE</div><div class="pill">STYLIZED_HQ</div><div class="pill">BYPASS_READY</div>
             </div>
         </div>
 
         <div class="log-entry">
-            <div class="entry-tag">LOG_ID: 3D_ANIMATE_PHYSICS</div>
-            <div class="entry-title">UNRESTRICTED KINEMATIC MOTION ENGINE</div>
+            <div class="entry-tag">FILE_REF: CELL_SHADE_INTERPOLATION</div>
+            <div class="entry-title">DYNAMIC NEURAL AESTHETIC v4</div>
             <div class="entry-data">
-                Real-time particle and fluid simulation for full-motion rendering. Bypasses standard cloud-processing latency to deliver raw uncompressed video data.
+                High-load cell-shading matrix optimized for international hand-drawn aesthetics. Interpolates 2D vector data into 9K depth-mapped environments for top-tier visual production.
             </div>
-            <div class="tech-spec">
-                <div class="pill">MOTION_BLUR_v9</div><div class="pill">GLOBAL_UPLINK</div><div class="pill">RAW_DATA</div>
+            <div class="tech-matrix">
+                <div class="pill">VECTOR_CORE</div><div class="pill">DEPTH_ENABLED</div><div class="pill">UNRESTRICTED</div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="entry-tag">FILE_REF: KINEMATIC_MOTION_PHYSICS</div>
+            <div class="entry-title">FULL-MOTION RAW DATA ENGINE</div>
+            <div class="entry-data">
+                Decentralized kinematic engine for full-blown motion rendering. Handles uncompressed fluid dynamics and particle physics across all global compute nodes.
+            </div>
+            <div class="tech-matrix">
+                <div class="pill">MOTION_HQ</div><div class="pill">NODE_SYNC</div><div class="pill">RAW_9K</div>
             </div>
         </div>
 
     </div>
 
     <div class="footer-nav">
-        <span>© 2026 KNOCKSSTUDiOS</span>
-        <a href="index.html">[ BACK_TO_COMMAND_HUB ]</a>
-        <span>SECURITY_PROTOCOL: ACTIVE</span>
+        <span>EST. 2026 // KNOCKS_GLOBAL_HUB</span>
+        <a href="index.html">[ RETURN_TO_COMMAND_CENTER ]</a>
+        <span>SECURED_LOGS // v9.4</span>
     </div>
 
 </body>
