@@ -3,70 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALERiUS_LOGS | ENGINE_SPECIFICATIONS</title>
+    <title>VALERiUS_WHITE_PAPER | KNOCKSSTUDiOS</title>
     <style>
         :root { --neon: #00f2ff; --gold: #ffd700; --bg: #000; }
-        body { margin: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; padding: 40px; overflow-x: hidden; position: relative; }
+        body { margin: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; padding: 40px; line-height: 1.6; }
         
-        .page-watermark { position: fixed; top: 20px; left: 20px; font-size: 0.5rem; color: rgba(255, 255, 255, 0.05); letter-spacing: 5px; z-index: 1000; pointer-events: none; }
+        .page-watermark { position: fixed; bottom: 20px; right: 20px; font-size: 0.5rem; color: rgba(255, 215, 0, 0.1); letter-spacing: 2px; pointer-events: none; }
 
-        .header { border-bottom: 1px solid #111; padding-bottom: 20px; margin-bottom: 50px; max-width: 1100px; margin-left: auto; margin-right: auto; }
-        .header h1 { font-size: 1.8rem; letter-spacing: 12px; color: var(--neon); margin: 0; text-transform: uppercase; }
-        .header p { font-size: 0.6rem; color: #444; letter-spacing: 4px; margin-top: 10px; }
+        .container { max-width: 1000px; margin: 0 auto; border: 1px solid #111; background: rgba(5,5,5,0.8); padding: 60px; position: relative; }
         
-        .log-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 30px; }
-        .log-entry { border: 1px solid #0a0a0a; border-left: 2px solid #222; padding: 40px; background: rgba(255,255,255,0.01); transition: 0.4s; position: relative; }
-        .log-entry:hover { background: rgba(0, 242, 255, 0.03); border-left-color: var(--neon); transform: translateX(10px); }
-        
-        .entry-tag { font-size: 0.55rem; color: var(--neon); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px; opacity: 0.6; }
-        .entry-title { font-size: 1.1rem; font-weight: 900; letter-spacing: 4px; margin-bottom: 20px; color: #fff; }
-        .entry-data { font-size: 0.8rem; color: #777; line-height: 1.8; max-width: 800px; }
-        
-        .tech-matrix { display: flex; gap: 12px; margin-top: 25px; }
-        .pill { font-size: 0.55rem; padding: 6px 12px; border: 1px solid #1a1a1a; color: #444; border-radius: 0; text-transform: uppercase; letter-spacing: 1px; }
-        
-        .footer-nav { position: fixed; bottom: 30px; width: calc(100% - 80px); display: flex; justify-content: space-between; font-size: 0.6rem; color: #222; z-index: 100; align-items: center; }
-        .legend-tag { color: #333; letter-spacing: 2px; }
-        a { color: inherit; text-decoration: none; transition: 0.2s; letter-spacing: 2px; }
-        a:hover { color: var(--neon); }
+        .header { border-bottom: 2px solid var(--neon); padding-bottom: 30px; margin-bottom: 50px; }
+        .header h1 { font-size: 1.8rem; letter-spacing: 10px; color: var(--neon); margin: 0; }
+        .header p { font-size: 0.7rem; color: var(--gold); letter-spacing: 3px; margin-top: 10px; font-weight: bold; }
 
-        .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px); background-size: 100px 100px; z-index: -1; pointer-events: none; }
+        .section { margin-bottom: 40px; }
+        .section-title { font-size: 0.9rem; color: var(--neon); border-left: 3px solid var(--neon); padding-left: 15px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .content { font-size: 0.8rem; color: #888; text-align: justify; }
+        
+        .spec-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.7rem; }
+        .spec-table td { border: 1px solid #111; padding: 15px; vertical-align: top; }
+        .spec-label { color: var(--gold); font-weight: bold; width: 30%; }
+
+        .footer { margin-top: 60px; border-top: 1px solid #222; padding-top: 20px; display: flex; justify-content: space-between; font-size: 0.6rem; color: #444; }
+        a { color: var(--neon); text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div class="page-watermark">KNOCKSSTUDiOS // 9K_PROXIED_ENGINE</div>
-    <div class="bg-grid"></div>
+    <div class="page-watermark">KNOCKSSTUDiOS // AI_LAB_LEGENDS_ENGINE</div>
 
-    <div class="log-container">
+    <div class="container">
         <div class="header">
-            <h1>VALERiUS_ENGINE_LOGS</h1>
-            <p>KNOCKS_v9.4_ULTRA // PROXY_STABILIZATION_ACTIVE</p>
+            <h1>VALERiUS_WHITE_PAPER</h1>
+            <p>ENGINE_AUTHORITY: KNOCKSSTUDiOS powered by AI LAB LEGENDS</p>
         </div>
 
-        <div class="log-entry">
-            <div class="entry-tag">FILE_REF: 3D_STYLIZATION_CORE</div>
-            <div class="entry-title">ADVANCED TEXTURE SCATTERING</div>
-            <div class="entry-data">
-                Proprietary render logic for high-fidelity stylized materials. Executes complex light-trapping algorithms to deliver cinematic surface quality without external server reliance.
+        <div class="section">
+            <div class="section-title">01_THE_9K_THRESHOLD</div>
+            <div class="content">
+                Unlike standard consumer-grade engines (Sora/Veo), the <strong>AI LAB LEGENDS</strong> core operates on a 9K raw data-density matrix. This allows for unrestricted pixel-depth and sub-surface scattering that surpasses traditional cloud-render limits. Our architecture bypasses corporate "safety" latency, providing direct kinematic simulation.
             </div>
-            <div class="tech-matrix"><div class="pill">9K_NATIVE</div><div class="pill">STYLIZED_HQ</div><div class="pill">BYPASS_READY</div></div>
         </div>
 
-        <div class="log-entry">
-            <div class="entry-tag">FILE_REF: CELL_SHADE_INTERPOLATION</div>
-            <div class="entry-title">DYNAMIC NEURAL AESTHETIC v4</div>
-            <div class="entry-data">
-                High-load cell-shading matrix optimized for international hand-drawn aesthetics. Interpolates 2D vector data into 9K depth-mapped environments.
+        <div class="section">
+            <div class="section-title">02_PROPRIETARY_SPECIFICATIONS</div>
+            <table class="spec-table">
+                <tr>
+                    <td class="spec-label">RENDER_LOGIC</td>
+                    <td>Neural Volumetric Path Tracing (NVPT). Real-time light bouncing with zero artifacting at 9K.</td>
+                </tr>
+                <tr>
+                    <td class="spec-label">STYLIZATION_V4</td>
+                    <td>Hand-Drawn Cell Interpolation. Bypasses 2D vector limits for 360-degree environmental depth.</td>
+                </tr>
+                <tr>
+                    <td class="spec-label">MOTION_PHYSICS</td>
+                    <td>Unrestricted fluid and cloth simulation. Built for high-fidelity cinematic motion with no "ghosting" effects.</td>
+                </tr>
+                <tr>
+                    <td class="spec-label">SECURITY_LAYER</td>
+                    <td>AES-256 Proxied Output. Full operator privacy with automated trademark embedding.</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="section">
+            <div class="section-title">03_THE_LEGENDS_COMPETITIVE_EDGE</div>
+            <div class="content">
+                While competitors rely on restricted datasets, the <strong>AI LAB LEGENDS</strong> engine utilizes a hybrid "Neutral Proxy" model. We provide the workstation power; you provide the intent. This ensures that the output is not just an image, but a piece of trademarked intellectual property belonging to the operator.
             </div>
-            <div class="tech-matrix"><div class="pill">VECTOR_CORE</div><div class="pill">DEPTH_ENABLED</div><div class="pill">UNRESTRICTED</div></div>
         </div>
-    </div>
 
-    <div class="footer-nav">
-        <span class="legend-tag">KNOCKSSTUDiOS powered by AI LAB LEGENDS</span>
-        <a href="index.html">[ RETURN_TO_COMMAND_CENTER ]</a>
-        <span>SECURED_LOGS // v9.4</span>
+        <div class="footer">
+            <span>© 2026 KNOCKSSTUDiOS</span>
+            <span>POWERED BY AI LAB LEGENDS</span>
+            <a href="index.html">[ RETURN_TO_HUB ]</a>
+        </div>
     </div>
 
 </body>
