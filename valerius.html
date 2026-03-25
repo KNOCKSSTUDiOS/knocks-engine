@@ -3,64 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VALERiUS_ARCHiVE | ENGINE_SPECIFICATIONS</title>
+    <title>VALERiUS_LOGS | KNOCKS_PROXIED_ENGINE</title>
     <style>
         :root { --neon: #00f2ff; --bg: #000; }
         body { margin: 0; background: var(--bg); color: #fff; font-family: 'Courier New', monospace; padding: 40px; }
         
-        .header { border-bottom: 1px solid #222; padding-bottom: 20px; margin-bottom: 50px; }
-        .header h1 { font-size: 1.5rem; letter-spacing: 10px; color: var(--neon); }
+        .header { border-bottom: 1px solid #111; padding-bottom: 20px; margin-bottom: 50px; }
+        .header h1 { font-size: 1.8rem; letter-spacing: 12px; color: var(--neon); margin: 0; }
+        .header p { font-size: 0.6rem; color: #444; letter-spacing: 4px; margin-top: 5px; }
         
-        .spec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .spec-card { border: 1px solid #111; padding: 30px; background: rgba(255,255,255,0.01); transition: 0.3s; }
-        .spec-card:hover { border-color: var(--neon); background: rgba(0,242,255,0.02); }
+        .log-container { max-width: 1100px; margin: 0 auto; }
+        .log-entry { border-left: 1px solid #222; padding: 30px; margin-bottom: 30px; background: rgba(255,255,255,0.01); transition: 0.3s; }
+        .log-entry:hover { background: rgba(0, 242, 255, 0.02); border-left-color: var(--neon); }
         
-        .spec-title { font-size: 0.9rem; font-weight: bold; color: var(--neon); margin-bottom: 15px; border-left: 2px solid var(--neon); padding-left: 10px; }
-        .spec-data { font-size: 0.7rem; color: #666; line-height: 1.8; }
+        .entry-tag { font-size: 0.5rem; color: var(--neon); text-transform: uppercase; margin-bottom: 10px; opacity: 0.6; }
+        .entry-title { font-size: 1rem; font-weight: 900; letter-spacing: 3px; margin-bottom: 15px; }
+        .entry-data { font-size: 0.75rem; color: #888; line-height: 1.8; }
         
-        .tag { display: inline-block; padding: 3px 8px; background: #111; color: var(--neon); font-size: 0.6rem; margin-right: 5px; margin-top: 10px; }
+        .tech-spec { display: flex; gap: 10px; margin-top: 20px; }
+        .pill { font-size: 0.55rem; padding: 4px 10px; border: 1px solid #333; color: #555; border-radius: 2px; }
         
-        .back-link { position: fixed; bottom: 30px; left: 40px; color: #333; text-decoration: none; font-size: 0.7rem; }
-        .back-link:hover { color: var(--neon); }
+        .footer-nav { position: fixed; bottom: 30px; width: calc(100% - 80px); display: flex; justify-content: space-between; font-size: 0.6rem; color: #222; }
+        a { color: inherit; text-decoration: none; }
+        a:hover { color: var(--neon); }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>VALERiUS_iNTEL_ARCHiVE</h1>
-        <p style="font-size: 0.6rem; color: #444; letter-spacing: 2px;">NON-INFRINGING_NEUTRAL_PROXY_LOGS // v9.4</p>
+    <div class="log-container">
+        <div class="header">
+            <h1>ENGINE_SPECIFICATIONS</h1>
+            <p>KNOCKS_v9.4_ULTRA_CORE // NEUTRAL_DASHBOARD</p>
+        </div>
+
+        <div class="log-entry">
+            <div class="entry-tag">LOG_ID: STYLIZED_3D_CORE</div>
+            <div class="entry-title">PROPRIETARY SUB-SURFACE SCATTERING (SSS)</div>
+            <div class="entry-data">
+                Advanced physics-based rendering for high-fidelity stylized assets. Capable of generating cinematic "soft-surface" textures and global illumination signatures consistent with major global animation standards.
+            </div>
+            <div class="tech-spec">
+                <div class="pill">9K_NATIVE</div><div class="pill">RAY_TRACING</div><div class="pill">UNRESTRICTED</div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="entry-tag">LOG_ID: VECTOR_CELL_INTERP</div>
+            <div class="entry-title">DYNAMIC NEURAL HAND-DRAWN AESTHETIC</div>
+            <div class="entry-data">
+                High-load cell-shading matrix for non-photorealistic rendering. Integrates dynamic line-weighting and 2.5D depth mapping for high-end international stylized production.
+            </div>
+            <div class="tech-spec">
+                <div class="pill">CELL_SHADE_v4</div><div class="pill">BYPASS_ENABLED</div><div class="pill">9K_OUTPUT</div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="entry-tag">LOG_ID: 3D_ANIMATE_PHYSICS</div>
+            <div class="entry-title">UNRESTRICTED KINEMATIC MOTION ENGINE</div>
+            <div class="entry-data">
+                Real-time particle and fluid simulation for full-motion rendering. Bypasses standard cloud-processing latency to deliver raw uncompressed video data.
+            </div>
+            <div class="tech-spec">
+                <div class="pill">MOTION_BLUR_v9</div><div class="pill">GLOBAL_UPLINK</div><div class="pill">RAW_DATA</div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="spec-grid">
-        <div class="spec-card">
-            <div class="spec-title">SIGNATURE_STYLIZED_3D</div>
-            <div class="spec-data">
-                Proprietary sub-surface scattering algorithms capable of replicating high-end cinematic "Toy-Grade" textures and global illumination.
-                <br>
-                <span class="tag">9K_RENDER</span> <span class="tag">PHYSICS_ENABLED</span>
-            </div>
-        </div>
-
-        <div class="spec-card">
-            <div class="spec-title">SIGNATURE_CELL_SHADE_PRO</div>
-            <div class="spec-data">
-                Dynamic line-weight rendering and hand-drawn aesthetic interpolation. Bypasses standard 2D vector limits for full 9K depth.
-                <br>
-                <span class="tag">ULTRA_ANIME</span> <span class="tag">STORYBOARD_GEN</span>
-            </div>
-        </div>
-
-        <div class="spec-card">
-            <div class="spec-title">SIGNATURE_ARCH_VIZ</div>
-            <div class="spec-data">
-                Photorealistic lighting engine for commercial-grade product renders. Surpasses traditional "Firefly" lighting constraints.
-                <br>
-                <span class="tag">COMMERCIAL_READY</span> <span class="tag">RAY_TRACING</span>
-            </div>
-        </div>
+    <div class="footer-nav">
+        <span>© 2026 KNOCKSSTUDiOS</span>
+        <a href="index.html">[ BACK_TO_COMMAND_HUB ]</a>
+        <span>SECURITY_PROTOCOL: ACTIVE</span>
     </div>
-
-    <a href="index.html" class="back-link">[ RETURN_TO_HUB ]</a>
 
 </body>
 </html>
