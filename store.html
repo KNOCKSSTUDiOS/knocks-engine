@@ -3,162 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | THE ARCHiVE & STORE</title>
+    <title>THE ARCHiVE | HOLLYWOODiMAGiNG.STUDiO</title>
     <style>
-        body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
+        .header { padding: 40px; border-bottom: 1px solid #111; display: flex; justify-content: space-between; align-items: center; }
+        .brand-sig { font-weight: 900; letter-spacing: 5px; color: #00f2ff; text-transform: none; }
         
-        /* THE BACKGROUND GRADiENT */
-        .bg-glow {
-            position: fixed; inset: 0;
-            background: radial-gradient(circle at top right, rgba(0, 242, 255, 0.1), transparent 50%),
-                        radial-gradient(circle at bottom left, rgba(255, 0, 255, 0.05), transparent 50%);
-            z-index: -1;
-        }
-
-        /* HEADER & SIGNATURE */
-        .header { text-align: center; padding: 60px 20px; }
-        .signature { font-size: clamp(1.5rem, 5vw, 3rem); letter-spacing: 15px; font-weight: 900; color: #fff; text-shadow: 0 0 20px #00f2ff; text-transform: none; }
-        .sub-tag { letter-spacing: 5px; color: #444; font-size: 0.8rem; margin-top: 10px; }
-
-        /* COiN METER */
-        .coin-meter { position: fixed; top: 20px; right: 20px; border: 1px solid #ffd700; padding: 12px 25px; color: #ffd700; font-weight: bold; background: rgba(0,0,0,0.9); z-index: 100; box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
-
-        /* STORE GRiD */
-        .store-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 20px; max-width: 1200px; margin: auto; }
-
-        .card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid #222;
-            padding: 40px;
-            width: 350px;
-            text-align: center;
-            transition: 0.4s ease;
-            position: relative;
-        }
-        .card:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.15); transform: translateY(-5px); }
+        /* CREDiT METER */
+        .meter { border: 1px solid #ffd700; padding: 10px 25px; color: #ffd700; font-weight: bold; background: rgba(255, 215, 0, 0.05); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
         
-        .bonus-tag { background: #ffd700; color: #000; font-weight: bold; padding: 6px 15px; font-size: 0.7rem; position: absolute; top: 15px; right: 15px; letter-spacing: 1px; }
+        /* ARCHiVE GRiD */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px; }
+        .card { background: #050505; border: 1px solid #222; padding: 40px; text-align: center; position: relative; transition: 0.4s; }
+        .card:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
+        .price { font-size: 3rem; color: #00f2ff; margin: 20px 0; font-weight: 900; }
+        .btn { width: 100%; padding: 15px; background: transparent; border: 1px solid #00f2ff; color: #00f2ff; cursor: pointer; font-weight: bold; letter-spacing: 3px; }
         
-        .price { font-size: 3.5rem; font-weight: 900; margin: 25px 0; color: #00f2ff; text-shadow: 0 0 10px rgba(0, 242, 255, 0.3); }
-        .price span { font-size: 1rem; color: #444; }
-
-        .feature-list { list-style: none; padding: 0; margin: 30px 0; color: #888; line-height: 2.2; text-align: left; }
-        .feature-list b { color: #fff; }
-
-        .buy-btn {
-            width: 100%; padding: 18px; background: transparent; border: 1px solid #00f2ff; 
-            color: #00f2ff; font-weight: bold; cursor: pointer; letter-spacing: 4px; transition: 0.3s;
-        }
-        .buy-btn:hover { background: #00f2ff; color: #000; box-shadow: 0 0 30px #00f2ff; }
-
-        /* THE LiVE ARCHiVE */
-        .archive-section { margin-top: 80px; padding: 60px 20px; background: rgba(0,0,0,0.5); border-top: 1px solid #111; }
-        .archive-title { letter-spacing: 10px; text-align: center; color: #333; margin-bottom: 40px; font-size: 1.2rem; }
-        
-        .archive-scroll { display: flex; gap: 20px; overflow-x: hidden; white-space: nowrap; padding: 20px 0; }
-        .archive-item { 
-            min-width: 280px; background: #050505; border: 1px solid #151515; padding: 20px; 
-            display: inline-block; transition: 0.3s; 
-        }
-        .archive-item:hover { border-color: #333; }
-        .preview-box { width: 100%; height: 150px; background: #0a0a0a; border: 1px solid #111; display: flex; align-items: center; justify-content: center; color: #222; font-size: 0.8rem; }
-        .status-line { margin-top: 15px; font-size: 0.7rem; letter-spacing: 2px; }
+        .archive-log { padding: 50px; border-top: 1px solid #111; color: #333; font-size: 0.7rem; }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-    <div class="coin-meter">CREDITS: 2000</div>
+    <div class="header">
+        <div class="brand-sig">HOLLYWOODiMAGiNG.STUDiO</div>
+        <div class="meter" id="coin-display">CREDiTS: 0</div>
+    </div>
 
-    <header class="header">
-        <div class="signature">KNOCKSSTUDiOS</div>
-        <div class="sub-tag">LEGENDARY SUBSCRiPTiON LAYERS</div>
-    </header>
-
-    <main class="store-grid">
-        <article class="card">
-            <div class="bonus-tag">iNSTANT +2000 COiNS</div>
-            <h2 style="letter-spacing: 3px;">MONTHLY ACCESS</h2>
-            <div class="price">$29.99<span>/mo</span></div>
-            <ul class="feature-list">
-                <li>• <b>5sec</b> High-Quality Renders</li>
-                <li>• <b>1000 Coins</b> Per Video</li>
-                <li>• Obsidian Server Priority</li>
-                <li>• Multi-Color Render Engine</li>
-            </ul>
-            <button class="buy-btn" onclick="initiateGate()">iNiTiATE MONTHLY</button>
-        </article>
-
-        <article class="card" style="border-color: #ffd700;">
-            <div class="bonus-tag" style="background: #00f2ff;">BEST VALUE</div>
-            <h2 style="letter-spacing: 3px; color: #ffd700;">YEARLY LEGEND</h2>
-            <div class="price" style="color: #ffd700;">$249.99<span>/yr</span></div>
-            <ul class="feature-list">
-                <li>• <b>Unlimited</b> 5sec HQ Clips</li>
-                <li>• <b>Bonus</b> Daily Coin Drop</li>
-                <li>• Legendary Status Badge</li>
-                <li>• Full Lab Access (Valerius 9K)</li>
-            </ul>
-            <button class="buy-btn" style="border-color: #ffd700; color: #ffd700;" onclick="initiateGate()">iNiTiATE YEARLY</button>
-        </article>
-    </main>
-
-    <section class="archive-section">
-        <h2 class="archive-title">THE ARCHiVE | LiVE RENDER FEED</h2>
-        <div class="archive-scroll" id="scrollContainer">
-            <div class="archive-item">
-                <div class="preview-box">DATA_STREAM_A7</div>
-                <div class="status-line" style="color: #00f2ff;">COMPLETE</div>
-                <div style="font-size: 0.6rem; color: #444;">RENDER TiME: 4.9s | LEGEND_01</div>
-            </div>
-            <div class="archive-item">
-                <div class="preview-box" style="color: #00f2ff;">ENCRYPTiNG...</div>
-                <div class="status-line" style="color: #ffd700;">PROCESSiNG</div>
-                <div style="font-size: 0.6rem; color: #444;">RENDER TiME: PENDiNG | USER_882</div>
-            </div>
-            <div class="archive-item">
-                <div class="preview-box">DATA_STREAM_A9</div>
-                <div class="status-line" style="color: #00f2ff;">COMPLETE</div>
-                <div style="font-size: 0.6rem; color: #444;">RENDER TiME: 5.0s | LEGEND_12</div>
-            </div>
-            <div class="archive-item">
-                <div class="preview-box">DATA_STREAM_B2</div>
-                <div class="status-line" style="color: #00f2ff;">COMPLETE</div>
-                <div style="font-size: 0.6rem; color: #444;">RENDER TiME: 4.7s | USER_004</div>
-            </div>
+    <div class="grid">
+        <div class="card">
+            <h3>MONTHLY LEGEND</h3>
+            <div class="price">$29.99</div>
+            <p>• 5sec HQ Renders</p>
+            <p>• +2000 Bonus Coins</p>
+            <button class="btn" onclick="render()">iNiTiATE RENDER</button>
         </div>
-    </section>
+        <div class="card" style="border-color: #ffd700;">
+            <h3 style="color: #ffd700;">ANNUAL STUDiO</h3>
+            <div class="price" style="color: #ffd700;">$249.99</div>
+            <p>• Unlimited 5sec Clips</p>
+            <p>• Priority Encryption</p>
+            <button class="btn" style="border-color: #ffd700; color: #ffd700;" onclick="render()">iNiTiATE RENDER</button>
+        </div>
+    </div>
+
+    <div class="archive-log" id="log-feed">
+        [SYSTEM] ARCHiVE_BOT_ONLINE...<br>
+        [SYSTEM] 9K_ULTRA_ENGiNE_ACTiVE...
+    </div>
 
     <script>
-        // 1. AUDIO ENGINE (Sword Whoosh + Deep Hum)
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        function initiateGate() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+        // LOAD COiNS ON LANDiNG
+        const coins = localStorage.getItem('knocks_credits') || "0";
+        document.getElementById('coin-display').innerText = `CREDiTS: ${coins}`;
 
-            // The Sword Whoosh Sound
-            const osc = audioCtx.createOscillator();
-            const g = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.4);
-            g.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
-            osc.connect(g); g.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.4);
-
-            alert("CONNECTiNG TO KNOCKSSTUDiOS SECURE PAYMENT GATEWAY...");
-        }
-
-        // 2. ARCHiVE AUTO-SCROLL
-        const scrollContainer = document.getElementById('scrollContainer');
-        function autoScroll() {
-            scrollContainer.scrollLeft += 1;
-            if (scrollContainer.scrollLeft >= (scrollContainer.scrollWidth - scrollContainer.clientWidth)) {
-                scrollContainer.scrollLeft = 0;
+        function render() {
+            const current = parseInt(localStorage.getItem('knocks_credits'));
+            if(current >= 1000) {
+                const newTotal = current - 1000;
+                localStorage.setItem('knocks_credits', newTotal);
+                document.getElementById('coin-display').innerText = `CREDiTS: ${newTotal}`;
+                document.getElementById('log-feed').innerHTML += `<br>[BOT] RENDER_START: 5.0s HQ_LAYER...`;
+                alert("RENDER iNiTiATED. HQ FiLE ENCRYPTiNG.");
+            } else {
+                alert("iNSUFFiCiENT CREDiTS. TOP UP iN THE STUDiO.");
             }
         }
-        setInterval(autoScroll, 25);
     </script>
 </body>
 </html>
