@@ -3,127 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | ADMIN CONTROL</title>
+    <title>KNOCKSSTUDiOS | AUTO-ENGINE</title>
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
-        
-        /* COSMO ENGINE */
-        #canvas-bg { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow: hidden; }
+        #canvas-bg { position: fixed; inset: 0; z-index: 1; }
         .eye-wrap { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; }
-        .plasma-rim {
-            width: 350px; height: 350px; border-radius: 50%; padding: 4px;
-            background: conic-gradient(from 0deg, #00f2ff, #ff00ff, #ffd700, #00f2ff);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude; animation: spin 4s linear infinite;
-        }
-        .core-glow {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 70px; height: 70px; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 50px #fff, 0 0 100px #00f2ff, 0 0 200px #ff00ff;
-            animation: pulse 2s infinite alternate;
-        }
-
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes pulse { from { scale: 0.8; opacity: 0.6; } to { scale: 1.1; opacity: 1; } }
-
-        /* BRANDING & HIDDEN ADMIN CLICK */
-        .brand {
-            position: absolute; top: 50%; width: 100%; text-align: center;
-            transform: translateY(-50%); font-size: 3rem; font-weight: 900;
-            letter-spacing: 15px; z-index: 10; text-transform: none;
-            text-shadow: 0 0 30px rgba(0, 242, 255, 0.8);
-        }
-        .admin-trigger { cursor: pointer; color: inherit; text-decoration: none; }
-
-        /* UI ELEMENTS */
+        .plasma-rim { width: 380px; height: 380px; border-radius: 50%; padding: 4px; background: conic-gradient(from 0deg, #00f2ff, #ff00ff, #ffd700, #00f2ff); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; animation: spin 4s linear infinite; }
+        .core-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80px; height: 80px; background: #fff; border-radius: 50%; box-shadow: 0 0 60px #fff, 0 0 120px #00f2ff; animation: pulse 2s infinite alternate; }
+        .brand { position: absolute; top: 50%; width: 100%; text-align: center; transform: translateY(-50%); font-size: 3.5rem; font-weight: 900; letter-spacing: 15px; z-index: 10; text-transform: none; text-shadow: 0 0 30px #00f2ff; pointer-events: none; }
         .ui-nav { position: absolute; bottom: 10%; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 20; }
-        .btn { padding: 15px 50px; background: rgba(0,0,0,0.8); border: 1px solid #00f2ff; color: #00f2ff; font-weight: bold; cursor: pointer; letter-spacing: 5px; }
-
-        /* ADMIN PANEL OVERLAY */
-        #admin-panel { 
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); 
-            z-index: 1000; flex-direction: column; align-items: center; justify-content: center;
-        }
-        .admin-box { border: 1px solid #ffd700; padding: 40px; background: #050505; text-align: center; box-shadow: 0 0 50px rgba(255, 215, 0, 0.2); }
-        input { background: #000; border: 1px solid #333; color: #ffd700; padding: 10px; margin: 10px; width: 250px; outline: none; }
+        .btn { padding: 20px 60px; background: rgba(0,0,0,0.9); border: 1px solid #00f2ff; color: #00f2ff; font-weight: bold; cursor: pointer; letter-spacing: 5px; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse { from { scale: 0.9; } to { scale: 1.1; } }
     </style>
 </head>
 <body>
 
     <canvas id="canvas-bg"></canvas>
-
-    <div class="eye-wrap">
-        <div class="plasma-rim"></div>
-        <div class="core-glow"></div>
-    </div>
-
-    <div class="brand">
-        KNOCKSSTUDiO<span class="admin-trigger" onclick="openAdmin()">S</span>
-    </div>
+    <div class="eye-wrap"><div class="plasma-rim"></div><div class="core-glow"></div></div>
+    <div class="brand">KNOCKSSTUDiOS</div>
 
     <div class="ui-nav">
-        <button class="btn" onclick="whoosh()">LOGiN</button>
-        <button class="btn" onclick="whoosh()">SiGN UP</button>
-    </div>
-
-    <div id="admin-panel">
-        <div class="admin-box">
-            <h2 style="color: #ffd700; letter-spacing: 5px;">COMMANDER LOGIN</h2>
-            <input type="text" id="admin-user" placeholder="CODENAME"><br>
-            <input type="password" id="admin-pass" placeholder="ACCESS KEY"><br>
-            <button class="btn" style="border-color: #ffd700; color: #ffd700;" onclick="checkAdmin()">ACCESS ENGINE</button>
-            <button class="btn" style="border:none; font-size: 0.7rem; margin-top: 10px;" onclick="closeAdmin()">CANCEL</button>
-        </div>
+        <button class="btn" onclick="autoIgnite()">SiGN UP</button>
     </div>
 
     <script>
-        // 1. COSMO WAVE ENGINE
+        // 1. AUTOMATED CANVAS ENGINE
         const canvas = document.getElementById('canvas-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         function animate() {
             ctx.fillStyle = 'rgba(0,0,0,0.1)'; ctx.fillRect(0,0,canvas.width, canvas.height);
-            ctx.strokeStyle = '#00f2ff'; ctx.lineWidth = 1; ctx.beginPath();
-            let t = Date.now() * 0.001;
-            for(let x=0; x<canvas.width; x+=5) {
-                let y = (canvas.height/2) + Math.sin(x*0.01 + t)*60;
+            ctx.strokeStyle = '#00f2ff'; ctx.lineWidth = 2; ctx.beginPath();
+            let t = Date.now() * 0.002;
+            for(let x=0; x<canvas.width; x+=10) {
+                let y = (canvas.height/2) + Math.sin(x*0.01 + t)*80;
                 ctx.lineTo(x, y);
             }
             ctx.stroke(); requestAnimationFrame(animate);
         }
         animate();
 
-        // 2. ADMIN LOGIC
-        function openAdmin() { document.getElementById('admin-panel').style.display = 'flex'; }
-        function closeAdmin() { document.getElementById('admin-panel').style.display = 'none'; }
-        
-        function checkAdmin() {
-            const user = document.getElementById('admin-user').value;
-            const pass = document.getElementById('admin-pass').value;
-            
-            // SET YOUR CREDENTIALS HERE
-            if(user === "LEGEND" && pass === "KNOCKS9K") {
-                alert("WELCOME COMMANDER. ENGINE UNLOCKED.");
-                localStorage.setItem('admin_auth', 'true');
-                window.location.href = "store.html"; // Or your admin dashboard
-            } else {
-                alert("ACCESS DENIED. IP LOGGED.");
-                closeAdmin();
-            }
-        }
+        // 2. THE BOT & EMAIL AUTOMATION SYSTEM
+        function autoIgnite() {
+            const email = prompt("ENTER YOUR EMAiL FOR COiN ACTiVATiON:");
+            if (!email) return;
 
-        // 3. AUDIO WHOOSH
-        function whoosh() {
+            // WHOOSH SOUND
             const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = audioCtx.createOscillator();
             const g = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.4);
-            g.gain.setValueAtTime(0.2, audioCtx.currentTime);
-            g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
+            osc.type = 'sawtooth'; osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.4);
+            g.gain.setValueAtTime(0.2, audioCtx.currentTime); g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
             osc.connect(g); g.connect(audioCtx.destination);
             osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+
+            // BOT LOGIC: Automating coin injection & Email Reply
+            console.log(`BOT: Syncing with ${email}...`);
+            console.log(`BOT: Injecting 2000 credits to signature chain...`);
+            
+            // AUTOMATED EMAIL REPLY TRIGGER (Simulated for Vercel)
+            alert(`AUTOMATED MESSAGE SENT TO: ${email}\n\n"WELCOME TO KNOCKSSTUDiOS. YOUR 2000 COiNS ARE ACTiVE. 1000/PER HQ RENDER REJECTED TO ACCOUNT."`);
+            
+            // SAVE TO BROWSER AUTO-LOG
+            localStorage.setItem('knocks_user_email', email);
+            localStorage.setItem('knocks_credits', '2000');
+            
+            window.location.href = "store.html";
         }
     </script>
 </body>
