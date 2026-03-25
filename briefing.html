@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECURE_BRIEFING | KNOCKSSTUDiOS</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        :root { --neon: #00f2ff; --gold: #ffd700; --bg: #000; }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        
+        .briefing-box { width: 100%; max-width: 700px; border: 1px solid #111; background: rgba(5,5,5,0.95); padding: 40px; position: relative; backdrop-filter: blur(15px); }
+        .header { border-bottom: 1px solid #222; margin-bottom: 30px; padding-bottom: 15px; }
+        .header h1 { font-size: 1.2rem; letter-spacing: 8px; color: var(--neon); margin: 0; }
+        
+        .form-group { margin-bottom: 25px; }
+        label { display: block; font-size: 0.6rem; color: #555; margin-bottom: 10px; letter-spacing: 2px; }
+        
+        input, select, textarea { 
+            width: 100%; background: #080808; border: 1px solid #222; color: #fff; 
+            padding: 15px; font-family: 'Courier New'; outline: none; border-radius: 0; box-sizing: border-box;
+        }
+        input:focus, textarea:focus { border-color: var(--neon); }
+        
+        .submit-btn { 
+            width: 100%; padding: 20px; background: transparent; border: 1px solid var(--neon); 
+            color: var(--neon); font-weight: 900; cursor: pointer; letter-spacing: 5px; 
+            transition: 0.3s;
+        }
+        .submit-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 30px rgba(0,242,255,0.3); }
+
+        #status { font-size: 0.6rem; color: var(--gold); margin-top: 15px; text-align: center; height: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="briefing-box">
+        <div class="header">
+            <h1>PROJECT_BRIEFING_v1.0</h1>
+            <p style="font-size: 0.5rem; color: #444; margin-top: 5px;">ENCRYPTED_SUBMISSION_CHANNEL</p>
+        </div>
+
+        <form id="briefing-form">
+            <div class="form-group">
+                <label>OPERATOR_ID (EMAIL)</label>
+                <input type="email" id="from_email" required placeholder="name@domain.com">
+            </div>
+
+            <div class="form-group">
+                <label>RENDER_STYLE_TARGET</label>
+                <select id="render_style">
+                    <option>STYLIZED_3D_CORE</option>
+                    <option>HAND-DRAWN_CELL_V4</option>
+                    <option>PHOTOREAL_MOTION_HQ</option>
+                    <option>CUSTOM_HYBRID_ENGINE</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>PROJECT_DETAILS (NO RESTRICTIONS)</label>
+                <textarea id="message" rows="5" required placeholder="DESCRIBE YOUR VISION..."></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submit-btn">SEND ENCRYPTED BRIEF</button>
+        </form>
+
+        <div id="status"></div>
+
+        <div style="margin-top: 30px; text-align: center;">
+            <a href="index.html" style="color: #222; text-decoration: none; font-size: 0.6rem;">[ DISCONNECT_SESSION ]</a>
+        </div>
+    </div>
+
+    <script>
+        emailjs.init("0orOwiW9_U2sNzWLf");
+
+        document.getElementById('briefing-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const status = document.getElementById('status');
+            
+            btn.innerText = "UPLOADING...";
+            btn.disabled = true;
+
+            const params = {
+                from_email: document.getElementById('from_email').value,
+                render_style: document.getElementById('render_style').value,
+                message: document.getElementById('message').value
+            };
+
+            emailjs.send("service_default", "template_default", params)
+                .then(() => {
+                    status.innerText = "SUCCESS: BRIEFING TRANSMITTED.";
+                    btn.innerText = "TRANSMISSION_COMPLETE";
+                    setTimeout(() => { window.location.href = "index.html"; }, 2000);
+                }, (err) => {
+                    status.innerText = "ERROR: UPLINK_FAILED. TRY AGAIN.";
+                    btn.disabled = false;
+                    btn.innerText = "RE-ATTEMPT SEND";
+                });
+        });
+    </script>
+</body>
+</html>
