@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K_APEX_ENGINE | UNRESTRICTED_OUTPUT</title>
+    <title>KNOCKS_CORE | 9K_RENDER_ENGINE</title>
     <style>
         :root { --neon: #00f2ff; --gold: #ffd700; --bg: #000; }
         body { margin: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
         
-        .engine-wrap { width: 90%; max-width: 900px; border: 1px solid #111; background: rgba(5,5,5,0.9); padding: 50px; position: relative; backdrop-filter: blur(20px); }
-        .engine-wrap::before { content: "COPYRIGHT_BYPASS_ACTIVE"; position: absolute; top: 10px; left: 10px; font-size: 0.5rem; color: var(--gold); letter-spacing: 2px; }
+        .engine-wrap { width: 90%; max-width: 900px; border: 1px solid #111; background: rgba(5,5,5,0.95); padding: 50px; position: relative; backdrop-filter: blur(20px); box-shadow: 0 0 40px rgba(0,0,0,1); }
+        .engine-wrap::before { content: "UNRESTRICTED_ACCESS_v9.4"; position: absolute; top: 10px; left: 10px; font-size: 0.5rem; color: var(--gold); letter-spacing: 2px; }
 
         .header { border-bottom: 1px solid #222; padding-bottom: 20px; margin-bottom: 30px; }
         .header h1 { font-size: 1.5rem; letter-spacing: 8px; color: var(--neon); margin: 0; }
-        .header p { font-size: 0.6rem; color: #444; margin-top: 10px; }
+        .header p { font-size: 0.6rem; color: #444; margin-top: 10px; letter-spacing: 2px; }
 
-        /* THE STYLE MATRIX */
         .matrix-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
         .input-group { background: #080808; border: 1px solid #1a1a1a; padding: 20px; }
         label { display: block; font-size: 0.6rem; color: var(--neon); margin-bottom: 10px; letter-spacing: 2px; }
         
         select, input { 
             width: 100%; background: #000; border: 1px solid #333; color: #fff; 
-            padding: 12px; font-family: 'Courier New'; outline: none; font-size: 0.8rem;
+            padding: 12px; font-family: 'Courier New'; outline: none; font-size: 0.8rem; box-sizing: border-box;
         }
-        select:focus { border-color: var(--neon); }
+        select:focus, input:focus { border-color: var(--neon); }
 
-        /* PROGRESS */
         .progress-container { height: 2px; background: #111; margin: 40px 0; overflow: hidden; }
         .bar { width: 0%; height: 100%; background: var(--gold); box-shadow: 0 0 15px var(--gold); transition: 0.1s; }
 
@@ -38,93 +36,20 @@
         .ignite-btn:hover { background: #fff; box-shadow: 0 0 50px rgba(255,255,255,0.2); }
         .ignite-btn:disabled { background: #111; color: #333; cursor: not-allowed; }
 
-        #console { font-size: 0.65rem; color: var(--gold); margin-top: 20px; min-height: 20px; text-transform: uppercase; }
+        #console { font-size: 0.65rem; color: var(--gold); margin-top: 20px; min-height: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        #coin-info { text-align: right; font-size: 0.7rem; color: var(--gold); margin-bottom: 10px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <div class="engine-wrap">
         <div class="header">
-            <h1>9K_UNRESTRICTED_ENGINE</h1>
-            <p>FULL BLOWN ENGINE // NO COPYRIGHT RESTRICTIONS // PIXAR_ANIME_3D_ANIMATE_BYPASS</p>
+            <h1>9K_RENDER_CORE</h1>
+            <p>FULL_STYLE_CAPABILITY // NEUTRAL_PROXY_OUTPUT</p>
         </div>
 
         <div class="matrix-grid">
             <div class="input-group">
                 <label>TARGET_AESTHETIC</label>
                 <select id="style">
-                    <option value="pixar">PIXAR_HYPER-REALISM</option>
-                    <option value="anime">JAPAN_ANIME_v4 (MAPPA/WIT)</option>
-                    <option value="animate">3D_ANIMATE_PRO (FULL MOTION)</option>
-                    <option value="commercial">COMMERCIAL_8K_PHOTO</option>
-                    <option value="custom">UNRESTRICTED_RAW_DATA</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label>OUTPUT_RESOLUTION</label>
-                <select id="res">
-                    <option>9K_ULTRA_RAW</option>
-                    <option>8K_CINEMATIC</option>
-                    <option>4K_SOCIAL_VERTICAL</option>
-                </select>
-            </div>
-            <div class="input-group" style="grid-column: span 2;">
-                <label>PROMPT_STRING (NO FILTERS)</label>
-                <input type="text" id="prompt" placeholder="DESCRIBE ANYTHING. NO LIMITS.">
-            </div>
-        </div>
-
-        <div id="coin-info" style="text-align: right; font-size: 0.7rem; color: var(--gold); margin-bottom: 10px;">CREDITS: 2000</div>
-
-        <button class="ignite-btn" id="burn-btn" onclick="startRender()">EXECUTE UNRESTRICTED RENDER</button>
-
-        <div class="progress-container"><div class="bar" id="fill"></div></div>
-        
-        <div id="console">SYSTEM_IDLE... WAITING FOR INPUT</div>
-
-        <div style="margin-top: 30px; text-align: center;">
-            <a href="index.html" style="color: #222; text-decoration: none; font-size: 0.6rem;">[ DISCONNECT_NODE ]</a>
-        </div>
-    </div>
-
-    <script>
-        let credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
-        document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
-
-        if(credits < 1000) {
-            document.getElementById('burn-btn').disabled = true;
-            document.getElementById('console').innerText = "FATAL: INSUFFICIENT CREDITS";
-        }
-
-        function startRender() {
-            const prompt = document.getElementById('prompt').value;
-            if(!prompt) { alert("PROMPT MATRIX EMPTY"); return; }
-
-            credits -= 1000;
-            localStorage.setItem('knocks_credits', credits);
-            document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
-            document.getElementById('burn-btn').disabled = true;
-
-            let progress = 0;
-            const bar = document.getElementById('fill');
-            const log = document.getElementById('console');
-
-            const run = setInterval(() => {
-                progress += 0.5;
-                bar.style.width = progress + "%";
-
-                if(progress == 10) log.innerText = "BYPASSING COPYRIGHT_SENSORS...";
-                if(progress == 30) log.innerText = "INJECTING PIXAR_SHADING_ALGORITHMS...";
-                if(progress == 60) log.innerText = "ANIMATING 9K FRAME_MATRIX...";
-                if(progress == 90) log.innerText = "FINALIZING UNRESTRICTED OUTPUT...";
-
-                if(progress >= 100) {
-                    clearInterval(run);
-                    log.innerText = "SUCCESS: FILE GENERATED. BYPASS COMPLETE.";
-                    alert("RENDER COMPLETE. CHECK YOUR ARCHIVE.");
-                }
-            }, 50);
-        }
-    </script>
-</body>
-</html>
+                    <option value="stylized_
