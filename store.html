@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KNOCKSSTUDiOS | THE ARCHIVE</title>
+    <style>
+        body, html { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
+        
+        .header { text-align: center; padding: 50px 0; border-bottom: 1px solid #222; }
+        .signature { font-size: 2.5rem; letter-spacing: 15px; font-weight: 900; color: #fff; text-shadow: 0 0 20px #00f2ff; }
+        
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px; max-width: 1200px; margin: auto; }
+
+        /* SUBSCRIPTION CARDS */
+        .card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #333;
+            padding: 40px;
+            text-align: center;
+            transition: 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); transform: translateY(-10px); }
+        
+        .bonus-tag { background: #ffd700; color: #000; font-weight: bold; padding: 5px 15px; font-size: 0.8rem; position: absolute; top: 10px; right: 10px; }
+        
+        .price { font-size: 3rem; font-weight: 900; margin: 20px 0; color: #00f2ff; }
+        .feature-list { list-style: none; padding: 0; margin: 30px 0; color: #888; line-height: 2; }
+        .feature-list b { color: #fff; }
+
+        .buy-btn {
+            width: 100%; padding: 15px; background: transparent; border: 1px solid #00f2ff; 
+            color: #00f2ff; font-weight: bold; cursor: pointer; letter-spacing: 3px;
+        }
+        .buy-btn:hover { background: #00f2ff; color: #000; }
+
+        /* THE COIN BALANCE DISPLAY */
+        .coin-meter { position: fixed; top: 20px; right: 20px; border: 1px solid #ffd700; padding: 10px 20px; color: #ffd700; font-weight: bold; background: rgba(0,0,0,0.8); z-index: 100; }
+    </style>
+</head>
+<body>
+
+    <div class="coin-meter">CREDITS: 2000</div>
+
+    <div class="header">
+        <div class="signature">KNOCKSSTUDiOS</div>
+        <p style="letter-spacing: 5px; color: #444;">SELECT YOUR AUTHENTICATION LEVEL</p>
+    </div>
+
+    <div class="store-grid">
+        <div class="card">
+            <div class="bonus-tag">INSTANT +2000 COINS</div>
+            <h3>MONTHLY ACCESS</h3>
+            <div class="price">$29.99<span style="font-size: 1rem; color: #444;">/mo</span></div>
+            <ul class="feature-list">
+                <li><b>5sec</b> High-Quality Renders</li>
+                <li><b>1000 Coins</b> Per Video Request</li>
+                <li>Obsidian Server Priority</li>
+                <li>Digital Signature Included</li>
+            </ul>
+            <button class="buy-btn" onclick="whoosh()">INITIATE MONTHLY</button>
+        </div>
+
+        <div class="card" style="border-color: #ffd700;">
+            <div class="bonus-tag" style="background: #00f2ff;">BEST VALUE</div>
+            <h3 style="color: #ffd700;">YEARLY LEGEND</h3>
+            <div class="price" style="color: #ffd700;">$249.99<span style="font-size: 1rem; color: #444;">/yr</span></div>
+            <ul class="feature-list">
+                <li><b>Unlimited</b> 5sec HQ Clips</li>
+                <li><b>Daily</b> Coin Generation</li>
+                <li>Legendary Status Badge</li>
+                <li>Full Lab Access (Valerius 9K)</li>
+            </ul>
+            <button class="buy-btn" style="border-color: #ffd700; color: #ffd700;" onclick="whoosh()">INITIATE YEARLY</button>
+        </div>
+    </div>
+
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function whoosh() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const osc = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(900, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.4);
+            g.gain.setValueAtTime(0.2, audioCtx.currentTime);
+            g.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
+            osc.connect(g); g.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+            alert("TRANSACTION GATEWAY OPENING...");
+        }
+    </script>
+</body>
+</html>
