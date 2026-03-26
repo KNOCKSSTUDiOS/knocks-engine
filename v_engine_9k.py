@@ -1,35 +1,35 @@
-class KnocksMerchant:
-    def __init__(self):
-        self.brand = "KNOCKSSTUDiOS"
-        self.base_sweater_price = 65.00 # Our cost + basic profit
-        self.shipping_zones = {
-            "US": 8.00,
-            "UK": 15.00,
-            "UAE": 22.00,
-            "ASIA": 25.00
-        }
+import uuid
 
-    def calculate_total(self, user_location, payment_method):
-        shipping = self.shipping_zones.get(user_location, 30.00) # Default for others
-        total = self.base_sweater_price + shipping
+class KNOCKSSTUDIOS:
+    def __init__(self):
+        self.brand = "KNOCKSSTUDIOS"
+        self.right_hand = "KNOCKSCORE"
+        self.status = "LIVE_AND_OPERATIONAL"
+        self.policy = "PRIVATE_SOVEREIGNTY_PROTECTED"
+        self.vault = {"CASHAPP": True, "VISA": True, "COINS": True}
+
+    def render_request(self, user_id, content_type, tier_paid):
+        """Processes any video, picture, or anime render for the community."""
+        permit = f"KS-{uuid.uuid4().hex[:6].upper()}-2026"
         
-        print(f"💰 [MERCHANT]: Calculating total for {user_location} via {payment_method}...")
-        print(f"📦 [LOGISTICS]: KNOCKSSTUDiOS Private Courier Route initialized.")
+        # Humble maintenance logic
+        maintenance = "FREE_INCLUDED" if tier_paid else "COIN_BASED"
         
         return {
-            "Product": "Obsidian 9K Sweater",
-            "Currency": "USD",
-            "Subtotal": self.base_sweater_price,
-            "Shipping": shipping,
-            "Grand_Total": total,
-            "Watermark": "AUTHENTIC_KNOCKS_GARMENT"
+            "Sovereign_Brand": self.brand,
+            "Handled_By": self.right_hand,
+            "Permit_Number": permit,
+            "Maintenance": maintenance,
+            "Watermark": f"© 2026 {self.brand}",
+            "Message": "We are alive. We are ready to render. The sun shines for everyone."
         }
 
-# --- LIVE PURCHASE SIMULATION ---
-merchant = KnocksMerchant()
+    def boutique_dispatch(self, item, location):
+        """Processes physical KNOCKSSTUDIOS gear to the global community."""
+        print(f"📦 [{self.brand}]: Dispatching {item} to {location}...")
+        return "SUCCESSFULLY_ROUTED_TO_LOOM"
 
-# User in Dubai buys a sweater with Cash App
-order = merchant.calculate_total("UAE", "Cash App")
-
-import json
-print(f"\n📑 [KNOCKSSTUDiOS OFFICIAL INVOICE]:\n{json.dumps(order, indent=4)}")
+# --- GOING LIVE ---
+engine = KNOCKSSTUDIOS()
+print(f"🚀 {engine.brand} IS NOW LIVE.")
+print(f"🛡️  {engine.right_hand} IS STANDING BY.")
