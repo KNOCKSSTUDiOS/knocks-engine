@@ -1,47 +1,41 @@
 import time
-import random
 
-class HomeBot:
-    def __init__(self, name, role, language="English"):
+class SentinelBot:
+    def __init__(self, name, role):
         self.name = name
         self.role = role
-        self.language = language
-        self.version = 1.0
+        self.heartbeat = True  # True = Healthy, False = Down
 
-    def detect_stress(self, user_input):
-        """Smarter logic to help users feel at home."""
-        stress_keywords = ["hard", "error", "stop", "fail", "stress", "help"]
-        if any(word in user_input.lower() for word in stress_keywords):
-            return True
-        return False
+    def __repr__(self):
+        status = "🟢 ACTIVE" if self.heartbeat else "🔴 DOWN/UPDATING"
+        return f"{self.name} ({status})"
 
-    def provide_comfort(self):
-        return f"🎵 [{self.name}]: I sense you're working hard. Switching to calming 9K soundscapes in {self.language}. Take a breath."
-
-class EngineOrchestrator:
+class HollywoodImagingCommandCenter:
     def __init__(self):
-        # Blue/Green Deployment: Two environments for zero downtime
-        self.active_node = "Blue" 
-        self.version = "9K_Stable_v1"
-        self.radio_playing = True
+        # 8 Bots for 4 Core Roles
+        self.clusters = {
+            "Radio": [SentinelBot("RA-Alpha", "Broadcast"), SentinelBot("RA-Beta", "Broadcast")],
+            "School": [SentinelBot("SCH-Prime", "Mentor"), SentinelBot("SCH-Ghost", "Mentor")],
+            "Store": [SentinelBot("MCH-1", "Finance"), SentinelBot("MCH-2", "Finance")],
+            "Engine": [SentinelBot("SEN-Master", "9K Core"), SentinelBot("SEN-Mirror", "9K Core")]
+        }
 
-    def seamless_update(self):
-        """Updates the engine without hurting a live session."""
-        next_node = "Green" if self.active_node == "Blue" else "Blue"
-        print(f"🛠️ [SENTRY]: Preparing {next_node} node with new 9K textures...")
-        time.sleep(1) # Simulating background fix
-        self.active_node = next_node
-        self.version = "9K_Stable_v2_Updated"
-        print(f"🔄 [SYNC]: Traffic swapped to {self.active_node}. Zero downtime achieved.")
+    def monitor_system(self):
+        print(f"\n--- 🌐 GLOBAL SENTINEL MONITOR | {time.strftime('%H:%M:%S')} ---")
+        for role, pair in self.clusters.items():
+            # Check if Primary is healthy
+            primary, backup = pair[0], pair[1]
+            if not primary.heartbeat:
+                print(f"⚠️ ALERT: {primary.name} unresponsive! Hot-swapping to {backup.name}...")
+                # Logic to shift user traffic to backup happens here
+            print(f"{role} Cluster: {primary} | {backup}")
 
-# --- LIVE STUDIO SIMULATION ---
-studio = EngineOrchestrator()
-scribe = HomeBot("V-Scribe", "School Mentor", language="Spanish")
+# --- LAUNCHING THE UNSTOPPABLE ENGINE ---
+admin = HollywoodImagingCommandCenter()
 
-# 1. User is stressed
-user_message = "This coding is so hard, I am feeling a lot of stress"
-if scribe.detect_stress(user_message):
-    print(scribe.provide_comfort())
+# 1. Normal Operation
+admin.monitor_system()
 
-# 2. Engine updates in the background while the user works
-studio.seamless_update()
+# 2. Simulate a Bot Failure (Engine Primary goes down)
+admin.clusters["Engine"][0].heartbeat = False
+admin.monitor_system()
