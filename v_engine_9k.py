@@ -1,40 +1,47 @@
 import time
 import random
 
-class SentinelBot:
-    def __init__(self, name, task):
+class HomeBot:
+    def __init__(self, name, role, language="English"):
         self.name = name
-        self.task = task
-        self.status = "ONLINE"
+        self.role = role
+        self.language = language
+        self.version = 1.0
 
-    def execute_duty(self):
-        print(f"🤖 [{self.name}]: Monitoring {self.task}... Status: {self.status}")
+    def detect_stress(self, user_input):
+        """Smarter logic to help users feel at home."""
+        stress_keywords = ["hard", "error", "stop", "fail", "stress", "help"]
+        if any(word in user_input.lower() for word in stress_keywords):
+            return True
+        return False
 
-class HollywoodEngineL1:
+    def provide_comfort(self):
+        return f"🎵 [{self.name}]: I sense you're working hard. Switching to calming 9K soundscapes in {self.language}. Take a breath."
+
+class EngineOrchestrator:
     def __init__(self):
-        self.bots = [
-            SentinelBot("Radio_V", "24/7 Broadcast"),
-            SentinelBot("Scholar_V", "Student Guidance"),
-            SentinelBot("Merchant_V", "Store & Coins"),
-            SentinelBot("Core_V", "9K Engine Maintenance")
-        ]
-        self.uptime = 0
+        # Blue/Green Deployment: Two environments for zero downtime
+        self.active_node = "Blue" 
+        self.version = "9K_Stable_v1"
+        self.radio_playing = True
 
-    def pulse_engine(self):
-        """Maintains 24/7 operation and checks for updates."""
-        self.uptime += 1
-        print(f"\n⚡ [SYSTEM PULSE]: Hour {self.uptime} of 24/7 Operation.")
-        for bot in self.bots:
-            bot.execute_duty()
-            
-        # Random Update Logic (Simulating 'Smarter' evolution)
-        if random.random() > 0.9:
-            print("✨ [AUTO-UPDATE]: Engine Bot is injecting new 9K motion weights...")
+    def seamless_update(self):
+        """Updates the engine without hurting a live session."""
+        next_node = "Green" if self.active_node == "Blue" else "Blue"
+        print(f"🛠️ [SENTRY]: Preparing {next_node} node with new 9K textures...")
+        time.sleep(1) # Simulating background fix
+        self.active_node = next_node
+        self.version = "9K_Stable_v2_Updated"
+        print(f"🔄 [SYNC]: Traffic swapped to {self.active_node}. Zero downtime achieved.")
 
-# --- LOCKING IN THE BOTS ---
-engine = HollywoodEngineL1()
+# --- LIVE STUDIO SIMULATION ---
+studio = EngineOrchestrator()
+scribe = HomeBot("V-Scribe", "School Mentor", language="Spanish")
 
-# Simulating 24/7 cycles
-for _ in range(3):
-    engine.pulse_engine()
-    time.sleep(1) # Speeding up time for this demo
+# 1. User is stressed
+user_message = "This coding is so hard, I am feeling a lot of stress"
+if scribe.detect_stress(user_message):
+    print(scribe.provide_comfort())
+
+# 2. Engine updates in the background while the user works
+studio.seamless_update()
