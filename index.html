@@ -25,8 +25,12 @@
         .neon-btn { background: #0891b2; transition: all 0.3s ease; border: none; }
         .neon-btn:hover { background: #22d3ee; box-shadow: 0 0 25px #22d3ee; color: black; }
         
-        /* Removed text-transform: uppercase to preserve your signature "i" */
-        .signature-font { text-transform: none !important; }
+        /* SIGNATURE LOCK: Prevents any auto-caps and adds custom glow to the "i" */
+        .signature-i { 
+            text-transform: none !important; 
+            color: #22d3ee; 
+            text-shadow: 0 0 20px #22d3ee, 0 0 40px #06b6d4;
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen">
@@ -36,8 +40,8 @@
     </video>
 
     <header class="absolute top-10 text-center w-full px-4">
-        <h1 class="text-6xl md:text-9xl font-black tracking-tighter neon-text signature-font leading-none">
-            KNOCKSSTUDiOS
+        <h1 class="text-6xl md:text-9xl font-black tracking-tighter neon-text leading-none">
+            KNOCKSSTUD<span class="signature-i">i</span>OS
         </h1>
         <p class="text-cyan-400 tracking-[0.8em] text-[10px] md:text-sm font-bold mt-6 italic opacity-90 uppercase">
             THE SOVEREIGN PULSE // PROTOCOL V-SENTINEL MK. IV
@@ -45,7 +49,6 @@
     </header>
 
     <main class="flex flex-col md:flex-row gap-8 z-10 p-6 w-full max-w-5xl mt-20">
-        
         <div class="glass-panel flex-1 p-10 rounded-sm shadow-2xl">
             <h2 class="text-cyan-400 text-2xl font-black mb-8 uppercase italic tracking-[0.2em] border-b border-cyan-900 pb-4 text-center">LOG IN</h2>
             <form class="space-y-6">
@@ -62,7 +65,6 @@
                 <button type="submit" class="w-full border border-zinc-700 hover:bg-white hover:text-black py-4 font-black uppercase tracking-widest text-lg italic transition-all duration-500 active:scale-95">Request Access</button>
             </form>
         </div>
-
     </main>
 
     <footer class="absolute bottom-6 w-full px-12 flex justify-between items-end text-[10px] text-zinc-500 uppercase tracking-[0.4em]">
@@ -70,7 +72,7 @@
             CORE STATUS: <span class="text-cyan-600 font-bold">OPERATIONAL</span>
         </div>
         <div class="text-right flex flex-col gap-1">
-            <span class="text-zinc-300 font-bold tracking-widest italic signature-font">© 2026 KNOCKSSTUDiOS</span>
+            <span class="text-zinc-300 font-bold tracking-widest italic uppercase">© 2026 KNOCKSSTUD<span class="signature-i">i</span>OS</span>
             <span>THE DEFINITIVE BLUEPRINT FOR AN EMPIRE</span>
         </div>
     </footer>
