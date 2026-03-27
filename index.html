@@ -3,114 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V SENTINEL | DARK OPERATIONAL SHIFT</title>
+    <title>KNOCKSSTUDiOS | THE SOVEREIGN PULSE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* BASE RESET - NO talk, just execution */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', monospace; text-transform: uppercase; }
-        body, html { height: 100%; background: #000; color: #fff; overflow: hidden; }
-
-        /* HEADER NAV GATES (LOCKED) */
-        header { 
-            position: fixed; top: 0; width: 100%; padding: 20px 50px; 
-            display: flex; justify-content: space-between; align-items: center; 
-            background: #000; border-bottom: 2px solid #111; z-index: 1000; 
-        }
-        .brand { color: #00FFFF; font-weight: 900; letter-spacing: 6px; font-size: 22px; text-shadow: 0 0 15px #00FFFF; }
-        .gates { display: flex; gap: 20px; }
-        .btn-gate { 
-            background: transparent; border: 1px solid #111; color: #444; 
-            padding: 10px 20px; cursor: pointer; font-size: 11px;
-        }
-        .active-gate { border-color: #00FFFF; color: #00FFFF; }
-
-        /* PAGE ENGINE */
-        .page { display: none; min-height: 100vh; width: 100%; padding-top: 120px; flex-direction: column; align-items: center; }
-        .active { display: flex; }
-
-        /* THE VISUAL CORE (15FT SENTINEL) */
-        .viewport { 
-            position: relative; width: 90%; max-width: 1100px; aspect-ratio: 16/9; 
-            border: 2px solid #111; background: #000; 
-            box-shadow: 0 0 50px rgba(0,255,255,0.05); overflow: hidden;
-        }
-        .sentinel-visual { 
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.9; 
-            filter: brightness(0.7) contrast(1.1); /* Intimidating dark filter */
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
         
-        /* PULSING CYAN OVERLAY (Surprise element) */
-        .pulse-core {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 10px; height: 10px; background: #00FFFF; 
-            border-radius: 50%; box-shadow: 0 0 50px 30px #00FFFF;
-            animation: pulse-cyan 3s infinite;
-        }
-        @keyframes pulse-cyan { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
-
-        /* DISCREET OWNERSHIP STAMP (Behind Left Foot Area) */
-        .ownership { 
-            position: absolute; bottom: 20px; right: 50px; 
-            font-size: 10px; color: #111; /* Extremely dark/small font */
-            letter-spacing: 2px;
+        body {
+            background-color: #050505;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
         }
 
-        /* FORM BOXES */
-        .form-box { width: 90%; max-width: 450px; border: 1px solid #00FFFF; padding: 40px; background: #000; text-align: center; }
-        input { width: 100%; padding: 15px; margin: 15px 0; background: #000; border: 1px solid #111; color: #00FFFF; outline: none; text-shadow: 0 0 5px #00FFFF; }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=2000'); /* High-tech placeholder */
+            background-size: cover;
+            background-position: center;
+        }
 
-        /* MAIN BUTTONS */
-        .btn-main { padding: 20px 60px; border: 2px solid #00FFFF; background: transparent; color: #00FFFF; cursor: pointer; letter-spacing: 5px; text-shadow: 0 0 5px #00FFFF; }
-        .btn-main:hover { background: #00FFFF; color: #000; box-shadow: 0 0 60px #00FFFF; }
+        .neon-border {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4), inset 0 0 10px rgba(6, 182, 212, 0.2);
+        }
 
+        .glitch-text {
+            text-shadow: 2px 0 #0ff, -2px 0 #f0f;
+        }
     </style>
 </head>
-<body>
+<body class="hero-bg min-h-screen flex flex-col items-center justify-center text-white">
 
-    <header>
-        <div class="brand">V SENTINEL (9K)</div>
-        <div class="gates">
-            <button class="btn-gate active-gate" onclick="showPage('visual-core')">VISUAL</button>
-            <button class="btn-gate" onclick="showPage('access-core')">ACCESS</button>
-            <button class="btn-gate" onclick="showPage('deploy-core')">DEPLOY</button>
-        </div>
-    </header>
-
-    <div id="visual-core" class="page active">
-        <div class="viewport">
-            <img src="v-sentinel-dark.jpg" class="sentinel-visual" alt="V SENTINEL: DARK TRANSITION">
-            <div class="pulse-core"></div>
-            <div class="ownership">property of KNOCKSSTUDiOS</div>
-        </div>
-        <div style="width: 90%; max-width: 1100px; display: flex; justify-content: space-between; margin-top: 20px;">
-            <div style="color: #00FFFF; text-shadow: 0 0 5px #00FFFF;">15FT OPERATIONAL SPEC</div>
-            <div style="color: #444;">ID: V_SENTINEL_01 (DARK SHIFT)</div>
-        </div>
+    <div class="absolute top-12 text-center w-full">
+        <h1 class="text-6xl md:text-8xl font-black tracking-[0.2em] uppercase opacity-90 glitch-text">
+            KNOCKSSTUDiOS
+        </h1>
+        <p class="text-cyan-400 tracking-[0.5em] text-sm mt-2 font-bold uppercase">THE SOVEREIGN PULSE</p>
     </div>
 
-    <div id="access-core" class="page">
-        <div class="form-box">
-            <h2>ADMINISTRATION ACCESS</h2>
-            <input type="text" placeholder="OPERATOR ID">
-            <input type="password" placeholder="ENCRYPTION KEY">
-            <button class="btn-main" style="width: 100%;" onclick="showPage('visual-core')">SYNC KEY</button>
+    <div class="z-20 flex flex-col md:flex-row gap-10 mt-20">
+        
+        <div class="w-80 p-8 bg-black/80 border border-cyan-500/50 backdrop-blur-xl rounded-sm neon-border">
+            <h2 class="text-cyan-400 text-xl font-bold tracking-widest mb-6 uppercase italic border-b border-cyan-500/30 pb-2">Unit Login</h2>
+            <div class="space-y-5">
+                <div class="relative">
+                    <input type="text" placeholder="OPERATOR_ID" class="w-full bg-zinc-900/50 border border-zinc-700 p-3 text-sm focus:border-cyan-500 outline-none transition uppercase">
+                </div>
+                <div class="relative">
+                    <input type="password" placeholder="ENCRYPTION_KEY" class="w-full bg-zinc-900/50 border border-zinc-700 p-3 text-sm focus:border-cyan-500 outline-none transition">
+                </div>
+                <button class="w-full bg-cyan-600 hover:bg-cyan-400 text-black font-black py-4 uppercase transition-all duration-300 shadow-lg shadow-cyan-900/50 active:scale-95">
+                    Initialize Session
+                </button>
+            </div>
         </div>
+
+        <div class="w-80 p-8 bg-black/80 border border-zinc-500/30 backdrop-blur-xl rounded-sm">
+            <h2 class="text-zinc-400 text-xl font-bold tracking-widest mb-6 uppercase italic border-b border-zinc-500/30 pb-2">New Recruit</h2>
+            <div class="space-y-5">
+                <input type="text" placeholder="FULL_NAME" class="w-full bg-zinc-900/50 border border-zinc-700 p-3 text-sm focus:border-white outline-none transition uppercase">
+                <input type="email" placeholder="SECURE_EMAIL" class="w-full bg-zinc-900/50 border border-zinc-700 p-3 text-sm focus:border-white outline-none transition uppercase">
+                <button class="w-full border border-zinc-500 hover:bg-white hover:text-black text-white font-bold py-4 uppercase transition-all duration-300 active:scale-95">
+                    Request Clearance
+                </button>
+            </div>
+        </div>
+
     </div>
 
-    <div id="deploy-core" class="page">
-        <div class="form-box" style="border-color: #111;">
-            <h2 style="color: #444;">DEPLOYMENT STATUS: AWAITING AUTHORIZATION</h2>
-            <div style="width: 100%; height: 2px; background: #111; margin: 30px 0;"></div>
-            <button class="btn-gate" style="width: 100%; padding: 20px;">AUTHORIZE_BURN (9K)</button>
+    <div class="absolute bottom-10 w-full px-10 flex justify-between items-end">
+        <div class="text-[10px] text-zinc-500 uppercase tracking-widest leading-relaxed">
+            SYSTEM STATUS: <span class="text-cyan-500">ACTIVE</span><br>
+            CORE UNIT: <span class="text-cyan-500">V-SENTINEL MK IV</span><br>
+            FIRMWARE: <span class="text-cyan-500">2.0.26</span>
         </div>
-    </div>
-
-    <script>
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.btn-gate').forEach(b => b.classList.remove('active-gate'));
-            document.getElementById(pageId).classList.add('active');
-            event.target.classList.add('active-gate');
-        }
-    </script>
-</body>
-</html>
+        <div class="text
