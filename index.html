@@ -11,6 +11,20 @@
         * { cursor: none !important; }
         body { background-color: #000; font-family: 'Orbitron', sans-serif; color: white; overflow: hidden; margin: 0; }
         
+        /* VIDEO ENGINE */
+        #bg-video {
+            width: 100%; height: 100%;
+            filter: brightness(0.25) contrast(1.2) blur(12px) grayscale(0%);
+            object-fit: cover;
+            transition: filter 1s ease, transform 1s ease;
+        }
+
+        /* STILLNESS FOCUS */
+        .is-focused #bg-video { 
+            filter: brightness(0.4) contrast(1.4) blur(0px) grayscale(100%);
+            transform: scale(1.1); 
+        }
+
         /* HEADER DYNAMICS */
         #main-header h1 {
             transition: letter-spacing 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -18,44 +32,17 @@
         }
         .is-focused #main-header h1 { letter-spacing: 0.4em; }
 
-        /* THE FLICKER ANIMATION (CODE-BASED) */
+        /* BUTTON EFFECTS */
         @keyframes strobe-flicker {
-            0% { opacity: 1; filter: brightness(1); }
-            5% { opacity: 0.8; filter: brightness(1.5); }
-            10% { opacity: 1; filter: brightness(1); }
-            15% { opacity: 0.9; filter: brightness(2); }
-            20% { opacity: 1; filter: brightness(1); }
-            100% { opacity: 1; filter: brightness(1); }
+            0%, 10% { opacity: 1; filter: brightness(1); }
+            5% { opacity: 0.7; filter: brightness(2); }
         }
-
-        #init-btn {
-            background: #0891b2;
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        /* HOVER TRIGGER */
+        #init-btn { background: #0891b2; transition: all 0.4s ease; }
         #init-btn:hover {
-            animation: strobe-flicker 0.2s infinite; /* Rapid stutter on hover */
-            background: #22d3ee;
+            animation: strobe-flicker 0.15s infinite;
+            background: #22d3ee; color: #000;
             box-shadow: 0 0 30px rgba(34, 211, 238, 0.6);
-            color: #000;
         }
-
-        /* STILLNESS SURGE (RE-INTEGRATED) */
-        .is-focused #init-btn {
-            box-shadow: 0 0 50px rgba(34, 211, 238, 0.8);
-            transform: scale(1.02);
-        }
-
-        /* VIDEO & FILTERS */
-        #bg-video {
-            width: 100%; height: 100%;
-            filter: brightness(0.25) contrast(1.2) blur(12px);
-            object-fit: cover;
-            transition: filter 0.8s ease, transform 0.8s ease;
-        }
-        .is-focused #bg-video { filter: brightness(0.4) blur(0px); transform: scale(1.1); }
 
         .signature-i { text-transform: none !important; color: #06b6d4; display: inline-block; }
         .glass-panel { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(6, 182, 212, 0.3); }
@@ -63,7 +50,7 @@
 </head>
 <body id="main-body" class="flex flex-col items-center justify-center min-h-screen">
 
-    <div id="cursor" style="position:fixed; width:25px; height:25px; border:1px solid #22d3ee; border-radius:50%; pointer-events:none; z-index:10000; transform:translate(-50%,-50%); transition: width 0.2s, height 0.2s;"></div>
+    <div id="cursor" style="position:fixed; width:25px; height:25px; border:1px solid #22d3ee; border-radius:50%; pointer-events:none; z-index:10000; transform:translate(-50%,-50%); transition: width 0.3s, border-color 0.3s;"></div>
     
     <div id="video-container" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;">
         <video autoplay muted loop playsinline id="bg-video">
@@ -77,4 +64,29 @@
         </h1>
     </header>
 
-    <main id="ui-container" class="flex flex-col md:flex-row gap-8 z-10 p-6 w-full max-w-
+    <main id="ui-container" class="flex flex-col md:flex-row gap-8 z-10 p-6 w-full max-w-4xl mt-12">
+        <div class="glass-panel flex-1 p-10 rounded-sm">
+            <h2 class="text-cyan-500 text-xl font-bold mb-6 border-b border-cyan-900 pb-2 uppercase italic">Sync Operator</h2>
+            <form id="login-form" class="space-y-6">
+                <input type="text" placeholder="ID_REF" class="w-full bg-black/60 border border-zinc-800 p-4 text-sm uppercase text-white outline-none focus:border-cyan-500">
+                <button type="submit" id="init-btn" class="w-full py-4 font-black uppercase tracking-widest text-sm">Initialize</button>
+            </form>
+        </div>
+        <div class="glass-panel flex-1 p-10 rounded-sm">
+            <h2 class="text-zinc-500 text-xl font-bold mb-6 border-b border-zinc-800 pb-2 uppercase italic">Protocol</h2>
+            <button class="w-full border border-zinc-700 hover:bg-white hover:text-black py-4 font-black uppercase tracking-widest text-sm transition-all">Request Access</button>
+        </div>
+    </main>
+
+    <footer class="absolute bottom-6 w-full px-12 flex justify-between text-[10px] text-zinc-600 uppercase tracking-widest">
+        <div>STREAM_STATUS: <span id="focus-status" class="text-zinc-700 font-bold">STABLE</span></div>
+        <div class="italic">© 2026 KNOCKSSTUD<span class="signature-i">i</span>OS</div>
+    </footer>
+
+    <script>
+        const body = document.getElementById('main-body');
+        const video = document.getElementById('bg-video');
+        const cursor = document.getElementById('cursor');
+        const focusStatus = document.getElementById('focus-status');
+        const initBtn = document.getElementById('init-btn');
+        let
