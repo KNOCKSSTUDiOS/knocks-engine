@@ -9,6 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
         body { background-color: #000; font-family: 'Orbitron', sans-serif; color: white; overflow: hidden; margin: 0; }
         
+        /* BASE VIDEO STATE */
         #bg-video {
             position: fixed;
             right: 0;
@@ -16,8 +17,14 @@
             min-width: 100%;
             min-height: 100%;
             z-index: -1;
-            filter: brightness(0.35) contrast(1.2);
+            filter: brightness(0.3) contrast(1.1) saturate(0.8);
             object-fit: cover;
+            transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* OVERLOAD VIDEO STATE (ON HEADER HOVER) */
+        body:has(#main-header:hover) #bg-video {
+            filter: brightness(0.7) contrast(1.5) saturate(1.2);
         }
 
         .neon-text { text-shadow: 0 0 15px #06b6d4, 0 0 30px #06b6d4; }
@@ -38,16 +45,16 @@
             animation: pulse-cyan 2s infinite ease-in-out;
         }
 
-        /* OVERCLOCK ON HOVER */
+        /* SIGNATURE OVERCLOCK */
         header:hover .signature-i {
-            animation: pulse-cyan 0.2s infinite ease-in-out;
+            animation: pulse-cyan 0.15s infinite ease-in-out;
             color: #fff;
-            filter: brightness(1.5);
+            filter: brightness(2);
         }
 
         header:hover h1 {
-            letter-spacing: 0.1em;
-            transition: all 0.2s ease;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -57,8 +64,62 @@
         <source src="8776550e6409b36ed5834f6e6b473a9b.mp4" type="video/mp4">
     </video>
 
-    <header id="main-header" class="absolute top-10 text-center w-full px-4 group cursor-pointer">
+    <header id="main-header" class="absolute top-10 text-center w-full px-4 group cursor-pointer z-20">
         <h1 class="text-6xl md:text-9xl font-black tracking-tighter neon-text leading-none transition-all duration-300">
             KNOCKSSTUD<span class="signature-i">i</span>OS
         </h1>
-        <p class="text-cyan-400
+        <p class="text-cyan-400 tracking-[0.8em] text-[10px] md:text-sm font-bold mt-6 italic opacity-90 uppercase group-hover:text-white transition-colors">
+            THE SOVEREIGN PULSE // PROTOCOL V-SENTINEL MK. IV
+        </p>
+    </header>
+
+    <main class="flex flex-col md:flex-row gap-8 z-10 p-6 w-full max-w-5xl mt-20">
+        <div class="glass-panel flex-1 p-10 rounded-sm shadow-2xl">
+            <h2 class="text-cyan-400 text-2xl font-black mb-8 uppercase italic tracking-[0.2em] border-b border-cyan-900 pb-4 text-center">LOG IN</h2>
+            <form class="space-y-6">
+                <input type="text" placeholder="OPERATOR_ID" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 text-sm focus:border-cyan-400 outline-none uppercase tracking-widest text-white">
+                <input type="password" placeholder="ENCRYPTION_KEY" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 text-sm focus:border-cyan-400 outline-none uppercase tracking-widest text-white">
+                <button type="submit" class="w-full neon-btn py-4 font-black uppercase tracking-widest text-lg italic active:scale-95 transition-all">Initialize</button>
+            </form>
+        </div>
+
+        <div class="glass-panel flex-1 p-10 rounded-sm shadow-2xl border-zinc-800">
+            <h2 class="text-zinc-400 text-2xl font-black mb-8 uppercase italic tracking-[0.2em] border-b border-zinc-800 pb-4 text-center">SIGN UP</h2>
+            <form class="space-y-6">
+                <input type="email" placeholder="SECURE_EMAIL" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 text-sm focus:border-white outline-none uppercase tracking-widest text-white">
+                <button type="submit" class="w-full border border-zinc-700 hover:bg-white hover:text-black py-4 font-black uppercase tracking-widest text-lg italic transition-all duration-500 active:scale-95">Request Access</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="absolute bottom-6 w-full px-12 flex justify-between items-end text-[10px] text-zinc-500 uppercase tracking-[0.4em]">
+        <div class="text-left">
+            CORE STATUS: <span class="text-cyan-600 font-bold">OPERATIONAL</span>
+        </div>
+        <div class="text-right flex flex-col gap-1">
+            <span class="text-zinc-300 font-bold tracking-widest italic uppercase">© 2026 KNOCKSSTUD<span class="signature-i">i</span>OS</span>
+        </div>
+    </footer>
+
+    <script>
+        const header = document.getElementById('main-header');
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playStatic() {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(120, audioCtx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.15);
+
+            gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            oscillator.start();
+            oscillator.stop(audioCtx.
