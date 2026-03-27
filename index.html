@@ -11,50 +11,131 @@
         * { cursor: none !important; }
         body { background-color: #000; font-family: 'Orbitron', sans-serif; color: white; overflow: hidden; margin: 0; }
         
-        /* PIXEL SORT OVERLAY (Triggered during recovery) */
-        #sort-buffer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 40; pointer-events: none; display: none;
-            background: repeating-linear-gradient(90deg, 
-                transparent 0%, 
-                rgba(34, 211, 238, 0.5) 0.5%, 
-                rgba(255, 0, 255, 0.5) 1%, 
-                transparent 1.5%);
-            background-size: 200% 200%;
-            mix-blend-mode: screen;
+        /* SHOCKWAVE ELEMENT */
+        .shockwave {
+            position: fixed; border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: ripple 0.6s ease-out forwards;
+        }
+        @keyframes ripple {
+            0% { width: 0; height: 0; opacity: 1; border-width: 4px; }
+            100% { width: 300px; height: 300px; opacity: 0; border-width: 1px; }
         }
 
-        @keyframes sort-drag {
-            0% { background-position: 0% 0%; filter: contrast(5) brightness(2); }
-            100% { background-position: 0% 1000%; filter: contrast(1) brightness(1); }
-        }
-
-        .recovery-snap #sort-buffer {
-            display: block;
-            animation: sort-drag 0.5s linear forwards;
-        }
-
-        /* IRIS & SHATTER ENGINE */
-        #iris-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; pointer-events: none;
-            background: radial-gradient(circle, transparent 100%, black 100%);
-        }
-        @keyframes iris-close {
-            0% { background: radial-gradient(circle, transparent 100%, black 100%); }
-            85% { background: radial-gradient(circle, transparent 2%, black 20%); }
-            100% { background: radial-gradient(circle, white 0%, white 100%); }
-        }
-        .persistence-hd #iris-layer { animation: iris-close 8s forwards; }
-
+        /* GRID & VIDEO */
         #video-container { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             z-index: -2; background: #000; display: grid; 
             grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+            transition: all 4s cubic-bezier(0.8, 0, 0.2, 1);
         }
+        .persistence-hd #video-container { grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); }
         .video-shard { width: 100%; height: 100%; overflow: hidden; position: relative; }
-        video { position: absolute; width: 200%; height: 200%; object-fit: cover; filter: brightness(0.2) blur(15px); }
-        #v1 { top: 0; left: 0; } #v2 { top: 0; left: -100%; } #v3 { top: -100%; left: 0; } #v4 { top: -100%; left: -100%; }
+        video { position: absolute; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.25); }
 
-        /* SNAP ANIMATION */
-        .recovery-snap .video-shard { transform: scale(0) rotate(180deg); opacity: 0; transition: all 0.5s cubic-bezier(
+        /* BUTTON SHATTER */
+        #btn-wrapper { position: relative; width: 100%; height: 60px; }
+        .btn-shard {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; color: black; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 10px; letter-spacing: 0.8em; pointer-events: none;
+            transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .shard-0 { clip-path: polygon(0 0, 50% 0, 0 100%); }
+        .shard-1 { clip-path: polygon(50% 0, 100% 0, 100% 100%); }
+        .shard-2 { clip-path: polygon(0 100%, 100% 100%, 50% 0); }
+        
+        .persistence-hd .shard-0 { transform: translate(-300px, -200px) rotate(-90deg); }
+        .persistence-hd .shard-1 { transform: translate(300px, -200px) rotate(90deg); }
+        .persistence-hd .shard-2 { transform: translate(0, 400px) rotate(180deg); }
+
+        /* RECOVERY SNAP */
+        #sort-buffer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 40; display: none; background: repeating-linear-gradient(0deg, transparent 0%, #fff 1%, transparent 2%); background-size: 100% 500%; }
+        @keyframes sort-drag { 0% { background-position: 0 0; } 100% { background-position: 0 -1500%; } }
+        .recovery-snap #sort-buffer { display: block; animation: sort-drag 0.2s linear infinite; }
+        .recovery-snap #video-container { transform: scale(0) rotate(-1080deg); opacity: 0; }
+
+        /* CURSOR & BRAND */
+        .cursor-node { position: fixed; width: 6px; height: 6px; background: #fff; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); mix-blend-mode: difference; }
+        .brand-layer { position: absolute; top: 0; left: 0; width: 100%; mix-blend-mode: screen; transition: transform 0.1s; }
+        .r-layer { color: #f00; } .g-layer { color: #0f0; } .b-layer { color: #00f; }
+    </style>
+</head>
+<body id="main-body" class="flex flex-col items-center justify-center min-h-screen">
+
+    <div id="sort-buffer"></div>
+    <div id="cursor-main" class="cursor-node"></div>
+    
+    <div id="video-container"></div>
+
+    <main class="z-10 w-full max-w-sm">
+        <div class="bg-black/90 p-16 text-center border border-white/10">
+            <div class="relative h-12 mb-16">
+                <span id="r-txt" class="brand-layer r-layer text-4xl font-black">KNOCKSSTUDiOS</span>
+                <span id="g-txt" class="brand-layer g-layer text-4xl font-black">KNOCKSSTUDiOS</span>
+                <span id="b-txt" class="brand-layer b-layer text-4xl font-black">KNOCKSSTUDiOS</span>
+            </div>
+            
+            <div id="btn-wrapper">
+                <button id="init-btn" class="absolute inset-0 z-20 w-full h-full opacity-0 cursor-pointer">FRACTURE</button>
+                <div class="btn-shard shard-0">FRACTURE</div>
+                <div class="btn-shard shard-1">FRACTURE</div>
+                <div class="btn-shard shard-2">FRACTURE</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const body = document.getElementById('main-body'), container = document.getElementById('video-container');
+        const initBtn = document.getElementById('init-btn'), mainCursor = document.getElementById('cursor-main');
+        const layers = [document.getElementById('r-txt'), document.getElementById('g-txt'), document.getElementById('b-txt')];
+        const originalText = "KNOCKSSTUDiOS";
+
+        for(let i=0; i<100; i++) {
+            const shard = document.createElement('div');
+            shard.className = 'video-shard';
+            shard.innerHTML = `<video autoplay muted loop><source src="8776550e6409b36ed5834f6e6b473a9b.mp4" type="video/mp4"></video>`;
+            container.appendChild(shard);
+        }
+        const videos = document.querySelectorAll('video');
+
+        let crashTimer, isRecovering = false;
+
+        initBtn.addEventListener('click', () => {
+            initBtn.style.pointerEvents = 'none';
+            body.classList.add('persistence-hd');
+            crashTimer = setTimeout(() => { videos.forEach(v => v.pause()); }, 8000);
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX, y = e.clientY;
+            mainCursor.style.left = x + 'px'; mainCursor.style.top = y + 'px';
+
+            // Create Shockwave during Decay
+            if(body.classList.contains('persistence-hd') && !isRecovering) {
+                const wave = document.createElement('div');
+                wave.className = 'shockwave';
+                wave.style.left = x + 'px';
+                wave.style.top = y + 'px';
+                document.body.appendChild(wave);
+                setTimeout(() => wave.remove(), 600);
+            }
+
+            if(body.classList.contains('persistence-hd')) {
+                clearTimeout(crashTimer);
+                isRecovering = true;
+                body.classList.add('recovery-snap');
+                videos.forEach(v => { v.playbackRate = -10.0; v.play(); });
+                
+                setTimeout(() => {
+                    isRecovering = false;
+                    videos.forEach(v => v.playbackRate = 1.0);
+                    body.classList.remove('persistence-hd', 'recovery-snap');
+                    initBtn.style.pointerEvents = 'auto';
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
