@@ -3,158 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDIOS | PURE SOVEREIGN 9K</title>
+    <title>KNOCKSSTUDIOS | 9K SOVEREIGN ENGINE</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
+        /* FORCING UNIVERSAL CAPITALIZATION - NO LOWERCASE ALLOWED */
+        * { margin: 0; padding: 0; box-sizing: border-box; text-transform: uppercase; font-family: 'Courier New', monospace; }
         
-        .page { display: none; min-height: 100vh; width: 100%; }
-        .active { display: block; }
+        body, html { height: 100%; background: #000; color: #fff; overflow-x: hidden; }
 
-        /* --- THE SOVEREIGN GATE (INDEX) --- */
-        #gate-page {
-            background: radial-gradient(circle, #1a0a00 0%, #000000 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        /* HEADER NAVIGATION GATES */
+        header { 
+            position: fixed; top: 0; width: 100%; padding: 25px 50px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: rgba(0,0,0,0.95); border-bottom: 2px solid #111; z-index: 1000; 
         }
-
-        .engine-status {
-            border: 1px solid #FF8C00;
-            padding: 10px 40px;
-            background: rgba(255, 140, 0, 0.05);
-            color: #FF8C00;
-            font-size: 14px;
-            letter-spacing: 6px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
+        .brand-name { color: #FF8C00; font-weight: 900; letter-spacing: 6px; font-size: 20px; }
+        .nav-gates { display: flex; gap: 20px; }
+        .nav-btn { 
+            background: transparent; border: 1px solid #333; color: #fff; 
+            padding: 10px 20px; cursor: pointer; font-size: 12px; letter-spacing: 2px; 
+            transition: 0.3s; 
         }
+        .nav-btn:hover { border-color: #FF8C00; color: #FF8C00; box-shadow: 0 0 10px #FF8C00; }
+        .nav-btn.highlight { background: #FF8C00; color: #000; border: none; font-weight: bold; }
 
-        h1 { font-size: clamp(3rem, 12vw, 6rem); letter-spacing: 25px; text-shadow: 0 0 40px #FF8C00; text-align: center; font-weight: 900; }
-        .legend-tag { letter-spacing: 10px; color: #444; margin-top: 20px; font-size: 12px; text-transform: uppercase; }
-        
-        .btn { padding: 25px 80px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 5px; cursor: pointer; transition: 0.4s; border: 2px solid #FF8C00; background: transparent; color: #FF8C00; margin: 40px; display: inline-block; }
-        .btn:hover { background: #FF8C00; color: #000; box-shadow: 0 0 60px rgba(255, 140, 0, 0.8); }
+        /* PAGE SYSTEM */
+        .page { display: none; min-height: 100vh; width: 100%; padding-top: 120px; flex-direction: column; align-items: center; justify-content: center; }
+        .active { display: flex; }
 
-        /* --- SIGNUP & ENGINE --- */
-        #signup-page, #engine-page { padding: 80px 20px; background: #000; text-align: center; }
-        .pricing-table { width: 100%; max-width: 1000px; margin: 50px auto; border-collapse: collapse; border: 1px solid #111; }
-        .pricing-table th, .pricing-table td { padding: 25px; border-bottom: 1px solid #111; font-size: 14px; text-align: left; }
-        .pricing-table th { color: #FF8C00; text-transform: uppercase; letter-spacing: 3px; background: #050505; }
-        
-        .signup-form { max-width: 500px; margin: 0 auto; border: 1px solid #FF8C00; padding: 50px; background: #020202; box-shadow: 0 0 50px rgba(255, 140, 0, 0.05); }
-        input, select { width: 100%; padding: 18px; margin: 15px 0; background: #000; border: 1px solid #222; color: #fff; outline: none; font-family: inherit; font-size: 16px; }
+        /* HOME SCREEN */
+        h1 { font-size: clamp(3rem, 12vw, 6rem); letter-spacing: 20px; text-shadow: 0 0 30px #FF8C00; margin-bottom: 10px; text-align: center; }
+        .legend-tag { color: #444; letter-spacing: 10px; font-size: 14px; margin-bottom: 40px; }
+
+        /* FORMS */
+        .form-box { width: 90%; max-width: 450px; background: #050505; border: 2px solid #FF8C00; padding: 50px; text-align: center; }
+        input, select { 
+            width: 100%; padding: 15px; margin: 15px 0; background: #000; 
+            border: 1px solid #222; color: #fff; outline: none; font-size: 16px; 
+        }
         input:focus { border-color: #FF8C00; }
-        
-        /* THE BURN VIEWPORT */
-        .viewport { width: 100%; max-width: 1100px; margin: 40px auto; aspect-ratio: 16/9; border: 1px solid #FF8C00; background: #000; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+
+        /* THE ENGINE */
+        .viewport { 
+            width: 90%; max-width: 1100px; aspect-ratio: 16/9; 
+            border: 2px solid #FF8C00; background: #000; margin-bottom: 30px; 
+            display: flex; align-items: center; justify-content: center; position: relative; 
+        }
         video { width: 100%; height: 100%; display: none; object-fit: cover; }
-        .loading-text { letter-spacing: 8px; color: #FF8C00; text-transform: uppercase; font-size: 18px; animation: glow 2s infinite; }
-        @keyframes glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+        .status-text { letter-spacing: 5px; color: #FF8C00; animation: blink 2s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
 
-        textarea { width: 100%; max-width: 1100px; height: 150px; background: #050505; color: #fff; border: 1px solid #222; margin: 30px 0; padding: 25px; font-family: 'Courier New', monospace; outline: none; font-size: 16px; border-radius: 0; }
-        textarea:focus { border-color: #FF8C00; }
-
-        .burn-btn { width: 100%; max-width: 1100px; background: #FF8C00; color: #000; padding: 30px; font-weight: 900; cursor: pointer; border: none; letter-spacing: 10px; text-transform: uppercase; font-size: 20px; }
+        .burn-btn { 
+            width: 90%; max-width: 1100px; padding: 25px; background: #FF8C00; 
+            color: #000; font-weight: 900; border: none; cursor: pointer; 
+            letter-spacing: 10px; font-size: 20px; 
+        }
         .burn-btn:hover { background: #fff; box-shadow: 0 0 40px #fff; }
-        
-        #dl-btn { background: #fff; color: #000; display: none; margin-top: 25px; width: 100%; max-width: 1100px; font-size: 18px; }
+
+        .main-btn { padding: 20px 60px; border: 2px solid #FF8C00; background: transparent; color: #FF8C00; font-weight: bold; cursor: pointer; letter-spacing: 5px; }
+        .main-btn:hover { background: #FF8C00; color: #000; box-shadow: 0 0 50px #FF8C00; }
     </style>
 </head>
 <body>
 
+    <header>
+        <div class="brand-name">KNOCKSSTUDIOS</div>
+        <div class="nav-gates">
+            <button class="nav-btn" onclick="showPage('gate-page')">HOME</button>
+            <button class="nav-btn" onclick="showPage('login-page')">LOG_IN</button>
+            <button class="nav-btn highlight" onclick="showPage('signup-page')">SIGN_UP</button>
+        </div>
+    </header>
+
     <div id="gate-page" class="page active">
-        <div class="engine-status">CORE_V1_STATUS: OPERATIONAL</div>
         <h1>KNOCKSSTUDIOS</h1>
-        <p class="legend-tag">POWERED BY AI LEGENDS | NO THIRD PARTIES</p>
-        
-        <div style="margin-top: 20px;">
-            <button class="btn" onclick="showPage('signup-page')">GET_ACCESS</button>
+        <p class="legend-tag">POWERED BY AI LEGENDS</p>
+        <button class="main-btn" onclick="showPage('signup-page')">INITIATE_SYNC</button>
+    </div>
+
+    <div id="login-page" class="page">
+        <div class="form-box">
+            <h2 style="letter-spacing: 5px; margin-bottom: 20px;">OPERATOR_LOGIN</h2>
+            <input type="text" placeholder="OPERATOR_ID">
+            <input type="password" placeholder="ENCRYPTION_KEY">
+            <button class="main-btn" style="width: 100%;" onclick="showPage('engine-page')">SYNC_SESSION</button>
         </div>
     </div>
 
     <div id="signup-page" class="page">
-        <h2 style="color: #FF8C00; letter-spacing: 15px; text-transform: uppercase;">SELECT_SYNC_PLAN</h2>
-        <table class="pricing-table">
-            <thead>
-                <tr><th>PROTOCOL</th><th>LIMIT</th><th>COST</th></tr>
-            </thead>
-            <tbody>
-                <tr><td style="color: #FF8C00;">FREE_OPERATOR</td><td>5s RENDER</td><td>$0 (+2000 CREDITS)</td></tr>
-                <tr><td>BASIC_SYNC</td><td>15m RENDER</td><td>$10/MO</td></tr>
-                <tr><td style="color: #FF8C00;">ULTRA_SOVEREIGN</td><td>UNLIMITED</td><td>$60/MO</td></tr>
-            </tbody>
-        </table>
-        
-        <div class="signup-form">
-            <input type="text" id="op-name" placeholder="OPERATOR_ID">
-            <input type="email" placeholder="SECURE_COMM_EMAIL">
-            <select id="tier-select">
-                <option value="FREE">FREE_PLAN (5s)</option>
-                <option value="ULTRA">ULTRA_PLAN (UNLIMITED)</option>
+        <div class="form-box">
+            <h2 style="letter-spacing: 5px; margin-bottom: 20px;">NEW_ACCESS</h2>
+            <input type="text" id="user-id" placeholder="ASSIGN_ID">
+            <input type="email" placeholder="SECURE_EMAIL">
+            <select>
+                <option>FREE_OPERATOR (5S BURN)</option>
+                <option>ULTRA_SOVEREIGN (UNLIMITED)</option>
             </select>
-            <button class="btn" style="width: 100%; margin: 20px 0;" onclick="activateAccount()">ACTIVATE_CORE</button>
+            <button class="main-btn" style="width: 100%;" onclick="syncUser()">ACTIVATE_CORE</button>
         </div>
     </div>
 
     <div id="engine-page" class="page">
-        <div style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; border-bottom: 2px solid #FF8C00; padding-bottom: 20px;">
-            <div>OPERATOR: <span id="display-name" style="color: #FF8C00;">GUEST</span></div>
-            <div>CREDITS: <span id="coin-balance" style="color: #FF8C00;">2,000</span></div>
+        <div style="width: 90%; max-width: 1100px; display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <div style="color: #666;">OP: <span id="op-display" style="color: #FF8C00;">GUEST</span></div>
+            <div style="color: #666;">CREDITS: <span style="color: #FF8C00;">2,000</span></div>
         </div>
-
-        <div class="viewport" id="viewport">
-            <div id="loader" class="loading-text">CORE_IDLE: STANDBY_FOR_BURN...</div>
-            <video id="main-video" controls></video>
+        <div class="viewport">
+            <div id="status" class="status-text">CORE_READY: AWAITING_BURN...</div>
+            <video id="output-video" controls></video>
         </div>
-        
-        <textarea id="prompt" placeholder="INPUT PROPRIETARY 9K COMMANDS..."></textarea>
-        
-        <div style="max-width: 1100px; margin: 0 auto;">
-            <button class="burn-btn" onclick="startBurn()">EXECUTE_BURN</button>
-            <button class="btn" id="dl-btn" onclick="alert('EXTRACTING_PROPRIETARY_DATA...')">DOWNLOAD_MASTER</button>
-        </div>
+        <textarea id="prompt" placeholder="INPUT PROPRIETARY 9K COMMANDS..." style="width: 90%; max-width: 1100px; height: 120px; background: #050505; border: 1px solid #222; color: #fff; padding: 20px; margin-bottom: 20px; outline: none;"></textarea>
+        <button class="burn-btn" onclick="executeBurn()">EXECUTE_BURN</button>
     </div>
 
     <script>
-        let credits = 2000;
-        let currentTier = "FREE";
-
         function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0);
-        }
-
-        function activateAccount() {
-            const name = document.getElementById('op-name').value;
-            currentTier = document.getElementById('tier-select').value;
-            document.getElementById('display-name').innerText = name.toUpperCase() || "LEGEND_OPERATOR";
-            showPage('engine-page');
-        }
-
-        function startBurn() {
-            if (currentTier === "FREE" && credits < 1000) {
-                alert("CREDIT_FAILURE: RECHARGE_REQUIRED");
-                return;
-            }
-
-            const loader = document.getElementById('loader');
-            const video = document.getElementById('main-video');
-            const dlBtn = document.getElementById('dl-btn');
-
-            loader.innerText = "9K_SYNTHESIS_IN_PROGRESS...";
-            
-            setTimeout(() => {
-                loader.style.display = 'none';
-                video.style.display = 'block';
-                dlBtn.style.display = 'block';
-                
-                // PATH TO YOUR LOCAL 9K ASSET
-                video.src = "knocks-9k-render.mp4"; 
-                
-                if (currentTier === "FREE") credits -= 1000;
-                document.getElementById('coin-balance').innerText = credits.toLocaleString();
-            }, 5000);
-        }
-    </script>
-</body>
-</html>
+            document.
