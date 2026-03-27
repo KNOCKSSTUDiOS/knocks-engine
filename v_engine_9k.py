@@ -1,47 +1,72 @@
-import time
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 class KnocksEngine:
     def __init__(self):
         self.version = "9K_SOVEREIGN_V1"
-        self.owner_id = "OWNER_KNOCKSSTUDIOS_2026"
-        
-    def validate_operator(self, user):
-        """Checks if user has the juice to render."""
-        if user['id'] == self.owner_id:
-            return {"status": "SUPREME_ACCESS", "limit": "INFINITE", "cost": 0}
-        
-        # TIER LOGIC
-        tiers = {
-            "FREE": {"limit": 5, "cost": 1000},
-            "BASIC": {"limit": 900, "cost": 0},   # 15 Min
-            "PRO": {"limit": 3600, "cost": 0},    # 1 Hour
-            "ULTRA": {"limit": "INFINITE", "cost": 0}
-        }
-        
-        stats = tiers.get(user['tier'], tiers["FREE"])
-        
-        if user['tier'] == "FREE" and user['coins'] < stats['cost']:
-            return {"status": "DENIED", "reason": "INSUFFICIENT_COINS"}
-            
-        return {"status": "AUTHORIZED", "limit": stats['limit'], "cost": stats['cost']}
+        # EMAIL CONFIGURATION (Update these with your details)
+        self.smtp_server = "smtp.gmail.com" 
+        self.smtp_port = 587
+        self.sender_email = "your-email@gmail.com" 
+        self.sender_password = "your-app-password" # Use Google App Password
 
-    def execute_render(self, user, project_length):
-        auth = self.validate_operator(user)
+    def send_success_email(self, operator_email, operator_name, coin_balance):
+        """Sends the Master Sync Email automatically."""
+        subject = f"🛡️ RENDER_COMPLETE: [FILE_ID_9K] IS READY"
         
-        if auth["status"] == "DENIED":
-            print(f"Error: {auth['reason']}")
-            return False
+        body = f"""
+        --------------------------------------------------
+        [ KNOCKSSTUDIOS | GLOBAL PROXIED ENGINE ]
+        --------------------------------------------------
+        OPERATOR_STATUS: SUCCESSFUL_BURN
+        --------------------------------------------------
+        
+        GREETINGS {operator_name.upper()},
 
-        # Enforce physical limits
-        if auth["limit"] != "INFINITE" and project_length > auth["limit"]:
-            print(f"Error: LENGTH_EXCEEDS_TIER_CAP ({auth['limit']}s)")
-            return False
+        The sovereign engine has completed your request. 
+        Your 9K visual data and Lyria-3 audio are synthesized.
 
-        print(f"Initializing {self.version}...")
-        print(f"Deducting {auth['cost']} coins...")
-        # Deduction logic here
-        print("RENDER_COMPLETE: 9K_OUTPUT_GENERATED")
-        return True
+        FILES ARE STAGED IN YOUR DASHBOARD.
 
-# --- SYSTEM INITIALIZATION ---
-engine = KnocksEngine()
+        REMAINING_COIN_BALANCE: {coin_balance}
+        --------------------------------------------------
+        END_OF_BRIEF
+        --------------------------------------------------
+        """
+
+        msg = MIMEMultipart()
+        msg['From'] = self.sender_email
+        msg['To'] = operator_email
+        msg['Subject'] = subject
+        msg.attach(MIMEText(body, 'plain'))
+
+        try:
+            server = smtplib.SMTP(self.smtp_server, self.smtp_port)
+            server.starttls()
+            server.login(self.sender_email, self.sender_password)
+            server.send_message(msg)
+            server.quit()
+            print(f"NOTIFICATION_SENT_TO: {operator_email}")
+        except Exception as e:
+            print(f"MAIL_SYSTEM_ERROR: {e}")
+
+    def execute_burn(self, user_data):
+        """Triggers the Render and the Email."""
+        print("INITIALIZING_9K_BURN...")
+        
+        # Simulate rendering time
+        import time
+        time.sleep(3) 
+        
+        # Once render is finished, send the email
+        self.send_success_email(
+            user_data['email'], 
+            user_data['name'], 
+            user_data['coins']
+        )
+        return "BURN_SUCCESSFUL"
+
+# --- TEST THE SYSTEM ---
+# engine = KnocksEngine()
+# engine.execute_burn({'email': 'test@user.com', 'name': 'Operator_01', 'coins': 1000})
