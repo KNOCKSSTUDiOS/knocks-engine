@@ -1,136 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Login — KNOCKSSTUDiOS</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    :root{
-      --bg:#000;
-      --accent:#7fd0ff;
-      --accent-2:#9f5bff;
-      --muted:#6f9fd0;
-      --panel-bg:radial-gradient(circle at top,#07111f 0,#02040a 55%,#000 100%);
-      --glass-border:rgba(127,208,255,0.35);
-      --text:#e5f3ff;
-    }
-    *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;}
-    html,body{height:100%}
-    body{
-      background:#02030a;
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      overflow:hidden;
-    }
-    .center{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px}
-    .container{
-      width:100%;
-      max-width:420px;
-      background:var(--panel-bg);
-      border-radius:20px;
-      padding:30px;
-      border:1px solid var(--glass-border);
-      box-shadow:0 0 40px rgba(127,208,255,0.12), inset 0 0 30px rgba(0,0,0,0.7);
-      text-align:center;
-    }
-    h1{
-      font-size:1.8rem;
-      letter-spacing:0.15em;
-      color:var(--accent);
-      margin-bottom:10px;
-      font-weight:800;
-    }
-    .input{
-      width:100%;
-      padding:12px;
-      margin-top:12px;
-      border-radius:10px;
-      border:1px solid rgba(127,208,255,0.25);
-      background:rgba(0,0,0,0.4);
-      color:var(--text);
-      font-size:0.9rem;
-    }
-    .btn{
-      width:100%;
-      padding:12px;
-      margin-top:18px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      font-weight:700;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-      font-size:0.85rem;
-    }
-    .btn-primary{
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      color:#041018;
-      box-shadow:0 6px 24px rgba(31,209,255,0.18);
-    }
-    .link{
-      margin-top:16px;
-      font-size:0.85rem;
-      color:var(--accent);
-      cursor:pointer;
-      display:inline-block;
-    }
-    .error{
-      margin-top:10px;
-      color:#ff6b6b;
-      font-size:0.85rem;
-      display:none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPERATOR_SYNC | KNOCKSSTUDIOS</title>
+    <style>
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .login-card { width: 350px; border: 1px solid #333; padding: 40px; background: #050505; position: relative; }
+        .login-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #FF8C00; }
+        h2 { color: #FF8C00; letter-spacing: 5px; text-align: center; font-size: 18px; margin-bottom: 30px; }
+        label { color: #666; font-size: 10px; display: block; margin-bottom: 5px; }
+        input { width: 100%; background: #111; border: 1px solid #222; padding: 12px; color: #fff; margin-bottom: 20px; outline: none; }
+        input:focus { border-color: #FF8C00; }
+        .btn-sync { width: 100%; background: #FF8C00; color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; letter-spacing: 2px; }
+        .btn-sync:hover { background: #fff; box-shadow: 0 0 15px #fff; }
+        .footer-link { text-align: center; margin-top: 20px; font-size: 10px; color: #444; }
+        .footer-link a { color: #FF8C00; text-decoration: none; }
+    </style>
 </head>
 <body>
 
-  <div class="center">
-    <div class="container">
-      <h1>LOGIN</h1>
-
-      <input id="email" class="input" type="email" placeholder="Email" />
-      <input id="password" class="input" type="password" placeholder="Password" />
-
-      <div id="error" class="error">Invalid email or password.</div>
-
-      <button class="btn btn-primary" id="login-btn">Log In</button>
-
-      <div class="link" onclick="location.href='signup.html'">Create an account</div>
-      <div class="link" onclick="location.href='index.html'">← Back</div>
+<div class="login-card">
+    <h2>OPERATOR_SYNC</h2>
+    <form action="/engine/login" method="POST">
+        <label>OPERATOR_ID / EMAIL</label>
+        <input type="text" name="id" required placeholder="ENTRY_CODE">
+        
+        <label>ACCESS_PASSCODE</label>
+        <input type="password" name="password" required placeholder="********">
+        
+        <button type="submit" class="btn-sync">INITIALIZE_SESSION</button>
+    </form>
+    <div class="footer-link">
+        UNREGISTERED? <a href="signup.html">SECURE_BRIEF</a>
     </div>
-  </div>
-
-  <script>
-    const $ = id => document.getElementById(id);
-
-    function loadState(){
-      const raw = localStorage.getItem("knocks_state_v1");
-      if(!raw) return null;
-      try{ return JSON.parse(raw); }
-      catch(e){ return null; }
-    }
-
-    $("login-btn").addEventListener("click", ()=>{
-      const email = $("email").value.trim();
-      const pass = $("password").value.trim();
-
-      const state = loadState();
-
-      if(!state){
-        $("error").textContent = "No account found. Please sign up first.";
-        $("error").style.display = "block";
-        return;
-      }
-
-      if(email !== state.email || pass !== (state.password || "1234")){
-        $("error").textContent = "Invalid email or password.";
-        $("error").style.display = "block";
-        return;
-      }
-
-      location.href = "dashboard.html";
-    });
-  </script>
+</div>
 
 </body>
 </html>
