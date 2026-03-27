@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDIOS | 9K SOVEREIGN ENGINE</title>
+    <title>KNOCKSSTUDiOS | 9K SOVEREIGN ENGINE</title>
     <style>
-        /* GLOBAL STYLING - FORCED CAPITALIZATION */
+        /* REMOVED GLOBAL UPPERCASE TO PROTECT THE SIGNATURE */
         * { 
             margin: 0; 
             padding: 0; 
             box-sizing: border-box; 
-            text-transform: uppercase !important; /* LOCKS ALL CAPS GLOBALLY */
             font-family: 'Courier New', monospace; 
         }
         
@@ -27,10 +26,9 @@
         .nav-btn { 
             background: transparent; border: 1px solid #222; color: #666; 
             padding: 10px 25px; cursor: pointer; font-size: 11px; letter-spacing: 2px; 
-            transition: 0.3s; 
+            transition: 0.3s; text-transform: uppercase;
         }
         .nav-btn:hover { border-color: #FF8C00; color: #FF8C00; }
-        .nav-btn.active-gate { border-color: #FF8C00; color: #FF8C00; background: rgba(255,140,0,0.05); }
 
         /* PAGE SYSTEM */
         .page { display: none; min-height: 100vh; width: 100%; padding-top: 120px; flex-direction: column; align-items: center; }
@@ -38,52 +36,49 @@
 
         /* HERO SECTION */
         h1 { font-size: clamp(2.5rem, 10vw, 5rem); letter-spacing: 20px; text-shadow: 0 0 30px #FF8C00; margin-bottom: 10px; text-align: center; font-weight: 900; }
-        .legend-tag { color: #444; letter-spacing: 8px; font-size: 14px; margin-bottom: 50px; }
+        .legend-tag { color: #444; letter-spacing: 8px; font-size: 14px; margin-bottom: 50px; text-transform: uppercase; }
 
         /* BUTTONS */
-        .main-btn { padding: 20px 60px; border: 2px solid #FF8C00; background: transparent; color: #FF8C00; font-weight: bold; cursor: pointer; letter-spacing: 5px; transition: 0.4s; }
+        .main-btn { padding: 20px 60px; border: 2px solid #FF8C00; background: transparent; color: #FF8C00; font-weight: bold; cursor: pointer; letter-spacing: 5px; transition: 0.4s; text-transform: uppercase; }
         .main-btn:hover { background: #FF8C00; color: #000; box-shadow: 0 0 50px #FF8C00; }
 
         /* SAMPLES GALLERY */
         .samples-grid { width: 90%; max-width: 1200px; display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 80px; padding-bottom: 100px; }
-        .sample-card { border: 1px solid #111; background: #050505; transition: 0.3s; }
-        .sample-card:hover { border-color: #FF8C00; }
+        .sample-card { border: 1px solid #111; background: #050505; }
         .sample-img { width: 100%; height: 250px; background: #111; object-fit: cover; border-bottom: 1px solid #222; }
-        .sample-label { padding: 20px; font-size: 12px; color: #888; letter-spacing: 3px; }
+        .sample-label { padding: 20px; font-size: 12px; color: #888; letter-spacing: 3px; text-transform: uppercase; }
 
         /* FORM BOXES */
-        .form-box { width: 90%; max-width: 450px; background: #020202; border: 1px solid #FF8C00; padding: 50px; text-align: center; box-shadow: 0 0 50px rgba(255,140,0,0.05); }
-        input, select { width: 100%; padding: 15px; margin: 15px 0; background: #000; border: 1px solid #222; color: #fff; outline: none; font-size: 14px; }
-        input:focus { border-color: #FF8C00; }
+        .form-box { width: 90%; max-width: 450px; background: #020202; border: 1px solid #FF8C00; padding: 50px; text-align: center; }
+        input, select { width: 100%; padding: 15px; margin: 15px 0; background: #000; border: 1px solid #222; color: #fff; outline: none; font-size: 14px; text-transform: uppercase; }
 
-        /* PRICING TABLE */
-        .logistics-table { width: 100%; margin-bottom: 30px; border-collapse: collapse; text-align: left; }
-        .logistics-table th { color: #444; font-size: 10px; padding-bottom: 10px; letter-spacing: 2px; }
+        /* LOGISTICS TABLE */
+        .logistics-table { width: 100%; margin-bottom: 30px; border-collapse: collapse; text-align: left; text-transform: uppercase; }
         .logistics-table td { padding: 15px 0; border-bottom: 1px solid #111; font-size: 12px; }
 
         /* ENGINE DASHBOARD */
         .viewport { width: 90%; max-width: 1100px; aspect-ratio: 16/9; border: 1px solid #FF8C00; background: #000; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 30px; }
         video { width: 100%; height: 100%; display: none; object-fit: cover; }
-        .status-blink { letter-spacing: 5px; color: #FF8C00; animation: blink 1.5s infinite; font-size: 14px; }
+        .status-blink { letter-spacing: 5px; color: #FF8C00; animation: blink 1.5s infinite; font-size: 14px; text-transform: uppercase; }
         @keyframes blink { 50% { opacity: 0.2; } }
         
-        textarea { width: 90%; max-width: 1100px; height: 120px; background: #050505; border: 1px solid #222; color: #fff; padding: 20px; margin-bottom: 20px; outline: none; resize: none; }
-        .burn-btn { width: 90%; max-width: 1100px; padding: 25px; background: #FF8C00; color: #000; font-weight: 900; border: none; cursor: pointer; letter-spacing: 10px; font-size: 18px; }
+        textarea { width: 90%; max-width: 1100px; height: 120px; background: #050505; border: 1px solid #222; color: #fff; padding: 20px; margin-bottom: 20px; outline: none; resize: none; text-transform: uppercase; }
+        .burn-btn { width: 90%; max-width: 1100px; padding: 25px; background: #FF8C00; color: #000; font-weight: 900; border: none; cursor: pointer; letter-spacing: 10px; font-size: 18px; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="brand-name">KNOCKSSTUDIOS</div>
+        <div class="brand-name">KNOCKSSTUDiOS</div>
         <div class="nav-gates">
             <button class="nav-btn" onclick="showPage('gate-page')">HOME</button>
             <button class="nav-btn" onclick="showPage('login-page')">LOG_IN</button>
-            <button class="nav-btn active-gate" onclick="showPage('signup-page')">SIGN_UP</button>
+            <button class="nav-btn" style="border-color: #FF8C00; color: #FF8C00;" onclick="showPage('signup-page')">SIGN_UP</button>
         </div>
     </header>
 
     <div id="gate-page" class="page active">
-        <h1>KNOCKSSTUDIOS</h1>
+        <h1>KNOCKSSTUDiOS</h1>
         <p class="legend-tag">POWERED BY AI LEGENDS | NO THIRD PARTIES</p>
         
         <button class="main-btn" onclick="showPage('signup-page')">INITIATE_SYNC</button>
@@ -102,7 +97,7 @@
 
     <div id="login-page" class="page">
         <div class="form-box">
-            <h2 style="letter-spacing: 5px; margin-bottom: 30px;">ADMINISTRATION_LOGIN</h2>
+            <h2 style="letter-spacing: 5px; margin-bottom: 30px; text-transform: uppercase;">ADMINISTRATION_LOGIN</h2>
             <input type="text" placeholder="OPERATOR_ID">
             <input type="password" placeholder="ENCRYPTION_KEY">
             <button class="main-btn" style="width: 100%;" onclick="showPage('engine-page')">SYNC_SESSION</button>
@@ -111,10 +106,9 @@
 
     <div id="signup-page" class="page">
         <div class="form-box">
-            <h2 style="letter-spacing: 5px; margin-bottom: 20px;">LOGISTICS_ENROLLMENT</h2>
+            <h2 style="letter-spacing: 5px; margin-bottom: 20px; text-transform: uppercase;">LOGISTICS_ENROLLMENT</h2>
             
             <table class="logistics-table">
-                <thead><tr><th>PROTOCOL</th><th>LEVEL</th><th>COST</th></tr></thead>
                 <tbody>
                     <tr><td style="color: #FF8C00;">CHROME_CORE</td><td>5S</td><td>$0</td></tr>
                     <tr><td>ONYX_SECTOR</td><td>15M</td><td>$10</td></tr>
@@ -130,8 +124,8 @@
 
     <div id="engine-page" class="page">
         <div style="width: 90%; max-width: 1100px; display: flex; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #111; padding-bottom: 10px;">
-            <div style="color: #444;">ID: <span id="op-display" style="color: #FF8C00;">GUEST</span></div>
-            <div style="color: #444;">CREDITS: <span style="color: #FF8C00;">2,000</span></div>
+            <div style="color: #444; text-transform: uppercase;">ID: <span id="op-display" style="color: #FF8C00;">GUEST</span></div>
+            <div style="color: #444; text-transform: uppercase;">CREDITS: <span style="color: #FF8C00;">2,000</span></div>
         </div>
 
         <div class="viewport">
@@ -159,14 +153,11 @@
         function runBurn() {
             const status = document.getElementById('engine-status');
             const video = document.getElementById('engine-output');
-            
             status.innerText = "SYNTHESIZING_9K_SOVEREIGN_DATA...";
-            status.style.color = "#fff";
-
             setTimeout(() => {
                 status.style.display = 'none';
                 video.style.display = 'block';
-                video.src = "knocks-9k-render.mp4"; // ENSURE THIS FILE IS UPLOADED
+                video.src = "knocks-9k-render.mp4";
             }, 4000);
         }
     </script>
