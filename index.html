@@ -3,150 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | THE SOVEREIGN PULSE</title>
+    <title>KNOCKSSTUDiOS | THE SOVEREIGN MASTER</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         
-        * { cursor: none !important; }
-        body { 
-            background-color: #000; font-family: 'Orbitron', sans-serif; 
-            color: white; overflow: hidden; margin: 0; 
-            perspective: 2000px;
-        }
-        
-        /* HEARTBEAT RESONANCE */
-        @keyframes heartbeat {
-            0%, 100% { transform: rotateX(45deg) rotateZ(-45deg) scale(1.5); filter: contrast(1); }
-            50% { transform: rotateX(50deg) rotateZ(-40deg) scale(1.7); filter: contrast(5); }
-        }
+        * { cursor: none !important; margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; perspective: 2000px; }
 
+        /* THE VOID GRID */
         #video-container { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            z-index: -2; background: #000; display: grid; 
+            position: fixed; inset: 0; z-index: -2; display: grid; 
             grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
             transition: all 4s cubic-bezier(0.8, 0, 0.2, 1);
             transform-style: preserve-3d;
         }
 
+        /* DECAY STATE: TILT + SHATTER + PIXELATE */
         .persistence-hd #video-container { 
-            grid-template-columns: repeat(10, 1fr); 
-            grid-template-rows: repeat(10, 1fr);
-            animation: heartbeat 0.5s infinite ease-in-out, color-drain 8s forwards;
-        }
-        
-        @keyframes color-drain {
-            0% { grayscale: 0; opacity: 1; }
-            100% { grayscale: 1; opacity: 0.3; filter: blur(100px); }
+            grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr);
+            transform: translateZ(-600px) rotateX(45deg) rotateZ(-15deg);
         }
 
-        .video-shard { width: 100%; height: 100%; overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.05); }
-        video { position: absolute; width: 100%; height: 100%; object-fit: cover; }
-
-        /* RECOVERY SNAP (12 ROTATIONS) */
-        .recovery-snap #video-container { 
-            transform: scale(0) rotateZ(4320deg); 
-            filter: brightness(500) contrast(0);
-            transition: all 0.2s cubic-bezier(0.1, 1, 0.1, 1);
-            animation: none;
+        .video-shard { 
+            width: 100%; height: 100%; overflow: hidden; position: relative; 
+            border: 1px solid rgba(255,255,255,0.05); mix-blend-mode: screen;
+            transition: transform 8s cubic-bezier(0.1, 0, 0.1, 1), filter 8s;
         }
 
-        #sort-buffer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 40; display: none; background: #fff; mix-blend-mode: exclusion; }
-        .recovery-snap #sort-buffer { display: block; animation: sort-flash 0.01s infinite; }
-        @keyframes sort-flash { 0% { opacity: 0; } 100% { opacity: 0.5; } }
+        /* VOLUMETRIC SHRAPNEL & LIQUEFACTION */
+        .persistence-hd .video-shard { border-radius: 0 0 50% 50%; }
+        .persistence-hd .video-shard:nth-child(3n) { transform: translate3d(500px, -200px, 1500px) skewY(15deg); }
+        .persistence-hd .video-shard:nth-child(3n+1) { transform: translate3d(-500px, 400px, 1200px) skewX(-10deg); }
+        .persistence-hd .video-shard:nth-child(3n+2) { transform: translate3d(0, -600px, 2000px) scale(0.5); }
 
-        /* KINETICS */
-        .shockwave {
-            position: fixed; border: 5px solid #fff; border-radius: 50%; 
-            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
-            animation: ripple 0.1s linear forwards;
+        /* SPECTRAL & RESOLUTION COLLAPSE */
+        .persistence-hd #video-container { 
+            animation: spectral-pulse 2s infinite linear, heartbeat 0.4s infinite ease-in-out; 
         }
-        @keyframes ripple { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 2000px; height: 2000px; opacity: 0; } }
-        
-        .pulse-invert { filter: invert(1) brightness(50) sepia(1) hue-rotate(180deg) !important; }
 
-        /* UI */
-        .brand-layer { position: absolute; top: 0; left: 0; width: 100%; mix-blend-mode: screen; font-size: 5rem; }
-        .r-layer { color: #f00; } .g-layer { color: #0f0; } .b-layer { color: #00f; }
-        .cursor-node { position: fixed; width: 2px; height: 2px; background: #fff; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); box-shadow: 0 0 10px #fff; }
-    </style>
-</head>
-<body id="main-body" class="flex flex-col items-center justify-center min-h-screen">
-
-    <div id="sort-buffer"></div>
-    <div id="cursor-main" class="cursor-node"></div>
-    
-    <div id="video-container"></div>
-
-    <main class="z-10 w-full max-w-sm">
-        <div class="text-center">
-            <div class="relative h-24 mb-32">
-                <span id="r-txt" class="brand-layer r-layer font-black">KNOCKS</span>
-                <span id="g-txt" class="brand-layer g-layer font-black">KNOCKS</span>
-                <span id="b-txt" class="brand-layer b-layer font-black">KNOCKS</span>
-            </div>
-            <button id="init-btn" class="w-full bg-white text-black py-10 font-black uppercase text-[6px] tracking-[4em] hover:bg-black hover:text-white border-4 border-white transition-all">HEARTBEAT_DECAY</button>
-        </div>
-    </main>
-
-    <script>
-        const body = document.getElementById('main-body'), container = document.getElementById('video-container');
-        const initBtn = document.getElementById('init-btn'), mainCursor = document.getElementById('cursor-main');
-
-        for(let i=0; i<100; i++) {
-            const shard = document.createElement('div');
-            shard.className = 'video-shard';
-            shard.innerHTML = `<video autoplay muted loop><source src="8776550e6409b36ed5834f6e6b473a9b.mp4" type="video/mp4"></video>`;
-            container.appendChild(shard);
-        }
-        const videos = document.querySelectorAll('video');
-
-        let crashTimer, stutterInterval, isRecovering = false;
-
-        const triggerStutter = () => {
-            if(!isRecovering && body.classList.contains('persistence-hd')) {
-                videos.forEach(v => v.pause());
-                setTimeout(() => { if(!isRecovering) videos.forEach(v => v.play()); }, 100);
-            }
-        };
-
-        initBtn.addEventListener('click', () => {
-            initBtn.style.opacity = '0';
-            body.classList.add('persistence-hd');
-            stutterInterval = setInterval(triggerStutter, 800);
-            crashTimer = setTimeout(() => { videos.forEach(v => v.pause()); }, 8000);
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            const x = e.clientX, y = e.clientY;
-            mainCursor.style.left = x + 'px'; mainCursor.style.top = y + 'px';
-
-            if(body.classList.contains('persistence-hd') && !isRecovering) {
-                const wave = document.createElement('div');
-                wave.className = 'shockwave';
-                wave.style.left = x + 'px'; wave.style.top = y + 'px';
-                document.body.appendChild(wave);
-                setTimeout(() => wave.remove(), 100);
-
-                container.classList.add('pulse-invert');
-                setTimeout(() => container.classList.remove('pulse-invert'), 10);
-            }
-
-            if(body.classList.contains('persistence-hd')) {
-                clearInterval(stutterInterval);
-                clearTimeout(crashTimer);
-                isRecovering = true;
-                body.classList.add('recovery-snap');
-                videos.forEach(v => { v.playbackRate = -50.0; v.play(); });
-                
-                setTimeout(() => {
-                    isRecovering = false;
-                    videos.forEach(v => v.playbackRate = 1.0);
-                    body.classList.remove('persistence-hd', 'recovery-snap');
-                    initBtn.style.opacity = '1';
-                }, 200);
-            }
-        });
-    </script>
-</body>
-</html>
+        @keyframes spectral-pulse {
+            0% { filter: hue-rotate(0deg) grayscale(0) blur(0px) contrast(1); }
+            100% { filter: hue-rotate(360deg) grayscale(1) blur(40px) contrast(20);
