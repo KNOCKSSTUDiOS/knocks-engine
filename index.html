@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDIOS | 9K SOVEREIGN ENGINE ACTIVE</title>
+    <title>KNOCKSSTUDIOS | PURE SOVEREIGN 9K</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
@@ -11,100 +11,111 @@
         .page { display: none; min-height: 100vh; width: 100%; }
         .active { display: block; }
 
-        /* --- THE ACTIVE GATE (INDEX) --- */
+        /* --- THE SOVEREIGN GATE (INDEX) --- */
         #gate-page {
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('9k-eye.jpg') no-repeat center center;
-            background-size: cover;
+            background: radial-gradient(circle, #1a0a00 0%, #000000 100%);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
-        /* NOW ACTIVE BANNER BOX */
-        .status-alert {
-            border: 2px solid #FF8C00;
-            padding: 10px 30px;
-            background: rgba(255, 140, 0, 0.1);
+        .engine-status {
+            border: 1px solid #FF8C00;
+            padding: 10px 40px;
+            background: rgba(255, 140, 0, 0.05);
             color: #FF8C00;
-            font-weight: bold;
-            margin-bottom: 20px;
+            font-size: 14px;
+            letter-spacing: 6px;
+            margin-bottom: 30px;
             text-transform: uppercase;
-            letter-spacing: 5px;
-            animation: blink 1.5s infinite;
         }
 
-        @keyframes blink { 50% { opacity: 0.5; } }
-
-        h1 { font-size: clamp(2rem, 8vw, 4rem); letter-spacing: 15px; text-shadow: 0 0 20px #FF8C00; text-align: center; }
+        h1 { font-size: clamp(3rem, 12vw, 6rem); letter-spacing: 25px; text-shadow: 0 0 40px #FF8C00; text-align: center; font-weight: 900; }
+        .legend-tag { letter-spacing: 10px; color: #444; margin-top: 20px; font-size: 12px; text-transform: uppercase; }
         
-        .btn { padding: 18px 50px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.3s; border: 1px solid #FF8C00; background: rgba(255,140,0,0.1); color: #FF8C00; margin: 20px; display: inline-block; }
-        .btn:hover { background: #FF8C00; color: #000; box-shadow: 0 0 40px #FF8C00; }
+        .btn { padding: 25px 80px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 5px; cursor: pointer; transition: 0.4s; border: 2px solid #FF8C00; background: transparent; color: #FF8C00; margin: 40px; display: inline-block; }
+        .btn:hover { background: #FF8C00; color: #000; box-shadow: 0 0 60px rgba(255, 140, 0, 0.8); }
 
-        /* --- SIGNUP & ENGINE STYLES --- */
-        #signup-page, #engine-page { padding: 40px 20px; background: #050505; text-align: center; }
-        .pricing-table { width: 100%; max-width: 800px; margin: 30px auto; border-collapse: collapse; background: #0a0a0a; border: 1px solid #222; }
-        .pricing-table th, .pricing-table td { padding: 15px; border: 1px solid #222; font-size: 12px; }
-        .signup-form { max-width: 400px; margin: 0 auto; border: 1px solid #FF8C00; padding: 30px; background: #000; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid #333; color: #fff; outline: none; }
+        /* --- SIGNUP & ENGINE --- */
+        #signup-page, #engine-page { padding: 80px 20px; background: #000; text-align: center; }
+        .pricing-table { width: 100%; max-width: 1000px; margin: 50px auto; border-collapse: collapse; border: 1px solid #111; }
+        .pricing-table th, .pricing-table td { padding: 25px; border-bottom: 1px solid #111; font-size: 14px; text-align: left; }
+        .pricing-table th { color: #FF8C00; text-transform: uppercase; letter-spacing: 3px; background: #050505; }
         
-        .viewport { width: 100%; max-width: 900px; margin: 0 auto; aspect-ratio: 16/9; border: 1px solid #FF8C00; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; }
+        .signup-form { max-width: 500px; margin: 0 auto; border: 1px solid #FF8C00; padding: 50px; background: #020202; box-shadow: 0 0 50px rgba(255, 140, 0, 0.05); }
+        input, select { width: 100%; padding: 18px; margin: 15px 0; background: #000; border: 1px solid #222; color: #fff; outline: none; font-family: inherit; font-size: 16px; }
+        input:focus { border-color: #FF8C00; }
+        
+        /* THE BURN VIEWPORT */
+        .viewport { width: 100%; max-width: 1100px; margin: 40px auto; aspect-ratio: 16/9; border: 1px solid #FF8C00; background: #000; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
         video { width: 100%; height: 100%; display: none; object-fit: cover; }
-        textarea { width: 100%; max-width: 900px; height: 100px; background: #111; color: #fff; border: 1px solid #333; margin: 20px 0; padding: 15px; font-family: 'Courier New', monospace; }
-        .burn-btn { width: 100%; max-width: 900px; background: #FF8C00; color: #000; padding: 20px; font-weight: bold; cursor: pointer; border: none; letter-spacing: 5px; }
-        #dl-btn { background: #00FF00; color: #000; display: none; margin-top: 15px; width: 100%; max-width: 900px; }
+        .loading-text { letter-spacing: 8px; color: #FF8C00; text-transform: uppercase; font-size: 18px; animation: glow 2s infinite; }
+        @keyframes glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+        textarea { width: 100%; max-width: 1100px; height: 150px; background: #050505; color: #fff; border: 1px solid #222; margin: 30px 0; padding: 25px; font-family: 'Courier New', monospace; outline: none; font-size: 16px; border-radius: 0; }
+        textarea:focus { border-color: #FF8C00; }
+
+        .burn-btn { width: 100%; max-width: 1100px; background: #FF8C00; color: #000; padding: 30px; font-weight: 900; cursor: pointer; border: none; letter-spacing: 10px; text-transform: uppercase; font-size: 20px; }
+        .burn-btn:hover { background: #fff; box-shadow: 0 0 40px #fff; }
+        
+        #dl-btn { background: #fff; color: #000; display: none; margin-top: 25px; width: 100%; max-width: 1100px; font-size: 18px; }
     </style>
 </head>
 <body>
 
     <div id="gate-page" class="page active">
-        <div class="status-alert">SYSTEM_NOW_ACTIVE</div>
+        <div class="engine-status">CORE_V1_STATUS: OPERATIONAL</div>
         <h1>KNOCKSSTUDIOS</h1>
-        <p style="letter-spacing: 5px; color: #888; margin-top: 10px;">9K SOVEREIGN RENDERING CORE ONLINE</p>
+        <p class="legend-tag">POWERED BY AI LEGENDS | NO THIRD PARTIES</p>
         
-        <div style="margin-top: 40px;">
-            <button class="btn" onclick="showPage('signup-page')">SECURE_BRIEF</button>
+        <div style="margin-top: 20px;">
+            <button class="btn" onclick="showPage('signup-page')">GET_ACCESS</button>
         </div>
     </div>
 
     <div id="signup-page" class="page">
-        <h2 style="color: #FF8C00; letter-spacing: 5px;">SELECT_ACCESS_TIER</h2>
+        <h2 style="color: #FF8C00; letter-spacing: 15px; text-transform: uppercase;">SELECT_SYNC_PLAN</h2>
         <table class="pricing-table">
-            <tr style="color: #555;"><th>TIER</th><th>LIMIT</th><th>COST</th></tr>
-            <tr><td style="color: #FF8C00;">FREE_OPERATOR</td><td>5 SEC</td><td>$0 (+2K COINS)</td></tr>
-            <tr><td>BASIC_CORE</td><td>15 MIN</td><td>$10/mo</td></tr>
-            <tr><td style="color: #00FF00;">ULTRA_SOVEREIGN</td><td>UNLIMITED</td><td>$60/mo</td></tr>
+            <thead>
+                <tr><th>PROTOCOL</th><th>LIMIT</th><th>COST</th></tr>
+            </thead>
+            <tbody>
+                <tr><td style="color: #FF8C00;">FREE_OPERATOR</td><td>5s RENDER</td><td>$0 (+2000 CREDITS)</td></tr>
+                <tr><td>BASIC_SYNC</td><td>15m RENDER</td><td>$10/MO</td></tr>
+                <tr><td style="color: #FF8C00;">ULTRA_SOVEREIGN</td><td>UNLIMITED</td><td>$60/MO</td></tr>
+            </tbody>
         </table>
         
         <div class="signup-form">
             <input type="text" id="op-name" placeholder="OPERATOR_ID">
-            <input type="email" placeholder="EMAIL_SYNC">
+            <input type="email" placeholder="SECURE_COMM_EMAIL">
             <select id="tier-select">
-                <option value="FREE">FREE_PLAN (5s Limit)</option>
-                <option value="ULTRA">ULTRA_PLAN (Unlimited)</option>
+                <option value="FREE">FREE_PLAN (5s)</option>
+                <option value="ULTRA">ULTRA_PLAN (UNLIMITED)</option>
             </select>
-            <button class="btn" style="width: 100%; margin: 10px 0;" onclick="activateAccount()">ACTIVATE_SYNC</button>
+            <button class="btn" style="width: 100%; margin: 20px 0;" onclick="activateAccount()">ACTIVATE_CORE</button>
         </div>
     </div>
 
     <div id="engine-page" class="page">
-        <div style="max-width: 900px; margin: 0 auto; display: flex; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid #222;">
-            <div>OP: <span id="display-name" style="color: #FF8C00;">GUEST</span></div>
-            <div>COINS: <span id="coin-balance" style="color: #FF8C00;">2,000</span></div>
+        <div style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; border-bottom: 2px solid #FF8C00; padding-bottom: 20px;">
+            <div>OPERATOR: <span id="display-name" style="color: #FF8C00;">GUEST</span></div>
+            <div>CREDITS: <span id="coin-balance" style="color: #FF8C00;">2,000</span></div>
         </div>
 
-        <div class="viewport" id="viewport" style="margin-top: 30px;">
-            <div id="loader" style="letter-spacing: 3px; color: #444;">IDLE: AWAITING_INPUT_COMMAND...</div>
+        <div class="viewport" id="viewport">
+            <div id="loader" class="loading-text">CORE_IDLE: STANDBY_FOR_BURN...</div>
             <video id="main-video" controls></video>
         </div>
         
-        <textarea id="prompt" placeholder="DESCRIBE 9K VISUAL PARAMETERS..."></textarea>
+        <textarea id="prompt" placeholder="INPUT PROPRIETARY 9K COMMANDS..."></textarea>
         
-        <div style="max-width: 900px; margin: 0 auto;">
-            <button class="burn-btn" onclick="startBurn()">START_9K_BURN</button>
-            <button class="btn" id="dl-btn" onclick="alert('DOWNLOADING_MASTER_RENDER...')">DOWNLOAD_RENDER</button>
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <button class="burn-btn" onclick="startBurn()">EXECUTE_BURN</button>
+            <button class="btn" id="dl-btn" onclick="alert('EXTRACTING_PROPRIETARY_DATA...')">DOWNLOAD_MASTER</button>
         </div>
     </div>
 
     <script>
-        let coins = 2000;
+        let credits = 2000;
         let currentTier = "FREE";
 
         function showPage(pageId) {
@@ -116,13 +127,13 @@
         function activateAccount() {
             const name = document.getElementById('op-name').value;
             currentTier = document.getElementById('tier-select').value;
-            document.getElementById('display-name').innerText = name || "GUEST_OPERATOR";
+            document.getElementById('display-name').innerText = name.toUpperCase() || "LEGEND_OPERATOR";
             showPage('engine-page');
         }
 
         function startBurn() {
-            if (currentTier === "FREE" && coins < 1000) {
-                alert("INSUFFICIENT_COINS: RECHARGE_REQUIRED");
+            if (currentTier === "FREE" && credits < 1000) {
+                alert("CREDIT_FAILURE: RECHARGE_REQUIRED");
                 return;
             }
 
@@ -130,20 +141,19 @@
             const video = document.getElementById('main-video');
             const dlBtn = document.getElementById('dl-btn');
 
-            loader.innerText = "INITIALIZING_9K_VEO_SYNC...";
-            loader.style.color = "#FF8C00";
+            loader.innerText = "9K_SYNTHESIS_IN_PROGRESS...";
             
             setTimeout(() => {
                 loader.style.display = 'none';
                 video.style.display = 'block';
                 dlBtn.style.display = 'block';
                 
-                // TEST ASSETS (Place your video files in the root folder)
-                video.src = "your-video.mp4"; 
+                // PATH TO YOUR LOCAL 9K ASSET
+                video.src = "knocks-9k-render.mp4"; 
                 
-                if (currentTier === "FREE") coins -= 1000;
-                document.getElementById('coin-balance').innerText = coins;
-            }, 3000);
+                if (currentTier === "FREE") credits -= 1000;
+                document.getElementById('coin-balance').innerText = credits.toLocaleString();
+            }, 5000);
         }
     </script>
 </body>
