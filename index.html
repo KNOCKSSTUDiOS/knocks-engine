@@ -25,11 +25,23 @@
         .neon-btn { background: #0891b2; transition: all 0.3s ease; border: none; }
         .neon-btn:hover { background: #22d3ee; box-shadow: 0 0 25px #22d3ee; color: black; }
         
-        /* SIGNATURE LOCK: Prevents any auto-caps and adds custom glow to the "i" */
+        /* SIGNATURE PULSE ANIMATION */
+        @keyframes pulse-cyan {
+            0%, 100% { opacity: 1; text-shadow: 0 0 20px #22d3ee, 0 0 40px #06b6d4; }
+            50% { opacity: 0.7; text-shadow: 0 0 10px #22d3ee, 0 0 20px #06b6d4; }
+        }
+
         .signature-i { 
             text-transform: none !important; 
             color: #22d3ee; 
-            text-shadow: 0 0 20px #22d3ee, 0 0 40px #06b6d4;
+            display: inline-block;
+            animation: pulse-cyan 2s infinite ease-in-out;
+        }
+
+        /* OVERCLOCK ON HOVER */
+        header:hover .signature-i {
+            animation: pulse-cyan 0.5s infinite ease-in-out;
+            color: #fff;
         }
     </style>
 </head>
@@ -39,11 +51,11 @@
         <source src="8776550e6409b36ed5834f6e6b473a9b.mp4" type="video/mp4">
     </video>
 
-    <header class="absolute top-10 text-center w-full px-4">
-        <h1 class="text-6xl md:text-9xl font-black tracking-tighter neon-text leading-none">
+    <header class="absolute top-10 text-center w-full px-4 group cursor-default">
+        <h1 class="text-6xl md:text-9xl font-black tracking-tighter neon-text leading-none transition-all duration-500 group-hover:tracking-normal">
             KNOCKSSTUD<span class="signature-i">i</span>OS
         </h1>
-        <p class="text-cyan-400 tracking-[0.8em] text-[10px] md:text-sm font-bold mt-6 italic opacity-90 uppercase">
+        <p class="text-cyan-400 tracking-[0.8em] text-[10px] md:text-sm font-bold mt-6 italic opacity-90 uppercase group-hover:text-white transition-colors">
             THE SOVEREIGN PULSE // PROTOCOL V-SENTINEL MK. IV
         </p>
     </header>
