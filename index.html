@@ -5,176 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNOCKSSTUDIOS | 9K SOVEREIGN ENGINE</title>
     <style>
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { 
-            height: 100%; 
-            background-color: #000; 
-            color: #fff; 
-            font-family: 'Courier New', Courier, monospace; 
-            overflow: hidden; 
-        }
+        body, html { height: 100%; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
+        
+        /* NAVIGATION GATES */
+        .page { display: none; min-height: 100vh; width: 100%; }
+        .active { display: block; }
 
-        /* THE ENGINE VISUAL CONTAINER */
-        .engine-gate {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            /* REPLACE '9k-eye.jpg' WITH YOUR ACTUAL IMAGE PATH */
-            background: url('9k-eye.jpg') no-repeat center center;
+        /* --- PAGE 1: THE GATE (INDEX) --- */
+        #gate-page {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('9k-eye.jpg') no-repeat center center;
             background-size: cover;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
+        h1 { font-size: 4rem; letter-spacing: 15px; text-shadow: 0 0 20px #FF8C00; }
+        .btn { padding: 18px 50px; text-decoration: none; font-weight: bold; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: 0.3s; border: 1px solid #FF8C00; background: rgba(255,140,0,0.1); color: #FF8C00; margin: 20px; }
+        .btn:hover { background: #FF8C00; color: #000; box-shadow: 0 0 30px #FF8C00; }
 
-        /* DARK OVERLAY TO PROTECT UI READABILITY */
-        .overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
+        /* --- PAGE 2: SIGNUP (SECURE BRIEF) --- */
+        #signup-page { padding: 50px 20px; background: #050505; text-align: center; }
+        .pricing-table { width: 100%; max-width: 800px; margin: 30px auto; border-collapse: collapse; background: #0a0a0a; }
+        .pricing-table th, .pricing-table td { padding: 15px; border: 1px solid #222; font-size: 12px; }
+        .signup-form { max-width: 400px; margin: 0 auto; border: 1px solid #FF8C00; padding: 30px; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; background: #111; border: 1px solid #333; color: #fff; }
 
-        /* MAIN UI LAYER */
-        .content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 8vw, 4rem);
-            letter-spacing: 15px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
-        }
-
-        .tagline {
-            font-size: 12px;
-            color: #888;
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-
-        /* TACTICAL NEON BUTTONS */
-        .gate-controls {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-        }
-
-        .btn {
-            position: relative;
-            padding: 18px 50px;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        /* LOGIN - WHITE TACTICAL */
-        .btn-login {
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        .btn-login:hover {
-            background: #fff;
-            color: #000;
-            box-shadow: 0 0 20px #fff;
-        }
-
-        /* SIGNUP - 9K ORANGE GLOW */
-        .btn-signup {
-            color: #FF8C00;
-            border: 1px solid #FF8C00;
-            background: rgba(255, 140, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
-        }
-        .btn-signup:hover {
-            background: #FF8C00;
-            color: #000;
-            box-shadow: 0 0 40px #FF8C00;
-            transform: translateY(-3px);
-        }
-
-        /* SCANNING LINE ANIMATION ON BUTTONS */
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: -100%; left: 0; width: 100%; height: 2px;
-            background: rgba(255, 255, 255, 0.2);
-            animation: scan-line 3s linear infinite;
-        }
-        @keyframes scan-line {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
-
-        /* BOTTOM MODULES (FROM YOUR IMAGE) */
-        .footer-modules {
-            position: absolute;
-            bottom: 50px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            z-index: 10;
-            padding: 0 20px;
-        }
-
-        .mod-card {
-            background: rgba(0, 0, 0, 0.85);
-            border: 1px solid #1a1a1a;
-            padding: 15px 25px;
-            min-width: 220px;
-            text-align: center;
-        }
-
-        .mod-id { color: #555; font-size: 10px; display: block; margin-bottom: 5px; }
-        .mod-name { color: #eee; font-size: 12px; font-weight: bold; letter-spacing: 1px; }
-
-        .active-mod { border-color: #FF8C00; }
-        .active-mod .mod-name { color: #FF8C00; }
-
-        /* RESPONSIVE FIX */
-        @media (max-width: 768px) {
-            .gate-controls { flex-direction: column; width: 80%; }
-            .footer-modules { display: none; } /* Hide complex footer on small mobile */
-        }
+        /* --- PAGE 3: THE ENGINE (THE BURN) --- */
+        #engine-page { padding: 20px; background: #000; }
+        .status-bar { display: flex; justify-content: space-between; border-bottom: 1px solid #FF8C00; padding-bottom: 10px; margin-bottom: 20px; }
+        .viewport { width: 100%; aspect-ratio: 16/9; border: 1px solid #FF8C00; background: #080808; display: flex; align-items: center; justify-content: center; position: relative; }
+        video { width: 100%; height: 100%; display: none; }
+        textarea { width: 100%; height: 100px; background: #111; color: #fff; border: 1px solid #333; margin: 20px 0; padding: 10px; }
+        .burn-btn { width: 100%; background: #FF8C00; color: #000; padding: 20px; font-weight: bold; cursor: pointer; border: none; }
+        #dl-btn { background: #00FF00; color: #000; display: none; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div class="engine-gate">
-        <div class="overlay"></div>
-
-        <div class="content">
-            <h1>KNOCKSSTUDIOS</h1>
-            <p class="tagline">9K GLOBAL PROXIED RENDER CORE</p>
-
-            <div class="gate-controls">
-                <a href="login.html" class="btn btn-login">OPERATOR_SYNC</a>
-                <a href="signup.html" class="btn btn-signup">SECURE_BRIEF</a>
-            </div>
+    <div id="gate-page" class="page active">
+        <h1>KNOCKSSTUDIOS</h1>
+        <p style="letter-spacing: 5px; color: #888;">9K SOVEREIGN CORE</p>
+        <div style="display: flex;">
+            <button class="btn" onclick="showPage('signup-page')">SECURE_BRIEF</button>
         </div>
+    </div>
 
-        <div class="footer-modules">
-            <div class="mod-card">
-                <span class="mod-id">MODULE_01</span>
-                <span class="mod-name">SYSTEM_STABILITY</span>
-            </div>
-            <div class="mod-card active-mod">
-                <span class="mod-id" style="color: #FF8C00;">MODULE_02_MAX</span>
-                <span class="mod-name">RENDER_CORE_PRO</span>
-            </div>
-            <div class="mod-card">
-                <span class="mod-id">MODULE_03
+    <div id="signup-page" class="page">
+        <h2 style="color: #FF8C00;">SELECT_ACCESS_LEVEL</h2>
+        <table class="pricing-table">
+            <tr><th>TIER</th><th>LIMIT</th><th>COST</th></tr>
+            <tr><td>FREE</td><td>5 SEC</td><td>$0 (2,000 COIN BONUS)</td></tr>
+            <tr><td>BASIC</td><td>15 MIN</td><td>$10/mo</td></tr>
+            <tr><td>ULTRA</td><td>UNLIMITED</td><td>$60/mo</td></tr>
+        </table>
+        <div class="signup-form">
+            <input type="text" id="op-name" placeholder="OPERATOR_NAME">
+            <input type="email" placeholder="EMAIL_SYNC">
+            <select id="tier-select">
+                <option value="FREE">FREE - 5s LIMIT</option>
+                <option value="ULTRA">ULTRA - UNLIMITED</option>
+            </select>
+            <button class="btn" style="width: 100%; margin: 10px 0;" onclick="activateAccount()">ACTIVATE_SYNC</button>
+        </div>
+    </div>
+
+    <div id="engine-page" class="page">
+        <div class="status-bar">
+            <div>OP: <span id="display-name">NONE</span></div>
+            <div style="color: #FF8C00;">COINS: <span id="coin-balance">2,000</span></div>
+        </div>
+        <div class="viewport">
+            <div id="loader">WAITING_FOR_INPUT...</div>
+            <video id="main-video" controls></video>
+        </div>
+        <audio id="main-audio" controls style="width: 100%; margin-top: 10px; display: none;"></audio>
+        
+        <textarea id="prompt" placeholder="DESCRIBE VEO_9K VISUALS & LYRIA_3 AUDIO..."></textarea>
+        <button class="burn-btn" onclick="startBurn()">START_BURN</button>
+        <button class="btn" id="dl-btn" onclick="alert('DOWNLOADING_9K_MASTER')">DOWNLOAD_RENDER</button>
+    </div>
+
+    <script>
+        let coins = 2000;
+        let currentTier = "FREE";
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function activateAccount() {
+            const name = document.getElementById('op-name').value;
+            currentTier = document.getElementById('tier-select').value;
+            document.getElementById('display-name').innerText = name || "GUEST";
+            showPage('engine-page');
+        }
+
+        function startBurn() {
+            if (currentTier === "FREE" && coins < 1000) {
+                alert("INSUFFICIENT_COINS");
+                return;
+            }
+
+            const loader = document.getElementById('loader');
+            const video = document.getElementById('main-video');
+            const audio = document.getElementById('main-audio');
+            const dlBtn = document.getElementById('dl-btn');
+
+            loader.innerText = "RENDERING_9K_DATA_STREAM...";
+            
+            setTimeout(() => {
+                loader.style.display = 'none';
+                video.style.display = 'block';
+                audio.style.display = 'block';
+                dlBtn.style.display = 'block';
+                
+                // PATHS FOR YOUR ASSETS
+                video.src = "your-video.mp4"; 
+                audio.src = "your-audio.mp3";
+                
+                if (currentTier === "FREE") coins -= 1000;
+                document.getElementById('coin-balance').innerText = coins;
+                alert("BURN_COMPLETE: 9K_SYNC_SUCCESSFUL");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
