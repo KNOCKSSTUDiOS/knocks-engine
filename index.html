@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNOCKSSTUDiOS | THE SOVEREIGN MASTER</title>
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
@@ -44,4 +48,23 @@
 
         @keyframes spectral-pulse {
             0% { filter: hue-rotate(0deg) grayscale(0) blur(0px) contrast(1); }
-            100% { filter: hue-rotate(360deg) grayscale(1) blur(40px) contrast(20);
+            100% { filter: hue-rotate(360deg) grayscale(1) blur(40px) contrast(20); }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+    </style>
+</head>
+<body>
+    <div id="video-container"></div>
+    
+    <div class="content">
+        <h1>KNOCKSSTUDiOS</h1>
+        <p>THE SOVEREIGN MASTER</p>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
