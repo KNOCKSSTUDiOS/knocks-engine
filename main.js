@@ -1,35 +1,40 @@
-// KNOCKSSTUDIOS CORE LOGIC
-let userCoins = 2000; // Default for New Operators
-let dailyAds = 7;
+// KNOCKSSTUDIOS CORE ENGINE CONTROLLER
+const KNOCKS_ENGINE = {
+    coins: 2000,
+    tier: "FREE", // Options: FREE, BASIC, PRO, ULTRA
+    
+    // INITIALIZE RENDER
+    startRender: function(type, length) {
+        console.log(`INITIATING_${type.toUpperCase()}_SCAN...`);
+        
+        // Check for 1,000 Coin Deduction (Free Tier)
+        if (this.tier === "FREE") {
+            if (this.coins >= 1000) {
+                this.coins -= 1000;
+                this.execute(type, 5); // Force 5s limit
+                this.updateUI();
+            } else {
+                alert("INSUFFICIENT_COINS: WATCH ADS OR UPGRADE");
+            }
+        } else {
+            // Paid Tiers
+            this.execute(type, length);
+        }
+    },
 
-function checkIn() {
-    userCoins += 25;
-    alert("DAILY_CHECK_IN_SUCCESS: +25 COINS");
-    updateUI();
-}
+    execute: function(type, duration) {
+        if (type === "music") {
+            console.log(`LYRIA_3_CORE: GENERATING_30s_AUDIO_TRACK...`);
+            // Trigger your music generation sub-module
+        } else {
+            console.log(`VEO_CORE: GENERATING_${duration}s_9K_VIDEO...`);
+            // Trigger your video generation sub-module
+        }
+        alert(`${type.toUpperCase()} RENDER COMPLETE`);
+    },
 
-function watchAd() {
-    if (dailyAds > 0) {
-        userCoins += 15;
-        dailyAds--;
-        alert("AD_VIEW_COMPLETE: +15 COINS");
-        updateUI();
-    } else {
-        alert("MAX_ADS_REACHED: TRY AGAIN IN 24H");
+    updateUI: function() {
+        const display = document.getElementById('coin-balance');
+        if (display) display.innerText = this.coins.toLocaleString();
     }
-}
-
-function processRender() {
-    if (userCoins >= 1000) {
-        userCoins -= 1000;
-        alert("COINS_DEDUCTED: RENDER_INITIATED_9K");
-        // Trigger Engine Render Here
-        updateUI();
-    } else {
-        alert("INSUFFICIENT_FUNDS: WATCH ADS OR SUBSCRIBE");
-    }
-}
-
-function updateUI() {
-    document.getElementById('coin-balance').innerText = userCoins.toLocaleString();
-}
+};
