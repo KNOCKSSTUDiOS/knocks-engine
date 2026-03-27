@@ -3,16 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDIOS | GLOBAL PROXIED ENGINE</title>
+    <title>KNOCKSSTUDIOS | 9K SOVEREIGN ENGINE</title>
     <style>
-        body { margin: 0; padding: 0; background-color: #000; color: #fff; font-family: 'Courier New', Courier, monospace; overflow-x: hidden; }
-        
-        /* THE VISUAL ENGINE CONTAINER */
-        .engine-container {
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { 
+            height: 100%; 
+            background-color: #000; 
+            color: #fff; 
+            font-family: 'Courier New', Courier, monospace; 
+            overflow: hidden; 
+        }
+
+        /* THE ENGINE VISUAL CONTAINER */
+        .engine-gate {
             position: relative;
             width: 100%;
             height: 100vh;
-            background: url('your-9k-eye-image.jpg') no-repeat center center;
+            /* REPLACE '9k-eye.jpg' WITH YOUR ACTUAL IMAGE PATH */
+            background: url('9k-eye.jpg') no-repeat center center;
             background-size: cover;
             display: flex;
             flex-direction: column;
@@ -20,87 +29,152 @@
             justify-content: center;
         }
 
+        /* DARK OVERLAY TO PROTECT UI READABILITY */
         .overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); /* Darkens the eye slightly for UI focus */
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
-        .ui-layer { z-index: 10; text-align: center; }
+        /* MAIN UI LAYER */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
 
-        h1 { font-size: 3rem; letter-spacing: 12px; margin-bottom: 5px; color: #fff; text-shadow: 0 0 20px #00f, 0 0 30px #00f; }
-        p.tagline { font-size: 10px; color: #888; letter-spacing: 4px; margin-bottom: 50px; }
+        h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            letter-spacing: 15px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 140, 0, 0.6);
+        }
 
-        /* THE GATE BUTTONS */
-        .gate-buttons { display: flex; gap: 30px; }
-        
+        .tagline {
+            font-size: 12px;
+            color: #888;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        /* TACTICAL NEON BUTTONS */
+        .gate-controls {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+
         .btn {
-            padding: 15px 40px;
+            position: relative;
+            padding: 18px 50px;
             text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 2px;
-            transition: 0.3s;
+            letter-spacing: 3px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            overflow: hidden;
         }
 
-        .btn-login { border: 1px solid #fff; color: #fff; }
-        .btn-login:hover { background: #fff; color: #000; }
+        /* LOGIN - WHITE TACTICAL */
+        .btn-login {
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .btn-login:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 20px #fff;
+        }
 
-        .btn-signup { background: #FFD700; color: #000; border: 1px solid #FFD700; }
-        .btn-signup:hover { background: transparent; color: #FFD700; }
+        /* SIGNUP - 9K ORANGE GLOW */
+        .btn-signup {
+            color: #FF8C00;
+            border: 1px solid #FF8C00;
+            background: rgba(255, 140, 0, 0.1);
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.2);
+        }
+        .btn-signup:hover {
+            background: #FF8C00;
+            color: #000;
+            box-shadow: 0 0 40px #FF8C00;
+            transform: translateY(-3px);
+        }
 
-        /* MODULE FOOTER (AS SEEN IN IMAGE) */
+        /* SCANNING LINE ANIMATION ON BUTTONS */
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: -100%; left: 0; width: 100%; height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            animation: scan-line 3s linear infinite;
+        }
+        @keyframes scan-line {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        /* BOTTOM MODULES (FROM YOUR IMAGE) */
         .footer-modules {
             position: absolute;
-            bottom: 40px;
-            width: 90%;
+            bottom: 50px;
+            width: 100%;
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            gap: 20px;
             z-index: 10;
+            padding: 0 20px;
         }
 
-        .mod-box {
-            border: 1px solid #222;
-            padding: 15px;
-            width: 200px;
+        .mod-card {
+            background: rgba(0, 0, 0, 0.85);
+            border: 1px solid #1a1a1a;
+            padding: 15px 25px;
+            min-width: 220px;
             text-align: center;
-            font-size: 10px;
-            color: #444;
-            background: rgba(0,0,0,0.8);
+        }
+
+        .mod-id { color: #555; font-size: 10px; display: block; margin-bottom: 5px; }
+        .mod-name { color: #eee; font-size: 12px; font-weight: bold; letter-spacing: 1px; }
+
+        .active-mod { border-color: #FF8C00; }
+        .active-mod .mod-name { color: #FF8C00; }
+
+        /* RESPONSIVE FIX */
+        @media (max-width: 768px) {
+            .gate-controls { flex-direction: column; width: 80%; }
+            .footer-modules { display: none; } /* Hide complex footer on small mobile */
         }
     </style>
 </head>
 <body>
 
-    <div class="engine-container">
+    <div class="engine-gate">
         <div class="overlay"></div>
 
-        <div class="ui-layer">
+        <div class="content">
             <h1>KNOCKSSTUDIOS</h1>
-            <p class="tagline">9K SOVEREIGN RENDERING ENGINE</p>
+            <p class="tagline">9K GLOBAL PROXIED RENDER CORE</p>
 
-            <div class="gate-buttons">
-                <a href="login.html" class="btn btn-login">OPERATOR_LOG_IN</a>
-                <a href="signup.html" class="btn btn-signup">SECURE_SIGN_UP</a>
+            <div class="gate-controls">
+                <a href="login.html" class="btn btn-login">OPERATOR_SYNC</a>
+                <a href="signup.html" class="btn btn-signup">SECURE_BRIEF</a>
             </div>
         </div>
 
         <div class="footer-modules">
-            <div class="mod-box">
-                <span style="color: #666;">MODULE_01</span><br>
-                <span style="color: #fff;">OPERATOR_SYNC</span>
+            <div class="mod-card">
+                <span class="mod-id">MODULE_01</span>
+                <span class="mod-name">SYSTEM_STABILITY</span>
             </div>
-            <div class="mod-box" style="border-color: #FFD700;">
-                <span style="color: #FFD700;">MODULE_02_MAX</span><br>
-                <span style="color: #fff;">RENDER_CORE_PRO</span>
+            <div class="mod-card active-mod">
+                <span class="mod-id" style="color: #FF8C00;">MODULE_02_MAX</span>
+                <span class="mod-name">RENDER_CORE_PRO</span>
             </div>
-            <div class="mod-box">
-                <span style="color: #666;">MODULE_03</span><br>
-                <span style="color: #fff;">SECURE_BRIEF</span>
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+            <div class="mod-card">
+                <span class="mod-id">MODULE_03
