@@ -1,38 +1,28 @@
-<div style="background: #000; color: #fff; padding: 20px; border: 1px solid #444; font-family: monospace;">
-    <h2 style="color: #FFD700; text-align: center;">SELECT YOUR ENGINE ACCESS</h2>
+<div id="signup-gateway" style="max-width: 500px; margin: 40px auto; background: #080808; padding: 40px; border: 1px solid #1a1a1a; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
     
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-        <tr style="border-bottom: 2px solid #FFD700; text-align: left;">
-            <th style="padding: 10px;">FEATURE</th>
-            <th>FREE</th>
-            <th>BASIC</th>
-            <th>PRO</th>
-            <th>ULTRA</th>
-        </tr>
-        <tr style="border-bottom: 1px solid #222;">
-            <td style="padding: 10px;">VIDEO LIMIT</td>
-            <td>5 SEC</td>
-            <td>15 MIN</td>
-            <td>1 HOUR</td>
-            <td style="color: #FFD700;">UNLIMITED</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #222;">
-            <td style="padding: 10px;">MONTHLY</td>
-            <td>$0</td>
-            <td>$10</td>
-            <td>$30</td>
-            <td>$60</td>
-        </tr>
-        <tr style="border-bottom: 1px solid #222;">
-            <td style="padding: 10px;">YEARLY</td>
-            <td>N/A</td>
-            <td style="color: #00FF00;">$96</td>
-            <td style="color: #00FF00;">$288</td>
-            <td style="color: #00FF00;">$576</td>
-        </tr>
-    </table>
+    <h2 style="color: #FFD700; text-align: center; font-family: 'Orbitron', sans-serif; letter-spacing: 2px;">SECURE_BRIEF</h2>
+    <p style="color: #666; text-align: center; font-size: 12px; margin-bottom: 30px;">INITIALIZE NEW OPERATOR ACCOUNT</p>
 
-    <div style="text-align: center; margin-top: 30px;">
-        <p>SIGN UP NOW TO CLAIM YOUR 2,000 COIN WELCOME BONUS</p>
-    </div>
+    <form action="/engine/onboard" method="POST">
+        <label style="color: #888; display: block; margin-bottom: 5px;">FULL NAME</label>
+        <input type="text" name="name" placeholder="John Doe" required style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 12px; margin-bottom: 20px;">
+
+        <label style="color: #888; display: block; margin-bottom: 5px;">EMAIL ADDRESS</label>
+        <input type="email" name="email" placeholder="operator@knocks.studio" required style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 12px; margin-bottom: 20px;">
+
+        <label style="color: #888; display: block; margin-bottom: 5px;">PASSWORD</label>
+        <input type="password" name="password" placeholder="••••••••" required style="width: 100%; background: #111; border: 1px solid #333; color: #fff; padding: 12px; margin-bottom: 20px;">
+
+        <label style="color: #FFD700; display: block; margin-bottom: 10px; font-weight: bold;">SELECT ACCESS LEVEL</label>
+        <select name="tier" style="width: 100%; background: #111; border: 1px solid #FFD700; color: #fff; padding: 12px; margin-bottom: 25px;">
+            <option value="free">FREE (5s LIMIT + 2,000 COIN BONUS)</option>
+            <option value="basic">BASIC ($10/mo - 15 MIN LIMIT)</option>
+            <option value="pro">PRO ($30/mo - 1 HOUR LIMIT)</option>
+            <option value="ultra">ULTRA ($60/mo - UNLIMITED ACCESS)</option>
+        </select>
+
+        <button type="submit" style="width: 100%; background: #FFD700; color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; letter-spacing: 1px;">INITIATE SYNC</button>
+    </form>
+
+    <p style="color: #444; font-size: 10px; text-align: center; margin-top: 20px;">BY JOINING, YOU AGREE TO THE SOVEREIGN ENGINE TERMS.</p>
 </div>
