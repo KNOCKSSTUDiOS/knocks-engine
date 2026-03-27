@@ -9,7 +9,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
         body { background-color: #000; font-family: 'Orbitron', sans-serif; color: white; overflow: hidden; margin: 0; }
         
-        /* VIDEO ENGINE */
         #bg-video {
             position: fixed;
             right: 0;
@@ -19,49 +18,46 @@
             z-index: -1;
             filter: brightness(0.25) contrast(1.1);
             object-fit: cover;
-            transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: filter 0.5s ease;
         }
 
-        /* UI PANELS */
         .glass-panel { 
             background: rgba(0, 0, 0, 0.85); 
             backdrop-filter: blur(20px); 
             border: 1px solid rgba(6, 182, 212, 0.4); 
-            transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease;
         }
 
-        /* THE SURGE: REACTION WHEN HOVERING HEADER */
-        body:has(#main-header:hover) #bg-video {
-            filter: brightness(0.8) contrast(1.4) saturate(1.3);
-        }
+        /* SURGE EFFECT */
+        body:has(#main-header:hover) #bg-video { filter: brightness(0.8) contrast(1.4); }
+        body:has(#main-header:hover) .glass-panel { opacity: 0.05; transform: scale(0.98); pointer-events: none; }
 
-        body:has(#main-header:hover) .glass-panel {
-            opacity: 0.05;
-            transform: scale(0.98);
-            pointer-events: none; /* Prevents clicking while in "Ghost Mode" */
-        }
-
-        /* SIGNATURE PULSE */
+        /* SIGNATURE i */
         @keyframes pulse-cyan {
-            0%, 100% { opacity: 1; text-shadow: 0 0 20px #22d3ee, 0 0 40px #06b6d4; }
-            50% { opacity: 0.7; text-shadow: 0 0 10px #22d3ee, 0 0 20px #06b6d4; }
+            0%, 100% { opacity: 1; text-shadow: 0 0 20px #22d3ee; }
+            50% { opacity: 0.7; text-shadow: 0 0 10px #22d3ee; }
         }
-
         .signature-i { 
-            text-transform: none !important; 
-            color: #22d3ee; 
-            display: inline-block;
+            text-transform: none !important; color: #22d3ee; display: inline-block;
             animation: pulse-cyan 2s infinite ease-in-out;
         }
+        header:hover .signature-i { animation: pulse-cyan 0.1s infinite; color: #fff; filter: brightness(2); }
 
-        header:hover .signature-i {
-            animation: pulse-cyan 0.1s infinite ease-in-out;
-            color: #fff;
-            filter: brightness(2);
+        /* SHATTER ANIMATION */
+        .shatter-container { position: relative; overflow: visible; }
+        .shattered {
+            animation: shatter-main 0.5s forwards ease-in;
+            pointer-events: none;
+            filter: hue-rotate(180deg) brightness(2); /* Red alert tint */
         }
 
-        .neon-text { text-shadow: 0 0 15px #06b6d4, 0 0 30px #06b6d4; }
-        .neon-btn { background: #0891b2; transition: all 0.3s ease; border: none; }
+        @keyframes shatter-main {
+            0% { transform: scale(1); opacity: 1; }
+            20% { transform: scale(1.05); }
+            100% { transform: scale(0.9); opacity: 0; filter: blur(10px); }
+        }
+
+        .neon-btn { background: #0891b2; transition: all 0.3s ease; border: none; cursor: pointer; }
         .neon-btn:hover { background: #22d3ee; box-shadow: 0 0 25px #22d3ee; color: black; }
     </style>
 </head>
@@ -71,63 +67,69 @@
         <source src="8776550e6409b36ed5834f6e6b473a9b.mp4" type="video/mp4">
     </video>
 
-    <header id="main-header" class="absolute top-10 text-center w-full px-4 group cursor-crosshair z-20">
-        <h1 class="text-6xl md:text-9xl font-black tracking-tighter neon-text leading-none transition-all duration-300">
+    <header id="main-header" class="absolute top-10 text-center w-full px-4 z-20">
+        <h1 class="text-6xl md:text-9xl font-black tracking-tighter leading-none transition-all duration-300">
             KNOCKSSTUD<span class="signature-i">i</span>OS
         </h1>
-        <p class="text-cyan-400 tracking-[0.8em] text-[10px] md:text-sm font-bold mt-6 italic opacity-90 uppercase group-hover:text-white transition-colors">
-            SYSTEM OVERRIDE // PROTOCOL V-SENTINEL
-        </p>
     </header>
 
     <main class="flex flex-col md:flex-row gap-8 z-10 p-6 w-full max-w-5xl mt-20">
-        <div class="glass-panel flex-1 p-10 rounded-sm shadow-2xl">
-            <h2 class="text-cyan-400 text-2xl font-black mb-8 uppercase italic tracking-[0.2em] border-b border-cyan-900 pb-4 text-center">LOG IN</h2>
-            <form class="space-y-6">
-                <input type="text" placeholder="OPERATOR_ID" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 text-sm focus:border-cyan-400 outline-none uppercase tracking-widest text-white">
-                <input type="password" placeholder="ENCRYPTION_KEY" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 text-sm focus:border-cyan-400 outline-none uppercase tracking-widest text-white">
-                <button type="submit" class="w-full neon-btn py-4 font-black uppercase tracking-widest text-lg italic active:scale-95 transition-all">Initialize</button>
+        <div class="glass-panel flex-1 p-10 rounded-sm">
+            <h2 class="text-cyan-400 text-2xl font-black mb-8 border-b border-cyan-900 pb-4 text-center">LOG IN</h2>
+            <form id="login-form" class="space-y-6">
+                <input type="text" placeholder="OPERATOR_ID" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 uppercase text-white outline-none focus:border-cyan-400">
+                <input type="password" placeholder="ENCRYPTION_KEY" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 uppercase text-white outline-none focus:border-cyan-400">
+                <div class="shatter-container">
+                    <button type="submit" id="init-btn" class="w-full neon-btn py-4 font-black uppercase tracking-widest text-lg italic">Initialize</button>
+                </div>
             </form>
         </div>
 
-        <div class="glass-panel flex-1 p-10 rounded-sm shadow-2xl border-zinc-800">
-            <h2 class="text-zinc-400 text-2xl font-black mb-8 uppercase italic tracking-[0.2em] border-b border-zinc-800 pb-4 text-center">SIGN UP</h2>
-            <form class="space-y-6">
-                <input type="email" placeholder="SECURE_EMAIL" class="w-full bg-zinc-900/80 border border-zinc-700 p-4 text-sm focus:border-white outline-none uppercase tracking-widest text-white">
-                <button type="submit" class="w-full border border-zinc-700 hover:bg-white hover:text-black py-4 font-black uppercase tracking-widest text-lg italic transition-all duration-500 active:scale-95">Request Access</button>
-            </form>
+        <div class="glass-panel flex-1 p-10 rounded-sm border-zinc-800">
+            <h2 class="text-zinc-400 text-2xl font-black mb-8 border-b border-zinc-800 pb-4 text-center">SIGN UP</h2>
+            <button class="w-full border border-zinc-700 hover:bg-white hover:text-black py-4 font-black uppercase tracking-widest text-lg italic transition-all">Request Access</button>
         </div>
     </main>
 
     <footer class="absolute bottom-6 w-full px-12 flex justify-between items-end text-[10px] text-zinc-500 uppercase tracking-[0.4em]">
-        <div class="text-left">
-            CORE STATUS: <span class="text-cyan-600 font-bold">OPERATIONAL</span>
-        </div>
-        <div class="text-right flex flex-col gap-1">
-            <span class="text-zinc-300 font-bold tracking-widest italic uppercase">© 2026 KNOCKSSTUD<span class="signature-i">i</span>OS</span>
-        </div>
+        <div>CORE: <span class="text-cyan-600 font-bold">OPERATIONAL</span></div>
+        <div class="italic">© 2026 KNOCKSSTUD<span class="signature-i">i</span>OS</div>
     </footer>
 
     <script>
-        const header = document.getElementById('main-header');
+        const btn = document.getElementById('init-btn');
+        const form = document.getElementById('login-form');
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        function playStatic() {
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+        function synthSound(freq, type, duration) {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(110, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.2);
-            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.2);
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + duration);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + duration);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + duration);
         }
 
-        header.addEventListener('mouseenter', playStatic);
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Trigger Shatter Visual
+            btn.classList.add('shattered');
+            btn.innerText = "ACCESS DENIED";
+            
+            // Trigger Shatter Sound (Low crunch)
+            synthSound(60, 'square', 0.4);
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+                btn.classList.remove('shattered');
+                btn.innerText = "Initialize";
+            }, 2000);
+        });
+
+        document.getElementById('main-header').addEventListener('mouseenter', () => synthSound(150, 'sawtooth', 0.1));
     </script>
 </body>
 </html>
