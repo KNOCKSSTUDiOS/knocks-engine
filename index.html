@@ -2,67 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K REALITY | KNOCKS STUDiOS</title>
+    <title>KNOCKS STUDiOS | FLOW</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        body { background: #050505; font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
-        .all-caps { text-transform: uppercase; letter-spacing: 0.2em; font-weight: 900; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Orbitron:wght@900&display=swap');
         
-        /* 1. SCION NEON ROTATION WITH LOWERCASE i */
-        .scion-neon {
-            font-size: 6vw; font-weight: 900;
-            background: linear-gradient(90deg, #00f0ff, #7000ff, #ff00c8, #00f0ff);
-            background-size: 300% auto;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: scionFlow 5s linear infinite, wobble 4s ease-in-out infinite;
-        }
-        .scion-neon span { text-transform: none !important; } /* ALLOWS LOWERCASE i */
+        body { background: #000; color: #e3e3e3; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; }
+        .knocks-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; letter-spacing: -0.05em; }
+        .neon-i { text-transform: none; color: #00f0ff; text-shadow: 0 0 15px #00f0ff; }
 
-        @keyframes scionFlow { to { background-position: 300% center; } }
-        @keyframes wobble { 0%, 100% { transform: perspective(1000px) rotateY(-15deg); } 50% { transform: perspective(1000px) rotateY(15deg); } }
-
-        /* 2. ROBOT EYE FIXING ANIMATION */
-        .robot-eye {
-            width: 100px; height: 100px; border: 4px solid #1a1a1a; border-radius: 50%;
-            background: #000; position: relative; box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        /* --- THE TRANSITION SHUTTER --- */
+        #shutter {
+            position: fixed; inset: 0; background: #000; z-index: 9999;
+            transform: translateX(-100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            display: flex; align-items: center; justify-content: center;
         }
-        .iris {
-            position: absolute; top: 25%; left: 25%; width: 50%; height: 50%;
-            background: radial-gradient(circle, #00f0ff 0%, #000 80%);
-            border-radius: 50%; box-shadow: 0 0 40px #00f0ff;
-            animation: drillRepair 1.5s infinite ease-in-out;
-        }
-        @keyframes drillRepair { 
-            0% { transform: scale(1) rotate(0); filter: brightness(1); } 
-            50% { transform: scale(1.4) rotate(180deg); filter: brightness(1.5); } 
-            100% { transform: scale(1) rotate(360deg); filter: brightness(1); } 
-        }
+        #shutter.active { transform: translateX(0); }
+        .shutter-line { width: 100%; height: 2px; background: #00f0ff; box-shadow: 0 0 20px #00f0ff; }
 
-        .knocks-card { background: rgba(10, 10, 10, 0.95); border: 1px solid rgba(0, 240, 255, 0.1); transition: 0.3s; }
-        .knocks-card:hover { border-color: #00f0ff; }
-        .input-box { background: #000; border: 1px solid #222; padding: 20px; width: 100%; color: #00f0ff; outline: none; font-size: 11px; }
-        .input-box:focus { border-color: #00f0ff; }
+        /* FLOW HEADER */
+        .flow-header { height: 64px; border-bottom: 1px solid #222; display: flex; align-items: center; padding: 0 20px; background: #000; position: relative; z-index: 100; }
+        .nav-item { opacity: 0.5; transition: 0.3s; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 2px; }
+        .nav-item:hover, .nav-item.active { opacity: 1; color: #00f0ff; }
 
-        .view-layer { display: none; min-height: 100vh; width: 100%; position: relative; z-index: 10; }
-        #splash { display: flex; flex-direction: column; align-items: center; justify-content: center; background: url('1773441360031.jpg') center/cover; }
-        #splash::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.85); z-index: -1; }
+        /* THE ROBOT EYE */
+        #eye-repair { width: 100px; height: 100px; position: relative; margin-bottom: 20px; transition: 0.5s; }
+        .eye-iris { width: 35px; height: 35px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 30px #00f0ff; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.2); filter: brightness(1.8); } }
+
+        /* CONTENT LAYERS */
+        .view-layer { 
+            position: absolute; inset: 0; top: 64px; display: none; 
+            flex-direction: column; align-items: center; justify-content: center;
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* UI ELEMENTS */
+        .flow-card { background: #111; border: 1px solid #222; border-radius: 20px; padding: 40px; text-align: center; width: 100%; max-width: 800px; }
+        .prompt-bar { 
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
+            width: 90%; max-width: 800px; background: #1a1a1b; border: 1px solid #333; 
+            border-radius: 100px; padding: 12px 25px; display: flex; align-items: center; gap: 15px;
+        }
+        .workshop-bg { position: fixed; inset: 0; z-index: -1; background: url('1773441360031.jpg') center/cover; opacity: 0.2; }
     </style>
 </head>
 <body>
 
-    <audio id="drill-fx" src="mechanical-drill.mp3"></audio>
+    <div id="shutter"><div class="shutter-line"></div></div>
+    <div class="workshop-bg"></div>
 
-    <main id="splash" class="view-layer">
-        <div class="text-center mb-10">
-            <h1 class="scion-neon">KNOCKS STUDiOS</h1>
-            <p class="all-caps text-[10px] opacity-40 mt-4 tracking-[1em]">POWERED BY AI LEGENDS</p>
+    <header class="flow-header justify-between">
+        <div class="flex items-center gap-8">
+            <h1 class="knocks-title uppercase">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
+            <nav class="flex gap-6">
+                <div onclick="transitionTo('create')" class="nav-item active">ENGINE</div>
+                <div onclick="transitionTo('gallery')" class="nav-item">GALLERY</div>
+                <div onclick="transitionTo('school')" class="nav-item">SCHOOL</div>
+                <div onclick="transitionTo('store')" class="nav-item text-[#ffcc00]">STORE</div>
+            </nav>
         </div>
-        
-        <div class="robot-eye mb-12"><div class="iris"></div></div>
+        <div class="bg-[#111] px-4 py-2 rounded-full border border-[#333] text-[#ffcc00] text-sm font-bold">2,000c</div>
+    </header>
 
-        <div class="flex gap-8">
-            <button onclick="nav('gate')" class="knocks-card px-16 py-6 all-caps text-xs hover:bg-[#00f0ff] hover:text-black">CREATE ACCOUNT</button>
-            <button onclick="nav('gate')" class="px-16 py-6 all-caps text-xs border-b border-[#00f0ff]">LOGIN</button>
+    <main id="view-create" class="view-layer" style="display: flex;">
+        <div id="eye-repair" class="flex items-center justify-center border border-white/10 rounded-full">
+            <div class="eye-iris"></div>
         </div>
+        <h2 class="text-2xl font-light mb-2">Initialize 9K Render</h2>
+        <p class="text-[10px] opacity-30 all-caps tracking-widest">Powered by Ai Lab Legends</p>
     </main>
+
+    <section id="view-gallery" class="view-layer">
+        <div class="grid grid-cols-2 gap-4 w-full max-w-4xl p-10">
+            <div class="flow-card h-40 flex items-center justify-center">PROJECT_01.JPG</div>
+            <div class="flow-card h-40 flex items-center justify-center">PROJECT_02.MP4</div>
+        </div>
+    </section>
+
+    <section id="view-store" class="view-layer">
+        <div class="flow-card">
+            <h2 class="text-4xl font-bold text-[#ffcc00] mb-4">THE VAULT</h2>
+            <p class="opacity-50 mb-8">SELECT UNIT PACKAGE</p>
+            <div class="grid grid-cols-3 gap-4">
+                <div class="p-6 border border-white/10 rounded-xl hover:border-[#ffcc00] cursor-pointer">500 UNITS</div>
+                <div class="p-6 border border-[#ffcc00] rounded-xl cursor-pointer">2000 UNITS</div>
+                <div class="p-6 border border-white/10 rounded-xl hover:border-[#ffcc00] cursor-pointer">5000 UNITS</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="prompt-bar">
+        <input type="text" placeholder="What do you want to create?" class="bg-transparent flex-grow outline-none text-sm">
+        <button class="bg-[#00f0ff] text-black w-10 h-10 rounded-full flex items-center justify-center font-bold">→</button>
+    </div>
+
+    <script>
+        function transitionTo(viewId) {
+            const shutter = document.getElementById('shutter');
+            const drillSound = new Audio('mechanical-drill.mp3'); // Add your drill file
+            
+            // 1. Activate Shutter
+            shutter.classList.add('active');
+            // drillSound.play(); // Play drill effect
+
+            setTimeout(() => {
+                // 2. Switch Content
+                document.querySelectorAll('.view-layer').forEach(v => v.style.display = 'none');
+                document.getElementById('view-' + viewId).style.display = 'flex';
+                
+                // 3. Update Nav Active State
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                event.target.
