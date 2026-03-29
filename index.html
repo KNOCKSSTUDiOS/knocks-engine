@@ -19,7 +19,6 @@
             display: flex; align-items: center; justify-content: center; flex-direction: column;
         }
         #shutter.active { transform: translateY(0); }
-        .shutter-glow { width: 100%; height: 2px; background: #00f0ff; box-shadow: 0 0 30px #00f0ff; position: absolute; top: 0; }
 
         /* --- PAGE NODES --- */
         .page-node { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; }
@@ -31,26 +30,27 @@
         .studio-card:hover { border-color: #00f0ff; }
         .active-sel { border-color: #00f0ff !important; background: rgba(0, 240, 255, 0.05) !important; }
 
-        /* --- WATERMARK OVERLAY --- */
-        .watermark { position: absolute; bottom: 10px; right: 10px; font-size: 8px; opacity: 0.5; color: #00f0ff; font-family: 'Orbitron'; pointer-events: none; }
+        /* --- WATERMARK & DOWNLOAD --- */
+        .wm-tag { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron'; font-size: 10px; color: rgba(0,240,255,0.2); pointer-events: none; text-transform: uppercase; letter-spacing: 1em; transform: rotate(-45deg); }
+        
+        /* --- RADIO ANIMATION --- */
+        .radio-pulse { width: 8px; height: 8px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 15px #00f0ff; animation: pulse 0.8s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        /* --- RADIO UI --- */
-        .radio-pulse { width: 12px; height: 12px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 10px #00f0ff; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
-
-        .vault-input { background: #000; border: 1px solid #222; padding: 18px; color: #00f0ff; font-family: monospace; outline: none; width: 100%; }
+        .vault-input { background: #000; border: 1px solid #222; padding: 18px; color: #00f0ff; font-family: monospace; outline: none; width: 100%; font-size: 12px; }
     </style>
 </head>
 <body>
 
     <div id="shutter">
-        <div class="shutter-glow"></div>
-        <div class="knocks-font text-[10px] tracking-[2em] text-[#00f0ff] animate-pulse">DRILLING...</div>
+        <div class="w-full h-[2px] bg-[#00f0ff] absolute top-0 shadow-[0_0_30px_#00f0ff]"></div>
+        <div class="knocks-font text-[10px] tracking-[2em] text-[#00f0ff]">PROCESSING...</div>
     </div>
 
-    <main id="node-splash" class="page-node active">
-        <h1 class="knocks-font text-6xl md:text-9xl uppercase mb-12 italic font-black">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
-        <div class="flex gap-6">
+    <main id="node-splash" class="page-node active" style="background: url('1773441360031.jpg') center/cover;">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <h1 class="knocks-font text-6xl md:text-9xl uppercase mb-12 italic font-black z-10">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
+        <div class="flex gap-6 z-10">
             <button onclick="jump('engine')" class="knocks-font border border-[#00f0ff] px-12 py-6 text-xs hover:bg-[#00f0ff] hover:text-black transition uppercase font-black">Open Engine</button>
             <button onclick="jump('signup')" class="knocks-font bg-white text-black px-12 py-6 text-xs hover:bg-gray-200 transition uppercase font-black">Register Vault</button>
         </div>
@@ -58,26 +58,30 @@
 
     <section id="node-signup" class="page-node">
         <div class="w-full max-w-xl px-8">
-            <h2 class="knocks-font text-3xl mb-8 text-[#00f0ff] uppercase italic">Identity Record</h2>
+            <h2 class="knocks-font text-2xl mb-8 text-[#00f0ff] uppercase italic">Identify Registry</h2>
             <div class="space-y-4 mb-8">
-                <input type="text" placeholder="LEGAL NAME" class="vault-input">
+                <input type="text" placeholder="LEGAL FULL NAME" class="vault-input">
                 <input type="email" placeholder="SECURE EMAIL" class="vault-input">
                 <input type="password" placeholder="ACCESS KEY" class="vault-input">
             </div>
-            <button onclick="completeSignup()" class="w-full bg-[#00f0ff] text-black py-6 font-black knocks-font uppercase text-xs">Sync Identity</button>
+            <button onclick="completeSignup()" class="w-full bg-[#00f0ff] text-black py-6 font-black knocks-font uppercase text-xs">Establish Identity</button>
         </div>
     </section>
 
-    <section id="node-engine" class="page-node">
+    <section id="node-engine" class="page-node" style="background: #000;">
         <header class="fixed top-0 w-full p-8 flex justify-between items-center border-b border-white/5 bg-black z-50">
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-6">
                 <h1 class="knocks-font text-xl uppercase italic font-black">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
-                <div class="flex items-center gap-2 ml-10 opacity-40">
-                    <div id="radio-light" class="w-2 h-2 rounded-full bg-gray-700"></div>
-                    <p onclick="toggleRadio()" class="text-[9px] uppercase cursor-pointer hover:text-[#00f0ff]">Studio Radio: <span id="radio-status">OFF</span></p>
+                <div class="flex items-center gap-4 bg-white/5 px-4 py-2 rounded">
+                    <div id="radio-led" class="w-2 h-2 rounded-full bg-gray-800"></div>
+                    <select id="track-select" onchange="changeTrack()" class="bg-transparent text-[9px] uppercase font-bold outline-none cursor-pointer">
+                        <option value="OFF">Radio: OFF</option>
+                        <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Track 01: Industrial</option>
+                        <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Track 02: Dark Neo</option>
+                    </select>
                 </div>
             </div>
-            <div class="flex gap-10 items-center">
+            <div class="flex gap-8 items-center">
                 <p class="text-[9px] opacity-20 uppercase">Quota: <span id="q-val" class="text-white">0/2</span></p>
                 <div onclick="jump('subs')" class="bg-[#ffcc00] text-black px-4 py-2 text-[10px] font-black uppercase cursor-pointer">Upgrade</div>
             </div>
@@ -85,29 +89,29 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 w-full max-w-[1700px] px-12 mt-20">
             <div class="space-y-3">
-                <h3 class="knocks-font text-[9px] opacity-20 mb-6 tracking-[0.8em]">SELECT BOT</h3>
+                <h3 class="knocks-font text-[9px] opacity-20 mb-6 tracking-[0.8em]">BOTS</h3>
                 <div onclick="selectBot(this, '9K RENDER BOT')" class="studio-card p-6 text-[10px] font-bold uppercase active-sel">9K Render Bot</div>
                 <div onclick="selectBot(this, 'ANIME CORE')" class="studio-card p-6 text-[10px] font-bold uppercase">Anime Core</div>
             </div>
 
-            <div class="lg:col-span-3 flex flex-col gap-6">
+            <div class="lg:col-span-3 space-y-6">
                 <div class="studio-card p-8 border-dashed border-2 border-white/5">
                     <div class="flex bg-[#050505] border border-white/10 p-2">
-                        <input id="prompt" type="text" placeholder="INPUT RENDERING LOGIC..." class="flex-grow bg-transparent p-6 knocks-font text-[10px] outline-none text-[#00f0ff]">
-                        <button onclick="dualDrill()" class="bg-[#00f0ff] text-black px-12 font-black knocks-font uppercase text-xs">CREATE VIDEO (x2)</button>
+                        <input id="prompt" type="text" placeholder="INPUT COMMAND LOGIC..." class="flex-grow bg-transparent p-6 knocks-font text-[10px] outline-none text-[#00f0ff]">
+                        <button onclick="dualDrill()" class="bg-[#00f0ff] text-black px-12 font-black knocks-font uppercase text-xs">DRILL DUAL VIDEO</button>
                     </div>
                 </div>
 
-                <div id="results" class="grid grid-cols-2 gap-4 h-[400px] hidden">
-                    <div class="studio-card bg-gray-900 flex items-center justify-center">
-                        <span class="text-[10px] opacity-30">VIDEO_01_RENDERED</span>
-                        <div id="wm-1" class="watermark">KNOCKS STUDiOS</div>
-                        <button onclick="download(1)" class="absolute top-4 right-4 bg-white/10 p-2 text-[8px] uppercase">Download</button>
+                <div id="results" class="grid grid-cols-2 gap-4 h-[450px] hidden">
+                    <div class="studio-card bg-[#050505] flex items-center justify-center">
+                        <div id="wm-1" class="wm-tag">KNOCKS STUDiOS</div>
+                        <span class="text-[9px] opacity-20">RESULT_01</span>
+                        <button onclick="download(1)" class="absolute bottom-4 right-4 bg-white/10 hover:bg-[#00f0ff] hover:text-black p-3 text-[8px] uppercase transition">Download</button>
                     </div>
-                    <div class="studio-card bg-gray-900 flex items-center justify-center">
-                        <span class="text-[10px] opacity-30">VIDEO_02_RENDERED</span>
-                        <div id="wm-2" class="watermark">KNOCKS STUDiOS</div>
-                        <button onclick="download(2)" class="absolute top-4 right-4 bg-white/10 p-2 text-[8px] uppercase">Download</button>
+                    <div class="studio-card bg-[#050505] flex items-center justify-center">
+                        <div id="wm-2" class="wm-tag">KNOCKS STUDiOS</div>
+                        <span class="text-[9px] opacity-20">RESULT_02</span>
+                        <button onclick="download(2)" class="absolute bottom-4 right-4 bg-white/10 hover:bg-[#00f0ff] hover:text-black p-3 text-[8px] uppercase transition">Download</button>
                     </div>
                 </div>
             </div>
@@ -115,33 +119,30 @@
     </section>
 
     <section id="node-subs" class="page-node" style="background: #050505;">
-        <div class="w-full max-w-4xl px-8">
-            <h2 class="knocks-font text-4xl mb-12 text-center uppercase italic">Upgrade Vault</h2>
+        <div class="w-full max-w-4xl px-8 text-center">
+            <h2 class="knocks-font text-4xl mb-12 italic">SUBSCRIPTIONS</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="studio-card p-10">
-                    <p class="knocks-font text-[10px] mb-4 opacity-40">FREE TIER</p>
-                    <p class="text-3xl font-black mb-6">$0</p>
-                    <p class="text-[9px] opacity-50 mb-10 uppercase font-bold tracking-widest">• Watermarked Downloads</p>
-                    <button onclick="jump('engine')" class="w-full border border-white/10 py-4 text-[10px] font-black uppercase">Continue Free</button>
+                <div class="studio-card p-12">
+                    <p class="text-xs mb-4 opacity-40">FREE TIER</p>
+                    <p class="text-4xl font-black mb-8">$0</p>
+                    <button onclick="jump('engine')" class="w-full border border-white/10 py-4 text-[10px] font-black">CONTINUE FREE</button>
                 </div>
-                <div class="studio-card p-10 border-[#ffcc00] bg-[#ffcc00]/5">
-                    <p class="knocks-font text-[10px] mb-4 text-[#ffcc00]">PRO DRILLER</p>
-                    <p class="text-3xl font-black mb-6">$29<span class="text-xs">/mo</span></p>
-                    <p class="text-[9px] opacity-100 mb-10 uppercase font-bold tracking-widest text-[#ffcc00]">• NO WATERMARK<br>• UNLIMITED RENDERS</p>
-                    <button onclick="upgrade()" class="w-full bg-[#ffcc00] text-black py-4 text-[10px] font-black uppercase">Unlock Vault</button>
+                <div class="studio-card p-12 border-[#ffcc00] bg-[#ffcc00]/5">
+                    <p class="text-xs mb-4 text-[#ffcc00]">PRO DRILLER</p>
+                    <p class="text-4xl font-black mb-8">$29</p>
+                    <button onclick="upgrade()" class="w-full bg-[#ffcc00] text-black py-4 text-[10px] font-black">UNLOCK UNLIMITED</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <audio id="studio-radio" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="audio-engine" loop></audio>
 
     <script>
         let isPro = false;
         let isRegistered = false;
         let vCount = 0;
+        const player = document.getElementById('audio-engine');
 
         function jump(target) {
             const shutter = document.getElementById('shutter');
@@ -153,27 +154,30 @@
             }, 500);
         }
 
-        function completeSignup() { isRegistered = true; jump('engine'); }
-        function upgrade() { isPro = true; jump('engine'); }
-
-        function toggleRadio() {
-            const radio = document.getElementById('studio-radio');
-            const light = document.getElementById('radio-light');
-            const status = document.getElementById('radio-status');
-            if (radio.paused) {
-                radio.play();
-                light.classList.add('radio-pulse');
-                status.innerText = "ON";
+        function changeTrack() {
+            const select = document.getElementById('track-select');
+            const led = document.getElementById('radio-led');
+            if (select.value === "OFF") {
+                player.pause();
+                led.classList.remove('radio-pulse');
             } else {
-                radio.pause();
-                light.classList.remove('radio-pulse');
-                status.innerText = "OFF";
+                player.src = select.value;
+                player.play();
+                led.classList.add('radio-pulse');
             }
         }
 
+        function completeSignup() { isRegistered = true; jump('engine'); }
+        function upgrade() { isPro = true; jump('engine'); }
+
+        function selectBot(el, name) {
+            document.querySelectorAll('.studio-card').forEach(c => c.classList.remove('active-sel'));
+            el.classList.add('active-sel');
+        }
+
         function dualDrill() {
-            if (!isRegistered) { alert("IDENTITY REQUIRED"); jump('signup'); return; }
-            if (vCount >= 2) { alert("FREE LIMIT EXCEEDED"); jump('subs'); return; }
+            if (!isRegistered) { alert("SIGNUP REQUIRED"); jump('signup'); return; }
+            if (vCount >= 2) { alert("FREE LIMIT REACHED"); jump('subs'); return; }
 
             vCount++;
             document.getElementById('q-val').innerText = vCount + "/2";
@@ -182,18 +186,17 @@
 
             setTimeout(() => {
                 document.getElementById('results').classList.remove('hidden');
-                // Apply watermark if not Pro
+                // Check if Pro to remove watermarks
                 if (isPro) {
-                    document.getElementById('wm-1').style.display = 'none';
-                    document.getElementById('wm-2').style.display = 'none';
+                    document.querySelectorAll('.wm-tag').forEach(wm => wm.style.display = 'none');
                 }
                 shutter.classList.remove('active');
-            }, 1500);
+            }, 1200);
         }
 
         function download(id) {
-            const label = isPro ? "PRO_HQ_RENDER" : "FREE_WATERMARKED_RENDER";
-            alert("DOWNLOADING: " + label + "_0" + id);
+            const status = isPro ? "PRO_NO_WM" : "FREE_WATERMARK";
+            alert("FETCHING " + status + " RENDER " + id);
         }
     </script>
 </body>
