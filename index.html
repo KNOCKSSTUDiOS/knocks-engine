@@ -1,135 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNOCKSSTUDiOS | 9K SOVEREIGN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; scroll-behavior: smooth; overflow-x: hidden; }
-        .neon-text { text-shadow: 0 0 10px rgba(0, 240, 255, 0.7); }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; scroll-behavior: smooth; }
         .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
-        .tier-card { transition: all 0.3s ease; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; }
+        .tier-card { transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
         .tier-card:hover { border-color: #00f0ff; transform: translateY(-5px); background: rgba(0, 240, 255, 0.05); }
     </style>
 </head>
 <body>
 
-    <div id="access-overlay" class="fixed inset-0 z-[500] bg-black flex flex-col items-center justify-center hidden">
-        <div id="glow" class="absolute w-96 h-96 rounded-full blur-[150px] opacity-20"></div>
-        <h2 id="welcome-msg" class="text-6xl font-black italic uppercase relative z-10 mb-4 tracking-tighter">Welcome</h2>
-        <p id="sub-msg" class="text-[10px] tracking-[0.8em] uppercase opacity-60 relative z-10 mb-12">Vault Status: Active</p>
-        <button onclick="document.getElementById('access-overlay').classList.add('hidden')" class="relative z-10 px-12 py-4 border border-white text-[10px] font-black uppercase hover:bg-white hover:text-black transition">
-            Enter the Arena
-        </button>
+    <div id="modal" class="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center hidden">
+        <div id="glow" class="absolute w-96 h-96 blur-[150px] opacity-20"></div>
+        <h2 id="m-title" class="text-6xl font-black italic uppercase relative z-10 mb-2">Welcome</h2>
+        <p id="m-sub" class="text-[10px] tracking-[0.8em] uppercase opacity-60 relative z-10 mb-12">Vault Status: Active</p>
+        <button onclick="location.reload()" class="relative z-10 px-12 py-4 border border-white text-[10px] font-black uppercase">Enter Arena</button>
     </div>
 
     <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center glass">
         <div class="font-black italic text-2xl tracking-tighter">KNOCKSSTUDiOS</div>
-        <div class="hidden lg:flex gap-10 text-[9px] font-black uppercase tracking-[0.3em]">
-            <a href="#arena" class="hover:text-[#00f0ff]">The Arena</a>
-            <a href="#vault" class="hover:text-[#00f0ff]">The Vault</a>
-            <a href="#infra" class="hover:text-[#00f0ff]">Infrastructure</a>
+        <div class="flex gap-6 text-[9px] font-black uppercase">
+            <a href="#vault">The Vault</a>
+            <a href="#infra">Infrastructure</a>
         </div>
-        <button onclick="simulateAccess('director@studio.com')" class="bg-white text-black px-6 py-2 text-[10px] font-black uppercase">Initialize Access</button>
     </nav>
 
-    <section id="arena" class="h-screen flex flex-col items-center justify-center text-center px-6">
-        <h1 class="text-7xl md:text-[11rem] font-black italic uppercase leading-none tracking-tighter">9K REALITY</h1>
-        <p class="text-[#00f0ff] tracking-[1em] text-[10px] uppercase mt-4 neon-text">Sovereign Engine v1.0</p>
-        <div class="mt-12 flex gap-6">
-            <a href="#vault" class="px-10 py-4 bg-[#ff003c] font-black text-[10px] uppercase">Claim Coins</a>
-            <a href="#infra" class="px-10 py-4 border border-white font-black text-[10px] uppercase">System Specs</a>
-        </div>
+    <section class="h-screen flex flex-col items-center justify-center text-center px-6">
+        <h1 class="text-7xl md:text-[10rem] font-black italic uppercase leading-none tracking-tighter">9K REALITY</h1>
+        <p class="text-[#00f0ff] tracking-[1em] text-[10px] uppercase mt-4">Sovereign Identity Reconstruction</p>
     </section>
 
     <section id="vault" class="py-32 bg-zinc-950 px-6">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-center text-[10px] tracking-[1.5em] opacity-40 uppercase mb-16">Vault Subscription Tiers</h2>
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
                 <div class="tier-card p-8 bg-black">
                     <h4 class="text-[9px] opacity-40 uppercase font-black">Citizen</h4>
-                    <p class="text-3xl font-black my-4 text-white">FREE</p>
-                    <p class="text-sm font-black text-[#00f0ff]">2,000 COINS</p>
-                    <p class="text-[8px] opacity-40 mt-1 uppercase">2x 5s Renders Included</p>
+                    <p class="text-3xl font-black my-4">FREE</p>
+                    <p class="text-xs font-black text-[#00f0ff]">2,000 COINS</p>
                 </div>
-
-                <div class="tier-card p-8 bg-black">
+                <div class="tier-card p-8 bg-black" onclick="pay('MASTER')">
                     <h4 class="text-[9px] text-[#00f0ff] uppercase font-black">Master</h4>
                     <p class="text-3xl font-black my-4">$19.99</p>
-                    <p class="text-sm font-black">4,000 COINS</p>
-                    <p class="text-[8px] opacity-40 mt-1 uppercase">2K Base + 2K Bonus</p>
+                    <p class="text-xs font-black">4,000 COINS</p>
+                    <p class="text-[8px] opacity-40 uppercase mt-2">2k Base + 2k Bonus</p>
                 </div>
-
-                <div class="tier-card p-8 bg-black border-[#ffcc00]/20 shadow-xl">
+                <div class="tier-card p-8 bg-black" onclick="pay('SCHOLAR')">
                     <h4 class="text-[9px] text-[#ffcc00] uppercase font-black">Scholar</h4>
-                    <p class="text-3xl font-black my-4 text-[#ffcc00]">$29.99</p>
-                    <p class="text-sm font-black text-white">6,999 COINS</p>
-                    <p class="text-[8px] opacity-40 mt-1 uppercase">2K Base + 4999 Bonus</p>
+                    <p class="text-3xl font-black my-4">$29.99</p>
+                    <p class="text-xs font-black">6,999 COINS</p>
+                    <p class="text-[8px] opacity-40 uppercase mt-2">2k Base + 4999 Bonus</p>
                 </div>
-
-                <div class="tier-card p-8 bg-black">
+                <div class="tier-card p-8 bg-black" onclick="pay('TITAN')">
                     <h4 class="text-[9px] uppercase font-black">Titan</h4>
                     <p class="text-3xl font-black my-4">$49.99</p>
-                    <p class="text-sm font-black text-white">9,500 COINS</p>
-                    <p class="text-[8px] opacity-40 mt-1 uppercase">2K Base + 7500 Bonus</p>
+                    <p class="text-xs font-black">9,500 COINS</p>
+                    <p class="text-[8px] opacity-40 uppercase mt-2">2k Base + 7500 Bonus</p>
                 </div>
-
-                <div class="tier-card p-8 bg-[#ff003c]/5 border-[#ff003c]">
-                    <h4 class="text-[9px] text-[#ff003c] uppercase font-black tracking-widest">Ultra Titan</h4>
+                <div class="tier-card p-8 bg-[#ff003c]/5 border-[#ff003c]" onclick="pay('ULTRA_TITAN')">
+                    <h4 class="text-[9px] text-[#ff003c] uppercase font-black">Ultra Titan</h4>
                     <p class="text-3xl font-black my-4">$99.99</p>
-                    <p class="text-sm font-black text-[#ff003c]">12,000+ COINS</p>
-                    <p class="text-[8px] opacity-40 mt-1 uppercase">Unlimited Logic Access</p>
+                    <p class="text-xs font-black text-[#ff003c]">12,000+ COINS</p>
+                    <p class="text-[8px] opacity-40 uppercase mt-2">VIP Unit Access</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="infra" class="py-32 border-t border-white/5 bg-black px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <h3 class="text-xs text-[#00f0ff] tracking-[1em] uppercase mb-6">Internal Logic Swarm</h3>
-            <h2 class="text-5xl font-black italic uppercase mb-10 tracking-tighter">Sub-Base Architecture</h2>
-            <p class="text-[11px] opacity-40 uppercase tracking-[0.2em] leading-loose mb-16">
-                Our infrastructure utilizes proprietary automated logic units to manage high-fidelity reconstruction at scale. 
-                Full-bridge fulfillment is handled via synchronized background protocols for global consistency.
-            </p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-12 font-black uppercase text-[10px] opacity-30">
-                <div class="border-t border-white/10 pt-4">GPU Clusters</div>
-                <div class="border-t border-white/10 pt-4">Global Bridging</div>
-                <div class="border-t border-white/10 pt-4">Tax Shield v2</div>
-                <div class="border-t border-white/10 pt-4">Logic Units</div>
-            </div>
-        </div>
+    <section id="infra" class="py-32 border-t border-white/5 bg-black px-6 text-center">
+        <h2 class="text-xs text-[#00f0ff] tracking-[1em] uppercase mb-10">Logic Swarm Architecture</h2>
+        <p class="max-w-2xl mx-auto text-[11px] opacity-40 uppercase tracking-widest leading-loose">
+            Sub-base protocols handle 9K reconstruction via automated logic units. Enterprise domains trigger high-velocity GPU scaling.
+        </p>
     </section>
 
-    <footer class="p-20 text-center border-t border-white/5 opacity-20 text-[10px] uppercase tracking-[1.5em]">
-        Everyone leaves with a smile.
-    </footer>
+    <footer class="p-20 text-center opacity-20 text-[10px] uppercase tracking-[1em]">Everyone leaves with a smile.</footer>
 
     <script>
-        function simulateAccess(email) {
-            const overlay = document.getElementById('access-overlay');
-            const welcome = document.getElementById('welcome-msg');
-            const sub = document.getElementById('sub-msg');
-            const glow = document.getElementById('glow');
-
-            const isEnterprise = email.includes('@studio') || email.includes('@corp');
-
-            if(isEnterprise) {
-                welcome.innerText = "Welcome, Director";
-                welcome.style.color = "#00f0ff";
-                sub.innerText = "Enterprise Swarm Active | 50 Units Online";
-                glow.style.backgroundColor = "#00f0ff";
-            } else {
-                welcome.innerText = "Welcome, Titan";
-                welcome.style.color = "#ffcc00";
-                sub.innerText = "Vault Connected | Everyone Leaves With A Smile";
-                glow.style.backgroundColor = "#ffcc00";
-            }
-
-            overlay.classList.remove('hidden');
+        async function pay(tier) {
+            const res = await fetch('/api/v1/knocks/initialize-vault', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ email: "user@studio.com", tier: tier })
+            });
+            const data = await res.json();
+            
+            // DEMO MODE: Trigger Modal. LIVE MODE: window.location.href = data.checkoutUrl;
+            const modal = document.getElementById('modal');
+            document.getElementById('m-title').innerText = data.isEnterprise ? "Welcome, Director" : "Welcome, Titan";
+            document.getElementById('m-sub').innerText = data.isEnterprise ? "50 Logic Units Online" : "Vault Online | Smile Confirmed";
+            document.getElementById('glow').style.backgroundColor = data.isEnterprise ? "#00f0ff" : "#ffcc00";
+            modal.classList.remove('hidden');
         }
     </script>
 </body>
