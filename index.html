@@ -3,108 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K SOVEREIGN | CHARACTER TRANSFORMER</title>
+    <title>9K ARENA | BATTLE OF REALITY</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow-x: hidden; }
         
-        #bg-layer {
-            position: fixed; inset: 0; z-index: -1;
-            background: url('V_SENTINEL.jpg') center/cover; opacity: 0.1; filter: grayscale(1);
+        .arena-card { 
+            background: rgba(255,255,255,0.02); 
+            border: 1px solid rgba(0, 240, 255, 0.2); 
+            transition: 0.4s;
+            position: relative;
         }
-
-        .upload-input { display: none; }
-        .upload-zone { border: 2px dashed #00f0ff; background: rgba(0, 240, 255, 0.03); padding: 40px; cursor: pointer; transition: 0.3s; }
-        .upload-zone:hover { background: rgba(0, 240, 255, 0.08); box-shadow: 0 0 30px #00f0ff33; }
-
-        input, select { background: #0b1114; border: 1px solid #00f0ff44; color: #fff; padding: 12px; width: 100%; outline: none; }
+        .arena-card:hover { border-color: #ff003c; transform: translateY(-5px); }
         
-        .transform-btn {
-            background: #ff003c; color: #fff; font-weight: 900;
-            padding: 15px 40px; text-transform: uppercase; letter-spacing: 2px;
-            box-shadow: 0 0 20px #ff003c77; transition: 0.3s;
+        .split-view { display: grid; grid-template-cols: 1fr 1fr; gap: 2px; }
+        .vote-btn { 
+            background: #ff003c; color: white; font-size: 10px; font-weight: 900; 
+            padding: 8px 15px; border-radius: 2px; transition: 0.3s;
         }
-        .transform-btn:hover { background: #fff; color: #ff003c; box-shadow: 0 0 40px #ff003c; }
-
-        .preview-pane { aspect-ratio: 9/16; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.1); position: relative; }
-        .reality-tag {
-            position: absolute; top: 10px; left: 10px;
-            background: #00f0ff; color: #000; font-size: 8px; font-weight: 900;
-            padding: 2px 8px; border-radius: 10px;
+        .vote-btn:hover { background: white; color: #ff003c; }
+        
+        .rank-badge {
+            position: absolute; top: -10px; left: -10px;
+            background: #ffcc00; color: #000; padding: 5px 10px;
+            font-size: 10px; font-weight: 900; z-index: 10;
         }
     </style>
 </head>
 <body>
 
-    <div id="bg-layer"></div>
-
-    <nav class="p-6 border-b border-white/10 flex justify-between items-center bg-black/80 sticky top-0 z-50">
-        <h2 class="font-black text-2xl italic tracking-tighter">9K <span class="text-[#ff003c]">TITAN</span></h2>
+    <nav class="p-6 border-b border-white/10 flex justify-between items-center bg-black/90 sticky top-0 z-50">
+        <h2 class="font-black text-2xl italic tracking-tighter">9K <span class="text-[#ff003c]">ARENA</span></h2>
         <div class="flex gap-6 text-[10px] font-black tracking-widest uppercase">
-            <a href="#" class="text-[#ff003c]">Transformer</a>
+            <a href="transformer.html">Transform</a>
             <a href="store.html">Marketplace</a>
-            <a href="#" class="text-[#ffcc00]">Sovereign School</a>
+            <button class="bg-[#00f0ff] text-black px-4 py-1">Join Battle</button>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto pt-16 px-6 pb-20">
+    <main class="max-w-7xl mx-auto pt-16 px-6 pb-20">
         
-        <div class="mb-12">
-            <h1 class="text-5xl md:text-6xl font-black uppercase italic tracking-tighter">Identity Reconstruction</h1>
-            <p class="text-[10px] text-[#ff003c] tracking-[0.5em] mt-2">ULTRA TITAN CORE // 3D CHARACTER ENGINE</p>
+        <div class="text-center mb-16">
+            <h1 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter">BATTLE OF REALITY</h1>
+            <p class="text-[10px] text-[#ffcc00] tracking-[0.8em] mt-4">VOTE FOR THE ULTIMATE TITAN TRANSFORMATION</p>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
-            <div class="space-y-6">
-                <div class="space-y-4">
-                    <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">1. Upload Source Identity</h3>
-                    <div class="upload-zone" onclick="document.getElementById('inputfile').click()">
-                        <p class="text-xl font-black mb-1">UPLOAD PORTRAIT</p>
-                        <p class="text-[9px] opacity-50 uppercase">Face must be clearly visible.</p>
-                        <input type="file" id="inputfile" class="upload-input" accept="image/*">
+            <div class="arena-card">
+                <div class="rank-badge">#1 TITAN</div>
+                <div class="split-view">
+                    <div class="aspect-[3/4] bg-zinc-800 flex items-center justify-center border-r border-black">
+                        <p class="text-[8px] opacity-30 text-center">SOURCE<br>PORTRAIT</p>
+                    </div>
+                    <div class="aspect-[3/4] bg-zinc-900 border-l border-[#ff003c]/30" style="background: url('V_SENTINEL.jpg') center/cover;">
                     </div>
                 </div>
-
-                <div class="space-y-4 pt-6">
-                    <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">2. Select Target Reality</h3>
+                <div class="p-4 flex justify-between items-center bg-black/50">
                     <div>
-                        <label class="text-[9px] uppercase opacity-50 block mb-1">Character Style</label>
-                        <select id="style-select">
-                            <option value="CARTOON">High-Fidelity Cartoon (2D)</option>
-                            <option value="REAL3D">Realistic 3D Game Character (8K)</option>
-                            <option value="ANIME">Sovereign Anime (HD)</option>
-                            <option value="COMIC">Dark Comic Style</option>
-                        </select>
+                        <p class="text-[10px] font-black uppercase">@KNOCK_TITAN_01</p>
+                        <p class="text-[8px] text-[#00f0ff] opacity-70">STYLE: ULTRA 3D</p>
                     </div>
+                    <button class="vote-btn">VOTE 2.4k</button>
                 </div>
-
-                <div class="pt-6">
-                    <button class="transform-btn w-full">INITIALIZE RECONSTRUCTION</button>
+                <div class="p-2 flex gap-2">
+                    <button class="flex-1 bg-white/5 text-[8px] p-2 hover:bg-white/10 uppercase">View Merch</button>
+                    <button class="flex-1 bg-white/5 text-[8px] p-2 hover:bg-white/10 uppercase">Buy Identity</button>
                 </div>
             </div>
 
-            <div class="space-y-6">
-                <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">3. Character Showcase</h3>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    
-                    <div class="preview-pane border border-white/10 flex flex-col items-center justify-center">
-                        <span class="reality-tag bg-white/20 !text-white">SOURCE_IDENTITITY</span>
-                        <div class="text-[8px] opacity-30 uppercase text-center p-4 italic">Original Portrait Awaiting...</div>
-                    </div>
-
-                    <div class="preview-pane border-2 border-[#ff003c] flex flex-col items-center justify-center shadow-[0_0_20px_#ff003c22]">
-                        <span class="reality-tag bg-[#ff003c] !text-white" id="output-tag">OUTPUT_TITAN</span>
-                        <div class="text-[8px] opacity-30 uppercase text-center p-4 italic">Character Reconstruction Awaiting...</div>
-                    </div>
-
+            <div class="arena-card">
+                <div class="split-view">
+                    <div class="aspect-[3/4] bg-zinc-800"></div>
+                    <div class="aspect-[3/4] bg-zinc-900" style="background: url('1773441360031.jpg') center/cover;"></div>
                 </div>
-
-                <div class="pt-6">
-                    <a href="store.html" class="w-full bg-[#00f0ff] text-black font-black p-4 text-[10px] uppercase block text-center hover:bg-white transition">List This Character on Marketplace</a>
+                <div class="p-4 flex justify-between items-center bg-black/50">
+                    <div>
+                        <p class="text-[10px] font-black uppercase">@CYBER_GHOST</p>
+                        <p class="text-[8px] text-[#00f0ff] opacity-70">STYLE: ANIME SOVEREIGN</p>
+                    </div>
+                    <button class="vote-btn">VOTE 1.1k</button>
                 </div>
+                <div class="p-2 flex gap-2">
+                    <button class="flex-1 bg-white/5 text-[8px] p-2 hover:bg-white/10 uppercase">View Merch</button>
+                    <button class="flex-1 bg-white/5 text-[8px] p-2 hover:bg-white/10 uppercase">Buy Identity</button>
+                </div>
+            </div>
+
+            <div class="arena-card flex flex-col items-center justify-center p-12 border-dashed">
+                <p class="text-xl font-black italic text-center mb-6">WANT TO ENTER THE ARENA?</p>
+                <a href="transformer.html" class="bg-white text-black font-black px-8 py-4 text-[10px] uppercase tracking-widest hover:bg-[#ff003c] hover:text-white transition">Transform Now</a>
             </div>
 
         </div>
