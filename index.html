@@ -3,104 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K SOVEREIGN | CREATOR HUB</title>
+    <title>9K SOVEREIGN | CHARACTER TRANSFORMER</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; }
-        .feature-card { background: rgba(0, 240, 255, 0.05); border: 1px solid #00f0ff33; padding: 20px; transition: 0.3s; }
-        .feature-card:hover { border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); }
-        .merch-tag { background: #ffcc00; color: #000; font-size: 9px; font-weight: 900; padding: 2px 8px; border-radius: 10px; }
-        input, select { background: #0b1114; border: 1px solid #00f0ff44; color: #fff; padding: 12px; width: 100%; margin-top: 5px; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow-x: hidden; }
+        
+        #bg-layer {
+            position: fixed; inset: 0; z-index: -1;
+            background: url('V_SENTINEL.jpg') center/cover; opacity: 0.1; filter: grayscale(1);
+        }
+
+        .upload-input { display: none; }
+        .upload-zone { border: 2px dashed #00f0ff; background: rgba(0, 240, 255, 0.03); padding: 40px; cursor: pointer; transition: 0.3s; }
+        .upload-zone:hover { background: rgba(0, 240, 255, 0.08); box-shadow: 0 0 30px #00f0ff33; }
+
+        input, select { background: #0b1114; border: 1px solid #00f0ff44; color: #fff; padding: 12px; width: 100%; outline: none; }
+        
+        .transform-btn {
+            background: #ff003c; color: #fff; font-weight: 900;
+            padding: 15px 40px; text-transform: uppercase; letter-spacing: 2px;
+            box-shadow: 0 0 20px #ff003c77; transition: 0.3s;
+        }
+        .transform-btn:hover { background: #fff; color: #ff003c; box-shadow: 0 0 40px #ff003c; }
+
+        .preview-pane { aspect-ratio: 9/16; background: rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.1); position: relative; }
+        .reality-tag {
+            position: absolute; top: 10px; left: 10px;
+            background: #00f0ff; color: #000; font-size: 8px; font-weight: 900;
+            padding: 2px 8px; border-radius: 10px;
+        }
     </style>
 </head>
 <body>
 
+    <div id="bg-layer"></div>
+
     <nav class="p-6 border-b border-white/10 flex justify-between items-center bg-black/80 sticky top-0 z-50">
-        <h2 class="font-black text-2xl italic tracking-tighter">9K <span class="text-[#00f0ff]">ULTRA</span></h2>
+        <h2 class="font-black text-2xl italic tracking-tighter">9K <span class="text-[#ff003c]">TITAN</span></h2>
         <div class="flex gap-6 text-[10px] font-black tracking-widest uppercase">
-            <a href="#" class="text-[#00f0ff]">Generator</a>
-            <a href="#">Marketplace</a>
-            <a href="#" class="text-[#ffcc00]">The School</a>
+            <a href="#" class="text-[#ff003c]">Transformer</a>
+            <a href="store.html">Marketplace</a>
+            <a href="#" class="text-[#ffcc00]">Sovereign School</a>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto pt-12 px-6 pb-20">
+    <main class="max-w-6xl mx-auto pt-16 px-6 pb-20">
         
         <div class="mb-12">
-            <h1 class="text-5xl font-black uppercase italic">The Production Suite</h1>
-            <p class="text-[10px] text-[#00f0ff] tracking-[0.5em] mt-2">BETTER THAN THE REST // POWERED BY TITAN CORE</p>
+            <h1 class="text-5xl md:text-6xl font-black uppercase italic tracking-tighter">Identity Reconstruction</h1>
+            <p class="text-[10px] text-[#ff003c] tracking-[0.5em] mt-2">ULTRA TITAN CORE // 3D CHARACTER ENGINE</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
+        <div class="grid md:grid-cols-2 gap-10">
             
-            <div class="space-y-4">
-                <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">AI CAPABILITIES</h3>
-                
-                <div class="feature-card">
-                    <p class="font-black text-sm">PHOTO RESTORATION</p>
-                    <p class="text-[9px] opacity-60">Turn old blurry pics into 8K Masterpieces.</p>
+            <div class="space-y-6">
+                <div class="space-y-4">
+                    <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">1. Upload Source Identity</h3>
+                    <div class="upload-zone" onclick="document.getElementById('inputfile').click()">
+                        <p class="text-xl font-black mb-1">UPLOAD PORTRAIT</p>
+                        <p class="text-[9px] opacity-50 uppercase">Face must be clearly visible.</p>
+                        <input type="file" id="inputfile" class="upload-input" accept="image/*">
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <p class="font-black text-sm text-[#00f0ff]">STILL TO VIDEO</p>
-                    <p class="text-[9px] opacity-60">Animate any photo into a 5s cinematic clip.</p>
+                <div class="space-y-4 pt-6">
+                    <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">2. Select Target Reality</h3>
+                    <div>
+                        <label class="text-[9px] uppercase opacity-50 block mb-1">Character Style</label>
+                        <select id="style-select">
+                            <option value="CARTOON">High-Fidelity Cartoon (2D)</option>
+                            <option value="REAL3D">Realistic 3D Game Character (8K)</option>
+                            <option value="ANIME">Sovereign Anime (HD)</option>
+                            <option value="COMIC">Dark Comic Style</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="feature-card">
-                    <p class="font-black text-sm">PROMPT TO VIDEO</p>
-                    <p class="text-[9px] opacity-60">Describe it, and the Titan Engine builds it.</p>
+                <div class="pt-6">
+                    <button class="transform-btn w-full">INITIALIZE RECONSTRUCTION</button>
                 </div>
             </div>
 
-            <div class="md:col-span-2 space-y-6">
-                <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">LIST FOR SALE & MERCH</h3>
+            <div class="space-y-6">
+                <h3 class="text-xs font-black opacity-50 border-b border-white/10 pb-2">3. Character Showcase</h3>
                 
-                <div class="grid md:grid-cols-2 gap-6 bg-white/5 p-8 border border-white/10">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="text-[9px] uppercase opacity-50">Select Asset</label>
-                            <div class="h-48 border-2 border-dashed border-white/20 flex items-center justify-center text-[10px] opacity-40">UPLOAD ART/VIDEO</div>
-                        </div>
-                        
-                        <div>
-                            <label class="text-[9px] uppercase opacity-50">Service Type</label>
-                            <select id="type">
-                                <option>Digital Download</option>
-                                <option>Coffee Cup (Physical)</option>
-                                <option>Drinking Cup (Physical)</option>
-                                <option>Streetwear Tee (Physical)</option>
-                            </select>
-                        </div>
+                <div class="grid grid-cols-2 gap-4">
+                    
+                    <div class="preview-pane border border-white/10 flex flex-col items-center justify-center">
+                        <span class="reality-tag bg-white/20 !text-white">SOURCE_IDENTITITY</span>
+                        <div class="text-[8px] opacity-30 uppercase text-center p-4 italic">Original Portrait Awaiting...</div>
                     </div>
 
-                    <div class="flex flex-col justify-between">
-                        <div>
-                            <label class="text-[9px] uppercase opacity-50">Your Price (USD)</label>
-                            <input type="number" placeholder="0.00">
-                            <div class="mt-4 p-4 bg-[#00ff85]/10 border-l-4 border-[#00ff85]">
-                                <p class="text-[9px] opacity-60 uppercase">9K Guarantee</p>
-                                <p class="text-xs font-black">YOU KEEP 95% OF EVERY SALE</p>
-                            </div>
-                        </div>
-
-                        <button class="w-full bg-[#00f0ff] text-black font-black p-4 text-[10px] uppercase mt-6 shadow-[0_0_20px_#00f0ff44]">Publish to Sovereign Wall</button>
+                    <div class="preview-pane border-2 border-[#ff003c] flex flex-col items-center justify-center shadow-[0_0_20px_#ff003c22]">
+                        <span class="reality-tag bg-[#ff003c] !text-white" id="output-tag">OUTPUT_TITAN</span>
+                        <div class="text-[8px] opacity-30 uppercase text-center p-4 italic">Character Reconstruction Awaiting...</div>
                     </div>
+
                 </div>
 
-                <div class="grid grid-cols-3 gap-4 mt-8">
-                    <div class="aspect-square bg-zinc-900 flex items-center justify-center relative border border-white/5">
-                        <span class="merch-tag absolute top-2 left-2">COFFEE CUP</span>
-                        <p class="text-[8px] opacity-30 uppercase">Mockup View</p>
-                    </div>
-                    <div class="aspect-square bg-zinc-900 flex items-center justify-center relative border border-white/5">
-                        <span class="merch-tag absolute top-2 left-2">STREETWEAR</span>
-                        <p class="text-[8px] opacity-30 uppercase">Mockup View</p>
-                    </div>
-                    <div class="aspect-square bg-zinc-900 flex items-center justify-center relative border border-white/5">
-                        <span class="merch-tag absolute top-2 left-2">RESTORED PIC</span>
-                        <p class="text-[8px] opacity-30 uppercase">Before/After</p>
-                    </div>
+                <div class="pt-6">
+                    <a href="store.html" class="w-full bg-[#00f0ff] text-black font-black p-4 text-[10px] uppercase block text-center hover:bg-white transition">List This Character on Marketplace</a>
                 </div>
             </div>
 
