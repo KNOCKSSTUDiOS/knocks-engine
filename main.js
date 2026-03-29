@@ -1,40 +1,42 @@
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.*;
-import org.springframework.web.client.RestTemplate;
+import java.util.*;
 
 @RestController
-@RequestMapping("/api/v1/knocks")
-@CrossOrigin(origins = "*") // Allows your HTML to talk to this Java Engine
-public class KnocksSovereignController {
+@RequestMapping("/api/v1/sovereign")
+public class SovereignEngineController {
 
-    private final String PRINTIFY_API_KEY = "YOUR_PRINTIFY_API_TOKEN";
-    private final String SHOP_ID = "YOUR_SHOP_ID";
+    // THE FOUNDATION: 2000 BASE COINS
+    private static final int BASE_COINS = 2000;
 
-    // 1. THE PEACH SAMPLE LOGIC ($4.00)
-    @PostMapping("/purchase-sample")
-    public ResponseEntity<String> purchasePeachSample(@RequestBody String userId) {
-        // Logic to verify Stripe payment would go here
-        System.out.println("Processing 6 9K Videos for User: " + userId);
-        return ResponseEntity.ok("Peach Sample Activated. 6 Videos Added to Vault. Everyone leaves with a smile!");
-    }
-
-    // 2. THE PRINTIFY BRIDGE
-    @PostMapping("/create-order")
-    public ResponseEntity<Object> sendToPrintify(@RequestBody OrderRequest order) {
-        String url = "https://api.printify.com/v1/shops/" + SHOP_ID + "/orders.json";
+    @PostMapping("/onboard")
+    public ResponseEntity<Map<String, Object>> onboardUser(@RequestBody Map<String, String> userData) {
+        String email = userData.get("email");
+        String tier = userData.get("tier").toUpperCase();
         
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + PRINTIFY_API_KEY);
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<OrderRequest> entity = new HttpEntity<>(order, headers);
+        Map<String, Object> response = new HashMap<>();
         
-        try {
-            Object response = restTemplate.postForObject(url, entity, Object.class);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error connecting to Printify: " + e.getMessage());
-        }
+        // 1. THE SMART GATE: DETECTION
+        boolean isEnterprise = email.contains("@corp") || email.contains("@studio") || email.contains("@platform");
+
+        // 2. THE CUMULATIVE ECONOMY MATH
+        int tierBonus = switch (tier) {
+            case "MASTER" -> 2000;       // Total: 4000
+            case "SCHOLAR" -> 4999;      // Total: 6999
+            case "TITAN" -> 7500;        // Total: 9500
+            case "ULTRA_TITAN" -> 10000; // Total: 12000
+            default -> 0;                // Citizen: 2000
+        };
+
+        int totalVaultBalance = BASE_COINS + tierBonus;
+
+        // 3. WAKE THE BOTS
+        String botStatus = isEnterprise ? "Enterprise Swarm Active: 50 Bots Assigned" : "Standard Bot Swarm: 5 Bots Assigned";
+
+        response.put("balance", totalVaultBalance);
+        response.put("isEnterprise", isEnterprise);
+        response.put("status", "Everyone leaves with a smile.");
+        response.put("botLog", botStatus);
+
+        return ResponseEntity.ok(response);
     }
 }
