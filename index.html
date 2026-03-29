@@ -3,181 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS | OMNIPOTENT V13</title>
+    <title>KNOCKS | OMNIPOTENT LIVE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Syncopate:wght@400;700&display=swap');
         
-        :root { --neon: #00f0ff; --gold: #ffcc00; --olive: #6b8e23; --bg: #000; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; }
-        .knocks-font { font-family: 'Orbitron', sans-serif; }
+        :root { --gold: #ffcc00; --olive: #6b8e23; --neon: #00f0ff; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
+        .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* 9D LIQUID ANIMATION*/
-        #live-void { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at center, #080808 0%, #000 100%); }
-        .particle { position: absolute; background: var(--gold); border-radius: 50%; opacity: 0.2; animation: float 12s infinite linear; filter: blur(1px); }
-        @keyframes float { from { transform: translateY(110vh) scale(0.5); } to { transform: translateY(-10vh) scale(1.5); } }
-
-        /* LIQUID LOGO RENDERING */
-        .liquid-text {
-            font-size: 52px; font-weight: 900; background: linear-gradient(180deg, var(--gold), var(--olive));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(255,204,0,0.4)); animation: drip 3s infinite ease-in-out;
+        /* --- THE 9D ANIMATED VOID --- */
+        #live-void { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); }
+        .water-particle { 
+            position: absolute; background: rgba(255, 255, 255, 0.05); border-radius: 50%; 
+            filter: blur(1px); animation: floatUp 12s infinite linear; 
         }
-        @keyframes drip { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-10px) scale(1.03); } }
+        @keyframes floatUp { from { transform: translateY(110vh) scale(0.5); opacity: 0; } to { transform: translateY(-10vh) scale(1.2); opacity: 0.3; } }
 
-        /* LIVE TICKER */
-        .ticker-wrap { position: fixed; bottom: 0; left: 90px; right: 0; background: rgba(0,0,0,0.8); border-top: 1px solid rgba(255,255,255,0.05); padding: 10px; z-index: 4000; overflow: hidden; }
-        .ticker-move { display: flex; animation: ticker 30s linear infinite; white-space: nowrap; gap: 50px; }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        /* --- AUTH TERMINAL --- */
+        #auth-gate { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; 
+            display: flex; align-items: center; justify-content: center; backdrop-filter: blur(30px);
+        }
+        .auth-card { 
+            width: 420px; padding: 50px; border: 1px solid rgba(255, 204, 0, 0.1); 
+            background: linear-gradient(145deg, #050505, #111); text-align: center;
+            box-shadow: 0 0 100px rgba(0,0,0,1);
+        }
 
-        /* INTERFACE STYLING */
-        #main-interface { display: none; padding-left: 120px; padding-right: 40px; padding-top: 40px; height: 100vh; overflow-y: auto; }
-        .nav-rail { height: 100vh; width: 90px; position: fixed; left: 0; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; padding-top: 80px; gap: 35px; z-index: 5000; background: #000; }
-        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 8px; letter-spacing: 0.6em; cursor: pointer; opacity: 0.3; transition: 0.3s; }
+        /* --- LIQUID LOGO RENDERING --- */
+        .liquid-text {
+            font-size: 48px; font-weight: 900; letter-spacing: -0.02em;
+            background: linear-gradient(180deg, var(--gold) 0%, var(--olive) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(255, 204, 0, 0.4));
+            animation: liquidDrip 4s infinite ease-in-out;
+            position: relative; display: inline-block;
+        }
+        @keyframes liquidDrip { 0%, 100% { transform: translateY(0); filter: hue-rotate(0deg); } 50% { transform: translateY(-8px); filter: hue-rotate(15deg); } }
+
+        /* --- RANDOMIZED GHOST GEMS --- */
+        .ghost-gem { 
+            position: absolute; width: 14px; height: 14px; background: transparent; 
+            border: 1px solid transparent; cursor: pointer; z-index: 1000; 
+        }
+        .ghost-gem:hover { border: 1px solid var(--neon); box-shadow: 0 0 20px var(--neon); background: rgba(0, 240, 255, 0.1); }
+
+        /* --- INTERFACE --- */
+        #main-interface { display: none; padding-left: 110px; height: 100vh; overflow-y: auto; padding-top: 60px; }
+        .nav-rail { width: 90px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid rgba(255,255,255,0.05); display: none; flex-direction: column; align-items: center; padding-top: 100px; gap: 45px; z-index: 5000; }
+        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; letter-spacing: 0.8em; cursor: pointer; opacity: 0.3; transition: 0.4s; }
         .nav-item:hover, .active-nav { opacity: 1; color: var(--neon); }
 
-        .engine-tile { background: rgba(15,15,15,0.7); border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(40px); position: relative; }
-        .ghost-gem { position: absolute; width: 20px; height: 20px; background: transparent; cursor: crosshair; z-index: 1000; }
-        .ghost-gem:hover { border: 1px solid var(--neon); box-shadow: 0 0 15px var(--neon); }
+        .reactor-core { background: #050505; border: 1px solid rgba(255,255,255,0.03); height: 600px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .globe-bg { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, #ffcc0033 0%, transparent 70%); filter: blur(40px); animation: pulseGlobe 8s infinite alternate; }
+        @keyframes pulseGlobe { from { opacity: 0.2; transform: scale(1); } to { opacity: 0.5; transform: scale(1.3); } }
 
-        #auth-gate { position: fixed; inset: 0; background: #000; z-index: 20000; display: flex; align-items: center; justify-content: center; }
-        .vault-input { background: #000; border: 1px solid #222; padding: 15px; color: var(--neon); width: 100%; font-size: 10px; margin-bottom: 15px; outline: none; }
-        
-        #shutter { position: fixed; inset: 0; background: #000; z-index: 10000; transform: scaleY(0); transition: 0.7s cubic-bezier(1,0,0,1); display: flex; align-items: center; justify-content: center; }
-        #shutter.active { transform: scaleY(1); }
+        .input-box { background: #000; border: 1px solid #222; padding: 20px; color: var(--neon); width: 100%; outline: none; font-size: 11px; margin-bottom: 20px; }
     </style>
 </head>
 <body onload="initVoid()">
 
     <div id="live-void"></div>
-    <div id="shutter"><h1 class="extraordinary text-xs tracking-[2em] animate-pulse">RESTORING CORE</h1></div>
 
     <div id="auth-gate">
-        <div class="auth-box p-12 border border-[#6b8e23] bg-[#050505] text-center">
-            <h2 class="extraordinary text-xs mb-10 tracking-[1.5em] text-[#ffcc00]">IDENTITY SYNC</h2>
-            <input type="text" id="driller-id" placeholder="DRILLER NAME" class="vault-input knocks-font">
-            <button onclick="unlock()" class="w-full bg-[#ffcc00] text-black py-5 extraordinary text-[10px] font-black uppercase tracking-widest">Activate</button>
+        <div class="auth-card">
+            <h2 class="extraordinary text-xs tracking-[1.5em] mb-10 text-[#6b8e23]">IDENTITY CLEARANCE</h2>
+            <input type="text" id="driller-name" placeholder="CREATE DRILLER ID" class="input-box knocks-font">
+            <input type="password" placeholder="SECURE ACCESS KEY" class="input-box knocks-font">
+            <button onclick="unlockEngine()" class="w-full bg-[#ffcc00] text-black py-5 extraordinary text-[10px] font-black hover:bg-white transition-all tracking-[0.3em]">ACTIVATE CORE</button>
+            <p class="text-[7px] opacity-20 mt-8 uppercase tracking-[0.5em]">Knocks Creative Legacy Encryption</p>
         </div>
     </div>
 
-    <div class="nav-rail" id="rail" style="display:none;">
-        <div class="knocks-font text-[8px] text-[#ffcc00] mb-4" id="user-display">--</div>
-        <div class="text-[9px] text-white/20 knocks-font mb-8">COINS: <span id="coin-count" class="text-[#00f0ff]">0</span></div>
-        <div class="nav-item active-nav knocks-font" onclick="jump('engine')">ENGINE</div>
-        <div class="nav-item knocks-font" onclick="jump('music')">MUSIC</div>
+    <div id="nav-rail" class="nav-rail">
+        <div class="knocks-font text-[8px] text-[#ffcc00] mb-6">ID: <span id="id-tag">--</span></div>
+        <div class="nav-item active-nav knocks-font" onclick="jump('engine')">CORE</div>
+        <div class="nav-item knocks-font" onclick="jump('cinema')">CINEMA</div>
         <div class="nav-item knocks-font" onclick="jump('vault')">VAULT</div>
         <div class="nav-item knocks-font" onclick="location.reload()">OFFLINE</div>
     </div>
 
-    <div class="ticker-wrap" id="ticker" style="display:none;">
-        <div class="ticker-move knocks-font text-[7px] tracking-[0.4em] text-white/30 uppercase">
-            <span>DRILLER <span class="text-[#ffcc00]">SYSTEM_ROOT</span> IGNITED A 9D DRILL</span>
-            <span>NEW GHOST GEM SPAWNED IN <span class="text-[#00f0ff]">VAULT SECTOR</span></span>
-            <span>SOVEREIGN ELITE ACCESS GRANTED TO <span class="text-[#6b8e23]">LEGACY_01</span></span>
-            <span>ENGINE STATUS: <span class="text-[#00f0ff]">OPTIMAL</span></span>
+    <main id="main-interface" class="pr-16">
+        <div class="flex justify-between items-start mb-14">
+            <div>
+                <h1 class="liquid-text extraordinary">KNOCKSCREATIVESTUDIOS</h1>
+                <div class="flex gap-10 mt-4 text-[8px] opacity-40 knocks-font tracking-[0.5em]">
+                    <span>LEGACY</span><span>WEALTH</span><span>GROWTH</span><span>YOUTH</span>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <main id="main-interface">
-        
-        <section id="node-engine" class="page-node active">
-            <div class="mb-10"><h1 class="liquid-text extraordinary">KNOCKSCREATIVESTUDIOS</h1></div>
+        <div class="grid grid-cols-12 gap-10 relative">
+            <div id="gem-1" class="ghost-gem" onclick="claimReward('Hidden Gold Artwork Stem Unlocked')"></div>
+            <div id="gem-2" class="ghost-gem" onclick="claimReward('Free 9D Render Credit Added')"></div>
 
-            <div class="grid grid-cols-12 gap-8 relative">
-                <div id="gem-1" class="ghost-gem" onclick="claimGem(this, 1000)"></div>
-                
-                <div class="col-span-4 space-y-6">
-                    <div class="engine-tile p-8">
-                        <h3 class="extraordinary text-[9px] opacity-40 mb-4 uppercase">Visual Source</h3>
-                        <label class="h-24 border border-white/5 flex items-center justify-center cursor-pointer hover:bg-white/5 transition">
-                            <input type="file" class="hidden"><span class="text-[8px] knocks-font">SYNC VIDEO</span>
-                        </label>
-                    </div>
-                    <div class="engine-tile p-8">
-                        <h3 class="extraordinary text-[9px] opacity-40 mb-4 uppercase">Audio Sync</h3>
-                        <label class="h-24 border border-white/5 flex items-center justify-center cursor-pointer hover:bg-[#ffcc00]/5 transition">
-                            <input type="file" class="hidden"><span class="text-[8px] knocks-font text-[#ffcc00]">SYNC MUSIC</span>
-                        </label>
-                    </div>
-                    <div class="engine-tile p-8">
-                        <textarea class="vault-input h-24" placeholder="COMMAND..."></textarea>
-                        <button onclick="ignite()" class="w-full bg-[#00f0ff] text-black py-5 extraordinary text-[10px] font-black tracking-widest">IGNITE DRILL</button>
-                    </div>
+            <div class="col-span-4 space-y-6">
+                <div class="bg-white/5 p-10 border border-white/5">
+                    <h3 class="extraordinary text-[9px] opacity-40 mb-6 tracking-widest uppercase">Genetic Input</h3>
+                    <label class="h-32 border border-white/5 flex flex-col items-center justify-center hover:bg-white/5 cursor-pointer transition">
+                        <input type="file" class="hidden">
+                        <span class="text-[8px] knocks-font">UPLOAD RAW MEDIA</span>
+                    </label>
                 </div>
+                <div class="bg-white/5 p-10 border border-white/5">
+                    <h3 class="extraordinary text-[9px] opacity-40 mb-6 tracking-widest uppercase">Command Logic</h3>
+                    <textarea class="input-box h-32 mb-6" placeholder="DESCRIBE THE IMPOSSIBLE..."></textarea>
+                    <button onclick="igniteDrill()" class="w-full bg-[#00f0ff] text-black py-6 extraordinary text-[10px] font-black hover:tracking-[0.8em] transition-all">IGNITE DRILL</button>
+                </div>
+            </div>
 
-                <div class="col-span-8">
-                    <div class="engine-tile h-[580px] flex items-center justify-center overflow-hidden">
-                        <div id="idle" class="extraordinary text-[10px] opacity-10 tracking-[3em]">AWAITING DRILL</div>
-                        <div id="output" class="hidden w-full h-full"><img src="https://via.placeholder.com/1200x800/080808/ffcc00?text=9D+RENDER+ACTIVE" class="w-full h-full object-cover"></div>
+            <div class="col-span-8">
+                <div class="reactor-core">
+                    <div class="globe-bg"></div>
+                    <div id="idle-text" class="extraordinary text-[10px] opacity-10 tracking-[3em]">CORE IDLE</div>
+                    
+                    <div id="render-frame" class="hidden w-full h-full relative">
+                        <img src="1773441360031.jpg" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                        <div class="absolute bottom-10 left-10">
+                            <h2 class="extraordinary text-2xl italic text-[#ffcc00]">RENDER_MANIFEST_01</h2>
+                            <p class="text-[8px] opacity-50 tracking-[1em] mt-2">BLACK WALLSTREET LIQUID LOUNGE SERIES</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <section id="node-vault" class="page-node">
-            <h2 class="extraordinary text-5xl italic uppercase mb-16">The <span class="text-[#ffcc00]">Vault</span></h2>
-            <div class="grid grid-cols-2 gap-10 max-w-4xl">
-                <div class="engine-tile p-12 border-2 border-[#ffcc00]">
-                    <h3 class="extraordinary text-xl mb-8">SOVEREIGN ELITE</h3>
-                    <p class="text-6xl font-black mb-8">$29<span class="text-xs opacity-40">/MO</span></p>
-                    <button class="w-full bg-[#ffcc00] text-black py-5 extraordinary text-[10px] font-black uppercase">Ascend</button>
-                </div>
-            </div>
-        </section>
-
+        </div>
     </main>
 
     <script>
-        let coins = 0;
         function initVoid() {
-            const v = document.getElementById('live-void');
-            for(let i=0; i<50; i++) {
-                const p = document.createElement('div'); p.className = 'particle';
-                p.style.width = p.style.height = Math.random() * 4 + "px";
+            const container = document.getElementById('live-void');
+            for(let i=0; i<60; i++) {
+                const p = document.createElement('div');
+                p.className = 'water-particle';
+                p.style.width = Math.random() * 4 + "px";
+                p.style.height = p.style.width;
                 p.style.left = Math.random() * 100 + "vw";
-                p.style.animationDuration = (Math.random() * 10 + 10) + "s";
-                v.appendChild(p);
+                p.style.animationDuration = (Math.random() * 10 + 5) + "s";
+                p.style.animationDelay = Math.random() * 5 + "s";
+                container.appendChild(p);
             }
         }
-        function unlock() {
-            const name = document.getElementById('driller-id').value;
-            if(!name) return;
-            document.getElementById('shutter').classList.add('active');
+
+        function unlockEngine() {
+            const name = document.getElementById('driller-name').value;
+            if(!name) return alert("Identify Yourself, Driller.");
+            
+            document.getElementById('auth-gate').style.opacity = "0";
             setTimeout(() => {
-                document.getElementById('auth-gate').style.display = 'none';
-                document.getElementById('main-interface').style.display = 'block';
-                document.getElementById('rail').style.display = 'flex';
-                document.getElementById('ticker').style.display = 'block';
-                document.getElementById('user-display').innerText = name.toUpperCase();
-                shuffle();
-                document.getElementById('shutter').classList.remove('active');
-            }, 1000);
+                document.getElementById('auth-gate').style.display = "none";
+                document.getElementById('main-interface').style.display = "block";
+                document.getElementById('nav-rail').style.display = "flex";
+                document.getElementById('id-tag').innerText = name.toUpperCase();
+                shuffleGems();
+            }, 800);
         }
-        function jump(t) {
-            document.querySelectorAll('.page-node').forEach(n => n.classList.remove('active'));
-            document.getElementById('node-' + (t === 'music' ? 'engine' : t)).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav'));
-            event.target.classList.add('active-nav');
+
+        function shuffleGems() {
+            ['gem-1', 'gem-2'].forEach(id => {
+                const g = document.getElementById(id);
+                g.style.top = Math.random() * 80 + 10 + "%";
+                g.style.left = Math.random() * 80 + 10 + "%";
+            });
         }
-        function shuffle() {
-            const g = document.getElementById('gem-1');
-            g.style.top = Math.random() * 70 + 15 + "%";
-            g.style.left = Math.random() * 70 + 15 + "%";
+
+        function claimReward(msg) {
+            alert("GHOST PROTOCOL ACTIVATED: " + msg);
+            event.target.style.display = 'none';
         }
-        function claimGem(el, amt) { 
-            el.style.display = 'none'; 
-            coins += amt;
-            document.getElementById('coin-count').innerText = coins;
-            alert("GHOST DROP: " + amt + " COINS ADDED"); 
-        }
-        function ignite() {
-            document.getElementById('shutter').classList.add('active');
+
+        function igniteDrill() {
+            document.getElementById('idle-text').innerText = "GENERATING...";
             setTimeout(() => {
-                document.getElementById('idle').classList.add('hidden');
-                document.getElementById('output').classList.remove('hidden');
-                document.getElementById('shutter').classList.remove('active');
-            }, 2000);
+                document.getElementById('idle-text').classList.add('hidden');
+                document.getElementById('render-frame').classList.remove('hidden');
+            }, 3000);
         }
     </script>
 </body>
