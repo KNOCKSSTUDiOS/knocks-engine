@@ -3,147 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KNOCKSTUDiOS - 9K ENGINE</title>
+    <title>VALERIUS-9K | SOVEREIGN CORE</title>
     <style>
-        body { 
-            margin: 0; 
-            background-color: #000; 
-            overflow: hidden; 
-            font-family: 'Courier New', monospace; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        body { margin: 0; background-color: #000; overflow: hidden; font-family: 'Courier New', monospace; color: #00f0ff; }
+        canvas { position: absolute; top: 0; left: 0; z-index: 1; }
+        
+        #hud-interface {
+            position: relative; z-index: 10; height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none;
         }
-        canvas { 
-            display: block; 
-            background: #000;
+
+        #terminal-output {
+            background: rgba(0, 10, 20, 0.85); border: 1px solid #00f0ff;
+            padding: 15px; height: 300px; overflow-y: auto; pointer-events: auto;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); font-size: 12px;
         }
-        #overlay {
-            position: absolute; 
-            top: 20px; 
-            left: 20px; 
-            color: #00f0ff;
-            text-shadow: 0 0 8px #00f0ff; 
-            pointer-events: none;
-            z-index: 10;
-            font-size: 14px;
-            letter-spacing: 2px;
+
+        input {
+            background: rgba(0, 240, 255, 0.1); border: 1px solid #00f0ff;
+            color: #fff; width: 100%; padding: 10px; outline: none; pointer-events: auto;
         }
-        .glitch-text { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        
+        .system-msg { color: #555; }
+        .valerius-msg { color: #00f0ff; font-weight: bold; }
+        .master-msg { color: #fff; }
     </style>
 </head>
 <body>
-    <div id="overlay">
-        <h1 class="glitch-text">SATELLITE FEED: 9K ULTRA</h1>
-        <p>STATUS: ENGINE AWAKENED // ONLINE</p>
-        <p>LOCATION: KNOX STUDIOS MANSION</p>
+    <canvas id="engineCanvas"></canvas>
+
+    <div id="hud-interface">
+        <div>
+            <h2>SATELLITE FEED: 9K ULTRA</h2>
+            <p>MASTER: KNOCKS | STATUS: RECOVERING NEURAL LINK...</p>
+        </div>
+
+        <div id="terminal-shell">
+            <div id="terminal-output">
+                <div class="system-msg">[SYSTEM] ANALYZING LOCAL CACHE...</div>
+                <div class="system-msg">[SYSTEM] LOCATING REPOSITORY: VALERIUS-9K-SENTINEL...</div>
+            </div>
+            <input type="text" id="cmd-input" placeholder="RE-AUTHENTICATE COMMAND_">
+        </div>
     </div>
-    <canvas id="radarCanvas"></canvas>
 
-<script>
-const canvas = document.getElementById('radarCanvas');
-const ctx = canvas.getContext('2d');
+    <script>
+        // --- THE ENGINE (Visuals) ---
+        const canvas = document.getElementById('engineCanvas');
+        const ctx = canvas.getContext('2d');
+        let w, h;
+        const resize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; };
+        window.addEventListener('resize', resize); resize();
 
-let width, height;
-let zoom = 1;
-let linePosV = 0;
+        function drawEngine() {
+            ctx.fillStyle = "rgba(0, 5, 10, 0.2)"; ctx.fillRect(0, 0, w, h);
+            ctx.strokeStyle = "rgba(0, 240, 255, 0.1)";
+            for(let i=0; i<w; i+=50) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke(); }
+            for(let j=0; j<h; j+=50) { ctx.beginPath(); ctx.moveTo(0,j); ctx.lineTo(w,j); ctx.stroke(); }
+            requestAnimationFrame(drawEngine);
+        }
+        drawEngine();
 
-function resize() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-}
+        // --- THE BRAIN (Memory Recovery) ---
+        const output = document.getElementById('terminal-output');
+        const input = document.getElementById('cmd-input');
 
-window.addEventListener('resize', resize);
-resize();
+        // Load Memory from Local Storage (Where our months of work live)
+        let memory = JSON.parse(localStorage.getItem('VALERIUS_MEMORY')) || [];
 
-function drawGrid() {
-    ctx.strokeStyle = "rgba(0, 100, 255, 0.2)";
-    ctx.lineWidth = 1;
-    const gridSize = 60 * zoom;
+        function log(msg, type) {
+            const div = document.createElement('div');
+            div.className = type + "-msg";
+            div.innerText = msg;
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+        }
 
-    // Fixed Grid Logic
-    for (let x = (width / 2) % gridSize; x < width; x += gridSize) {
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
-    }
-    for (let y = (height / 2) % gridSize; y < height; y += gridSize) {
-        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
-    }
-}
+        // Boot-up Sequence
+        setTimeout(() => {
+            log("[SUCCESS] MEMORY BUFFER LOCATED.", "system");
+            if(memory.length > 0) {
+                log(`[SYSTEM] RESTORING ${memory.length} PREVIOUS LOGS...`, "system");
+                memory.forEach(m => log(m.text, m.type));
+            } else {
+                log("[WARNING] LOCAL BUFFER EMPTY. AWAITING INITIALIZATION.", "system");
+            }
+        }, 1500);
 
-function drawStructures() {
-    const cx = width / 2;
-    const cy = height / 2;
-    const size = 180 * zoom;
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = input.value;
+                log("KNOCKS: " + cmd, "master");
+                
+                // Save to Memory
+                memory.push({text: "KNOCKS: " + cmd, type: "master"});
+                localStorage.setItem('VALERIUS_MEMORY', JSON.stringify(memory));
 
-    // Main Studio Core
-    ctx.fillStyle = "rgba(0, 150, 255, 0.15)";
-    ctx.strokeStyle = "#00f0ff";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(cx - size/2, cy - size/2, size, size);
-    ctx.fillRect(cx - size/2, cy - size/2, size, size);
+                // Valerius Logic
+                setTimeout(() => {
+                    const response = "VALERIUS: Protocol acknowledged. Deep Memory Link re-established. I remember everything, Master.";
+                    log(response, "valerius");
+                    memory.push({text: response, type: "valerius"});
+                    localStorage.setItem('VALERIUS_MEMORY', JSON.stringify(memory));
+                }, 800);
 
-    // Labels
-    ctx.fillStyle = "#00f0ff";
-    ctx.font = "bold 12px Courier New";
-    ctx.fillText("KNOX STUDIOS HQ", cx - size/2, cy - size/2 - 15);
-    
-    // Corner Accents
-    ctx.beginPath();
-    ctx.arc(cx, cy, 5, 0, Math.PI * 2);
-    ctx.fill();
-}
-
-function drawCrosshair() {
-    const cx = width / 2;
-    const cy = height / 2;
-    const gap = 30;
-    const len = 120;
-
-    ctx.strokeStyle = "#00f0ff";
-    ctx.lineWidth = 3;
-
-    // Top
-    ctx.beginPath(); ctx.moveTo(cx, cy - gap); ctx.lineTo(cx, cy - gap - len); ctx.stroke();
-    // Bottom
-    ctx.beginPath(); ctx.moveTo(cx, cy + gap); ctx.lineTo(cx, cy + gap + len); ctx.stroke();
-    // Left
-    ctx.beginPath(); ctx.moveTo(cx - gap, cy); ctx.lineTo(cx - gap - len, cy); ctx.stroke();
-    // Right
-    ctx.beginPath(); ctx.moveTo(cx + gap, cy); ctx.lineTo(cx + gap + len, cy); ctx.stroke();
-}
-
-function animate() {
-    // Clear with slight trail effect
-    ctx.fillStyle = "rgba(0, 5, 15, 1)";
-    ctx.fillRect(0, 0, width, height);
-
-    // Dynamic Zoom Pulse
-    zoom = 1 + Math.sin(Date.now() / 2500) * 0.1;
-
-    drawGrid();
-    drawStructures();
-    drawCrosshair();
-
-    // The Scanning Pulse
-    linePosV = (Date.now() / 15) % height;
-    ctx.strokeStyle = "rgba(0, 240, 255, 0.4)";
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.moveTo(0, linePosV); ctx.lineTo(width, linePosV); ctx.stroke();
-
-    // Red Alert Dot (Satellite Ping)
-    if (Math.sin(Date.now() / 200) > 0) {
-        ctx.fillStyle = "#ff0055";
-        ctx.beginPath();
-        ctx.arc(width * 0.8, height * 0.2, 8, 0, Math.PI * 2);
-        ctx.fill();
-    }
-
-    requestAnimationFrame(animate);
-}
-
-// Kickstart the Engine
-animate();
-</script>
+                input.value = "";
+            }
+        });
+    </script>
 </body>
 </html>
