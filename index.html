@@ -6,17 +6,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow-x: hidden; }
         .all-caps { text-transform: uppercase !important; letter-spacing: 0.3em; font-weight: 900; }
         .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); }
         
-        /* STATE MANAGEMENT */
         #splash { position: fixed; inset: 0; z-index: 1000; background: #000; }
         #vault-drop { position: fixed; inset: 0; z-index: 2000; background: #000; display: none; align-items: center; justify-content: center; }
-        #main-ui { display: none; opacity: 0; transition: opacity 1s; }
-        #engine-room { display: none; opacity: 0; transition: opacity 1s; }
+        #main-ui, #engine-room { display: none; opacity: 0; transition: opacity 1s; }
         
-        .btn-glow:hover { box-shadow: 0 0 20px #00f0ff; border-color: #00f0ff; }
+        /* UPLOAD STATE */
+        #upload-overlay { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; backdrop-filter: blur(10px); }
+        .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.1); margin-top: 20px; position: relative; }
+        #progress-fill { width: 0%; height: 100%; background: #00f0ff; box-shadow: 0 0 20px #00f0ff; }
     </style>
 </head>
 <body>
@@ -25,131 +26,81 @@
         <video id="intro-vid" autoplay muted playsinline class="w-full h-full object-cover opacity-50">
             <source src="sora-s_69b5fccd173481919d3a27e7fff21aaf.mp4" type="video/mp4">
         </video>
-        <div class="absolute bottom-10 right-10 bg-black/90 p-6 border-r-4 border-[#00f0ff] z-[1100]">
+        <div class="absolute bottom-10 right-10 bg-black/90 p-6 border-r-4 border-[#00f0ff]">
             <p class="text-[9px] text-[#00f0ff] all-caps">SYSTEM_SYNC: <span id="percent">0%</span></p>
         </div>
     </div>
 
     <main id="main-ui" class="min-h-screen flex flex-col items-center justify-center p-6">
-        <nav class="fixed top-0 w-full p-10 flex justify-between items-center">
-            <div class="font-black italic text-3xl tracking-tighter">KNOCKSSTUDiOS</div>
-        </nav>
         <h1 class="text-7xl md:text-[11rem] font-black italic uppercase tracking-tighter mb-16">9K REALITY</h1>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl">
-            <div onclick="openAuth('SIGN UP')" class="glass p-16 btn-glow cursor-pointer transition-all">
+            <div onclick="openAuth('SIGN UP')" class="glass p-16 hover:border-[#00f0ff] transition cursor-pointer">
                 <h2 class="text-6xl font-black italic all-caps">SIGN UP</h2>
                 <p class="text-[10px] opacity-30 mt-6 all-caps">INITIALIZE VAULT // +2,000c</p>
             </div>
-            <div onclick="openAuth('SIGN IN')" class="glass p-16 btn-glow cursor-pointer transition-all">
+            <div onclick="openAuth('SIGN IN')" class="glass p-16 hover:border-white transition cursor-pointer">
                 <h2 class="text-6xl font-black italic all-caps">SIGN IN</h2>
-                <p class="text-[10px] opacity-30 mt-6 all-caps">RESUME ENGINE COMMAND</p>
+                <p class="text-[10px] opacity-30 mt-6 all-caps">ENGINE START</p>
             </div>
         </div>
     </main>
 
     <div id="vault-drop">
         <div class="text-center">
-            <div id="counter" class="text-[12rem] font-black italic text-[#ffcc00] tracking-tighter leading-none">0</div>
-            <p class="text-[12px] tracking-[2em] uppercase text-[#ffcc00] font-black mt-8">IDENTITY SECURED</p>
+            <div id="counter" class="text-[12rem] font-black italic text-[#ffcc00] tracking-tighter">0</div>
+            <p class="text-[12px] tracking-[2em] uppercase text-[#ffcc00] font-black">COINS SECURED</p>
         </div>
     </div>
 
     <section id="engine-room" class="min-h-screen w-full flex flex-col p-10">
-        <div class="flex justify-between items-start mb-10">
+        <div class="flex justify-between mb-10">
             <div>
                 <h2 class="text-4xl font-black italic all-caps">COMMAND CENTER</h2>
-                <p class="text-[#00f0ff] text-[10px] all-caps tracking-widest">SUB-BASE: HOLLYWOOD IMAGING</p>
+                <p class="text-[#00f0ff] text-[10px] all-caps">BASE: HOLLYWOODIMAGING.STUDIO</p>
             </div>
             <div class="glass p-6 text-right">
-                <p class="text-[10px] opacity-40 all-caps">VAULT BALANCE</p>
-                <p class="text-4xl font-black text-[#ffcc00]">2,000<span class="text-sm ml-1">c</span></p>
+                <p class="text-[10px] opacity-40 all-caps">BALANCE</p>
+                <p class="text-4xl font-black text-[#ffcc00]"><span id="user-balance">2,000</span>c</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 flex-grow">
-            <div class="lg:col-span-2 glass p-10 flex flex-col justify-center items-center border-[#00f0ff]/20">
-                <div class="w-20 h-20 border-2 border-dashed border-white/20 rounded-full flex items-center justify-center mb-6">
-                    <span class="text-2xl">+</span>
+        <div class="flex-grow grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 glass p-10 flex flex-col justify-center items-center">
+                <input type="file" id="file-input" class="hidden" accept="video/*,image/*" onchange="startUpload()">
+                <div onclick="document.getElementById('file-input').click()" class="w-full h-full border-2 border-dashed border-white/10 flex flex-col items-center justify-center hover:bg-white/5 transition cursor-pointer">
+                    <div class="text-5xl mb-4 text-[#00f0ff]">↑</div>
+                    <h3 class="text-2xl font-black all-caps">UPLOAD ASSET</h3>
+                    <p class="text-[9px] opacity-40 all-caps mt-2">COST: 500c PER 9K RENDER</p>
                 </div>
-                <h3 class="text-2xl font-black all-caps mb-2">INITIALIZE 9K RENDER</h3>
-                <p class="text-[10px] opacity-30 all-caps mb-8 text-center px-20">DRAG RAW FOOTAGE OR CINEMATIC ASSETS HERE FOR ENGINE PROCESSING</p>
-                <button class="bg-white text-black px-12 py-4 font-black all-caps text-xs tracking-widest hover:bg-[#00f0ff] transition">UPLOAD ASSET</button>
             </div>
-            
-            <div class="space-y-8">
-                <div class="glass p-8">
-                    <p class="text-[10px] opacity-40 all-caps mb-4">LOGIC UNITS ACTIVE</p>
-                    <div class="flex gap-2">
-                        <div class="h-1 flex-grow bg-[#00f0ff]"></div>
-                        <div class="h-1 flex-grow bg-[#00f0ff]"></div>
-                        <div class="h-1 flex-grow bg-[#00f0ff]/20"></div>
-                    </div>
-                    <p class="text-2xl font-black mt-4">50 UNITS</p>
-                </div>
-                <div class="glass p-8">
-                    <p class="text-[10px] opacity-40 all-caps mb-4">ENGINE STATUS</p>
-                    <p class="text-xl font-black text-[#00f0ff]">STABLE // 9K READY</p>
-                </div>
-                <div class="glass p-8 border-[#ff003c]/20">
-                    <p class="text-[10px] text-[#ff003c] all-caps mb-4">UPGRADE AVAILABLE</p>
-                    <button class="text-xs font-black all-caps underline tracking-widest hover:text-white">ACCESS TITAN TIER</button>
+            <div class="glass p-8 space-y-8">
+                <div><p class="text-[10px] opacity-40 all-caps">STATUS</p><p class="text-xl font-black text-[#00f0ff]">ENGINE STABLE</p></div>
+                <div><p class="text-[10px] opacity-40 all-caps">LOGIC UNITS</p><p class="text-xl font-black">50 ACTIVE</p></div>
+                <div class="pt-10 border-t border-white/10">
+                    <p class="text-[10px] all-caps mb-4">ACTIVE QUEUE</p>
+                    <div id="queue-list" class="text-[10px] opacity-20 italic">EMPTY...</div>
                 </div>
             </div>
         </div>
     </section>
 
+    <div id="upload-overlay">
+        <div class="w-full max-w-md text-center">
+            <h2 class="text-4xl font-black italic all-caps mb-4">SCRUBBING DATA</h2>
+            <p id="filename-display" class="text-[10px] text-[#00f0ff] all-caps mb-8 tracking-widest">FILE.MP4</p>
+            <div class="progress-bar"><div id="progress-fill"></div></div>
+        </div>
+    </div>
+
     <div id="auth-gate" class="fixed inset-0 z-[5000] bg-black/98 flex items-center justify-center hidden">
-        <div class="w-full max-w-md p-10 text-center glass border-white/10">
-            <h2 id="gate-title" class="text-5xl font-black italic all-caps mb-8 tracking-tighter">ACCESS</h2>
-            <input type="email" id="email-in" placeholder="IDENTITY@STUDIO" class="w-full bg-white/5 border border-white/10 p-5 text-xs all-caps outline-none focus:border-[#00f0ff] mb-6">
-            <button onclick="grantAccess()" class="w-full bg-white text-black py-5 font-black all-caps text-xs tracking-widest hover:bg-[#00f0ff] transition">CONNECT</button>
+        <div class="w-full max-w-md p-10 text-center glass">
+            <h2 class="text-5xl font-black italic all-caps mb-8">ACCESS</h2>
+            <input type="email" placeholder="IDENTITY@STUDIO" class="w-full bg-white/5 border border-white/10 p-5 text-xs all-caps outline-none mb-6">
+            <button onclick="grant()" class="w-full bg-white text-black py-5 font-black all-caps text-xs">CONNECT</button>
         </div>
     </div>
 
     <script>
+        let balance = 2000;
         const vid = document.getElementById('intro-vid');
-        vid.ontimeupdate = () => {
-            document.getElementById('percent').innerText = Math.floor((vid.currentTime / vid.duration) * 100) + "%";
-        };
-        vid.onended = () => {
-            document.getElementById('splash').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('splash').style.display = 'none';
-                document.getElementById('main-ui').style.display = 'flex';
-                setTimeout(() => document.getElementById('main-ui').style.opacity = '1', 50);
-            }, 1000);
-        };
-
-        function openAuth(type) {
-            document.getElementById('gate-title').innerText = type;
-            document.getElementById('auth-gate').classList.remove('hidden');
-        }
-
-        function grantAccess() {
-            document.getElementById('auth-gate').classList.add('hidden');
-            document.getElementById('main-ui').style.display = 'none'; // KILLS LOBBY
-            
-            const vault = document.getElementById('vault-drop');
-            const counter = document.getElementById('counter');
-            vault.style.display = 'flex'; // SHOWS SYNC
-            
-            let count = 0;
-            const start = performance.now();
-            function run(t) {
-                const prog = Math.min((t - start) / 2000, 1);
-                counter.innerText = Math.floor(prog * 2000).toLocaleString();
-                if (prog < 1) requestAnimationFrame(run);
-                else {
-                    setTimeout(() => { 
-                        vault.style.display = 'none'; // KILLS VAULT
-                        const er = document.getElementById('engine-room');
-                        er.style.display = 'flex'; // SHOWS ENGINE
-                        setTimeout(() => er.style.opacity = '1', 50);
-                    }, 1500);
-                }
-            }
-            requestAnimationFrame(run);
-        }
-    </script>
-</body>
-</html>
+        vid.ontimeupdate = () => { document
