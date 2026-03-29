@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | 9K REVENUE ENGINE</title>
+    <title>KNOCKSSTUDiOS | SUBSCRIPTION GATE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
@@ -13,26 +13,26 @@
         #bg-layer {
             position: fixed; inset: 0; z-index: -1;
             background: url('1773441360031.jpg') no-repeat center center;
-            background-size: cover; opacity: 0.4; filter: brightness(0.6) saturate(1.8);
+            background-size: cover; opacity: 0.4; filter: brightness(0.5) saturate(1.8);
         }
 
         #robot-asset {
-            position: absolute; width: 350px; bottom: 5%; right: 5%;
+            position: absolute; width: 320px; bottom: 5%; right: 5%;
             filter: drop-shadow(0 0 30px #00f0ff);
             animation: float 4s infinite ease-in-out; z-index: 5;
         }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-25px); } }
 
-        .auth-box {
-            background: rgba(0, 10, 20, 0.98); border: 2px solid #00f0ff;
-            padding: 40px; width: 90%; max-width: 450px; box-shadow: 0 0 70px #00f0ff55;
-            text-align: center;
+        .panel {
+            background: rgba(0, 5, 10, 0.98); border: 2px solid #00f0ff;
+            padding: 30px; width: 95%; max-width: 500px; box-shadow: 0 0 50px #00f0ff44;
         }
-        input {
-            background: rgba(0, 240, 255, 0.05); border: 1px solid #00f0ff;
-            color: #fff; padding: 15px; margin: 12px 0; width: 100%; outline: none;
+        .tier-card {
+            border: 1px solid rgba(0, 240, 255, 0.3); padding: 15px; margin: 10px 0;
+            cursor: pointer; transition: 0.3s;
         }
-        .btn-pay { background: #00ff85; color: #000; font-weight: 900; width: 100%; padding: 18px; margin-top: 10px; }
+        .tier-card:hover { border-color: #00f0ff; background: rgba(0, 240, 255, 0.1); }
+        .coin-tag { color: #ffcc00; font-weight: 900; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -42,70 +42,41 @@
 
     <audio id="engine-audio" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"></audio>
 
-    <nav class="fixed top-0 right-0 p-10 flex gap-6 z-50">
-        <button onclick="openGate('SIGN IN')" class="border-2 border-[#00f0ff] px-10 py-3 text-[#00f0ff] font-black hover:bg-[#00f0ff] hover:text-black">SIGN IN</button>
-        <button onclick="openGate('SIGN UP')" class="bg-[#00f0ff] text-black px-10 py-3 font-black hover:bg-white">SIGN UP</button>
+    <nav class="fixed top-0 right-0 p-8 flex gap-4 z-50">
+        <button onclick="openPanel('signin')" class="border border-[#00f0ff] px-6 py-2 text-[#00f0ff] text-xs font-bold uppercase">Sign In</button>
+        <button onclick="openPanel('signup')" class="bg-[#00f0ff] text-black px-6 py-2 text-xs font-bold uppercase">Join 9K</button>
     </nav>
 
-    <main class="h-screen flex flex-col items-center justify-center">
-        <h1 class="text-7xl md:text-9xl font-black tracking-tighter mix-blend-difference">KNOCKS</h1>
-        <p class="tracking-[1em] md:tracking-[2em] text-[#00f0ff] mt-4 text-xs md:text-base">STUDIOS 9K ENGINE</p>
+    <main class="h-screen flex flex-col items-center justify-center text-center">
+        <h1 class="text-7xl md:text-9xl font-black mix-blend-difference">KNOCKS</h1>
+        <p class="tracking-[1.5em] text-[#00f0ff] mt-2 text-xs">STUDIOS SOVEREIGN</p>
     </main>
 
-    <div id="gate-modal" style="display:none;" class="fixed inset-0 bg-black/98 z-[1000] flex justify-center items-center p-4">
-        <div class="auth-box">
-            <h2 id="gate-title" class="text-2xl font-black text-[#00f0ff] mb-4 uppercase">System Access</h2>
-            
-            <div id="auth-fields">
-                <input type="email" id="u-email" placeholder="ENCRYPTED_EMAIL">
-                <input type="password" id="u-pass" placeholder="SECURITY_PASS">
-                <button onclick="showPayment()" class="w-full bg-[#00f0ff] text-black font-black p-4 mt-2">NEXT: VERIFY PAYMENT</button>
-            </div>
-
-            <div id="pay-fields" style="display:none;">
-                <p class="text-[#00ff85] text-xs mb-4 tracking-widest">SEND $20 TO $KNOCKTURNALSINC</p>
-                <div class="bg-white p-2 inline-block mb-4">
-                    <img src="Screenshot_20260328_205913_Cash App.jpg" class="w-48 h-auto" alt="CASHAPP_QR">
-                </div>
-                <button onclick="finalize()" class="btn-pay">I HAVE PAID - ENTER ENGINE</button>
-            </div>
-            
-            <button onclick="closeGate()" class="mt-4 text-[10px] opacity-50 block w-full">ABORT</button>
+    <div id="modal-overlay" style="display:none;" class="fixed inset-0 bg-black/95 z-[1000] flex justify-center items-center p-4">
+        
+        <div id="step-auth" class="panel">
+            <h2 class="text-2xl font-black text-[#00f0ff] mb-6 uppercase">Initialize Profile</h2>
+            <input type="email" id="u-email" placeholder="EMAIL_ID" class="w-full bg-cyan-950/30 border border-cyan-400 p-3 mb-3 text-white">
+            <input type="password" id="u-pass" placeholder="SECURITY_KEY" class="w-full bg-cyan-950/30 border border-cyan-400 p-3 mb-6 text-white">
+            <button onclick="showTiers()" class="w-full bg-[#00f0ff] text-black font-black py-4 uppercase tracking-widest">Next: Choose Tier</button>
         </div>
-    </div>
 
-    <script>
-        const audio = document.getElementById('engine-audio');
-
-        function openGate(mode) {
-            document.getElementById('gate-title').innerText = mode;
-            document.getElementById('gate-modal').style.display = 'flex';
-            audio.play().catch(() => {});
-        }
-
-        function showPayment() {
-            document.getElementById('auth-fields').style.display = 'none';
-            document.getElementById('pay-fields').style.display = 'block';
-            document.getElementById('gate-title').innerText = "PAYMENT GATEWAY";
-        }
-
-        function closeGate() {
-            document.getElementById('gate-modal').style.display = 'none';
-            document.getElementById('auth-fields').style.display = 'block';
-            document.getElementById('pay-fields').style.display = 'none';
-        }
-
-        function finalize() {
-            const email = document.getElementById('u-email').value;
-            // Record the user attempt in local memory
-            localStorage.setItem('pending_user', email);
-            alert("VERIFYING WITH $KNOCKTURNALSINC... PLEASE WAIT.");
+        <div id="step-tiers" class="panel" style="display:none;">
+            <h2 class="text-2xl font-black text-[#00f0ff] mb-2 uppercase">9K SUBSCRIPTIONS</h2>
+            <p class="text-[10px] opacity-60 mb-6 uppercase">Select your entry point</p>
             
-            // Redirect to the actual creation area
-            setTimeout(() => {
-                window.location.href = "v_sentinel_core.py";
-            }, 2000);
-        }
-    </script>
-</body>
-</html>
+            <div class="tier-card" onclick="selectTier(20)">
+                <div class="flex justify-between font-bold"><span>MASTER ACCESS</span> <span>$20/mo</span></div>
+                <p class="text-[10px] opacity-70 mt-1">Full 9K Engine Access + <span class="coin-tag">2000 STARTING COINS</span></p>
+            </div>
+
+            <div class="tier-card opacity-50">
+                <div class="flex justify-between font-bold"><span>STUDIO ELITE</span> <span>$50/mo</span></div>
+                <p class="text-[10px] opacity-70 mt-1">Commercial Rights + <span class="coin-tag">5000 STARTING COINS</span></p>
+            </div>
+            
+            <button onclick="closeModal()" class="mt-4 text-[10px] opacity-40 uppercase">Back</button>
+        </div>
+
+        <div id="step-pay" class="panel" style="display:none;">
+            <h2 class="text-2xl font-black text-[#0
