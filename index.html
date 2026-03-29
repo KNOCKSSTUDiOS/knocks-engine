@@ -1,73 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-YOUR_ID_HERE');</script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNOCKSSTUDiOS | 9K SOVEREIGN</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; }
-        .neon-border { border: 1px solid #00f0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
-        .btn-glow:hover { box-shadow: 0 0 20px #ff003c; background: #ff003c; color: white; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; scroll-behavior: smooth; }
+        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .tier-card { transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .tier-card:hover { transform: translateY(-10px); border-color: #00f0ff; }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body>
 
-    <section class="h-screen flex flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-zinc-900 to-black">
-        <h1 class="text-6xl md:text-8xl font-black italic tracking-tighter mb-4 uppercase">KNOCKSSTUDiOS</h1>
-        <p class="text-[#ffcc00] tracking-[0.5em] text-xs font-bold mb-12 uppercase">Powered by AI Legends</p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
-            <div class="neon-border p-8 bg-black/50 rounded-lg">
-                <h3 class="text-xl font-black mb-2 uppercase">Peach Sample</h3>
-                <p class="text-[10px] opacity-60 mb-6 uppercase">Test the 9K Engine</p>
-                <p class="text-3xl font-black text-[#ffcc00] mb-6">$4.00</p>
-                <button onclick="triggerPurchase('peach_sample')" class="w-full py-4 border border-white font-black text-[10px] uppercase btn-glow transition">Get 6 Videos</button>
-            </div>
+    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center glass">
+        <div class="font-black italic text-xl tracking-tighter">KNOCKSSTUDiOS</div>
+        <div class="hidden md:flex gap-8 text-[10px] uppercase font-bold tracking-widest">
+            <a href="#feed" class="hover:text-[#00f0ff]">The Arena</a>
+            <a href="#tiers" class="hover:text-[#00f0ff]">Vault Tiers</a>
+            <a href="#infra" class="hover:text-[#00f0ff]">Infrastructure</a>
+        </div>
+        <button class="bg-white text-black px-6 py-2 text-[10px] font-black uppercase">Sign In</button>
+    </nav>
 
-            <div class="neon-border p-8 bg-[#00f0ff]/5 rounded-lg border-[#ff003c]">
-                <h3 class="text-xl font-black mb-2 uppercase">9K Identity Lab</h3>
-                <p class="text-[10px] opacity-60 mb-6 uppercase">Transform your reality</p>
-                <div class="h-24 flex items-center justify-center border border-dashed border-white/20 mb-6 uppercase text-[8px]">Upload Source</div>
-                <button class="w-full py-4 bg-white text-black font-black text-[10px] uppercase transition">Enter Lab</button>
-            </div>
-
-            <div class="neon-border p-8 bg-black/50 rounded-lg">
-                <h3 class="text-xl font-black mb-2 uppercase">Printify Store</h3>
-                <p class="text-[10px] opacity-60 mb-6 uppercase">Drip by AI Legends</p>
-                <p class="text-[10px] text-[#00f0ff] mb-6">LIVE MOCKUPS ENABLED</p>
-                <a href="https://knockscreativestudios.printify.me/" class="block w-full py-4 border border-white font-black text-[10px] uppercase btn-glow transition text-center">Visit Store</a>
+    <section id="feed" class="h-screen flex items-center justify-center bg-[url('V_SENTINEL.jpg')] bg-cover bg-center">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="relative z-10 text-center px-6">
+            <h1 class="text-6xl md:text-9xl font-black italic uppercase leading-none">9K Reality</h1>
+            <p class="mt-4 text-[#00f0ff] tracking-[0.8em] text-xs uppercase">Your Identity, Reconstructed.</p>
+            <div class="mt-10 flex gap-4 justify-center">
+                <button class="px-8 py-4 bg-[#ff003c] font-black text-[10px] uppercase">Start Render</button>
+                <button class="px-8 py-4 border border-white font-black text-[10px] uppercase">Watch Feed</button>
             </div>
         </div>
     </section>
 
-    <footer class="py-12 text-center opacity-30 text-[9px] tracking-[1em] uppercase">
+    <section id="tiers" class="py-24 bg-zinc-950 px-6">
+        <h2 class="text-center text-[10px] tracking-[1em] opacity-40 uppercase mb-12">Select Your Vault Access</h2>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 max-w-7xl mx-auto">
+            
+            <div class="tier-card p-8 bg-black border border-white/5 rounded-lg">
+                <h4 class="text-[9px] opacity-40 uppercase font-black">Citizen</h4>
+                <p class="text-2xl font-black my-4">FREE</p>
+                <p class="text-xs text-[#00f0ff] font-bold">2,000 Coins</p>
+                <p class="text-[8px] opacity-40 mt-2 uppercase">Base Access Only</p>
+            </div>
+
+            <div class="tier-card p-8 bg-black border border-white/5 rounded-lg">
+                <h4 class="text-[9px] text-[#00f0ff] uppercase font-black">Master</h4>
+                <p class="text-2xl font-black my-4">$19.99</p>
+                <p class="text-xs font-bold">4,000 Coins</p>
+                <p class="text-[8px] opacity-40 mt-2 uppercase">+2k Bonus Applied</p>
+            </div>
+
+            <div class="tier-card p-8 bg-black border border-white/5 rounded-lg">
+                <h4 class="text-[9px] text-[#ffcc00] uppercase font-black">Scholar</h4>
+                <p class="text-2xl font-black my-4">$29.99</p>
+                <p class="text-xs font-bold">6,999 Coins</p>
+                <p class="text-[8px] opacity-40 mt-2 uppercase">+4999 Bonus Applied</p>
+            </div>
+
+            <div class="tier-card p-8 bg-black border border-white/5 rounded-lg">
+                <h4 class="text-[9px] uppercase font-black">Titan</h4>
+                <p class="text-2xl font-black my-4">$49.99</p>
+                <p class="text-xs font-bold">9,500 Coins</p>
+                <p class="text-[8px] opacity-40 mt-2 uppercase">+7500 Bonus Applied</p>
+            </div>
+
+            <div class="tier-card p-8 bg-[#ff003c]/5 border border-[#ff003c] rounded-lg">
+                <h4 class="text-[9px] text-[#ff003c] uppercase font-black">Ultra Titan</h4>
+                <p class="text-2xl font-black my-4">$99.99</p>
+                <p class="text-xs font-bold text-[#ff003c]">12,000+ Coins</p>
+                <p class="text-[8px] opacity-40 mt-2 uppercase">VIP Bot Swarm Enabled</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="infra" class="py-24 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h3 class="text-3xl font-black italic uppercase mb-6">Scale Infrastructure</h3>
+            <p class="text-[10px] opacity-50 uppercase tracking-[0.4em] leading-relaxed mb-12">
+                Our proprietary bot-swarm architecture handles global-scale 9K rendering and Printify logistics. 
+                Platforms and organizations can bridge directly into the Sovereign API.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 opacity-40 grayscale hover:grayscale-0 transition">
+                <div class="text-[10px] font-black uppercase tracking-widest">Fast Logistics</div>
+                <div class="text-[10px] font-black uppercase tracking-widest">AI GPU Clusters</div>
+                <div class="text-[10px] font-black uppercase tracking-widest">Tax Shielding</div>
+                <div class="text-[10px] font-black uppercase tracking-widest">Global Payouts</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="p-12 text-center border-t border-white/5 opacity-20 text-[9px] uppercase tracking-[1em]">
         Everyone leaves with a smile.
     </footer>
 
-    <script>
-        // FIREBASE INITIALIZATION
-        const firebaseConfig = {
-            apiKey: "YOUR_KEY",
-            authDomain: "YOUR_DOMAIN",
-            projectId: "YOUR_ID",
-            storageBucket: "YOUR_BUCKET",
-            messagingSenderId: "YOUR_SENDER",
-            appId: "YOUR_APP"
-        };
-        firebase.initializeApp(firebaseConfig);
-
-        function triggerPurchase(item) {
-            console.log("GTM Event: Purchase Triggered for " + item);
-            // Logic to talk to your Java API
-            alert("Sovereign Engine Initialized for " + item);
-        }
-    </script>
 </body>
 </html>
