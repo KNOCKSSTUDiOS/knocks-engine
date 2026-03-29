@@ -2,89 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K | MERCH PREVIEW</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>9K SOVEREIGN | KNOCKSSTUDiOS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; }
-        .product-stage { background: radial-gradient(circle, #1a1a1a 0%, #000 70%); border: 1px solid rgba(255,255,255,0.05); }
-        .merch-option { border: 1px solid rgba(0, 240, 255, 0.2); transition: 0.3s; cursor: pointer; }
-        .merch-option:hover, .active-merch { border-color: #00f0ff; background: rgba(0, 240, 255, 0.05); }
-        .glow-text { text-shadow: 0 0 10px #00f0ff; }
+        :root { --9k-cyan: #00f0ff; --9k-red: #ff003c; --9k-gold: #ffcc00; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; overflow: hidden; }
+        
+        /* APP NAVIGATION */
+        .nav-active { color: var(--9k-cyan); filter: drop-shadow(0 0 5px var(--9k-cyan)); }
+        
+        /* SCREEN MANAGEMENT */
+        .screen { display: none; height: 100vh; width: 100vw; overflow-y: auto; padding-bottom: 100px; }
+        .active-screen { display: block; }
+
+        /* FEED (TIKTOK STYLE) */
+        .feed-item { height: 100vh; scroll-snap-align: start; position: relative; background: #050505; }
+        .glass-ui { background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        
+        /* BUTTONS */
+        .btn-9k { background: var(--9k-red); font-weight: 900; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .btn-9k:hover { background: #fff; color: var(--9k-red); box-shadow: 0 0 20px var(--9k-red); }
     </style>
 </head>
 <body>
 
-    <nav class="p-6 border-b border-white/10 flex justify-between items-center bg-black/90">
-        <h2 class="font-black text-xl italic uppercase">9K <span class="text-[#00f0ff]">PRINT LAB</span></h2>
-        <p class="text-[9px] opacity-50 uppercase tracking-widest">Powered by Printify API</p>
+    <div id="screen-home" class="screen active-screen overflow-hidden">
+        <div class="h-full w-full relative" style="background: url('V_SENTINEL.jpg') center/cover;">
+            <div class="absolute bottom-24 left-6 right-20">
+                <p class="text-[var(--9k-gold)] font-black text-sm">@AI_LEGEND_01</p>
+                <p class="text-[10px] mt-2 leading-relaxed uppercase opacity-80 italic">"Transformed my 2D selfie into an 8K 3D Sentinel. Total cost: 10 Coins."</p>
+                <button onclick="switchScreen('transformer')" class="mt-4 px-6 py-3 bg-[var(--9k-cyan)] text-black font-black text-[10px] uppercase">Transform Me</button>
+            </div>
+            <div class="absolute right-4 bottom-32 flex flex-col gap-6 items-center">
+                <div class="text-2xl">🔥</div>
+                <div class="text-2xl">💬</div>
+                <div class="text-2xl">💰</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-transformer" class="screen p-6">
+        <h1 class="text-4xl font-black italic mt-10">IDENTITY LAB</h1>
+        <p class="text-[9px] text-[var(--9k-cyan)] tracking-[0.4em] mb-10">9K CINEMATIC ENGINE</p>
+        
+        <div class="border-2 border-dashed border-[var(--9k-cyan)] p-12 text-center rounded-lg bg-[var(--9k-cyan)]/5">
+            <p class="font-black text-sm mb-2">UPLOAD PORTRAIT</p>
+            <p class="text-[8px] opacity-40 uppercase">AI Legends will reconstruct your reality</p>
+        </div>
+
+        <div class="mt-10 space-y-4">
+            <label class="text-[9px] uppercase opacity-40">Target Reality</label>
+            <select class="w-full bg-zinc-900 p-4 border border-white/10 text-[10px] font-black uppercase">
+                <option>Realistic 3D Character (8K)</option>
+                <option>High-Fidelity Cartoon</option>
+                <option>Anime Sovereign</option>
+            </select>
+            <button class="w-full py-5 btn-9k text-xs mt-4">Initialize Reconstruction</button>
+        </div>
+    </div>
+
+    <div id="screen-store" class="screen p-6">
+        <h1 class="text-4xl font-black italic mt-10">MARKETPLACE</h1>
+        <p class="text-[9px] text-[var(--9k-gold)] tracking-[0.4em] mb-10">MERCH BY KNOCKSSTUDiOS</p>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="glass-ui p-2 rounded">
+                <div class="aspect-square bg-zinc-800 mb-2" style="background: url('1773441360031.jpg') center/cover;"></div>
+                <p class="text-[9px] font-black uppercase">9K Titan Mug</p>
+                <p class="text-[var(--9k-cyan)] font-black text-xs mt-1">$14.99</p>
+                <button class="w-full mt-2 bg-white text-black text-[8px] font-black py-2 uppercase">Buy Now</button>
+            </div>
+            <div class="glass-ui p-2 rounded">
+                <div class="aspect-square bg-zinc-800 mb-2" style="background: url('V_SENTINEL.jpg') center/cover;"></div>
+                <p class="text-[9px] font-black uppercase">Meme Stickers</p>
+                <p class="text-[var(--9k-cyan)] font-black text-xs mt-1">$4.00</p>
+                <button class="w-full mt-2 bg-white text-black text-[8px] font-black py-2 uppercase">Buy Now</button>
+            </div>
+        </div>
+        <p class="text-center text-[8px] mt-10 opacity-30 italic">"Everyone leaves with a smile."</p>
+    </div>
+
+    <nav class="fixed bottom-0 w-full glass-ui border-t border-white/10 flex justify-around items-center p-4 z-50">
+        <button onclick="switchScreen('home')" id="nav-home" class="nav-active flex flex-col items-center">
+            <span class="text-xl">🏠</span>
+            <span class="text-[8px] font-black uppercase mt-1">Home</span>
+        </button>
+        <button onclick="switchScreen('transformer')" id="nav-transformer" class="flex flex-col items-center opacity-40">
+            <span class="text-xl">⚡</span>
+            <span class="text-[8px] font-black uppercase mt-1">9K Lab</span>
+        </button>
+        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center -mt-10 shadow-2xl">
+            <span class="text-black text-2xl font-black">+</span>
+        </div>
+        <button onclick="switchScreen('store')" id="nav-store" class="flex flex-col items-center opacity-40">
+            <span class="text-xl">🛒</span>
+            <span class="text-[8px] font-black uppercase mt-1">Store</span>
+        </button>
+        <button onclick="window.location.href='vip-booking.html'" class="flex flex-col items-center opacity-40">
+            <span class="text-xl">👑</span>
+            <span class="text-[8px] font-black uppercase mt-1">VIP</span>
+        </button>
     </nav>
 
-    <main class="max-w-6xl mx-auto py-12 px-6">
-        
-        <div class="grid md:grid-cols-2 gap-12">
+    <script>
+        function switchScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
+            // Show selected screen
+            document.getElementById('screen-' + screenId).classList.add('active-screen');
             
-            <div class="product-stage aspect-square flex flex-col items-center justify-center relative rounded-xl overflow-hidden">
-                <div class="absolute inset-0 flex items-center justify-center">
-                   <div class="relative w-64 h-64 bg-zinc-800 rounded-lg flex items-center justify-center shadow-2xl">
-                        <p class="text-[8px] opacity-20 uppercase">MOCKUP_LOADER</p>
-                        <img src="V_SENTINEL.jpg" class="absolute w-32 h-32 object-cover rounded shadow-lg border-2 border-white/10">
-                   </div>
-                </div>
-                <div class="absolute bottom-6 text-center">
-                    <p class="text-[10px] font-black uppercase tracking-widest opacity-40">3D Preview: Matte White Coffee Mug</p>
-                </div>
-            </div>
-
-            <div class="flex flex-col justify-between">
-                <div>
-                    <h1 class="text-4xl font-black italic uppercase mb-2">Physical Utility</h1>
-                    <p class="text-[10px] text-[#00f0ff] uppercase tracking-[0.4em] mb-10">Select your merch base</p>
-
-                    <div class="grid grid-cols-2 gap-4 mb-8">
-                        <div class="merch-option active-merch p-4 rounded text-center">
-                            <p class="text-[10px] font-black uppercase">Coffee Mug</p>
-                            <p class="text-[8px] opacity-50">$12.50 Base</p>
-                        </div>
-                        <div class="merch-option p-4 rounded text-center">
-                            <p class="text-[10px] font-black uppercase">Streetwear Tee</p>
-                            <p class="text-[8px] opacity-50">$18.00 Base</p>
-                        </div>
-                        <div class="merch-option p-4 rounded text-center">
-                            <p class="text-[10px] font-black uppercase">Sticker Pack</p>
-                            <p class="text-[8px] opacity-50">$3.20 Base</p>
-                        </div>
-                        <div class="merch-option p-4 rounded text-center">
-                            <p class="text-[10px] font-black uppercase">Metal Poster</p>
-                            <p class="text-[8px] opacity-50">$22.00 Base</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div>
-                            <label class="text-[9px] uppercase opacity-40">Your Retail Price (USD)</label>
-                            <input type="number" value="24.99" class="w-full bg-zinc-900 border border-white/10 p-4 text-xl font-black text-[#00ff85] outline-none">
-                        </div>
-                        <div class="flex justify-between text-[10px] font-black px-1">
-                            <span class="opacity-50 uppercase">Estimated Profit:</span>
-                            <span class="text-[#00ff85]">$12.49 / SALE</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-12 space-y-4">
-                    <button class="w-full bg-[#00f0ff] text-black font-black p-5 text-xs uppercase hover:bg-white transition shadow-[0_0_20px_#00f0ff44]">Sync to Printify & Publish</button>
-                    <p class="text-[8px] text-center opacity-40 uppercase">Automatically creates product in your Printify store and lists on 9K Sovereign Wall.</p>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <footer class="mt-20 py-10 border-t border-white/5 text-center">
-        <p class="text-[9px] opacity-30 italic">"Everyone leaves with a smile." - KNOCKSSTUDiOS</p>
-    </footer>
+            // Update Nav opacity
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.add('opacity-40'));
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('nav-active'));
+            document.getElementById('nav-' + screenId).classList.remove('opacity-40');
+            document.getElementById('nav-' + screenId).classList.add('nav-active');
+        }
+    </script>
 
 </body>
 </html>
