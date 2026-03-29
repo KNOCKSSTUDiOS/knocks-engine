@@ -3,98 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | THE 9K GATE</title>
+    <title>KNOCKSSTUDiOS | 9K REVENUE ENGINE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         * { cursor: crosshair; margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; }
 
-        /* DYNAMIC BACKGROUND ENGINE */
-        #bg-container {
+        #bg-layer {
             position: fixed; inset: 0; z-index: -1;
-            background-size: cover; background-position: center;
-            opacity: 0.5; filter: brightness(0.7) saturate(1.8);
-            /* This tries both names just in case */
-            background-image: url('1773441360031.jpg'), url('1773441360031.JPG');
+            background: url('1773441360031.jpg') no-repeat center center;
+            background-size: cover; opacity: 0.4; filter: brightness(0.6) saturate(1.8);
         }
 
-        #valerius-asset {
-            position: absolute; width: 320px; bottom: 5%; right: 5%;
-            filter: drop-shadow(0 0 25px #00f0ff);
-            animation: float 4s infinite ease-in-out;
+        #robot-asset {
+            position: absolute; width: 350px; bottom: 5%; right: 5%;
+            filter: drop-shadow(0 0 30px #00f0ff);
+            animation: float 4s infinite ease-in-out; z-index: 5;
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
 
-        /* THE TILES */
-        .tile-btn {
-            background: rgba(0,0,0,0.8); border: 2px solid #00f0ff;
-            color: #00f0ff; padding: 12px 30px; font-weight: 900;
-            text-transform: uppercase; letter-spacing: 3px; font-size: 12px;
-            transition: 0.3s;
+        .auth-box {
+            background: rgba(0, 10, 20, 0.98); border: 2px solid #00f0ff;
+            padding: 40px; width: 90%; max-width: 450px; box-shadow: 0 0 70px #00f0ff55;
+            text-align: center;
         }
-        .tile-btn:hover { background: #00f0ff; color: #000; box-shadow: 0 0 30px #00f0ff; }
-
-        .auth-modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            z-index: 1000; justify-content: center; align-items: center;
+        input {
+            background: rgba(0, 240, 255, 0.05); border: 1px solid #00f0ff;
+            color: #fff; padding: 15px; margin: 12px 0; width: 100%; outline: none;
         }
+        .btn-pay { background: #00ff85; color: #000; font-weight: 900; width: 100%; padding: 18px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="bg-container"></div>
-    <img src="image.png" id="valerius-asset" alt="SENTINEL">
+    <div id="bg-layer"></div>
+    <img src="V_SENTINEL.jpg" id="robot-asset" alt="SENTINEL">
 
-    <audio id="engine-audio" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="engine-audio" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3"></audio>
 
     <nav class="fixed top-0 right-0 p-10 flex gap-6 z-50">
-        <button onclick="openAuth('LOGIN')" class="tile-btn">SIGN IN</button>
-        <button onclick="openAuth('SIGN UP')" class="tile-btn" style="background: #00f0ff; color: #000;">SIGN UP</button>
+        <button onclick="openGate('SIGN IN')" class="border-2 border-[#00f0ff] px-10 py-3 text-[#00f0ff] font-black hover:bg-[#00f0ff] hover:text-black">SIGN IN</button>
+        <button onclick="openGate('SIGN UP')" class="bg-[#00f0ff] text-black px-10 py-3 font-black hover:bg-white">SIGN UP</button>
     </nav>
 
-    <main class="h-screen flex flex-col items-center justify-center text-center">
-        <h1 class="text-9xl font-black mix-blend-difference mb-4">KNOCKS</h1>
-        <p class="tracking-[2em] text-[#00f0ff] mb-12">STUDIOS 9K ENGINE</p>
-        
-        <button id="boot-trigger" onclick="bootSystem()" class="bg-white text-black py-8 px-16 font-black uppercase text-[12px] tracking-[1em] hover:bg-[#00f0ff]">
-            BOOT_SYSTEM
-        </button>
+    <main class="h-screen flex flex-col items-center justify-center">
+        <h1 class="text-7xl md:text-9xl font-black tracking-tighter mix-blend-difference">KNOCKS</h1>
+        <p class="tracking-[1em] md:tracking-[2em] text-[#00f0ff] mt-4 text-xs md:text-base">STUDIOS 9K ENGINE</p>
     </main>
 
-    <div id="auth-modal" class="auth-modal">
-        <div class="p-10 border-2 border-[#00f0ff] bg-black max-w-md w-full">
-            <h2 id="modal-title" class="text-3xl font-black text-[#00f0ff] mb-6">SYSTEM ACCESS</h2>
-            <input type="email" placeholder="ENCRYPTED_EMAIL" class="w-full bg-cyan-900/20 border border-cyan-400 p-4 mb-4 text-white outline-none">
-            <input type="password" placeholder="SECURITY_KEY" class="w-full bg-cyan-900/20 border border-cyan-400 p-4 mb-4 text-white outline-none">
-            <button onclick="alert('IDENTITY VERIFIED. ENTERING ENGINE.')" class="w-full bg-[#00f0ff] text-black font-black p-4 uppercase tracking-widest">Execute Entry</button>
-            <button onclick="document.getElementById('auth-modal').style.display='none'" class="mt-4 text-xs opacity-50 uppercase">Abort</button>
+    <div id="gate-modal" style="display:none;" class="fixed inset-0 bg-black/98 z-[1000] flex justify-center items-center p-4">
+        <div class="auth-box">
+            <h2 id="gate-title" class="text-2xl font-black text-[#00f0ff] mb-4 uppercase">System Access</h2>
+            
+            <div id="auth-fields">
+                <input type="email" id="u-email" placeholder="ENCRYPTED_EMAIL">
+                <input type="password" id="u-pass" placeholder="SECURITY_PASS">
+                <button onclick="showPayment()" class="w-full bg-[#00f0ff] text-black font-black p-4 mt-2">NEXT: VERIFY PAYMENT</button>
+            </div>
+
+            <div id="pay-fields" style="display:none;">
+                <p class="text-[#00ff85] text-xs mb-4 tracking-widest">SEND $20 TO $KNOCKTURNALSINC</p>
+                <div class="bg-white p-2 inline-block mb-4">
+                    <img src="Screenshot_20260328_205913_Cash App.jpg" class="w-48 h-auto" alt="CASHAPP_QR">
+                </div>
+                <button onclick="finalize()" class="btn-pay">I HAVE PAID - ENTER ENGINE</button>
+            </div>
+            
+            <button onclick="closeGate()" class="mt-4 text-[10px] opacity-50 block w-full">ABORT</button>
         </div>
     </div>
 
     <script>
         const audio = document.getElementById('engine-audio');
 
-        function bootSystem() {
-            audio.play();
-            document.getElementById('boot-trigger').innerText = "SYSTEM_ONLINE";
-            document.getElementById('boot-trigger').style.background = "#00f0ff";
+        function openGate(mode) {
+            document.getElementById('gate-title').innerText = mode;
+            document.getElementById('gate-modal').style.display = 'flex';
+            audio.play().catch(() => {});
         }
 
-        function openAuth(mode) {
-            audio.play(); // Play music when they try to join
-            document.getElementById('modal-title').innerText = mode;
-            document.getElementById('auth-modal').style.display = 'flex';
+        function showPayment() {
+            document.getElementById('auth-fields').style.display = 'none';
+            document.getElementById('pay-fields').style.display = 'block';
+            document.getElementById('gate-title').innerText = "PAYMENT GATEWAY";
         }
 
-        // Parallax Move
-        document.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / 40;
-            const y = (window.innerHeight / 2 - e.pageY) / 40;
-            document.getElementById('bg-container').style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
-        });
+        function closeGate() {
+            document.getElementById('gate-modal').style.display = 'none';
+            document.getElementById('auth-fields').style.display = 'block';
+            document.getElementById('pay-fields').style.display = 'none';
+        }
+
+        function finalize() {
+            const email = document.getElementById('u-email').value;
+            // Record the user attempt in local memory
+            localStorage.setItem('pending_user', email);
+            alert("VERIFYING WITH $KNOCKTURNALSINC... PLEASE WAIT.");
+            
+            // Redirect to the actual creation area
+            setTimeout(() => {
+                window.location.href = "v_sentinel_core.py";
+            }, 2000);
+        }
     </script>
 </body>
 </html>
