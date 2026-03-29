@@ -1,98 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>9K SOVEREIGN | KNOCKSSTUDiOS</title>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-YOUR_ID_HERE');</script>
     
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNOCKSSTUDiOS | 9K SOVEREIGN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        :root { --9k-cyan: #00f0ff; --9k-red: #ff003c; --9k-gold: #ffcc00; }
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; overflow: hidden; }
-        
-        .screen { display: none; height: 100vh; width: 100vw; overflow-y: auto; padding-bottom: 100px; }
-        .active-screen { display: block; }
-        .glass-ui { background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
-        .nav-active { color: var(--9k-cyan); filter: drop-shadow(0 0 8px var(--9k-cyan)); opacity: 1 !important; }
-        
-        /* THE FEED SCROLL */
-        .feed-container { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; }
-        .feed-item { scroll-snap-align: start; height: 100vh; position: relative; }
-        
-        .btn-9k { background: var(--9k-red); font-weight: 900; text-transform: uppercase; transition: 0.3s; }
-        .btn-9k:hover { box-shadow: 0 0 20px var(--9k-red); transform: scale(1.05); }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; }
+        .neon-border { border: 1px solid #00f0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+        .btn-glow:hover { box-shadow: 0 0 20px #ff003c; background: #ff003c; color: white; }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden">
 
-    <div id="screen-home" class="screen active-screen">
-        <div class="feed-container">
-            <div class="feed-item" style="background: url('V_SENTINEL.jpg') center/cover;">
-                <div class="absolute inset-0 bg-black/40"></div>
-                <div class="absolute bottom-32 left-6 right-20">
-                    <p class="text-[var(--9k-gold)] font-black text-sm uppercase">@ULTRA_TITAN_01</p>
-                    <p class="text-[10px] mt-2 italic opacity-90">"Transformed into a 9K Sentinel. 10 Coins well spent."</p>
-                    <button onclick="switchScreen('transformer')" class="mt-4 px-6 py-3 bg-[var(--9k-cyan)] text-black font-black text-[10px] uppercase">Transform Me</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="screen-transformer" class="screen p-6 bg-zinc-950">
-        <h1 class="text-4xl font-black italic mt-10">9K LAB</h1>
-        <p class="text-[9px] text-[var(--9k-cyan)] tracking-[0.4em] mb-10">AI IDENTITY ENGINE</p>
+    <section class="h-screen flex flex-col items-center justify-center text-center p-6 bg-gradient-to-b from-zinc-900 to-black">
+        <h1 class="text-6xl md:text-8xl font-black italic tracking-tighter mb-4 uppercase">KNOCKSSTUDiOS</h1>
+        <p class="text-[#ffcc00] tracking-[0.5em] text-xs font-bold mb-12 uppercase">Powered by AI Legends</p>
         
-        <div class="border-2 border-dashed border-[var(--9k-cyan)] p-16 text-center rounded-xl bg-[var(--9k-cyan)]/5">
-            <input type="file" id="ai-upload" class="hidden" onchange="handleUpload()">
-            <label for="ai-upload" class="cursor-pointer">
-                <p class="font-black text-sm mb-2 uppercase">Upload Source Image</p>
-                <p class="text-[8px] opacity-40">PNG/JPG up to 9K resolution</p>
-            </label>
-        </div>
-
-        <div class="mt-8 space-y-6">
-            <div>
-                <label class="text-[9px] uppercase opacity-40 mb-2 block">Choose Reality</label>
-                <select id="style-select" class="w-full bg-black p-4 border border-white/10 text-[10px] font-black uppercase outline-none">
-                    <option>Sovereign 3D Render</option>
-                    <option>Glitch-Verse Anime</option>
-                    <option>Cinematic Legend</option>
-                </select>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+            <div class="neon-border p-8 bg-black/50 rounded-lg">
+                <h3 class="text-xl font-black mb-2 uppercase">Peach Sample</h3>
+                <p class="text-[10px] opacity-60 mb-6 uppercase">Test the 9K Engine</p>
+                <p class="text-3xl font-black text-[#ffcc00] mb-6">$4.00</p>
+                <button onclick="triggerPurchase('peach_sample')" class="w-full py-4 border border-white font-black text-[10px] uppercase btn-glow transition">Get 6 Videos</button>
             </div>
-            <button onclick="startProcessing()" class="w-full py-5 btn-9k text-xs">Begin Transformation</button>
-        </div>
-    </div>
 
-    <div id="screen-store" class="screen p-6">
-        <h1 class="text-4xl font-black italic mt-10">STORE</h1>
-        <p class="text-[9px] text-[var(--9k-gold)] tracking-[0.4em] mb-10">KNOCKSSTUDiOS MERCH</p>
-
-        <div class="grid grid-cols-2 gap-4">
-            <div class="glass-ui p-3 rounded-lg">
-                <div class="aspect-square bg-zinc-800 rounded mb-3" style="background: url('mug-preview.jpg') center/cover;"></div>
-                <p class="text-[9px] font-black uppercase">9K Titan Mug</p>
-                <p class="text-[var(--9k-cyan)] font-black text-xs">$14.99</p>
-                <button onclick="buyNow('product_id_mug')" class="w-full mt-3 bg-white text-black text-[8px] font-black py-2 uppercase">Buy Now</button>
+            <div class="neon-border p-8 bg-[#00f0ff]/5 rounded-lg border-[#ff003c]">
+                <h3 class="text-xl font-black mb-2 uppercase">9K Identity Lab</h3>
+                <p class="text-[10px] opacity-60 mb-6 uppercase">Transform your reality</p>
+                <div class="h-24 flex items-center justify-center border border-dashed border-white/20 mb-6 uppercase text-[8px]">Upload Source</div>
+                <button class="w-full py-4 bg-white text-black font-black text-[10px] uppercase transition">Enter Lab</button>
             </div>
-            
-            <div class="glass-ui p-3 rounded-lg border-[var(--9k-gold)]">
-                <div class="aspect-square bg-zinc-800 rounded mb-3"></div>
-                <p class="text-[9px] font-black uppercase">Peach Sample</p>
-                <p class="text-[var(--9k-gold)] font-black text-xs">$4.00</p>
-                <button onclick="buyNow('peach_sample')" class="w-full mt-3 bg-[var(--9k-gold)] text-black text-[8px] font-black py-2 uppercase">Get 6 Videos</button>
+
+            <div class="neon-border p-8 bg-black/50 rounded-lg">
+                <h3 class="text-xl font-black mb-2 uppercase">Printify Store</h3>
+                <p class="text-[10px] opacity-60 mb-6 uppercase">Drip by AI Legends</p>
+                <p class="text-[10px] text-[#00f0ff] mb-6">LIVE MOCKUPS ENABLED</p>
+                <a href="https://knockscreativestudios.printify.me/" class="block w-full py-4 border border-white font-black text-[10px] uppercase btn-glow transition text-center">Visit Store</a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="login-overlay" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center p-10 hidden">
-        <h2 class="text-3xl font-black italic mb-2">KNOCKSSTUDiOS</h2>
-        <p class="text-[8px] tracking-[0.5em] text-[var(--9k-cyan)] mb-12 uppercase">Join the Sovereign</p>
-        <button onclick="login()" class="w-full max-w-xs py-4 border border-white/20 text-[10px] font-black uppercase hover:bg-white hover:text-black">Sign in with Google</button>
-    </div>
+    <footer class="py-12 text-center opacity-30 text-[9px] tracking-[1em] uppercase">
+        Everyone leaves with a smile.
+    </footer>
 
-    <nav class="fixed bottom-0 w-full glass-ui flex justify-around items-center p-
+    <script>
+        // FIREBASE INITIALIZATION
+        const firebaseConfig = {
+            apiKey: "YOUR_KEY",
+            authDomain: "YOUR_DOMAIN",
+            projectId: "YOUR_ID",
+            storageBucket: "YOUR_BUCKET",
+            messagingSenderId: "YOUR_SENDER",
+            appId: "YOUR_APP"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function triggerPurchase(item) {
+            console.log("GTM Event: Purchase Triggered for " + item);
+            // Logic to talk to your Java API
+            alert("Sovereign Engine Initialized for " + item);
+        }
+    </script>
+</body>
+</html>
