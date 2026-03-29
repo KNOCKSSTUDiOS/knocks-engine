@@ -1,40 +1,40 @@
-// KNOCKSSTUDIOS CORE ENGINE CONTROLLER
-const KNOCKS_ENGINE = {
-    coins: 2000,
-    tier: "FREE", // Options: FREE, BASIC, PRO, ULTRA
-    
-    // INITIALIZE RENDER
-    startRender: function(type, length) {
-        console.log(`INITIATING_${type.toUpperCase()}_SCAN...`);
-        
-        // Check for 1,000 Coin Deduction (Free Tier)
-        if (this.tier === "FREE") {
-            if (this.coins >= 1000) {
-                this.coins -= 1000;
-                this.execute(type, 5); // Force 5s limit
-                this.updateUI();
-            } else {
-                alert("INSUFFICIENT_COINS: WATCH ADS OR UPGRADE");
-            }
-        } else {
-            // Paid Tiers
-            this.execute(type, length);
-        }
-    },
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 
-    execute: function(type, duration) {
-        if (type === "music") {
-            console.log(`LYRIA_3_CORE: GENERATING_30s_AUDIO_TRACK...`);
-            // Trigger your music generation sub-module
-        } else {
-            console.log(`VEO_CORE: GENERATING_${duration}s_9K_VIDEO...`);
-            // Trigger your video generation sub-module
-        }
-        alert(`${type.toUpperCase()} RENDER COMPLETE`);
-    },
+@RestController
+@RequestMapping("/api/v1/knocks")
+@CrossOrigin(origins = "*") // Allows your HTML to talk to this Java Engine
+public class KnocksSovereignController {
 
-    updateUI: function() {
-        const display = document.getElementById('coin-balance');
-        if (display) display.innerText = this.coins.toLocaleString();
+    private final String PRINTIFY_API_KEY = "YOUR_PRINTIFY_API_TOKEN";
+    private final String SHOP_ID = "YOUR_SHOP_ID";
+
+    // 1. THE PEACH SAMPLE LOGIC ($4.00)
+    @PostMapping("/purchase-sample")
+    public ResponseEntity<String> purchasePeachSample(@RequestBody String userId) {
+        // Logic to verify Stripe payment would go here
+        System.out.println("Processing 6 9K Videos for User: " + userId);
+        return ResponseEntity.ok("Peach Sample Activated. 6 Videos Added to Vault. Everyone leaves with a smile!");
     }
-};
+
+    // 2. THE PRINTIFY BRIDGE
+    @PostMapping("/create-order")
+    public ResponseEntity<Object> sendToPrintify(@RequestBody OrderRequest order) {
+        String url = "https://api.printify.com/v1/shops/" + SHOP_ID + "/orders.json";
+        
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer " + PRINTIFY_API_KEY);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<OrderRequest> entity = new HttpEntity<>(order, headers);
+        
+        try {
+            Object response = restTemplate.postForObject(url, entity, Object.class);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error connecting to Printify: " + e.getMessage());
+        }
+    }
+}
