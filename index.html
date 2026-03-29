@@ -1,117 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS STUDiOS | FLOW</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNOCKS STUDiOS | SOVEREIGN</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Orbitron:wght@900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@300;700&display=swap');
         
-        body { background: #000; color: #e3e3e3; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; }
-        .knocks-title { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; letter-spacing: -0.05em; }
-        .neon-i { text-transform: none; color: #00f0ff; text-shadow: 0 0 15px #00f0ff; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
+        .knocks-font { font-family: 'Orbitron', sans-serif; }
+        .neon-i { text-transform: none; color: #00f0ff; text-shadow: 0 0 15px #00f0ff; font-weight: 900; }
 
-        /* --- THE TRANSITION SHUTTER --- */
+        /* --- THE MECHANICAL SHUTTER (NO STUCK PAGES) --- */
         #shutter {
             position: fixed; inset: 0; background: #000; z-index: 9999;
-            transform: translateX(-100%); transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-            display: flex; align-items: center; justify-content: center;
+            transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.8, 0, 0.2, 1);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         #shutter.active { transform: translateX(0); }
-        .shutter-line { width: 100%; height: 2px; background: #00f0ff; box-shadow: 0 0 20px #00f0ff; }
+        .shutter-glow { width: 2px; height: 100%; background: #00f0ff; box-shadow: 0 0 30px #00f0ff; position: absolute; right: 0; }
 
-        /* FLOW HEADER */
-        .flow-header { height: 64px; border-bottom: 1px solid #222; display: flex; align-items: center; padding: 0 20px; background: #000; position: relative; z-index: 100; }
-        .nav-item { opacity: 0.5; transition: 0.3s; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 2px; }
-        .nav-item:hover, .nav-item.active { opacity: 1; color: #00f0ff; }
-
-        /* THE ROBOT EYE */
-        #eye-repair { width: 100px; height: 100px; position: relative; margin-bottom: 20px; transition: 0.5s; }
-        .eye-iris { width: 35px; height: 35px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 30px #00f0ff; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.2); filter: brightness(1.8); } }
-
-        /* CONTENT LAYERS */
-        .view-layer { 
-            position: absolute; inset: 0; top: 64px; display: none; 
-            flex-direction: column; align-items: center; justify-content: center;
-            animation: slideIn 0.6s ease-out forwards;
+        /* --- THE ROBOT EYE (SOVEREIGN CALIBRATION) --- */
+        .robot-eye { width: 140px; height: 140px; border: 4px solid #111; border-radius: 50%; position: relative; background: #000; }
+        .iris-core { 
+            position: absolute; inset: 25%; background: radial-gradient(circle, #00f0ff 0%, #000 85%); 
+            border-radius: 50%; box-shadow: 0 0 40px #00f0ff;
+            animation: calibrate 1.5s infinite ease-in-out;
         }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes calibrate { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.25); filter: brightness(1.8); } }
 
-        /* UI ELEMENTS */
-        .flow-card { background: #111; border: 1px solid #222; border-radius: 20px; padding: 40px; text-align: center; width: 100%; max-width: 800px; }
-        .prompt-bar { 
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); 
-            width: 90%; max-width: 800px; background: #1a1a1b; border: 1px solid #333; 
-            border-radius: 100px; padding: 12px 25px; display: flex; align-items: center; gap: 15px;
+        /* --- PAGE ARCHITECTURE --- */
+        .page-node { 
+            position: absolute; inset: 0; display: none; 
+            flex-direction: column; align-items: center; justify-content: center; 
+            background-size: cover; background-position: center;
         }
-        .workshop-bg { position: fixed; inset: 0; z-index: -1; background: url('1773441360031.jpg') center/cover; opacity: 0.2; }
+        .page-node.active { display: flex; animation: pageSlide 0.5s ease-out; }
+        @keyframes pageSlide { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+
+        /* --- STUDIO BRANDING --- */
+        .vault-card { background: rgba(8, 8, 8, 0.98); border: 1px solid #1a1a1a; border-radius: 2px; transition: 0.3s; }
+        .vault-card:hover { border-color: #00f0ff; box-shadow: 0 0 40px rgba(0, 240, 255, 0.05); }
+        .input-gate { background: #050505; border: 1px solid #222; padding: 22px; color: #00f0ff; font-family: monospace; outline: none; width: 100%; font-size: 12px; }
+        .input-gate:focus { border-color: #00f0ff; }
+        
+        .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle, transparent 0%, #000 90%), rgba(0,0,0,0.8); z-index: -1; }
     </style>
 </head>
 <body>
 
-    <div id="shutter"><div class="shutter-line"></div></div>
-    <div class="workshop-bg"></div>
+    <div id="shutter">
+        <div class="robot-eye mb-6"><div class="iris-core"></div></div>
+        <div class="shutter-glow"></div>
+        <p class="knocks-font text-[9px] tracking-[1.5em] text-[#00f0ff] uppercase">Initializing Hand-Built Logic</p>
+    </div>
 
-    <header class="flow-header justify-between">
-        <div class="flex items-center gap-8">
-            <h1 class="knocks-title uppercase">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
-            <nav class="flex gap-6">
-                <div onclick="transitionTo('create')" class="nav-item active">ENGINE</div>
-                <div onclick="transitionTo('gallery')" class="nav-item">GALLERY</div>
-                <div onclick="transitionTo('school')" class="nav-item">SCHOOL</div>
-                <div onclick="transitionTo('store')" class="nav-item text-[#ffcc00]">STORE</div>
-            </nav>
+    <main id="node-entry" class="page-node active" style="background-image: url('1773441360031.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="text-center z-10">
+            <h1 class="knocks-font text-6xl md:text-9xl uppercase mb-16 italic tracking-tighter">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
+            <div class="vault-card p-12 w-[450px] mx-auto text-left border-t-4 border-t-[#00f0ff]">
+                <h2 class="knocks-font text-xs mb-10 opacity-40 uppercase tracking-[0.5em]">Identity Access</h2>
+                <div onclick="move('engine')" class="flex items-center gap-6 p-6 hover:bg-white/5 cursor-pointer border-b border-white/5 transition">
+                    <div class="w-14 h-14 bg-[#00f0ff] text-black flex items-center justify-center font-black knocks-font text-2xl">K</div>
+                    <div><p class="font-bold tracking-widest uppercase text-sm">Main Studio</p><p class="text-[10px] opacity-30">gtamayo36@gmail.com</p></div>
+                </div>
+                <div onclick="move('records')" class="flex items-center gap-6 p-6 hover:bg-white/5 cursor-pointer mt-4 transition">
+                    <div class="w-14 h-14 border border-dashed border-white/20 flex items-center justify-center text-xl">+</div>
+                    <p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Register New Profile</p>
+                </div>
+            </div>
         </div>
-        <div class="bg-[#111] px-4 py-2 rounded-full border border-[#333] text-[#ffcc00] text-sm font-bold">2,000c</div>
-    </header>
-
-    <main id="view-create" class="view-layer" style="display: flex;">
-        <div id="eye-repair" class="flex items-center justify-center border border-white/10 rounded-full">
-            <div class="eye-iris"></div>
-        </div>
-        <h2 class="text-2xl font-light mb-2">Initialize 9K Render</h2>
-        <p class="text-[10px] opacity-30 all-caps tracking-widest">Powered by Ai Lab Legends</p>
     </main>
 
-    <section id="view-gallery" class="view-layer">
-        <div class="grid grid-cols-2 gap-4 w-full max-w-4xl p-10">
-            <div class="flow-card h-40 flex items-center justify-center">PROJECT_01.JPG</div>
-            <div class="flow-card h-40 flex items-center justify-center">PROJECT_02.MP4</div>
+    <section id="node-records" class="page-node" style="background-image: url('1773441360031.jpg');">
+        <div class="hero-overlay"></div>
+        <div class="z-10 w-full max-w-4xl px-8">
+            <h2 class="knocks-font text-4xl mb-12 text-[#00f0ff] uppercase italic">Secure Identity Gate</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <input type="text" placeholder="LEGAL FIRST & LAST NAME" class="input-gate">
+                <input type="email" placeholder="SECURE EMAIL ADDRESS" class="input-gate">
+                <input type="text" placeholder="STREET ADDRESS (FOR BILLING RECORDS)" class="md:col-span-2 input-gate">
+                <div class="grid grid-cols-3 gap-4 md:col-span-2">
+                    <input type="text" placeholder="CITY" class="input-gate">
+                    <input type="text" placeholder="STATE" class="input-gate">
+                    <input type="text" placeholder="ZIP CODE" class="input-gate">
+                </div>
+                <input type="password" placeholder="MASTER ACCESS KEY" class="input-gate">
+                <input type="password" placeholder="CONFIRM MASTER KEY" class="input-gate">
+            </div>
+            <button onclick="move('engine')" class="w-full bg-[#00f0ff] text-black py-8 font-black knocks-font uppercase text-sm hover:bg-white transition-all">ESTABLISH CONNECTION</button>
         </div>
     </section>
 
-    <section id="view-store" class="view-layer">
-        <div class="flow-card">
-            <h2 class="text-4xl font-bold text-[#ffcc00] mb-4">THE VAULT</h2>
-            <p class="opacity-50 mb-8">SELECT UNIT PACKAGE</p>
-            <div class="grid grid-cols-3 gap-4">
-                <div class="p-6 border border-white/10 rounded-xl hover:border-[#ffcc00] cursor-pointer">500 UNITS</div>
-                <div class="p-6 border border-[#ffcc00] rounded-xl cursor-pointer">2000 UNITS</div>
-                <div class="p-6 border border-white/10 rounded-xl hover:border-[#ffcc00] cursor-pointer">5000 UNITS</div>
+    <section id="node-engine" class="page-node" style="background: #000;">
+        <header class="fixed top-0 w-full p-10 flex justify-between items-center z-50">
+            <h1 class="knocks-font text-2xl uppercase italic tracking-tighter">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
+            <div class="flex gap-10">
+                <div class="text-right">
+                    <p class="text-[9px] opacity-20 uppercase tracking-widest">Vault Balance</p>
+                    <p class="text-4xl font-black text-[#ffcc00] knocks-font">2,000</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-12 w-full max-w-[1800px] px-12 mt-20">
+            <div class="space-y-4">
+                <h3 class="knocks-font text-[10px] opacity-20 mb-8 tracking-[1em]">ENGINE CORES</h3>
+                <div onclick="switchCore('CINEMATIC 9K')" class="vault-card p-10 cursor-pointer uppercase text-[11px] font-bold border-l-4 border-l-[#00f0ff]">CINEMATIC 9K</div>
+                <div onclick="switchCore('STUDIO ANIME')" class="vault-card p-10 cursor-pointer uppercase text-[11px] font-bold border-l-4 border-l-gray-800">STUDIO ANIME</div>
+                <div onclick="switchCore('HYPER REALITY')" class="vault-card p-10 cursor-pointer uppercase text-[11px] font-bold border-l-4 border-l-gray-800">HYPER REALITY</div>
+                <div onclick="move('entry')" class="p-8 text-[9px] uppercase opacity-40 text-center hover:opacity-100 cursor-pointer">← Change Identity</div>
+            </div>
+
+            <div class="lg:col-span-3 vault-card p-20 border-dashed border-2 border-white/5 flex flex-col items-center justify-center relative min-h-[600px]">
+                <div class="robot-eye mb-12"><div class="iris-core"></div></div>
+                <h4 id="active-core" class="knocks-font text-6xl mb-16 text-[#00f0ff] italic uppercase">Awaiting Core Selection</h4>
+                
+                <div class="w-full max-w-3xl flex bg-[#050505] border border-white/5 p-3">
+                    <input type="text" placeholder="INPUT RENDERING PARAMETERS..." class="flex-grow bg-transparent p-6 knocks-font text-xs outline-none text-[#00f0ff]">
+                    <button class="bg-[#00f0ff] text-black px-16 font-black knocks-font uppercase text-xs hover:bg-white">INITIALIZE</button>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="prompt-bar">
-        <input type="text" placeholder="What do you want to create?" class="bg-transparent flex-grow outline-none text-sm">
-        <button class="bg-[#00f0ff] text-black w-10 h-10 rounded-full flex items-center justify-center font-bold">→</button>
-    </div>
-
     <script>
-        function transitionTo(viewId) {
+        // SOVEREIGN NAVIGATION (PHYSICAL PAGE MOVES)
+        function move(nodeId) {
             const shutter = document.getElementById('shutter');
-            const drillSound = new Audio('mechanical-drill.mp3'); // Add your drill file
             
-            // 1. Activate Shutter
+            // 1. Fire Shutter
             shutter.classList.add('active');
-            // drillSound.play(); // Play drill effect
 
             setTimeout(() => {
-                // 2. Switch Content
-                document.querySelectorAll('.view-layer').forEach(v => v.style.display = 'none');
-                document.getElementById('view-' + viewId).style.display = 'flex';
-                
-                // 3. Update Nav Active State
-                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                event.target.
+                // 2. Terminate old views
+                document.querySelectorAll('.page-node').forEach(node => {
+                    node.classList.remove('active');
+                });
+
+                // 3. Activate new node
+                document.getElementById('node-' + nodeId).classList.add('active');
+
+                // 4. Release Shutter
+                setTimeout(() => {
+                    shutter.classList.remove('active');
+                }, 400);
+            }, 500);
+        }
+
+        // CORE RE-CALIBRATION
+        function switchCore(coreName) {
+            const shutter = document.getElementById('shutter');
+            shutter.classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('active-core').innerText = coreName;
+                shutter.classList.remove('active');
+            }, 600);
+        }
+    </script>
+</body>
+</html>
