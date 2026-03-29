@@ -3,201 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS STUDiOS | SOVEREIGN ENGINE</title>
+    <title>KNOCKS STUDiOS | ASCENSION</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@300;400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@300;900&display=swap');
         
         body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
-        .neon-i { text-transform: none; color: #00f0ff; text-shadow: 0 0 15px #00f0ff; font-weight: 900; }
+        .neon-i { text-transform: none; color: #00f0ff; text-shadow: 0 0 25px #00f0ff; font-weight: 900; }
+        
+        /* --- ATMOSPHERIC FX --- */
+        .bg-glow { position: fixed; inset: 0; background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%); z-index: -1; }
+        .scanline { position: fixed; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(0, 240, 255, 0.02) 50%); background-size: 100% 4px; pointer-events: none; z-index: 100; }
 
-        /* --- THE SHUTTER JUMP --- */
+        /* --- THE JUMP TRANSITION --- */
         #shutter {
             position: fixed; inset: 0; background: #000; z-index: 9999;
-            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.8, 0, 0.2, 1);
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         #shutter.active { transform: translateY(0); }
 
-        /* --- PAGE NODES --- */
-        .page-node { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; }
-        .page-node.active { display: flex; animation: jumpIn 0.3s ease-out; }
-        @keyframes jumpIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
+        /* --- NODES --- */
+        .page-node { position: absolute; inset: 0; display: none; overflow-y: auto; padding: 120px 20px; }
+        .page-node.active { display: block; animation: ascension 0.8s ease-out; }
+        @keyframes ascension { from { opacity: 0; transform: translateY(50px) scale(0.95); filter: blur(20px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
 
-        /* --- STUDIO COMPONENTS --- */
-        .studio-card { background: rgba(5, 5, 5, 0.98); border: 1px solid #1a1a1a; transition: 0.2s; cursor: pointer; position: relative; overflow: hidden; }
-        .studio-card:hover { border-color: #00f0ff; }
-        .active-sel { border-color: #00f0ff !important; background: rgba(0, 240, 255, 0.05) !important; }
-
-        /* --- WATERMARK & DOWNLOAD --- */
-        .wm-tag { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron'; font-size: 10px; color: rgba(0,240,255,0.2); pointer-events: none; text-transform: uppercase; letter-spacing: 1em; transform: rotate(-45deg); }
+        /* --- GLORIFIED UI --- */
+        .glorified-card { 
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px); transition: 0.5s; cursor: pointer; border-radius: 4px;
+        }
+        .glorified-card:hover { border-color: #00f0ff; box-shadow: 0 0 40px rgba(0,240,255,0.1); transform: scale(1.01); }
         
-        /* --- RADIO ANIMATION --- */
-        .radio-pulse { width: 8px; height: 8px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 15px #00f0ff; animation: pulse 0.8s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        /* Intensity Slider */
+        input[type=range] { -webkit-appearance: none; background: #111; height: 4px; border-radius: 5px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #00f0ff; cursor: pointer; box-shadow: 0 0 10px #00f0ff; }
 
-        .vault-input { background: #000; border: 1px solid #222; padding: 18px; color: #00f0ff; font-family: monospace; outline: none; width: 100%; font-size: 12px; }
+        .vault-input { background: #000; border: 1px solid #222; padding: 20px; color: #00f0ff; font-family: 'Orbitron'; outline: none; width: 100%; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div id="shutter">
-        <div class="w-full h-[2px] bg-[#00f0ff] absolute top-0 shadow-[0_0_30px_#00f0ff]"></div>
-        <div class="knocks-font text-[10px] tracking-[2em] text-[#00f0ff]">PROCESSING...</div>
-    </div>
+    <div class="bg-glow"></div>
+    <div class="scanline"></div>
+    <div id="shutter"><h2 class="knocks-font text-3xl italic tracking-[1em] text-[#00f0ff] animate-pulse">KNOCKS STUDiOS</h2></div>
 
-    <main id="node-splash" class="page-node active" style="background: url('1773441360031.jpg') center/cover;">
-        <div class="absolute inset-0 bg-black/80"></div>
-        <h1 class="knocks-font text-6xl md:text-9xl uppercase mb-12 italic font-black z-10">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
-        <div class="flex gap-6 z-10">
-            <button onclick="jump('engine')" class="knocks-font border border-[#00f0ff] px-12 py-6 text-xs hover:bg-[#00f0ff] hover:text-black transition uppercase font-black">Open Engine</button>
-            <button onclick="jump('signup')" class="knocks-font bg-white text-black px-12 py-6 text-xs hover:bg-gray-200 transition uppercase font-black">Register Vault</button>
-        </div>
-    </main>
-
-    <section id="node-signup" class="page-node">
-        <div class="w-full max-w-xl px-8">
-            <h2 class="knocks-font text-2xl mb-8 text-[#00f0ff] uppercase italic">Identify Registry</h2>
-            <div class="space-y-4 mb-8">
-                <input type="text" placeholder="LEGAL FULL NAME" class="vault-input">
-                <input type="email" placeholder="SECURE EMAIL" class="vault-input">
-                <input type="password" placeholder="ACCESS KEY" class="vault-input">
-            </div>
-            <button onclick="completeSignup()" class="w-full bg-[#00f0ff] text-black py-6 font-black knocks-font uppercase text-xs">Establish Identity</button>
-        </div>
-    </section>
-
-    <section id="node-engine" class="page-node" style="background: #000;">
-        <header class="fixed top-0 w-full p-8 flex justify-between items-center border-b border-white/5 bg-black z-50">
-            <div class="flex items-center gap-6">
-                <h1 class="knocks-font text-xl uppercase italic font-black">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
-                <div class="flex items-center gap-4 bg-white/5 px-4 py-2 rounded">
-                    <div id="radio-led" class="w-2 h-2 rounded-full bg-gray-800"></div>
-                    <select id="track-select" onchange="changeTrack()" class="bg-transparent text-[9px] uppercase font-bold outline-none cursor-pointer">
-                        <option value="OFF">Radio: OFF</option>
-                        <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Track 01: Industrial</option>
-                        <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Track 02: Dark Neo</option>
-                    </select>
-                </div>
-            </div>
-            <div class="flex gap-8 items-center">
-                <p class="text-[9px] opacity-20 uppercase">Quota: <span id="q-val" class="text-white">0/2</span></p>
-                <div onclick="jump('subs')" class="bg-[#ffcc00] text-black px-4 py-2 text-[10px] font-black uppercase cursor-pointer">Upgrade</div>
-            </div>
-        </header>
-
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 w-full max-w-[1700px] px-12 mt-20">
-            <div class="space-y-3">
-                <h3 class="knocks-font text-[9px] opacity-20 mb-6 tracking-[0.8em]">BOTS</h3>
-                <div onclick="selectBot(this, '9K RENDER BOT')" class="studio-card p-6 text-[10px] font-bold uppercase active-sel">9K Render Bot</div>
-                <div onclick="selectBot(this, 'ANIME CORE')" class="studio-card p-6 text-[10px] font-bold uppercase">Anime Core</div>
-            </div>
-
-            <div class="lg:col-span-3 space-y-6">
-                <div class="studio-card p-8 border-dashed border-2 border-white/5">
-                    <div class="flex bg-[#050505] border border-white/10 p-2">
-                        <input id="prompt" type="text" placeholder="INPUT COMMAND LOGIC..." class="flex-grow bg-transparent p-6 knocks-font text-[10px] outline-none text-[#00f0ff]">
-                        <button onclick="dualDrill()" class="bg-[#00f0ff] text-black px-12 font-black knocks-font uppercase text-xs">DRILL DUAL VIDEO</button>
-                    </div>
-                </div>
-
-                <div id="results" class="grid grid-cols-2 gap-4 h-[450px] hidden">
-                    <div class="studio-card bg-[#050505] flex items-center justify-center">
-                        <div id="wm-1" class="wm-tag">KNOCKS STUDiOS</div>
-                        <span class="text-[9px] opacity-20">RESULT_01</span>
-                        <button onclick="download(1)" class="absolute bottom-4 right-4 bg-white/10 hover:bg-[#00f0ff] hover:text-black p-3 text-[8px] uppercase transition">Download</button>
-                    </div>
-                    <div class="studio-card bg-[#050505] flex items-center justify-center">
-                        <div id="wm-2" class="wm-tag">KNOCKS STUDiOS</div>
-                        <span class="text-[9px] opacity-20">RESULT_02</span>
-                        <button onclick="download(2)" class="absolute bottom-4 right-4 bg-white/10 hover:bg-[#00f0ff] hover:text-black p-3 text-[8px] uppercase transition">Download</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="node-subs" class="page-node" style="background: #050505;">
-        <div class="w-full max-w-4xl px-8 text-center">
-            <h2 class="knocks-font text-4xl mb-12 italic">SUBSCRIPTIONS</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="studio-card p-12">
-                    <p class="text-xs mb-4 opacity-40">FREE TIER</p>
-                    <p class="text-4xl font-black mb-8">$0</p>
-                    <button onclick="jump('engine')" class="w-full border border-white/10 py-4 text-[10px] font-black">CONTINUE FREE</button>
-                </div>
-                <div class="studio-card p-12 border-[#ffcc00] bg-[#ffcc00]/5">
-                    <p class="text-xs mb-4 text-[#ffcc00]">PRO DRILLER</p>
-                    <p class="text-4xl font-black mb-8">$29</p>
-                    <button onclick="upgrade()" class="w-full bg-[#ffcc00] text-black py-4 text-[10px] font-black">UNLOCK UNLIMITED</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <audio id="audio-engine" loop></audio>
-
-    <script>
-        let isPro = false;
-        let isRegistered = false;
-        let vCount = 0;
-        const player = document.getElementById('audio-engine');
-
-        function jump(target) {
-            const shutter = document.getElementById('shutter');
-            shutter.classList.add('active');
-            setTimeout(() => {
-                document.querySelectorAll('.page-node').forEach(n => n.classList.remove('active'));
-                document.getElementById('node-' + target).classList.add('active');
-                setTimeout(() => shutter.classList.remove('active'), 400);
-            }, 500);
-        }
-
-        function changeTrack() {
-            const select = document.getElementById('track-select');
-            const led = document.getElementById('radio-led');
-            if (select.value === "OFF") {
-                player.pause();
-                led.classList.remove('radio-pulse');
-            } else {
-                player.src = select.value;
-                player.play();
-                led.classList.add('radio-pulse');
-            }
-        }
-
-        function completeSignup() { isRegistered = true; jump('engine'); }
-        function upgrade() { isPro = true; jump('engine'); }
-
-        function selectBot(el, name) {
-            document.querySelectorAll('.studio-card').forEach(c => c.classList.remove('active-sel'));
-            el.classList.add('active-sel');
-        }
-
-        function dualDrill() {
-            if (!isRegistered) { alert("SIGNUP REQUIRED"); jump('signup'); return; }
-            if (vCount >= 2) { alert("FREE LIMIT REACHED"); jump('subs'); return; }
-
-            vCount++;
-            document.getElementById('q-val').innerText = vCount + "/2";
-            const shutter = document.getElementById('shutter');
-            shutter.classList.add('active');
-
-            setTimeout(() => {
-                document.getElementById('results').classList.remove('hidden');
-                // Check if Pro to remove watermarks
-                if (isPro) {
-                    document.querySelectorAll('.wm-tag').forEach(wm => wm.style.display = 'none');
-                }
-                shutter.classList.remove('active');
-            }, 1200);
-        }
-
-        function download(id) {
-            const status = isPro ? "PRO_NO_WM" : "FREE_WATERMARK";
-            alert("FETCHING " + status + " RENDER " + id);
-        }
-    </script>
-</body>
-</html>
+    <header class="fixed top-0 w-full p-8 flex justify-between items-center z-50 bg
