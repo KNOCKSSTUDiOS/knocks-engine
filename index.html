@@ -4,122 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>9K SOVEREIGN | KNOCKSSTUDiOS</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         :root { --9k-cyan: #00f0ff; --9k-red: #ff003c; --9k-gold: #ffcc00; }
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; overflow: hidden; }
         
-        /* APP NAVIGATION */
-        .nav-active { color: var(--9k-cyan); filter: drop-shadow(0 0 5px var(--9k-cyan)); }
-        
-        /* SCREEN MANAGEMENT */
         .screen { display: none; height: 100vh; width: 100vw; overflow-y: auto; padding-bottom: 100px; }
         .active-screen { display: block; }
-
-        /* FEED (TIKTOK STYLE) */
-        .feed-item { height: 100vh; scroll-snap-align: start; position: relative; background: #050505; }
-        .glass-ui { background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .glass-ui { background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
+        .nav-active { color: var(--9k-cyan); filter: drop-shadow(0 0 8px var(--9k-cyan)); opacity: 1 !important; }
         
-        /* BUTTONS */
-        .btn-9k { background: var(--9k-red); font-weight: 900; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-        .btn-9k:hover { background: #fff; color: var(--9k-red); box-shadow: 0 0 20px var(--9k-red); }
+        /* THE FEED SCROLL */
+        .feed-container { scroll-snap-type: y mandatory; overflow-y: scroll; height: 100vh; }
+        .feed-item { scroll-snap-align: start; height: 100vh; position: relative; }
+        
+        .btn-9k { background: var(--9k-red); font-weight: 900; text-transform: uppercase; transition: 0.3s; }
+        .btn-9k:hover { box-shadow: 0 0 20px var(--9k-red); transform: scale(1.05); }
     </style>
 </head>
 <body>
 
-    <div id="screen-home" class="screen active-screen overflow-hidden">
-        <div class="h-full w-full relative" style="background: url('V_SENTINEL.jpg') center/cover;">
-            <div class="absolute bottom-24 left-6 right-20">
-                <p class="text-[var(--9k-gold)] font-black text-sm">@AI_LEGEND_01</p>
-                <p class="text-[10px] mt-2 leading-relaxed uppercase opacity-80 italic">"Transformed my 2D selfie into an 8K 3D Sentinel. Total cost: 10 Coins."</p>
-                <button onclick="switchScreen('transformer')" class="mt-4 px-6 py-3 bg-[var(--9k-cyan)] text-black font-black text-[10px] uppercase">Transform Me</button>
-            </div>
-            <div class="absolute right-4 bottom-32 flex flex-col gap-6 items-center">
-                <div class="text-2xl">🔥</div>
-                <div class="text-2xl">💬</div>
-                <div class="text-2xl">💰</div>
+    <div id="screen-home" class="screen active-screen">
+        <div class="feed-container">
+            <div class="feed-item" style="background: url('V_SENTINEL.jpg') center/cover;">
+                <div class="absolute inset-0 bg-black/40"></div>
+                <div class="absolute bottom-32 left-6 right-20">
+                    <p class="text-[var(--9k-gold)] font-black text-sm uppercase">@ULTRA_TITAN_01</p>
+                    <p class="text-[10px] mt-2 italic opacity-90">"Transformed into a 9K Sentinel. 10 Coins well spent."</p>
+                    <button onclick="switchScreen('transformer')" class="mt-4 px-6 py-3 bg-[var(--9k-cyan)] text-black font-black text-[10px] uppercase">Transform Me</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="screen-transformer" class="screen p-6">
-        <h1 class="text-4xl font-black italic mt-10">IDENTITY LAB</h1>
-        <p class="text-[9px] text-[var(--9k-cyan)] tracking-[0.4em] mb-10">9K CINEMATIC ENGINE</p>
+    <div id="screen-transformer" class="screen p-6 bg-zinc-950">
+        <h1 class="text-4xl font-black italic mt-10">9K LAB</h1>
+        <p class="text-[9px] text-[var(--9k-cyan)] tracking-[0.4em] mb-10">AI IDENTITY ENGINE</p>
         
-        <div class="border-2 border-dashed border-[var(--9k-cyan)] p-12 text-center rounded-lg bg-[var(--9k-cyan)]/5">
-            <p class="font-black text-sm mb-2">UPLOAD PORTRAIT</p>
-            <p class="text-[8px] opacity-40 uppercase">AI Legends will reconstruct your reality</p>
+        <div class="border-2 border-dashed border-[var(--9k-cyan)] p-16 text-center rounded-xl bg-[var(--9k-cyan)]/5">
+            <input type="file" id="ai-upload" class="hidden" onchange="handleUpload()">
+            <label for="ai-upload" class="cursor-pointer">
+                <p class="font-black text-sm mb-2 uppercase">Upload Source Image</p>
+                <p class="text-[8px] opacity-40">PNG/JPG up to 9K resolution</p>
+            </label>
         </div>
 
-        <div class="mt-10 space-y-4">
-            <label class="text-[9px] uppercase opacity-40">Target Reality</label>
-            <select class="w-full bg-zinc-900 p-4 border border-white/10 text-[10px] font-black uppercase">
-                <option>Realistic 3D Character (8K)</option>
-                <option>High-Fidelity Cartoon</option>
-                <option>Anime Sovereign</option>
-            </select>
-            <button class="w-full py-5 btn-9k text-xs mt-4">Initialize Reconstruction</button>
+        <div class="mt-8 space-y-6">
+            <div>
+                <label class="text-[9px] uppercase opacity-40 mb-2 block">Choose Reality</label>
+                <select id="style-select" class="w-full bg-black p-4 border border-white/10 text-[10px] font-black uppercase outline-none">
+                    <option>Sovereign 3D Render</option>
+                    <option>Glitch-Verse Anime</option>
+                    <option>Cinematic Legend</option>
+                </select>
+            </div>
+            <button onclick="startProcessing()" class="w-full py-5 btn-9k text-xs">Begin Transformation</button>
         </div>
     </div>
 
     <div id="screen-store" class="screen p-6">
-        <h1 class="text-4xl font-black italic mt-10">MARKETPLACE</h1>
-        <p class="text-[9px] text-[var(--9k-gold)] tracking-[0.4em] mb-10">MERCH BY KNOCKSSTUDiOS</p>
+        <h1 class="text-4xl font-black italic mt-10">STORE</h1>
+        <p class="text-[9px] text-[var(--9k-gold)] tracking-[0.4em] mb-10">KNOCKSSTUDiOS MERCH</p>
 
         <div class="grid grid-cols-2 gap-4">
-            <div class="glass-ui p-2 rounded">
-                <div class="aspect-square bg-zinc-800 mb-2" style="background: url('1773441360031.jpg') center/cover;"></div>
+            <div class="glass-ui p-3 rounded-lg">
+                <div class="aspect-square bg-zinc-800 rounded mb-3" style="background: url('mug-preview.jpg') center/cover;"></div>
                 <p class="text-[9px] font-black uppercase">9K Titan Mug</p>
-                <p class="text-[var(--9k-cyan)] font-black text-xs mt-1">$14.99</p>
-                <button class="w-full mt-2 bg-white text-black text-[8px] font-black py-2 uppercase">Buy Now</button>
+                <p class="text-[var(--9k-cyan)] font-black text-xs">$14.99</p>
+                <button onclick="buyNow('product_id_mug')" class="w-full mt-3 bg-white text-black text-[8px] font-black py-2 uppercase">Buy Now</button>
             </div>
-            <div class="glass-ui p-2 rounded">
-                <div class="aspect-square bg-zinc-800 mb-2" style="background: url('V_SENTINEL.jpg') center/cover;"></div>
-                <p class="text-[9px] font-black uppercase">Meme Stickers</p>
-                <p class="text-[var(--9k-cyan)] font-black text-xs mt-1">$4.00</p>
-                <button class="w-full mt-2 bg-white text-black text-[8px] font-black py-2 uppercase">Buy Now</button>
+            
+            <div class="glass-ui p-3 rounded-lg border-[var(--9k-gold)]">
+                <div class="aspect-square bg-zinc-800 rounded mb-3"></div>
+                <p class="text-[9px] font-black uppercase">Peach Sample</p>
+                <p class="text-[var(--9k-gold)] font-black text-xs">$4.00</p>
+                <button onclick="buyNow('peach_sample')" class="w-full mt-3 bg-[var(--9k-gold)] text-black text-[8px] font-black py-2 uppercase">Get 6 Videos</button>
             </div>
         </div>
-        <p class="text-center text-[8px] mt-10 opacity-30 italic">"Everyone leaves with a smile."</p>
     </div>
 
-    <nav class="fixed bottom-0 w-full glass-ui border-t border-white/10 flex justify-around items-center p-4 z-50">
-        <button onclick="switchScreen('home')" id="nav-home" class="nav-active flex flex-col items-center">
-            <span class="text-xl">🏠</span>
-            <span class="text-[8px] font-black uppercase mt-1">Home</span>
-        </button>
-        <button onclick="switchScreen('transformer')" id="nav-transformer" class="flex flex-col items-center opacity-40">
-            <span class="text-xl">⚡</span>
-            <span class="text-[8px] font-black uppercase mt-1">9K Lab</span>
-        </button>
-        <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center -mt-10 shadow-2xl">
-            <span class="text-black text-2xl font-black">+</span>
-        </div>
-        <button onclick="switchScreen('store')" id="nav-store" class="flex flex-col items-center opacity-40">
-            <span class="text-xl">🛒</span>
-            <span class="text-[8px] font-black uppercase mt-1">Store</span>
-        </button>
-        <button onclick="window.location.href='vip-booking.html'" class="flex flex-col items-center opacity-40">
-            <span class="text-xl">👑</span>
-            <span class="text-[8px] font-black uppercase mt-1">VIP</span>
-        </button>
-    </nav>
+    <div id="login-overlay" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center p-10 hidden">
+        <h2 class="text-3xl font-black italic mb-2">KNOCKSSTUDiOS</h2>
+        <p class="text-[8px] tracking-[0.5em] text-[var(--9k-cyan)] mb-12 uppercase">Join the Sovereign</p>
+        <button onclick="login()" class="w-full max-w-xs py-4 border border-white/20 text-[10px] font-black uppercase hover:bg-white hover:text-black">Sign in with Google</button>
+    </div>
 
-    <script>
-        function switchScreen(screenId) {
-            // Hide all screens
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
-            // Show selected screen
-            document.getElementById('screen-' + screenId).classList.add('active-screen');
-            
-            // Update Nav opacity
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.add('opacity-40'));
-            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('nav-active'));
-            document.getElementById('nav-' + screenId).classList.remove('opacity-40');
-            document.getElementById('nav-' + screenId).classList.add('nav-active');
-        }
-    </script>
-
-</body>
-</html>
+    <nav class="fixed bottom-0 w-full glass-ui flex justify-around items-center p-
