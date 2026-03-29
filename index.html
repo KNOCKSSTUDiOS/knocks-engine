@@ -3,136 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS | SPECTRUM FLOW</title>
+    <title>KNOCKSSTUDiOS | OMNIPOTENT APEX</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
         
-        :root { --neon: #00f0ff; --gold: #ffcc00; --olive: #6b8e23; --crimson: #ff004c; --bg: #000; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; }
+        :root { --cyan: #00f0ff; --gold: #ffcc00; --olive: #6b8e23; --magenta: #ff00ff; --bg: #020205; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
 
-        /* THE SPECTRUM LIQUID VOID */
-        #live-void { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); }
-        .particle { 
-            position: absolute; border-radius: 50%; opacity: 0.3; 
-            animation: float 10s infinite linear, colorShift 8s infinite alternate; 
-            filter: blur(2px);
+        /* --- VIVID NEON NEBULA --- */
+        #nebula {
+            position: fixed; inset: 0; z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(255, 204, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(107, 142, 35, 0.1) 0%, transparent 60%),
+                #000;
+            animation: nebulaDrift 15s infinite alternate ease-in-out;
         }
-        @keyframes float { from { transform: translateY(110vh) scale(0.5); } to { transform: translateY(-10vh) scale(1.5); } }
-        @keyframes colorShift { 
-            0% { background: var(--gold); } 33% { background: var(--neon); } 
-            66% { background: var(--olive); } 100% { background: var(--crimson); } 
+        @keyframes nebulaDrift { 0% { transform: scale(1); filter: hue-rotate(0deg); } 100% { transform: scale(1.1); filter: hue-rotate(30deg); } }
+
+        /* --- PERSISTENT FLOW ANIMATIONS --- */
+        .liquid-logo {
+            font-size: 50px; font-weight: 900;
+            background: linear-gradient(180deg, var(--gold), var(--cyan), var(--olive));
+            background-size: 100% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.5));
+            animation: fluidFlow 5s infinite linear;
         }
+        @keyframes fluidFlow { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
 
-        /* RESTORED LIQUID GOLD + SPECTRUM LETTERS */
-        .liquid-text {
-            font-size: 56px; font-weight: 900; 
-            background: linear-gradient(180deg, var(--gold), var(--olive), var(--neon), var(--crimson));
-            background-size: 100% 400%;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255,204,0,0.5));
-            animation: flow 6s infinite linear, drip 3s infinite ease-in-out;
-            display: inline-block;
-        }
-        @keyframes flow { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
-        @keyframes drip { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-12px) scale(1.04); } }
-
-        /* NAV & TILES */
-        .nav-rail { height: 100vh; width: 90px; position: fixed; left: 0; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; padding-top: 80px; gap: 35px; z-index: 5000; background: rgba(0,0,0,0.95); }
-        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; letter-spacing: 0.8em; cursor: pointer; opacity: 0.3; transition: 0.5s; }
-        .nav-item:hover { opacity: 1; color: var(--gold); text-shadow: 0 0 15px var(--gold); }
-
+        /* --- TILES & NAVIGATION --- */
         .engine-tile { 
-            background: rgba(10,10,10,0.8); border: 1px solid rgba(255,255,255,0.05); 
-            backdrop-filter: blur(50px); position: relative; transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.15); 
+            backdrop-filter: blur(30px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .engine-tile:hover { border-color: var(--neon); box-shadow: 0 0 40px rgba(0, 240, 255, 0.1); }
+        .engine-tile:hover { border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 240, 255, 0.2); transform: translateY(-5px); }
 
-        /* BUTTONS & INPUTS */
-        .glow-btn { 
-            background: linear-gradient(90deg, var(--gold), var(--olive)); 
-            color: #000; font-weight: 900; transition: 0.4s; 
-        }
-        .glow-btn:hover { letter-spacing: 0.5em; filter: brightness(1.2); }
+        .nav-rail { width: 90px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.9); border-right: 1px solid var(--cyan); z-index: 5000; }
+        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; letter-spacing: 0.6em; cursor: pointer; opacity: 0.3; transition: 0.3s; }
+        .nav-item.active { opacity: 1; color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
 
-        #shutter { position: fixed; inset: 0; background: #000; z-index: 10000; transform: scaleY(0); transition: 0.8s cubic-bezier(1,0,0,1); display: flex; align-items: center; justify-content: center; }
-        #shutter.active { transform: scaleY(1); }
+        /* --- SYSTEM STATUS --- */
+        #auth-gate { position: fixed; inset: 0; z-index: 10000; background: #000; display: flex; align-items: center; justify-content: center; }
+        .glow-input { background: #000; border: 1px solid #222; padding: 15px; color: var(--cyan); outline: none; width: 100%; font-size: 10px; }
+        .glow-input:focus { border-color: var(--cyan); }
+        .master-btn { background: var(--cyan); color: #000; font-weight: 900; transition: 0.4s; }
+        .master-btn:hover { background: #fff; letter-spacing: 0.3em; }
+
+        .page-node { display: none; }
+        .page-node.active { display: block; animation: fadeIn 0.8s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+        /* --- AUDIO CONTROLLER --- */
+        #audio-controls { position: fixed; top: 20px; right: 20px; z-index: 6000; display: flex; gap: 15px; align-items: center; }
+        .music-pulse { width: 3px; background: var(--cyan); animation: pulse 1s infinite alternate; }
+        @keyframes pulse { 0% { height: 5px; } 100% { height: 20px; } }
     </style>
 </head>
-<body onload="initVoid()">
+<body onload="initParticles()">
 
-    <div id="live-void"></div>
-    <div id="shutter"><h1 class="extraordinary text-xs tracking-[2em] animate-pulse">FLOW ACTIVATED</h1></div>
+    <div id="nebula"></div>
+    
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="nav-rail">
-        <div class="knocks-font text-[8px] text-[#ffcc00] mb-8">CORE_V14</div>
-        <div class="nav-item knocks-font">ENGINE</div>
-        <div class="nav-item knocks-font">MUSIC</div>
-        <div class="nav-item knocks-font">VAULT</div>
+    <div id="audio-controls" class="hidden">
+        <div class="flex items-end gap-1 h-5">
+            <div class="music-pulse" style="animation-delay: 0.1s"></div>
+            <div class="music-pulse" style="animation-delay: 0.3s"></div>
+            <div class="music-pulse" style="animation-delay: 0.2s"></div>
+        </div>
+        <button onclick="toggleMusic()" id="music-btn" class="text-[8px] extraordinary border border-white/20 px-3 py-1 hover:border-cyan-400">MUSIC: ON</button>
     </div>
 
-    <main class="pl-32 pr-10 pt-10">
-        <div class="mb-12"><h1 class="liquid-text extraordinary">KNOCKSCREATIVESTUDIOS</h1></div>
+    <div id="auth-gate">
+        <div class="p-10 border border-cyan-500/30 bg-black w-[400px] text-center">
+            <h2 class="extraordinary text-[10px] tracking-[1.5em] text-[#ffcc00] mb-10">INITIALIZE IDENTITY</h2>
+            <input type="text" id="driller-id" placeholder="USERNAME" class="glow-input mb-4">
+            <input type="password" placeholder="ACCESS KEY" class="glow-input mb-8">
+            <button onclick="bootSystem()" class="w-full py-5 master-btn extraordinary text-[10px]">ACTIVATE ENGINE</button>
+        </div>
+    </div>
 
-        <div class="grid grid-cols-12 gap-10">
-            <div class="col-span-4 space-y-8">
-                <div class="engine-tile p-8">
-                    <h3 class="extraordinary text-[9px] opacity-40 mb-6 uppercase tracking-widest">Visual Sync</h3>
-                    <label class="h-28 border border-white/10 flex items-center justify-center cursor-pointer hover:bg-white/5 transition">
-                        <span class="text-[8px] knocks-font">DROP RAW DATA</span>
-                        <input type="file" class="hidden">
-                    </label>
-                </div>
-                <div class="engine-tile p-8">
-                    <h3 class="extraordinary text-[9px] opacity-40 mb-6 uppercase tracking-widest">Audio Flow</h3>
-                    <label class="h-28 border border-white/10 flex items-center justify-center cursor-pointer hover:bg-[#ffcc00]/5 transition">
-                        <span class="text-[8px] knocks-font text-[#ffcc00]">SYNC MASTER TRACK</span>
-                        <input type="file" class="hidden">
-                    </label>
-                </div>
-                <div class="engine-tile p-8">
-                    <textarea class="w-full bg-black border border-white/10 p-4 text-[10px] text-[#00f0ff] outline-none h-24 mb-6" placeholder="COMMAND THE SPECTRUM..."></textarea>
-                    <button onclick="ignite()" class="w-full py-6 glow-btn extraordinary text-[10px] uppercase">Ignite Spectrum Drill</button>
-                </div>
-            </div>
+    <div id="rail" class="nav-rail hidden flex flex-col items-center pt-24 gap-12">
+        <div class="knocks-font text-[8px] text-[#ffcc00] mb-6" id="user-tag">--</div>
+        <div class="nav-item active extraordinary" onclick="jump('engine')">ENGINE</div>
+        <div class="nav-item extraordinary" onclick="jump('vault')">VAULT</div>
+        <div class="nav-item extraordinary" onclick="location.reload()">OFFLINE</div>
+    </div>
 
-            <div class="col-span-8">
-                <div class="engine-tile h-[640px] flex items-center justify-center overflow-hidden">
-                    <div id="idle" class="extraordinary text-[11px] opacity-10 tracking-[3em] animate-pulse">AWAITING INPUT</div>
-                    <div id="output" class="hidden w-full h-full relative">
-                        <img src="https://via.placeholder.com/1200x800/050505/ffcc00?text=9D+SPECTRUM+RENDER" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                        <div class="absolute bottom-12 left-12">
-                            <h2 class="extraordinary text-3xl italic text-[#ffcc00]">RENDER_MANIFEST_FLOW</h2>
-                            <p class="text-[9px] opacity-50 tracking-[1em] mt-4 uppercase">Black Wallstreet Liquid Lounge Series</p>
-                        </div>
+    <main id="main-frame" class="hidden pl-32 pr-10 pt-10 h-screen overflow-y-auto">
+        <div class="mb-12"><h1 class="liquid-logo extraordinary">KNOCKSCREATIVESTUDIOS</h1></div>
+
+        <section id="node-engine" class="page-node active">
+            <div class="grid grid-cols-12 gap-8">
+                <div class="col-span-4 space-y-6">
+                    <div class="engine-tile p-8">
+                        <h3 class="extraordinary text-[9px] opacity-40 mb-6 uppercase">System Upload</h3>
+                        <label class="h-32 border border-dashed border-cyan-400/20 flex flex-col items-center justify-center cursor-pointer">
+                            <input type="file" class="hidden"><span class="text-[8px] knocks-font">SYNC MEDIA DATA</span>
+                        </label>
+                    </div>
+                    <div class="engine-tile p-8">
+                        <h3 class="extraordinary text-[9px] opacity-40 mb-6 uppercase">Neural Prompt</h3>
+                        <textarea class="glow-input h-32 mb-6" placeholder="COMMAND..."></textarea>
+                        <button class="w-full py-6 master-btn extraordinary text-[10px]">IGNITE DRILL</button>
+                    </div>
+                </div>
+                <div class="col-span-8">
+                    <div class="engine-tile h-[600px] flex items-center justify-center">
+                        <div class="extraordinary text-[10px] opacity-10 tracking-[3em] animate-pulse">CORE STANDBY</div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section id="node-vault" class="page-node">
+            <h2 class="extraordinary text-4xl mb-12 italic">SOVEREIGN <span class="text-[#ffcc00]">VAULT</span></h2>
+            <div class="grid grid-cols-2 gap-10">
+                <div class="engine-tile p-16 border-2 border-cyan-400">
+                    <h3 class="extraordinary text-xl mb-6">ELITE PASS</h3>
+                    <p class="text-7xl font-black mb-10">$29<span class="text-xs opacity-40">/MO</span></p>
+                    <button class="w-full py-6 master-btn extraordinary text-[10px]">ASCEND NOW</button>
+                </div>
+                <div class="engine-tile p-16">
+                    <h3 class="extraordinary text-xl mb-6">FOUNDER</h3>
+                    <p class="text-6xl font-black mb-10">$499</p>
+                    <button class="w-full border border-white/20 py-6 extraordinary text-[10px] hover:border-cyan-400">SECURE LEGACY</button>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
-        function initVoid() {
-            const v = document.getElementById('live-void');
-            for(let i=0; i<60; i++) {
-                const p = document.createElement('div'); p.className = 'particle';
-                p.style.width = p.style.height = Math.random() * 5 + "px";
-                p.style.left = Math.random() * 100 + "vw";
-                p.style.animationDelay = Math.random() * 5 + "s";
-                p.style.animationDuration = (Math.random() * 10 + 8) + "s";
-                v.appendChild(p);
-            }
+        const music = document.getElementById('bg-music');
+        let musicPlaying = false;
+
+        function bootSystem() {
+            const id = document.getElementById('driller-id').value;
+            if(!id) return;
+            
+            document.getElementById('auth-gate').style.display = 'none';
+            document.getElementById('rail').classList.remove('hidden');
+            document.getElementById('main-frame').classList.remove('hidden');
+            document.getElementById('audio-controls').classList.remove('hidden');
+            document.getElementById('user-tag').innerText = id.toUpperCase();
+            
+            // Start Persistent Music
+            music.play();
+            musicPlaying = true;
         }
-        function ignite() {
-            document.getElementById('shutter').classList.add('active');
-            setTimeout(() => {
-                document.getElementById('idle').classList.add('hidden');
-                document.getElementById('output').classList.remove('hidden');
-                document.getElementById('shutter').classList.remove('active');
-            }, 2000);
+
+        function toggleMusic() {
+            if(musicPlaying) {
+                music.pause();
+                document.getElementById('music-btn').innerText = "MUSIC: OFF";
+            } else {
+                music.play();
+                document.getElementById('music-btn').innerText = "MUSIC: ON";
+            }
+            musicPlaying = !musicPlaying;
+        }
+
+        function jump(target) {
+            document.querySelectorAll('.page-node').forEach(p => p.classList.remove('active'));
+            document.getElementById('node-' + target).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function initParticles() {
+            const nebula = document.getElementById('nebula');
+            for(let i=0; i<40; i++) {
+                const p = document.createElement('div');
+                p.style.position = 'absolute';
+                p.style.background = 'white';
+                p.style.width = p.style.height = Math.random() * 2 + 'px';
+                p.style.top = Math.random() * 100 + '%';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.opacity = Math.random();
+                nebula.appendChild(p);
+            }
         }
     </script>
 </body>
