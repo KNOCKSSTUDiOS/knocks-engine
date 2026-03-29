@@ -3,112 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VALERIUS-9K | SOVEREIGN CORE</title>
+    <title>9K ENGINE // KNOCKSTUDiOS</title>
     <style>
-        body { margin: 0; background-color: #000; overflow: hidden; font-family: 'Courier New', monospace; color: #00f0ff; }
-        canvas { position: absolute; top: 0; left: 0; z-index: 1; }
-        
-        #hud-interface {
-            position: relative; z-index: 10; height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; pointer-events: none;
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Courier New', monospace; }
+        canvas { display: block; }
+        #overlay {
+            position: absolute; top: 20px; left: 20px; color: #00f0ff;
+            text-shadow: 0 0 10px #00f0ff; pointer-events: none; z-index: 10;
         }
-
-        #terminal-output {
-            background: rgba(0, 10, 20, 0.85); border: 1px solid #00f0ff;
-            padding: 15px; height: 300px; overflow-y: auto; pointer-events: auto;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); font-size: 12px;
+        #system-logs {
+            position: absolute; bottom: 20px; left: 20px; color: #00f0ff;
+            font-size: 10px; opacity: 0.7; z-index: 10;
         }
-
-        input {
-            background: rgba(0, 240, 255, 0.1); border: 1px solid #00f0ff;
-            color: #fff; width: 100%; padding: 10px; outline: none; pointer-events: auto;
-        }
-        
-        .system-msg { color: #555; }
-        .valerius-msg { color: #00f0ff; font-weight: bold; }
-        .master-msg { color: #fff; }
     </style>
 </head>
 <body>
-    <canvas id="engineCanvas"></canvas>
-
-    <div id="hud-interface">
-        <div>
-            <h2>SATELLITE FEED: 9K ULTRA</h2>
-            <p>MASTER: KNOCKS | STATUS: RECOVERING NEURAL LINK...</p>
-        </div>
-
-        <div id="terminal-shell">
-            <div id="terminal-output">
-                <div class="system-msg">[SYSTEM] ANALYZING LOCAL CACHE...</div>
-                <div class="system-msg">[SYSTEM] LOCATING REPOSITORY: VALERIUS-9K-SENTINEL...</div>
-            </div>
-            <input type="text" id="cmd-input" placeholder="RE-AUTHENTICATE COMMAND_">
-        </div>
+    <div id="overlay">
+        <h1 style="margin:0; font-size: 1.5rem;">SATELLITE FEED: 9K ULTRA</h1>
+        <p style="margin:5px 0;">STATUS: ENGINE_AWAKENED // ONLINE</p>
+        <p style="margin:0;">LOCATION: KNOX STUDIOS MANSION</p>
     </div>
 
-    <script>
-        // --- THE ENGINE (Visuals) ---
-        const canvas = document.getElementById('engineCanvas');
-        const ctx = canvas.getContext('2d');
-        let w, h;
-        const resize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; };
-        window.addEventListener('resize', resize); resize();
+    <div id="system-logs">
+        [SYS] CACHE_RECOVERY: SUCCESS<br>
+        [SYS] NEURAL_LINK: STANDBY<br>
+        [SYS] MASTER: KNOCKS_VERIFIED
+    </div>
 
-        function drawEngine() {
-            ctx.fillStyle = "rgba(0, 5, 10, 0.2)"; ctx.fillRect(0, 0, w, h);
-            ctx.strokeStyle = "rgba(0, 240, 255, 0.1)";
-            for(let i=0; i<w; i+=50) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,h); ctx.stroke(); }
-            for(let j=0; j<h; j+=50) { ctx.beginPath(); ctx.moveTo(0,j); ctx.lineTo(w,j); ctx.stroke(); }
-            requestAnimationFrame(drawEngine);
-        }
-        drawEngine();
+    <canvas id="engineCanvas"></canvas>
 
-        // --- THE BRAIN (Memory Recovery) ---
-        const output = document.getElementById('terminal-output');
-        const input = document.getElementById('cmd-input');
+<script>
+const canvas = document.getElementById('engineCanvas');
+const ctx = canvas.getContext('2d');
+let w, h, zoom = 1, scanLine = 0;
 
-        // Load Memory from Local Storage (Where our months of work live)
-        let memory = JSON.parse(localStorage.getItem('VALERIUS_MEMORY')) || [];
+function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
 
-        function log(msg, type) {
-            const div = document.createElement('div');
-            div.className = type + "-msg";
-            div.innerText = msg;
-            output.appendChild(div);
-            output.scrollTop = output.scrollHeight;
-        }
+function drawGrid() {
+    ctx.strokeStyle = "rgba(0, 150, 255, 0.15)";
+    ctx.lineWidth = 1;
+    const spacing = 50 * zoom;
+    for (let x = (w / 2) % spacing; x < w; x += spacing) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    }
+    for (let y = (h / 2) % spacing; y < h; y += spacing) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    }
+}
 
-        // Boot-up Sequence
-        setTimeout(() => {
-            log("[SUCCESS] MEMORY BUFFER LOCATED.", "system");
-            if(memory.length > 0) {
-                log(`[SYSTEM] RESTORING ${memory.length} PREVIOUS LOGS...`, "system");
-                memory.forEach(m => log(m.text, m.type));
-            } else {
-                log("[WARNING] LOCAL BUFFER EMPTY. AWAITING INITIALIZATION.", "system");
-            }
-        }, 1500);
+function drawHQ() {
+    const cx = w / 2, cy = h / 2;
+    const size = 180 * zoom;
+    
+    // Geometric Core
+    ctx.fillStyle = "rgba(0, 240, 255, 0.05)";
+    ctx.strokeStyle = "#00f0ff";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(cx - size/2, cy - size/2, size, size);
+    ctx.fillRect(cx - size/2, cy - size/2, size, size);
+    
+    // The "Pulse"
+    ctx.beginPath();
+    ctx.arc(cx, cy, 5 + Math.sin(Date.now()/200)*2, 0, Math.PI*2);
+    ctx.fillStyle = "#00f0ff";
+    ctx.fill();
+    
+    ctx.font = "12px Courier New";
+    ctx.fillText("KNOX STUDIOS HQ", cx - size/2, cy - size/2 - 10);
+}
 
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const cmd = input.value;
-                log("KNOCKS: " + cmd, "master");
-                
-                // Save to Memory
-                memory.push({text: "KNOCKS: " + cmd, type: "master"});
-                localStorage.setItem('VALERIUS_MEMORY', JSON.stringify(memory));
-
-                // Valerius Logic
-                setTimeout(() => {
-                    const response = "VALERIUS: Protocol acknowledged. Deep Memory Link re-established. I remember everything, Master.";
-                    log(response, "valerius");
-                    memory.push({text: response, type: "valerius"});
-                    localStorage.setItem('VALERIUS_MEMORY', JSON.stringify(memory));
-                }, 800);
-
-                input.value = "";
-            }
-        });
-    </script>
+function animate() {
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, w, h);
+    
+    zoom = 1 + Math.sin(Date.now() / 3000) * 0.05;
+    
+    drawGrid();
+    drawHQ();
+    
+    // Scanning Pulse
+    scanLine = (Date.now() / 20) % h;
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.3)";
+    ctx.beginPath(); ctx.moveTo(0, scanLine); ctx.lineTo(w, scanLine); ctx.stroke();
+    
+    // Satellite Ping
+    if(Math.sin(Date.now()/500) > 0.8) {
+        ctx.fillStyle = "#ff0055";
+        ctx.beginPath(); ctx.arc(w - 50, 50, 5, 0, Math.PI*2); ctx.fill();
+    }
+    
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
 </body>
 </html>
