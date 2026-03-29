@@ -3,203 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS | SHUFFLED OMNIPOTENT</title>
+    <title>KNOCKS | SiNGULALRiTY RENDER</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Syncopate:wght@700&display=swap');
         
-        :root { --neon: #00f0ff; --gold: #ffcc00; --ghost: #ff00ff; --bg: #000; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; }
-        .knocks-font { font-family: 'Orbitron', sans-serif; }
-        .extraordinary-font { font-family: 'Syncopate', sans-serif; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
+        .knocks-font { font-family: 'Orbitron', sans-serif; text-transform: uppercase; }
+        .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
 
-        /* --- THE VORTEX --- */
-        .vortex { position: fixed; inset: 0; background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); z-index: -2; }
-        
-        /* --- DYNAMIC GHOST NODES --- */
-        .ghost-node { 
-            position: absolute; width: 15px; height: 15px; 
-            background: transparent; cursor: crosshair; z-index: 50; 
-            border-radius: 50%; transition: 0.3s;
+        /* --- THE ANIMATED VOID --- */
+        #ascension-void {
+            position: fixed; inset: 0;
+            background: radial-gradient(circle at center, #080808 0%, #000 100%);
+            z-index: -2;
         }
-        .ghost-node:hover { background: rgba(0, 240, 255, 0.1); border: 1px solid var(--neon); }
+        .void-particle {
+            position: absolute; width: 2px; height: 2px; background: rgba(0,240,255,0.05);
+            border-radius: 50%; animation: voidFlow 20s infinite linear;
+        }
+        @keyframes voidFlow { from { transform: translateY(100vh) scale(0.5); } to { transform: translateY(-10vh) scale(1.5); } }
 
         /* --- THE SHUTTER --- */
         #shutter {
-            position: fixed; inset: 0; background: var(--bg); z-index: 10000;
-            transform: scaleY(0); transition: transform 0.7s cubic-bezier(1, 0, 0, 1);
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            transform: scaleY(0); transition: transform 0.8s cubic-bezier(1, 0, 0, 1);
             display: flex; align-items: center; justify-content: center;
         }
         #shutter.active { transform: scaleY(1); }
+        .shutter-line { width: 100%; height: 2px; background: #00f0ff; box-shadow: 0 0 50px #00f0ff; position: absolute; }
 
-        /* --- ENGINE ARCHITECTURE --- */
-        .engine-tile {
-            background: rgba(15,15,15,0.7); border: 1px solid rgba(255,255,255,0.05);
-            backdrop-filter: blur(60px); transition: 0.5s; position: relative;
+        /* --- 9D LIQUID LOGO RENDERING --- */
+        .liquid-canvas {
+            width: 100%; height: 75vh;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            background: rgba(10,10,10,0.5); border: 1px solid rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
         }
-        .engine-tile:hover { border-color: var(--neon); }
 
-        /* --- REWARD MODAL --- */
-        #loot-drop {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8);
-            width: 450px; background: #050505; border: 1px solid var(--ghost); z-index: 11000;
-            display: none; padding: 50px; text-align: center; box-shadow: 0 0 100px rgba(255,0,255,0.2);
+        /* The Gold & Black Globe */
+        .master-globe {
+            width: 250px; height: 250px; border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ffcc00 0%, #000 70%);
+            box-shadow: 0 0 100px rgba(255,204,0,0.15), inset 0 0 50px rgba(0,0,0,0.8);
+            position: absolute; z-index: 1; animation: globeRotate 30s infinite linear;
         }
-        #loot-drop.active { display: block; animation: lootPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        @keyframes lootPop { to { transform: translate(-50%, -50%) scale(1); } }
+        @keyframes globeRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* The Liquid Typography */
+        .liquid-text {
+            font-size: 60px; font-weight: 900; font-family: 'Inter', sans-serif;
+            letter-spacing: -0.05em; text-transform: uppercase;
+            color: #ffcc00; z-index: 10;
+            background: linear-gradient(180deg, #ffcc00 0%, #6b8e23 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255,204,0,0.2));
+            animation: textFlow 3s infinite ease-in-out;
+            position: relative;
+        }
+        @keyframes textFlow { 0%, 100% { transform: translateY(0); filter: hue-rotate(0deg); } 50% { transform: translateY(-5px); filter: hue-rotate(15deg); } }
+
+        /* Water Droplets */
+        .droplet {
+            position: absolute; background: rgba(255,255,255,0.1); border-radius: 50%;
+            backdrop-filter: blur(2px); box-shadow: inset 0 0 5px rgba(255,255,255,0.2);
+            animation: dropFloat 10s infinite ease-in-out; z-index: 5;
+        }
+        @keyframes dropFloat { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(10px, 10px); } }
 
         /* Navigation Rail */
-        .nav-rail { height: 100vh; width: 80px; position: fixed; left: 0; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; padding-top: 100px; gap: 40px; z-index: 100; background: #000; }
-        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 8px; letter-spacing: 0.8em; cursor: pointer; opacity: 0.3; transition: 0.3s; }
-        .nav-item:hover, .nav-item.active { opacity: 1; color: var(--neon); }
+        .nav-rail { height: 100vh; width: 90px; position: fixed; left: 0; border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; padding-top: 120px; gap: 50px; z-index: 100; background: rgba(0,0,0,0.9); backdrop-blur: 20px; }
+        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; letter-spacing: 0.8em; cursor: pointer; opacity: 0.3; transition: 0.3s; color: #fff; }
+        .nav-item:hover, .nav-item.active { opacity: 1; color: #00f0ff; text-shadow: 0 0 10px #00f0ff; }
 
-        .page-node { display: none; padding-left: 120px; padding-right: 40px; padding-top: 60px; height: 100vh; overflow-y: auto; }
-        .page-node.active { display: block; }
+        /* Legacies List */
+        .legacy-list {
+            font-size: 9px; text-transform: uppercase; letter-spacing: 0.5em; color: rgba(255,255,255,0.3);
+            writing-mode: vertical-rl; transform: rotate(180deg); position: fixed; right: 20px; top: 120px;
+        }
+
     </style>
 </head>
-<body onload="shuffleGems()">
+<body onload="igniteVoid()">
 
-    <div class="vortex"></div>
-    
-    <div id="loot-drop">
-        <h2 class="extraordinary-font text-xl text-[#ff00ff] mb-4">GHOST FREQUENCIES</h2>
-        <p id="loot-msg" class="text-[9px] opacity-60 mb-8 uppercase tracking-[0.5em] leading-loose"></p>
-        <button onclick="closeLoot()" class="w-full border border-[#ff00ff] text-[#ff00ff] py-4 text-[10px] font-black uppercase hover:bg-[#ff00ff] hover:text-white transition">Claim Reality</button>
-    </div>
-
-    <div id="shutter"><h1 class="extraordinary-font text-[10px] tracking-[2em] animate-pulse">REORDERING VAULT</h1></div>
+    <div id="ascension-void"></div>
+    <div id="shutter"><div class="shutter-line"></div><h1 class="extraordinary text-xs tracking-[2em] animate-pulse">SYNTHESIZING</h1></div>
 
     <div class="nav-rail">
-        <div onclick="jump('engine')" class="nav-item active knocks-font">ENGINE</div>
-        <div onclick="jump('school')" class="nav-item knocks-font">ACADEMY</div>
-        <div onclick="jump('cinema')" class="nav-item knocks-font">CINEMA</div>
-        <div onclick="jump('vault')" class="nav-item knocks-font">VAULT</div>
+        <div class="knocks-font text-[#ffcc00] font-black text-xs">KNOCKS</div>
+        <div class="nav-item active knocks-font">STUDiOS</div>
+        <div class="nav-item knocks-font">ACADEMY</div>
+        <div class="nav-item knocks-font">STORE</div>
     </div>
 
-    <main id="node-engine" class="page-node active">
-        <div class="flex justify-between items-start mb-16">
-            <h1 class="extraordinary-font text-5xl font-black italic">OMNIPOTENT <span class="text-[#00f0ff]">CORE</span></h1>
-            <div class="text-right">
-                <span id="gem-hint" class="text-[8px] knocks-font opacity-20 uppercase tracking-[0.5em]">Neural Link Stable</span>
+    <div class="legacy-list knocks-font space-y-8">
+        <span>LEGACY</span><span>WEALTH</span><span>BUiLDiNG</span><span>GROWTH</span><span>YOUTH</span><span>CREATiViTY</span>
+    </div>
+
+    <main class="pl-[130px] pr-[60px] pt-16">
+        <div class="flex justify-between items-end mb-16">
+            <div>
+                <h1 class="extraordinary text-6xl italic font-black uppercase tracking-tighter">Ascension <span class="text-[#00f0ff]">Drill</span></h1>
+                <p class="knocks-font text-[11px] opacity-30 tracking-[1.2em] mt-4 uppercase">Proprietary SiNGULALRiTY Engine V9.1</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-12 gap-8 relative">
-            <div id="ghost-slot-1" class="ghost-node" onclick="triggerLoot('ENGINE_GEM', 'You found a Quantum Art File. 1 Free HQ Render Added.')"></div>
-
-            <div class="col-span-4 space-y-6">
-                <div id="upload-tile" class="engine-tile p-10 relative">
-                    <h3 class="extraordinary-font text-[9px] opacity-30 tracking-widest mb-6 uppercase">Sync Data</h3>
-                    <label class="h-32 border border-white/5 flex items-center justify-center hover:bg-white/5 cursor-pointer transition">
-                        <input type="file" class="hidden"> <span class="text-[8px] knocks-font">UPLOAD SOURCE</span>
-                    </label>
-                </div>
-                <div class="engine-tile p-10">
-                    <h3 class="extraordinary-font text-[9px] opacity-30 tracking-widest mb-6 uppercase">Prompt Flow</h3>
-                    <textarea class="w-full bg-transparent border-b border-white/10 outline-none text-sm text-[#00f0ff] h-24 mb-6"></textarea>
-                    <button onclick="ignite()" class="w-full bg-[#00f0ff] text-black py-6 extraordinary-font text-[10px] font-black hover:tracking-[0.8em] transition-all">IGNITE DRILL</button>
-                </div>
-            </div>
-
-            <div class="col-span-8">
-                <div id="reactor-tile" class="engine-tile h-[550px] flex items-center justify-center overflow-hidden">
-                    <div id="output-view" class="hidden w-full h-full relative">
-                        <img src="1773441360031.jpg" class="w-full h-full object-cover">
-                        <div class="absolute bottom-10 left-10">
-                            <p class="extraordinary-font text-xl italic uppercase">Manifestation Active</p>
-                        </div>
-                    </div>
-                    <div id="wait-msg" class="extraordinary-font text-[10px] opacity-10 tracking-[2em]">AWAITING COMMAND</div>
-                </div>
-            </div>
+        <div class="liquid-canvas">
+            <div class="master-globe"></div>
+            <h1 class="liquid-text extraordinary">KNOCKSCREATIVESTUDIOS</h1>
+            
+            <div class="droplet" style="width: 20px; height: 20px; top: 20%; left: 30%; animation-delay: 1s;"></div>
+            <div class="droplet" style="width: 10px; height: 10px; bottom: 30%; right: 40%; animation-delay: 2s;"></div>
+            <div class="droplet" style="width: 15px; height: 15px; top: 60%; left: 70%; animation-delay: 0.5s;"></div>
         </div>
+
     </main>
 
-    <section id="node-school" class="page-node">
-        <h2 class="extraordinary-font text-5xl italic mb-12 uppercase">Academy</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
-            <div id="ghost-slot-2" class="ghost-node" onclick="triggerLoot('ACADEMY_GIFT', 'Lesson Unlocked: Hidden Music Stems found.')"></div>
-            <div class="engine-tile p-12">
-                <span class="text-[#00f0ff] text-[8px] knocks-font uppercase">Class 01</span>
-                <h3 class="extraordinary-font text-2xl mt-4">NEURAL PHYSICS</h3>
-                <button class="mt-8 border border-white/10 px-8 py-4 text-[9px] font-black">START</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="node-cinema" class="page-node">
-        <h2 class="extraordinary-font text-5xl italic mb-12 uppercase">Cinema</h2>
-        <div class="grid grid-cols-4 gap-4 relative">
-            <div id="ghost-slot-3" class="ghost-node" onclick="triggerLoot('CINEMA_REWARD', 'You discovered a Lost Sentinel Design.')"></div>
-            <div class="engine-tile aspect-video"><img src="1773441360031.jpg" class="w-full h-full object-cover opacity-40"></div>
-            <div class="engine-tile aspect-video bg-white/5"></div>
-            <div class="engine-tile aspect-video bg-white/5"></div>
-            <div class="engine-tile aspect-video bg-white/5"></div>
-        </div>
-    </section>
-
-    <section id="node-vault" class="page-node">
-        <h2 class="extraordinary-font text-5xl italic mb-12 uppercase">Vault</h2>
-        <div class="max-w-4xl relative">
-            <div id="ghost-slot-4" class="ghost-node" onclick="triggerLoot('VAULT_COINS', 'Bank Overflow: 500 Ghost Coins added.')"></div>
-            <div class="engine-tile p-20 border-[#ffcc00] border-2">
-                <h3 class="extraordinary-font text-xl mb-10">SOVEREIGN ELITE</h3>
-                <p class="text-7xl font-black mb-10">$29</p>
-                <button class="w-full bg-white text-black py-6 font-black uppercase text-[10px]">UPGRADE</button>
-            </div>
-        </div>
-    </section>
-
     <script>
-        // THE SHUFFLE LOGIC: Puts gems in random locations each time
-        function shuffleGems() {
-            const containers = ['upload-tile', 'reactor-tile', 'node-school', 'node-cinema', 'node-vault'];
-            const nodes = ['ghost-slot-1', 'ghost-slot-2', 'ghost-slot-3', 'ghost-slot-4'];
-            
-            nodes.forEach(nodeId => {
-                const node = document.getElementById(nodeId);
-                // Random position inside the parent
-                const top = Math.floor(Math.random() * 80) + 10;
-                const left = Math.floor(Math.random() * 80) + 10;
-                node.style.top = top + "%";
-                node.style.left = left + "%";
-            });
-            console.log("GHOST PROTOCOL: SHUFFLED");
-        }
-
-        function triggerLoot(code, msg) {
-            document.getElementById('loot-msg').innerText = msg;
-            document.getElementById('loot-drop').classList.add('active');
-            // Hide the gem after it's found
-            event.target.style.display = 'none';
-        }
-
-        function closeLoot() { document.getElementById('loot-drop').classList.remove('active'); }
-
-        function jump(target) {
-            const shutter = document.getElementById('shutter');
-            shutter.classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-                if(item.innerText.toLowerCase() === target) item.classList.add('active');
-            });
-
-            setTimeout(() => {
-                document.querySelectorAll('.page-node').forEach(n => n.classList.remove('active'));
-                document.getElementById('node-' + target).classList.add('active');
-                setTimeout(() => shutter.classList.remove('active'), 500);
-            }, 700);
-        }
-
-        function ignite() {
-            const shutter = document.getElementById('shutter');
-            shutter.classList.add('active');
-            setTimeout(() => {
-                document.getElementById('wait-msg').classList.add('hidden');
-                document.getElementById('output-view').classList.remove('hidden');
-                shutter.classList.remove('active');
-            }, 2000);
+        function igniteVoid() {
+            // Create 50 unique animated particles for the background
+            const voidContainer = document.getElementById('ascension-void');
+            for(let i=0; i<50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'void-particle';
+                particle.style.left = Math.random() * 100 + "vw";
+                particle.style.animationDelay = Math.random() * 20 + "s";
+                voidContainer.appendChild(particle);
+            }
+            console.log("VOiD ACTIVE");
         }
     </script>
 </body>
