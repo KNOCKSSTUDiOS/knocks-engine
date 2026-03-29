@@ -2,46 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | THE SOVEREIGN MASTER</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KNOCKSTUDiOS - 9K ENGINE</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        
-        * { cursor: none !important; margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; perspective: 2000px; }
-
-        /* THE VOID GRID */
-        #video-container { 
-            position: fixed; inset: 0; z-index: -2; display: grid; 
-            grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-            transition: all 4s cubic-bezier(0.8, 0, 0.2, 1);
-            transform-style: preserve-3d;
+        body { 
+            margin: 0; 
+            background-color: #000; 
+            overflow: hidden; 
+            font-family: 'Courier New', monospace; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        /* DECAY STATE: TILT + SHATTER + PIXELATE */
-        .persistence-hd #video-container { 
-            grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr);
-            transform: translateZ(-600px) rotateX(45deg) rotateZ(-15deg);
+        canvas { 
+            display: block; 
+            background: #000;
         }
-
-        .video-shard { 
-            width: 100%; height: 100%; overflow: hidden; position: relative; 
-            border: 1px solid rgba(255,255,255,0.05); mix-blend-mode: screen;
-            transition: transform 8s cubic-bezier(0.1, 0, 0.1, 1), filter 8s;
+        #overlay {
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+            color: #00f0ff;
+            text-shadow: 0 0 8px #00f0ff; 
+            pointer-events: none;
+            z-index: 10;
+            font-size: 14px;
+            letter-spacing: 2px;
         }
+        .glitch-text { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div id="overlay">
+        <h1 class="glitch-text">SATELLITE FEED: 9K ULTRA</h1>
+        <p>STATUS: ENGINE AWAKENED // ONLINE</p>
+        <p>LOCATION: KNOX STUDIOS MANSION</p>
+    </div>
+    <canvas id="radarCanvas"></canvas>
 
-        /* VOLUMETRIC SHRAPNEL & LIQUEFACTION */
-        .persistence-hd .video-shard { border-radius: 0 0 50% 50%; }
-        .persistence-hd .video-shard:nth-child(3n) { transform: translate3d(500px, -200px, 1500px) skewY(15deg); }
-        .persistence-hd .video-shard:nth-child(3n+1) { transform: translate3d(-500px, 400px, 1200px) skewX(-10deg); }
-        .persistence-hd .video-shard:nth-child(3n+2) { transform: translate3d(0, -600px, 2000px) scale(0.5); }
+<script>
+const canvas = document.getElementById('radarCanvas');
+const ctx = canvas.getContext('2d');
 
-        /* SPECTRAL & RESOLUTION COLLAPSE */
-        .persistence-hd #video-container { 
-            animation: spectral-pulse 2s infinite linear, heartbeat 0.4s infinite ease-in-out; 
-        }
+let width, height;
+let zoom = 1;
+let linePosV = 0;
 
-        @keyframes spectral-pulse {
-            0% { filter: hue-rotate(0deg) grayscale(0) blur(0px) contrast(1); }
-            100% { filter: hue-rotate(360deg) grayscale(1) blur(40px) contrast(20);
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resize);
+resize();
+
+function drawGrid() {
+    ctx.strokeStyle = "rgba(0, 100, 255, 0.2)";
+    ctx.lineWidth = 1;
+    const gridSize = 60 * zoom;
+
+    // Fixed Grid Logic
+    for (let x = (width / 2) % gridSize; x < width; x += gridSize) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+    }
+    for (let y = (height / 2) % gridSize; y < height; y += gridSize) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(width, y); ctx.stroke();
+    }
+}
+
+function drawStructures() {
+    const cx = width / 2;
+    const cy = height / 2;
+    const size = 180 * zoom;
+
+    // Main Studio Core
+    ctx.fillStyle = "rgba(0, 150, 255, 0.15)";
+    ctx.strokeStyle = "#00f0ff";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(cx - size/2, cy - size/2, size, size);
+    ctx.fillRect(cx - size/2, cy - size/2, size, size);
+
+    // Labels
+    ctx.fillStyle = "#00f0ff";
+    ctx.font = "bold 12px Courier New";
+    ctx.fillText("KNOX STUDIOS HQ", cx - size/2, cy - size/2 - 15);
+    
+    // Corner Accents
+    ctx.beginPath();
+    ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function drawCrosshair() {
+    const cx = width / 2;
+    const cy = height / 2;
+    const gap = 30;
+    const len = 120;
+
+    ctx.strokeStyle = "#00f0ff";
+    ctx.lineWidth = 3;
+
+    // Top
+    ctx.beginPath(); ctx.moveTo(cx, cy - gap); ctx.lineTo(cx, cy - gap - len); ctx.stroke();
+    // Bottom
+    ctx.beginPath(); ctx.moveTo(cx, cy + gap); ctx.lineTo(cx, cy + gap + len); ctx.stroke();
+    // Left
+    ctx.beginPath(); ctx.moveTo(cx - gap, cy); ctx.lineTo(cx - gap - len, cy); ctx.stroke();
+    // Right
+    ctx.beginPath(); ctx.moveTo(cx + gap, cy); ctx.lineTo(cx + gap + len, cy); ctx.stroke();
+}
+
+function animate() {
+    // Clear with slight trail effect
+    ctx.fillStyle = "rgba(0, 5, 15, 1)";
+    ctx.fillRect(0, 0, width, height);
+
+    // Dynamic Zoom Pulse
+    zoom = 1 + Math.sin(Date.now() / 2500) * 0.1;
+
+    drawGrid();
+    drawStructures();
+    drawCrosshair();
+
+    // The Scanning Pulse
+    linePosV = (Date.now() / 15) % height;
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.4)";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(0, linePosV); ctx.lineTo(width, linePosV); ctx.stroke();
+
+    // Red Alert Dot (Satellite Ping)
+    if (Math.sin(Date.now() / 200) > 0) {
+        ctx.fillStyle = "#ff0055";
+        ctx.beginPath();
+        ctx.arc(width * 0.8, height * 0.2, 8, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    requestAnimationFrame(animate);
+}
+
+// Kickstart the Engine
+animate();
+</script>
+</body>
+</html>
