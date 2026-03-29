@@ -8,67 +8,70 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; overflow-x: hidden; }
         .all-caps { text-transform: uppercase !important; letter-spacing: 0.2em; font-weight: 900; }
-        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
-        .glass:hover { border-color: #00f0ff; background: rgba(0,240,255,0.05); transform: translateY(-5px); }
+        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; }
         
-        /* LAYERS */
-        #splash-bg { position: fixed; inset: 0; z-index: -1; background: #000; }
-        video { width: 100%; height: 100%; object-fit: cover; opacity: 0.3; }
+        /* THE COMPANION BOT (K.I.A) */
+        #kia-bot { position: fixed; bottom: 40px; left: 40px; z-index: 10000; display: flex; align-items: center; gap: 15px; transition: 1s; opacity: 1; }
+        .bot-core { width: 50px; height: 50px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 20px #00f0ff; animation: pulse 2s infinite; }
+        .bot-bubble { background: rgba(0,0,0,0.9); border: 1px solid #00f0ff; padding: 15px; font-size: 10px; max-width: 280px; border-radius: 0 20px 20px 20px; color: #00f0ff; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
-        #vault-drop { position: fixed; inset: 0; z-index: 5000; background: #000; display: none; align-items: center; justify-content: center; }
-        #auth-gate, #home-menu { display: none; }
+        /* GALLERY & TIERS */
+        .style-card { height: 250px; background-size: cover; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; position: relative; overflow: hidden; transition: 0.3s; }
+        .style-card:hover { border-color: #00f0ff; transform: scale(1.02); }
+        .active-style { border: 2px solid #00f0ff !important; box-shadow: 0 0 20px rgba(0,240,255,0.3); }
+
+        #bg-video { position: fixed; inset: 0; z-index: -1; opacity: 0.2; }
+        video { width: 100%; height: 100%; object-fit: cover; }
         
-        #lobby { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; }
+        .page-section { display: none; min-height: 100vh; }
+        #lobby { display: flex; }
     </style>
 </head>
 <body>
 
-    <div id="splash-bg">
-        <video autoplay muted loop playsinline>
-            <source src="sora-s_69b5fccd173481919d3a27e7fff21aaf.mp4" type="video/mp4">
-        </video>
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mp3">
+    </audio>
+
+    <div id="bg-video">
+        <video autoplay muted loop playsinline><source src="sora-s_69b5fccd173481919d3a27e7fff21aaf.mp4" type="video/mp4"></video>
     </div>
 
-    <main id="lobby">
-        <h1 class="text-7xl md:text-[11rem] font-black italic uppercase tracking-tighter mb-10">9K REALITY</h1>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl px-6">
-            <div onclick="showAuth('SIGN UP')" class="glass p-12 cursor-pointer text-center">
-                <h2 class="text-4xl font-black italic all-caps">CREATE ACCOUNT</h2>
-                <p class="text-[9px] opacity-30 mt-4 all-caps">INITIALIZE IDENTITY</p>
-            </div>
-            <div onclick="showAuth('SIGN IN')" class="glass p-12 cursor-pointer text-center border-white/20">
-                <h2 class="text-4xl font-black italic all-caps">LOGIN</h2>
-                <p class="text-[9px] opacity-30 mt-4 all-caps">RESUME SESSION</p>
-            </div>
+    <div id="kia-bot">
+        <div class="bot-core"></div>
+        <div class="bot-bubble all-caps" id="bot-msg">SYSTEM READY. WAITING FOR IDENTITY INITIALIZATION.</div>
+    </div>
+
+    <main id="lobby" class="page-section flex-col items-center justify-center">
+        <h1 class="text-8xl font-black italic uppercase tracking-tighter mb-10">9K REALITY</h1>
+        <div class="flex gap-6">
+            <button onclick="toAuth()" class="glass px-16 py-8 all-caps text-xl hover:bg-white hover:text-black">CREATE ACCOUNT</button>
+            <button onclick="toAuth()" class="glass px-16 py-8 all-caps text-xl border-white/20">LOG IN</button>
         </div>
     </main>
 
-    <section id="auth-gate" class="min-h-screen flex items-center justify-center p-6">
-        <div class="glass p-10 w-full max-w-2xl">
-            <h2 id="auth-title" class="text-5xl font-black italic all-caps mb-8">SECURE ACCESS</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input type="text" placeholder="FULL LEGAL IDENTITY" class="bg-white/5 border border-white/10 p-4 all-caps text-xs outline-none">
-                <input type="email" placeholder="EMAIL ADDRESS" class="bg-white/5 border border-white/10 p-4 all-caps text-xs outline-none">
-                <input type="text" placeholder="PHYSICAL MAILING ADDRESS" class="md:col-span-2 bg-white/5 border border-white/10 p-4 all-caps text-xs outline-none">
-                <input type="password" placeholder="SECURE ACCESS KEY" class="bg-white/5 border border-white/10 p-4 all-caps text-xs outline-none">
-                <input type="password" placeholder="CONFIRM KEY" class="bg-white/5 border border-white/10 p-4 all-caps text-xs outline-none">
+    <section id="auth-gate" class="page-section items-center justify-center p-6">
+        <div class="glass p-12 w-full max-w-3xl">
+            <h2 class="text-5xl font-black italic all-caps mb-10">IDENTITY PROTOCOL</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="text" placeholder="LEGAL NAME" class="bg-white/5 border border-white/10 p-5 all-caps text-xs">
+                <input type="email" placeholder="EMAIL" class="bg-white/5 border border-white/10 p-5 all-caps text-xs">
+                <input type="text" placeholder="STREET ADDRESS" class="md:col-span-2 bg-white/5 border border-white/10 p-5 all-caps text-xs">
+                <input type="password" placeholder="ACCESS KEY" class="bg-white/5 border border-white/10 p-5 all-caps text-xs">
+                <input type="password" placeholder="CONFIRM KEY" class="bg-white/5 border border-white/10 p-5 all-caps text-xs">
             </div>
-            <button onclick="triggerVault()" class="w-full bg-white text-black py-5 font-black all-caps mt-8 hover:bg-[#00f0ff] transition">INITIALIZE ENGINE ACCESS</button>
+            <button onclick="toDashboard()" class="w-full bg-[#00f0ff] text-black py-6 font-black all-caps mt-10 hover:bg-white transition">SYNC TO ENGINE</button>
         </div>
     </section>
 
-    <div id="vault-drop">
-        <div class="text-center">
-            <div id="counter" class="text-[12rem] font-black italic text-[#ffcc00] tracking-tighter leading-none">0</div>
-            <p class="all-caps text-[#ffcc00] text-sm tracking-[1.5em] mt-4">IDENTITY VERIFIED // COINS SYNCED</p>
-        </div>
-    </div>
-
-    <section id="home-menu" class="min-h-screen p-10">
-        <div class="flex justify-between items-start mb-20">
+    <section id="dashboard" class="page-section p-10 flex-col">
+        <div class="flex justify-between items-start mb-12">
             <div>
-                <h2 class="text-4xl font-black italic all-caps">KNOCKSSTUDiOS</h2>
-                <p class="text-[#00f0ff] text-[10px] all-caps">DASHBOARD // 9K_NATIVE</p>
+                <h2 class="text-4xl font-black italic all-caps">COMMAND CENTER</h2>
+                <div class="flex gap-4 mt-2 text-[10px] all-caps font-bold">
+                    <span class="text-[#00f0ff]">CITIZEN</span> | <span class="opacity-30">MASTER</span> | <span class="opacity-30">TITAN</span>
+                </div>
             </div>
             <div class="glass p-6 text-right">
                 <p class="text-[10px] opacity-40 all-caps">VAULT</p>
@@ -76,52 +79,15 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 h-96">
-            <div class="glass p-8 flex flex-col justify-end cursor-pointer group" onclick="alert('Entering Render Lab...')">
-                <h3 class="text-3xl font-black italic all-caps group-hover:text-[#00f0ff]">RENDER ENGINE</h3>
-                <p class="text-[8px] opacity-30 all-caps mt-2">9K CINEMATIC PIPELINE</p>
+        <h3 class="all-caps text-sm mb-6 opacity-50">ENGINE STYLE SELECTOR</h3>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="style-card glass active-style" onclick="selectStyle(this, '3D RENDER ENGINE')" style="background-image: url('https://images.unsplash.com/photo-1614728263952-84ea206f99b6?w=400');">
+                <div class="absolute bottom-4 left-4 all-caps font-black text-xs">ULTRA 3D</div>
             </div>
-            <div class="glass p-8 flex flex-col justify-end cursor-pointer group" onclick="alert('Entering Photo Lab...')">
-                <h3 class="text-3xl font-black italic all-caps group-hover:text-[#00f0ff]">PHOTO STUDIO</h3>
-                <p class="text-[8px] opacity-30 all-caps mt-2">AI CAPTURE & UPSCALE</p>
+            <div class="style-card glass" onclick="selectStyle(this, 'ANIME ENGINE')" style="background-image: url('https://images.unsplash.com/photo-1578632738980-43314a57c862?w=400');">
+                <div class="absolute bottom-4 left-4 all-caps font-black text-xs">NEO ANIME</div>
             </div>
-            <div class="glass p-8 flex flex-col justify-end cursor-pointer group" onclick="alert('Entering The School...')">
-                <h3 class="text-3xl font-black italic all-caps group-hover:text-[#00f0ff]">THE SCHOOL</h3>
-                <p class="text-[8px] opacity-30 all-caps mt-2">MASTER THE 9K LOGIC</p>
+            <div class="style-card glass" onclick="selectStyle(this, 'CINEMATIC ENGINE')" style="background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=400');">
+                <div class="absolute bottom-4 left-4 all-caps font-black text-xs">CINEMATIC</div>
             </div>
-            <div class="glass p-8 flex flex-col justify-end cursor-pointer group border-[#ff003c]/20" onclick="alert('Entering The Store...')">
-                <h3 class="text-3xl font-black italic all-caps text-[#ff003c]">THE STORE</h3>
-                <p class="text-[8px] opacity-30 all-caps mt-2">BUY UNITS & MERCH</p>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        function showAuth(type) {
-            document.getElementById('lobby').style.display = 'none';
-            document.getElementById('auth-gate').style.display = 'flex';
-            document.getElementById('auth-title').innerText = type + " PROTOCOL";
-        }
-
-        function triggerVault() {
-            document.getElementById('auth-gate').style.display = 'none';
-            const vault = document.getElementById('vault-drop');
-            vault.style.display = 'flex';
-            
-            let start = performance.now();
-            function run(t) {
-                const prog = Math.min((t - start) / 2000, 1);
-                document.getElementById('counter').innerText = Math.floor(prog * 2000);
-                if (prog < 1) requestAnimationFrame(run);
-                else {
-                    setTimeout(() => {
-                        vault.style.display = 'none';
-                        document.getElementById('home-menu').style.display = 'block';
-                    }, 1200);
-                }
-            }
-            requestAnimationFrame(run);
-        }
-    </script>
-</body>
-</html>
+            <div class="style-card glass" onclick="selectStyle(this, '9K REALITY ENGINE')" style="background-image: url('
