@@ -9,140 +9,140 @@
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; margin: 0; overflow: hidden; }
         .all-caps { text-transform: uppercase !important; letter-spacing: 0.2em; font-weight: 900; }
         
-        /* 1. THE WORKSHOP BASE */
-        #studio-background {
-            position: fixed; inset: 0; z-index: -1;
-            background: url('1773441360031.jpg') no-repeat center center;
-            background-size: cover; filter: brightness(0.4);
-        }
-
-        /* 2. NEON SCION ROTATION */
-        .neon-text {
+        /* 1. SCION NEON ROTATING TEXT */
+        .neon-scion {
             font-size: 8vw; font-weight: 900; font-style: italic;
             background: linear-gradient(90deg, #00f0ff, #7000ff, #00f0ff);
             background-size: 200% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: neonFlow 3s linear infinite, rotateLetter 5s ease-in-out infinite;
-            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.7));
+            animation: neonShift 3s linear infinite, rotate3D 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.8));
+        }
+        @keyframes neonShift { to { background-position: 200% center; } }
+        @keyframes rotate3D { 0%, 100% { transform: perspective(1000px) rotateY(-10deg); } 50% { transform: perspective(1000px) rotateY(10deg); } }
+
+        /* 2. ROBOT EYE REPAIR ANIMATION */
+        .robot-eye-container { position: fixed; bottom: 50px; left: 50px; z-index: 1000; display: flex; align-items: center; gap: 20px; }
+        .eye-base { width: 80px; height: 80px; background: #111; border: 2px solid #00f0ff; border-radius: 50%; position: relative; overflow: hidden; }
+        .eye-iris { 
+            position: absolute; top: 25%; left: 25%; width: 50%; height: 50%; 
+            background: radial-gradient(circle, #00f0ff 10%, #000 80%); 
+            border-radius: 50%; box-shadow: 0 0 25px #00f0ff;
+            animation: fixEye 4s infinite;
+        }
+        @keyframes fixEye { 
+            0%, 100% { transform: scale(1); filter: hue-rotate(0deg); } 
+            50% { transform: scale(1.3) translate(5px, -5px); filter: hue-rotate(90deg); } 
         }
 
-        @keyframes neonFlow { to { background-position: 200% center; } }
-        @keyframes rotateLetter { 0%, 100% { transform: rotateY(0deg); } 50% { transform: rotateY(20deg); } }
+        /* 3. STUDIO STYLE GALLERY */
+        .gallery-card { 
+            height: 350px; background-size: cover; background-position: center; 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;
+            position: relative; cursor: pointer; transition: 0.4s; overflow: hidden;
+        }
+        .gallery-card:hover { border-color: #00f0ff; transform: scale(1.02); }
+        .gallery-overlay { 
+            position: absolute; inset: 0; background: linear-gradient(to top, #000, transparent); 
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 20px;
+        }
 
-        /* 3. THE ROBOT GUIDE (K.I.A) */
-        #kia-bot { position: fixed; bottom: 40px; left: 40px; z-index: 1000; display: flex; align-items: center; gap: 20px; }
-        .bot-eye { width: 60px; height: 60px; background: radial-gradient(circle, #00f0ff 20%, #000 70%); border-radius: 50%; box-shadow: 0 0 20px #00f0ff; animation: scan 2s infinite; }
-        @keyframes scan { 0%, 100% { transform: scale(1.1) rotate(0deg); } 50% { transform: scale(0.9) rotate(180deg); } }
-
-        .glass { background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(0, 240, 255, 0.2); }
-        .page-view { display: none; min-height: 100vh; flex-direction: column; align-items: center; justify-content: center; }
-        #lobby { display: flex; }
+        .glass { background: rgba(0,0,0,0.85); backdrop-filter: blur(25px); border: 1px solid rgba(0, 240, 255, 0.2); }
+        .view-layer { display: none; min-height: 100vh; width: 100%; flex-direction: column; align-items: center; justify-content: center; position: relative; z-index: 10; }
+        #home-screen { display: flex; }
     </style>
 </head>
 <body>
 
-    <audio id="studio-audio" loop>
-        <source src="your-studio-track.mp3" type="audio/mp3">
+    <audio id="studio-track" loop>
+        <source src="your-studio-audio.mp3" type="audio/mp3">
     </audio>
 
-    <div id="studio-background"></div>
+    <div style="position: fixed; inset: 0; z-index: 0; background: url('1773441360031.jpg') center/cover; opacity: 0.4;"></div>
 
-    <div id="kia-bot" class="opacity-0 transition-opacity duration-1000">
-        <div class="bot-eye"></div>
-        <div class="glass p-4 rounded-r-2xl border-l-4 border-[#00f0ff]">
-            <p id="bot-speech" class="text-[10px] all-caps text-[#00f0ff]">INITIALIZING 9K DATA SCRUB...</p>
+    <div id="kia-bot" class="robot-eye-container opacity-0 transition-opacity">
+        <div class="eye-base"><div class="eye-iris"></div></div>
+        <div class="glass p-4 rounded-xl border-l-4 border-[#00f0ff]">
+            <p id="bot-talk" class="text-[10px] all-caps text-[#00f0ff]">EYE LOGIC CALIBRATING...</p>
         </div>
     </div>
 
-    <main id="lobby" class="page-view">
-        <div class="text-center mb-12">
-            <h1 class="neon-text uppercase tracking-tighter">KNOCKS STUDIOS</h1>
-            <p class="text-[10px] all-caps tracking-[1.5em] mt-4 opacity-50">POWERED BY AI LAB LEGENDS</p>
-        </div>
-        <div class="flex gap-6">
-            <button onclick="openGate('SIGN UP')" class="glass px-12 py-6 all-caps hover:bg-[#00f0ff] hover:text-black transition-all">CREATE IDENTITY</button>
-            <button onclick="openGate('LOGIN')" class="glass px-12 py-6 all-caps border-white/20">ACCESS ENGINE</button>
+    <main id="home-screen" class="view-layer">
+        <h1 class="neon-scion uppercase tracking-tighter">KNOCKS STUDIOS</h1>
+        <p class="text-[10px] all-caps tracking-[1.5em] mt-6 opacity-60">POWERED BY AI LEGENDS</p>
+        <div class="flex gap-8 mt-16">
+            <button onclick="nav('auth')" class="glass px-16 py-8 all-caps text-xl hover:bg-[#00f0ff] hover:text-black transition">SIGN UP</button>
+            <button onclick="nav('auth')" class="glass px-16 py-8 all-caps text-xl border-white/20">LOG IN</button>
         </div>
     </main>
 
-    <section id="auth-gate" class="page-view p-6">
-        <div class="glass p-10 w-full max-w-2xl border-[#00f0ff]/30">
-            <h2 class="text-4xl font-black italic all-caps mb-8">IDENTITY VERIFICATION</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input id="reg-name" type="text" placeholder="LEGAL FULL NAME" class="bg-black/50 border border-white/10 p-4 all-caps text-xs outline-none focus:border-[#00f0ff]">
-                <input id="reg-email" type="email" placeholder="EMAIL ADDRESS" class="bg-black/50 border border-white/10 p-4 all-caps text-xs outline-none focus:border-[#00f0ff]">
-                <input id="reg-addr" type="text" placeholder="PHYSICAL BILLING ADDRESS" class="md:col-span-2 bg-black/50 border border-white/10 p-4 all-caps text-xs outline-none focus:border-[#00f0ff]">
-                <input id="reg-pass" type="password" placeholder="SECURE ACCESS KEY" class="bg-black/50 border border-white/10 p-4 all-caps text-xs outline-none focus:border-[#00f0ff]">
-                <input type="password" placeholder="CONFIRM KEY" class="bg-black/50 border border-white/10 p-4 all-caps text-xs outline-none focus:border-[#00f0ff]">
+    <section id="auth-screen" class="view-layer p-6">
+        <div class="glass p-12 w-full max-w-3xl">
+            <h2 class="text-4xl font-black italic all-caps mb-10 border-b border-white/10 pb-4">Create Studio Profile</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="text" placeholder="FULL LEGAL NAME" class="bg-black/60 border border-white/10 p-5 all-caps text-xs outline-none focus:border-[#00f0ff]">
+                <input type="email" placeholder="EMAIL ADDRESS" class="bg-black/60 border border-white/10 p-5 all-caps text-xs outline-none focus:border-[#00f0ff]">
+                <input type="text" placeholder="BILLING STREET ADDRESS" class="md:col-span-2 bg-black/60 border border-white/10 p-5 all-caps text-xs outline-none focus:border-[#00f0ff]">
+                <input type="password" placeholder="ACCOUNT PASSWORD" class="bg-black/60 border border-white/10 p-5 all-caps text-xs outline-none focus:border-[#00f0ff]">
+                <input type="password" placeholder="CONFIRM PASSWORD" class="bg-black/60 border border-white/10 p-5 all-caps text-xs outline-none focus:border-[#00f0ff]">
             </div>
-            <button onclick="syncVault()" class="w-full bg-[#00f0ff] text-black py-5 font-black all-caps mt-8 hover:tracking-[0.5em] transition-all">INITIALIZE 2,000c SYNC</button>
+            <button onclick="nav('dashboard')" class="w-full bg-[#00f0ff] text-black py-6 font-black all-caps mt-10 hover:tracking-widest transition-all">INITIALIZE VAULT</button>
         </div>
     </section>
 
-    <section id="engine-dashboard" class="page-view p-10 !justify-start">
-        <div class="w-full flex justify-between items-center mb-10">
-            <h2 class="text-3xl font-black italic all-caps">9K COMMAND</h2>
-            <div class="glass px-6 py-3 border-[#ffcc00]"><span class="text-[#ffcc00] font-black text-2xl">2,000</span><span class="text-[10px] ml-1">COINS</span></div>
+    <section id="dashboard" class="view-layer !justify-start p-10">
+        <div class="w-full flex justify-between items-center mb-16">
+            <h2 class="text-4xl font-black italic all-caps">STUDIO ENGINE</h2>
+            <div class="glass px-8 py-4 border-[#ffcc00]"><span class="text-[#ffcc00] font-black text-3xl">2,000c</span></div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 w-full flex-grow">
-            <div class="lg:col-span-1 space-y-4">
-                <div onclick="switchEngine('FLUX PRO')" class="glass p-6 cursor-pointer hover:border-[#00f0ff]">
-                    <h4 class="font-black all-caps text-xs">FLUX ENGINE</h4>
-                    <p class="text-[8px] opacity-40 uppercase">Hyper-Real Stills</p>
-                </div>
-                <div onclick="switchEngine('VELO 3')" class="glass p-6 cursor-pointer hover:border-[#00f0ff]">
-                    <h4 class="font-black all-caps text-xs">VELO 3 VIDEO</h4>
-                    <p class="text-[8px] opacity-40 uppercase">9K Cinematic Render</p>
-                </div>
-                <div onclick="switchEngine('NEO ANIME')" class="glass p-6 cursor-pointer hover:border-[#00f0ff]">
-                    <h4 class="font-black all-caps text-xs">NEO ANIME</h4>
-                    <p class="text-[8px] opacity-40 uppercase">Style: Japan Studio</p>
-                </div>
-                <div class="glass p-6 border-[#ff003c]/30">
-                    <h4 class="font-black all-caps text-xs text-[#ff003c]">STORE</h4>
-                    <p class="text-[8px] opacity-40 uppercase">Refill Vault</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl">
+            <div class="gallery-card" style="background-image: url('https://images.unsplash.com/photo-1614728263952-84ea206f99b6?w=500');" onclick="loadEngine('3D REALITY')">
+                <div class="gallery-overlay">
+                    <h3 class="text-2xl font-black italic all-caps">3D REALITY</h3>
+                    <p class="text-[9px] opacity-40 all-caps">Cinematic Depth Engine</p>
                 </div>
             </div>
+            <div class="gallery-card" style="background-image: url('https://images.unsplash.com/photo-1578632738980-43314a57c862?w=500');" onclick="loadEngine('NEO ANIME')">
+                <div class="gallery-overlay">
+                    <h3 class="text-2xl font-black italic all-caps">NEO ANIME</h3>
+                    <p class="text-[9px] opacity-40 all-caps">Dynamic Style Engine</p>
+                </div>
+            </div>
+            <div class="gallery-card" style="background-image: url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=500');" onclick="loadEngine('CONCEPT LAB')">
+                <div class="gallery-overlay">
+                    <h3 class="text-2xl font-black italic all-caps">CONCEPT LAB</h3>
+                    <p class="text-[9px] opacity-40 all-caps">Infinite Imagination</p>
+                </div>
+            </div>
+        </div>
 
-            <div class="lg:col-span-3 glass p-12 flex flex-col items-center justify-center border-dashed border-2">
-                <h3 id="active-title" class="text-6xl font-black italic all-caps mb-6 text-[#00f0ff]">FLUX PRO</h3>
-                <p class="text-[10px] all-caps opacity-30 mb-10 text-center max-w-md">The robot is currently fixing the eye logic... Engine ready for asset injection.</p>
-                <button class="bg-white text-black px-16 py-6 font-black all-caps hover:bg-[#00f0ff] transition-all">START RENDER</button>
-            </div>
+        <div class="w-full mt-16 glass p-20 border-dashed border-2 flex flex-col items-center">
+            <h4 id="active-engine" class="text-6xl font-black italic all-caps mb-4 text-[#00f0ff]">SELECT STYLE</h4>
+            <p class="text-[10px] all-caps opacity-30 mb-8">Drill audio initializing... Engine ready for data.</p>
+            <button class="bg-white text-black px-16 py-6 font-black all-caps hover:bg-[#00f0ff] transition">INITIALIZE RENDER</button>
         </div>
     </section>
 
     <script>
-        const audio = document.getElementById('studio-audio');
+        const audio = document.getElementById('studio-track');
         const bot = document.getElementById('kia-bot');
-        const speech = document.getElementById('bot-speech');
+        const botTalk = document.getElementById('bot-talk');
 
-        function openGate(type) {
-            audio.play(); // Start the Studio Music
-            document.getElementById('lobby').style.display = 'none';
-            document.getElementById('auth-gate').style.display = 'flex';
+        function nav(id) {
+            audio.play(); // Starts Studio Music
+            document.querySelectorAll('.view-layer').forEach(v => v.style.display = 'none');
+            document.getElementById(id + (id === 'auth' ? '-screen' : '')).style.display = 'flex';
             bot.classList.remove('opacity-0');
-            speech.innerText = "WELCOME. IDENTITY VERIFICATION REQUIRED FOR CREDIT CARD MATCHING.";
+            
+            if(id === 'auth') botTalk.innerText = "RECORDING IDENTITY FOR BILLING SECURITY...";
+            if(id === 'dashboard') botTalk.innerText = "ACCESS GRANTED. SELECT YOUR VISUAL PIPELINE.";
         }
 
-        function syncVault() {
-            const name = document.getElementById('reg-name').value;
-            if(!name) return alert("IDENTITY REQUIRED");
-            
-            speech.innerText = `SYNCING 2,000 COINS TO ${name.toUpperCase()}...`;
-            document.getElementById('auth-gate').style.display = 'none';
-            
-            setTimeout(() => {
-                document.getElementById('engine-dashboard').style.display = 'flex';
-                speech.innerText = "ENGINE ONLINE. THE ROBOT HAS STABILIZED THE EYE LOGIC.";
-            }, 2000);
-        }
-
-        function switchEngine(name) {
-            document.getElementById('active-title').innerText = name;
-            speech.innerText = `SWITCHING NEURAL PATHWAYS TO ${name}...`;
-            // Trigger drill/mechanical sounds here if you have the assets
+        function loadEngine(title) {
+            document.getElementById('active-engine').innerText = title;
+            botTalk.innerText = "ROBOT IS DRILLING INTO " + title + " LOGIC...";
+            // Add drill audio play here
         }
     </script>
 </body>
