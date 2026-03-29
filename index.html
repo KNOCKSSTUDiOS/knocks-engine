@@ -3,64 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | SOVEREIGN AUTH</title>
+    <title>KNOCKSSTUDiOS | 9K MASTER GATE</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         * { cursor: crosshair; margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; }
 
-        /* THE WORKSHOP BACKGROUND */
-        #bg-video-layer {
+        #bg-layer {
             position: fixed; inset: 0; z-index: -1;
             background: url('1773441360031.jpg') no-repeat center center;
-            background-size: cover; opacity: 0.3; filter: brightness(0.6) saturate(1.5);
+            background-size: cover; opacity: 0.4; filter: brightness(0.6) saturate(1.8);
         }
+        #robot-asset {
+            position: absolute; width: 350px; bottom: 5%; right: 5%;
+            filter: drop-shadow(0 0 30px #00f0ff);
+            animation: float 4s infinite ease-in-out; z-index: 5;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-30px) scale(1.05); } }
 
-        /* FLOATING ROBOT ASSET */
-        #sentinel-vessel {
-            position: absolute; width: 300px; bottom: 5%; right: 5%;
-            filter: drop-shadow(0 0 25px #00f0ff);
-            animation: float 4s infinite ease-in-out;
-            z-index: 5;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
-
-        /* AUTH TILES & MODAL */
-        .auth-tile {
-            background: rgba(0,0,0,0.8); border: 2px solid #00f0ff;
-            padding: 30px; width: 100%; max-width: 400px;
-            box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
-        }
-        input {
-            background: rgba(255,255,255,0.05); border: 1px solid #00f0ff;
-            color: #fff; padding: 12px; margin: 10px 0; width: 100%; outline: none;
-        }
-        .action-btn {
-            background: #00f0ff; color: #000; font-weight: 900;
-            width: 100%; padding: 15px; margin-top: 15px; transition: 0.3s;
-        }
-        .action-btn:hover { background: #fff; box-shadow: 0 0 30px #fff; }
-
-        #modal-overlay {
+        .auth-modal {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             z-index: 1000; justify-content: center; align-items: center;
         }
-
-        .brand-header { font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; letter-spacing: -2px; }
+        .auth-box {
+            background: rgba(0, 10, 20, 0.9); border: 2px solid #00f0ff;
+            padding: 40px; width: 100%; max-width: 450px; box-shadow: 0 0 70px #00f0ff33;
+        }
+        input {
+            background: rgba(0, 240, 255, 0.05); border: 1px solid #00f0ff;
+            color: #fff; padding: 15px; margin: 12px 0; width: 100%; outline: none; font-size: 14px;
+        }
+        .btn-main {
+            background: #00f0ff; color: #000; font-weight: 900; width: 100%;
+            padding: 18px; margin-top: 20px; text-transform: uppercase; letter-spacing: 3px;
+        }
     </style>
 </head>
 <body>
 
-    <div id="bg-video-layer"></div>
-    <img src="image.png" id="sentinel-vessel" alt="VALERIUS">
+    <div id="bg-layer"></div>
+    <img src="image.png" id="robot-asset" alt="VALERIUS_9K">
 
-    <nav class="fixed top-0 w-full p-6 flex justify-end gap-4 z-50">
-        <button onclick="toggleAuth('signin')" class="border-2 border-[#00f0ff] px-8 py-2 text-[#00f0ff] font-bold hover:bg-[#00f0ff] hover:text-black transition">SIGN IN</button>
-        <button onclick="toggleAuth('signup')" class="bg-[#00f0ff] text-black px-8 py-2 font-bold hover:bg-white transition">SIGN UP</button>
-    </nav>
+    <div class="fixed top-0 right-0 p-10 flex gap-6 z-50">
+        <button onclick="openAuth('signin')" class="border-2 border-[#00f0ff] px-10 py-3 text-[#00f0ff] font-black hover:bg-[#00f0ff] hover:text-black">SIGN IN</button>
+        <button onclick="openAuth('signup')" class="bg-[#00f0ff] text-black px-10 py-3 font-black hover:bg-white">SIGN UP</button>
+    </div>
 
-    <main class="h-screen flex flex-col items-center justify-center text-center p-4">
-        <h1 class="brand-header text-white mix-blend-difference">KNOCKS</h1>
-        <p class="tracking-[1.5em] text-[#00f0ff] mb-8">STUDIOS 9K ENGINE</p>
-        <button onclick="toggleAuth('signup')" class
+    <main class="h-screen flex flex-col items-center justify-center">
+        <h1 class="text-9xl font-black tracking-tighter mix-blend-difference">KNOCKS</h1>
+        <p class="tracking-[2em] text-[#00f0ff] mt-4">9K ULTRA ENGINE</p>
+    </main>
+
+    <div id="auth-modal" class="auth-modal">
+        <div class="auth-box">
+            <h2 id="modal-title" class="text-3xl font-black text-[#00f0ff] mb-6">ACCESS PROTOCOL</h2>
+            <div id="auth-error" class="text-red-500 text-xs mb-4"></div>
+            
+            <input type="email" id="email" placeholder="ENCRYPTED_EMAIL">
+            <input type="password" id="pass" placeholder="SECURITY_PASS">
+            
+            <button onclick="executeAuth()" class="btn-main">INITIALIZE ACCESS</button>
+            <button onclick="closeAuth()" class="w-full mt-4 text-[10px] tracking-[0.5em] opacity-50">ABORT_SYSTEM</button>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'signin';
+
+        function openAuth(mode) {
+            currentMode = mode;
+            document.getElementById('modal-title').innerText = mode === 'signin' ? 'LOGIN' : 'CREATE ACCOUNT';
+            document.getElementById('auth-modal').style.display = 'flex';
+        }
+
+        function closeAuth() { document.getElementById('auth-modal').style.display = 'none'; }
+
+        // THE EXECUTION BRAIN
+        function executeAuth() {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
+
+            if(!email || !pass) {
+                document.getElementById('auth-error').innerText = "ERROR: CREDENTIALS REQUIRED";
+                return;
+            }
+
+            // SIMULATING ENGINE CONNECTION
+            document.getElementById('modal-title').innerText = "CONNECTING...";
+            
+            // This is where you'll drop your Firebase Config below
+            setTimeout(() => {
+                alert("KNOCKS STUDIOS: Identity Confirmed. Welcome, Master.");
+                window.location.href = "https://hollywoodimaging.studio"; // Points to your engine
+            }, 2000);
+        }
+
+        // Parallax Workshop Effect
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 40;
+            const y = (window.innerHeight / 2 - e.pageY) / 40;
+            document.getElementById('bg-layer').style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
+        });
+    </script>
+</body>
+</html>
