@@ -1,109 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>9K REALITY | KNOCKSSTUDiOS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; scroll-behavior: smooth; overflow-x: hidden; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
         
-        /* THE ELITE GLOW */
-        .neon-border { border: 1px solid rgba(0, 240, 255, 0.3); transition: 0.4s; }
-        .neon-border:hover { border-color: #00f0ff; box-shadow: 0 0 20px rgba(0, 240, 255, 0.2); }
-        .glass { background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); }
+        /* CINEMATIC LOGO SPLASH (No Video Needed) */
+        #splash { position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; align-items: center; justify-content: center; transition: opacity 1.5s ease; }
+        .logo-reveal { font-size: 4rem; font-weight: 900; italic: true; letter-spacing: -2px; animation: reveal 3s forwards; opacity: 0; }
+        @keyframes reveal { 
+            0% { opacity: 0; letter-spacing: 20px; filter: blur(20px); }
+            50% { opacity: 1; filter: blur(0px); }
+            100% { opacity: 0; letter-spacing: -2px; }
+        }
+
+        .glass { background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
+        .neon-text { text-shadow: 0 0 20px #00f0ff; }
+        .tier-card { transition: 0.4s; cursor: pointer; }
+        .tier-card:hover { border-color: #00f0ff; background: rgba(0, 240, 255, 0.05); transform: translateY(-10px); }
         
-        /* SPLASH VIDEO */
-        #splash { position: fixed; inset: 0; z-index: 9999; background: #000; display: flex; align-items: center; justify-content: center; transition: opacity 1s ease; }
-        video { width: 100%; height: 100%; object-fit: cover; }
+        /* COIN ANIMATION */
+        .coin-particle { position: absolute; width: 4px; height: 4px; background: #ffcc00; border-radius: 50%; box-shadow: 0 0 10px #ffcc00; pointer-events: none; }
     </style>
 </head>
 <body>
 
     <div id="splash">
-        <video id="vid" autoplay muted playsinline>
-            <source src="20260329_092547.mp4" type="video/mp4">
-        </video>
+        <div class="text-center">
+            <div class="logo-reveal italic">KNOCKSSTUDiOS</div>
+            <p class="text-[10px] tracking-[1.5em] uppercase opacity-40 mt-4">Powered by AI LAB LEGENDS</p>
+        </div>
     </div>
 
-    <main id="main-ui" class="opacity-0 transition-opacity duration-1000">
-        
-        <nav class="fixed top-0 w-full z-50 p-8 flex justify-between items-center">
-            <div class="font-black italic text-2xl tracking-tighter">KNOCKSSTUDiOS</div>
-            <div class="text-[9px] font-black uppercase tracking-[0.5em] opacity-40">AI LAB LEGENDS ENGINE v1.0</div>
-        </nav>
-
-        <section class="h-screen flex flex-col items-center justify-center px-6">
-            <h1 class="text-7xl md:text-[11rem] font-black italic uppercase leading-none tracking-tighter mb-12">9K REALITY</h1>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
-                
-                <div onclick="openAuth('SIGN UP')" class="neon-border glass p-12 cursor-pointer group">
-                    <h3 class="text-[#00f0ff] text-[10px] font-black uppercase tracking-[0.8em] mb-4">New Identity</h3>
-                    <h2 class="text-4xl font-black italic uppercase group-hover:translate-x-2 transition-transform">Sign Up</h2>
-                    <p class="text-[9px] opacity-30 mt-6 uppercase leading-loose">Initialize your vault. Claim your 2,000 base coins and enter the 9K pipeline.</p>
-                </div>
-
-                <div onclick="openAuth('SIGN IN')" class="neon-border glass p-12 cursor-pointer group border-white/10">
-                    <h3 class="text-[#ffcc00] text-[10px] font-black uppercase tracking-[0.8em] mb-4">Existing Titan</h3>
-                    <h2 class="text-4xl font-black italic uppercase group-hover:translate-x-2 transition-transform">Sign In</h2>
-                    <p class="text-[9px] opacity-30 mt-6 uppercase leading-loose">Access your logic units. Check render status and fulfill global logistics.</p>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="py-20 bg-zinc-950 px-6">
-            <h4 class="text-center text-[10px] tracking-[2em] opacity-20 uppercase mb-20">The Stream</h4>
-            <div class="grid grid-cols-2 md:grid-cols-6 gap-2 max-w-[1800px] mx-auto opacity-40">
-                <div class="aspect-[9/16] bg-white/5 border border-white/5"></div>
-                <div class="aspect-[9/16] bg-white/5 border border-white/5"></div>
-                <div class="aspect-[9/16] bg-white/5 border border-[#00f0ff]/20"></div>
-                <div class="aspect-[9/16] bg-white/5 border border-white/5"></div>
-                <div class="aspect-[9/16] bg-white/5 border border-white/5"></div>
-                <div class="aspect-[9/16] bg-white/5 border border-[#ff003c]/20"></div>
-            </div>
-        </section>
-
-    </main>
-
-    <div id="auth-gate" class="fixed inset-0 z-[10000] bg-black/95 backdrop-blur-xl flex items-center justify-center hidden p-6">
-        <div class="w-full max-w-lg">
-            <h2 id="gate-title" class="text-6xl font-black italic uppercase mb-10 tracking-tighter text-center">SIGN UP</h2>
-            <div class="space-y-4">
-                <input type="email" placeholder="IDENTITY EMAIL" class="w-full bg-white/5 border border-white/10 p-6 text-sm uppercase tracking-widest outline-none focus:border-[#00f0ff]">
-                <input type="password" placeholder="ACCESS KEY" class="w-full bg-white/5 border border-white/10 p-6 text-sm uppercase tracking-widest outline-none focus:border-[#00f0ff]">
-                <button onclick="closeAuth()" class="w-full bg-white text-black py-6 font-black uppercase text-xs tracking-[0.5em] hover:bg-[#00f0ff] transition">Initialize Access</button>
-                <button onclick="closeAuth()" class="w-full py-4 text-[9px] opacity-40 uppercase tracking-widest">Cancel Protocol</button>
+    <div id="vault-drop" class="fixed inset-0 z-[15000] bg-black/95 flex flex-col items-center justify-center hidden">
+        <div id="coin-emitter" class="relative w-80 h-80 flex items-center justify-center">
+            <div class="absolute inset-0 bg-[#ffcc00] rounded-full blur-[120px] opacity-10 animate-pulse"></div>
+            <div class="text-center relative z-10">
+                <h2 class="text-[9px] tracking-[1.5em] uppercase opacity-40 mb-2">Vault Synced</h2>
+                <div id="coin-counter" class="text-9xl font-black italic tracking-tighter text-[#ffcc00]">0</div>
+                <p class="text-[10px] tracking-[1em] uppercase mt-4">2,000 Base Stack Loaded</p>
             </div>
         </div>
     </div>
 
-    <script>
-        // HANDLE VIDEO FINISH
-        const vid = document.getElementById('vid');
-        const splash = document.getElementById('splash');
-        const main = document.getElementById('main-ui');
+    <main id="main-ui" class="opacity-0 transition-opacity duration-1000">
+        
+        <nav class="fixed top-0 w-full z-50 p-8 flex justify-between items-center glass">
+            <div class="font-black italic text-2xl tracking-tighter">KNOCKSSTUDiOS</div>
+            <div class="text-[9px] font-black uppercase tracking-[0.4em] opacity-30">hollywoodimaging.studio</div>
+        </nav>
 
-        vid.onended = () => {
-            splash.style.opacity = '0';
-            setTimeout(() => {
-                splash.style.display = 'none';
-                main.style.opacity = '1';
-            }, 1000);
-        };
+        <section class="h-screen flex flex-col items-center justify-center px-6">
+            <h1 class="text-7xl md:text-[10rem] font-black italic uppercase tracking-tighter mb-16 neon-text">9K REALITY</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+                <div onclick="openAuth('SIGN UP')" class="glass p-12 border-white/10 hover:border-[#00f0ff] transition cursor-pointer group">
+                    <h3 class="text-[#00f0ff] text-[10px] font-black uppercase tracking-[0.8em] mb-4">Identity Creation</h3>
+                    <h2 class="text-5xl font-black italic uppercase group-hover:translate-x-3 transition-transform">Sign Up</h2>
+                    <p class="text-[9px] opacity-30 mt-6 uppercase leading-loose">Claim your 2,000 base coins and enter the AI LAB LEGENDS pipeline.</p>
+                </div>
 
-        // AUTH GATES
-        const gate = document.getElementById('auth-gate');
-        const title = document.getElementById('gate-title');
+                <div onclick="openAuth('SIGN IN')" class="glass p-12 border-white/10 hover:border-[#ffcc00] transition cursor-pointer group">
+                    <h3 class="text-[#ffcc00] text-[10px] font-black uppercase tracking-[0.8em] mb-4">Authorized Entry</h3>
+                    <h2 class="text-5xl font-black italic uppercase group-hover:translate-x-3 transition-transform">Sign In</h2>
+                    <p class="text-[9px] opacity-30 mt-6 uppercase leading-loose">Manage your logic units and track global logistics fulfillment.</p>
+                </div>
+            </div>
+        </section>
 
-        function openAuth(type) {
-            title.innerText = type;
-            gate.classList.remove('hidden');
-        }
-        function closeAuth() {
-            gate.classList.add('hidden');
-        }
-    </script>
-</body>
-</html>
+        <section id="vault" class="py-40 bg-zinc-950 px-6">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div class="tier-card glass p-8">
+                    <h4 class="text
