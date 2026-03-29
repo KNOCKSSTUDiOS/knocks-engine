@@ -8,30 +8,36 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         
-        /* THE ELITE FONT OVERRIDE */
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow-x: hidden; }
         
-        /* WATERMARK HUD MASK */
-        #splash { position: fixed; inset: 0; z-index: 9999; background: #000; transition: opacity 1.5s ease; }
-        video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7); }
+        /* 1. HUD & VIDEO SECTION */
+        #splash { position: fixed; inset: 0; z-index: 50; background: #000; transition: opacity 1s ease; }
+        video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); }
         
         .hud-mask { 
             position: absolute; bottom: 30px; right: 30px; 
             width: 320px; padding: 25px; 
             background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
-            border-right: 3px solid #00f0ff; z-index: 10000;
+            border-right: 3px solid #00f0ff; z-index: 60;
         }
 
-        .buffer-track { width: 100%; height: 2px; background: rgba(255,255,255,0.1); margin-top: 12px; }
-        #buffer-fill { width: 0%; height: 100%; background: #00f0ff; box-shadow: 0 0 15px #00f0ff; }
+        #buffer-fill { width: 0%; height: 2px; background: #00f0ff; box-shadow: 0 0 15px #00f0ff; transition: width 0.1s linear; }
 
-        .glass { background: rgba(255,255,255,0.02); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.1); }
-        
-        /* VAULT ANIMATION */
-        #vault-drop { position: fixed; inset: 0; z-index: 20000; background: #000; display: flex; align-items: center; justify-content: center; }
+        /* 2. THE VAULT DROP (THE LAYER THAT WAS FREEZING YOU) */
+        #vault-drop { 
+            position: fixed; inset: 0; z-index: 100; 
+            background: rgba(0,0,0,0.95); 
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        #vault-drop.active { opacity: 1; visibility: visible; pointer-events: auto; }
+
         .coin-particle { position: absolute; width: 4px; height: 4px; background: #ffcc00; box-shadow: 0 0 10px #ffcc00; border-radius: 50%; }
-        
-        /* TEXT AGGRESSION */
+
+        /* 3. UI STYLING */
+        .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
         .all-caps { text-transform: uppercase !important; letter-spacing: 0.2em; }
     </style>
 </head>
@@ -47,128 +53,46 @@
                 <span>9K_BUFFER_SYNC</span>
                 <span id="percent">0%</span>
             </div>
-            <div class="buffer-track"><div id="buffer-fill"></div></div>
-            <div class="mt-4 text-[7px] opacity-40 all-caps">
-                SOURCE: AI LAB LEGENDS | REGION: HOLLYWOOD
-            </div>
+            <div class="w-full bg-white/10 h-[2px] mt-3"><div id="buffer-fill"></div></div>
+            <div class="mt-4 text-[7px] opacity-40 all-caps">ENGINE: AI LAB LEGENDS</div>
         </div>
 
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <h1 class="text-8xl font-black italic uppercase tracking-tighter opacity-70">KNOCKSSTUDiOS</h1>
+            <h1 class="text-6xl md:text-8xl font-black italic uppercase tracking-tighter opacity-70">KNOCKSSTUDiOS</h1>
         </div>
     </div>
 
-    <div id="vault-drop" class="hidden">
+    <div id="vault-drop">
         <div id="emitter" class="relative text-center">
             <div id="counter" class="text-[10rem] font-black italic text-[#ffcc00] tracking-tighter">0</div>
-            <p class="text-[11px] tracking-[1.5em] uppercase text-[#ffcc00]/50 font-black">2,000 COINS SYNCED</p>
+            <p class="text-[11px] tracking-[1.5em] uppercase text-[#ffcc00] font-black">COINS SYNCED</p>
         </div>
     </div>
 
-    <main id="main-ui" class="opacity-0 h-screen flex flex-col items-center justify-center transition-opacity duration-1000">
+    <main id="main-ui" class="opacity-0 min-h-screen flex flex-col items-center justify-center transition-opacity duration-1000 relative z-10">
         
-        <nav class="fixed top-0 w-full z-50 p-10 flex justify-between items-center">
+        <nav class="fixed top-0 w-full p-10 flex justify-between items-center">
             <div class="font-black italic text-3xl tracking-tighter">KNOCKSSTUDiOS</div>
             <div class="text-[10px] opacity-30 all-caps">HOLLYWOODIMAGING.STUDIO</div>
         </nav>
 
-        <h1 class="text-[11rem] font-black italic uppercase tracking-tighter mb-20 leading-none">9K REALITY</h1>
+        <h1 class="text-7xl md:text-[11rem] font-black italic uppercase tracking-tighter mb-20 leading-none text-center">9K REALITY</h1>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl px-6">
             
-            <div onclick="openAuth('SIGN UP')" class="glass p-16 border-white/5 hover:border-[#00f0ff] transition-all cursor-pointer group">
-                <h3 class="text-[#00f0ff] text-[10px] font-black all-caps mb-4">New Identity</h3>
-                <h2 class="text-6xl font-black italic uppercase tracking-widest group-hover:translate-x-4 transition-transform">SIGN UP</h2>
-                <p class="text-[10px] opacity-20 mt-6 all-caps">Claim 2,000 Base Stack & Enter Lab</p>
+            <div onclick="openAuth('SIGN UP')" class="glass p-16 hover:border-[#00f0ff] transition-all cursor-pointer group">
+                <h3 class="text-[#00f0ff] text-[10px] font-black all-caps mb-4">NEW IDENTITY</h3>
+                <h2 class="text-5xl font-black italic uppercase tracking-widest group-hover:translate-x-4 transition-transform">SIGN UP</h2>
+                <p class="text-[10px] opacity-20 mt-6 all-caps">CLAIM 2,000 BASE STACK</p>
             </div>
 
-            <div onclick="openAuth('SIGN IN')" class="glass p-16 border-white/5 hover:border-white transition-all cursor-pointer group">
-                <h3 class="text-[#ffcc00] text-[10px] font-black all-caps mb-4">Titan Access</h3>
-                <h2 class="text-6xl font-black italic uppercase tracking-widest group-hover:translate-x-4 transition-transform">SIGN IN</h2>
-                <p class="text-[10px] opacity-20 mt-6 all-caps">Connect to AI LAB LEGENDS Engine</p>
+            <div onclick="openAuth('SIGN IN')" class="glass p-16 hover:border-white transition-all cursor-pointer group">
+                <h3 class="text-[#ffcc00] text-[10px] font-black all-caps mb-4">TITAN ACCESS</h3>
+                <h2 class="text-5xl font-black italic uppercase tracking-widest group-hover:translate-x-4 transition-transform">SIGN IN</h2>
+                <p class="text-[10px] opacity-20 mt-6 all-caps">AI LAB LEGENDS ENGINE</p>
             </div>
 
-        </div>
-
-        <div class="absolute bottom-12 flex gap-12 opacity-20 text-[9px] all-caps font-bold">
-            <span>MASTER: $19.99</span>
-            <span>SCHOLAR: $29.99</span>
-            <span>TITAN: $49.99</span>
-            <span class="text-[#ff003c]">ULTRA TITAN: $99.99</span>
         </div>
     </main>
 
-    <div id="auth-gate" class="fixed inset-0 z-[30000] bg-black/98 flex items-center justify-center hidden">
-        <div class="w-full max-w-lg p-12 text-center">
-            <h2 id="gate-title" class="text-7xl font-black italic uppercase mb-12 tracking-tighter">ACCESS</h2>
-            <input type="email" id="email" placeholder="IDENTITY@STUDIO" class="w-full bg-white/5 border border-white/10 p-6 text-sm all-caps outline-none focus:border-[#00f0ff] mb-6">
-            <button onclick="confirmAuth()" class="w-full bg-white text-black py-6 font-black uppercase text-xs tracking-[0.6em] hover:bg-[#00f0ff] transition">Initialize Access</button>
-        </div>
-    </div>
-
-    <script>
-        const vid = document.getElementById('intro-vid');
-        const fill = document.getElementById('buffer-fill');
-        const percent = document.getElementById('percent');
-
-        // SYNC HUD TO VIDEO
-        vid.ontimeupdate = () => {
-            const p = (vid.currentTime / vid.duration) * 100;
-            fill.style.width = p + "%";
-            percent.innerText = Math.floor(p) + "%";
-        };
-
-        vid.onended = () => {
-            document.getElementById('splash').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('splash').style.display = 'none';
-                document.getElementById('main-ui').classList.replace('opacity-0', 'opacity-100');
-            }, 1000);
-        };
-
-        function openAuth(type) {
-            document.getElementById('gate-title').innerText = type;
-            document.getElementById('auth-gate').classList.remove('hidden');
-        }
-
-        function confirmAuth() {
-            document.getElementById('auth-gate').classList.add('hidden');
-            triggerVault();
-        }
-
-        function triggerVault() {
-            const drop = document.getElementById('vault-drop');
-            const counter = document.getElementById('counter');
-            const emitter = document.getElementById('emitter');
-            drop.classList.remove('hidden');
-            
-            let count = 0;
-            const startTime = performance.now();
-
-            const interval = setInterval(() => {
-                const p = document.createElement('div');
-                p.className = 'coin-particle';
-                emitter.appendChild(p);
-                const angle = Math.random() * Math.PI * 2;
-                const dist = 70 + Math.random() * 150;
-                p.animate([{ opacity: 1 }, { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity: 0 }], 1000);
-                setTimeout(() => p.remove(), 1000);
-            }, 25);
-
-            function update(t) {
-                const progress = Math.min((t - startTime) / 2000, 1);
-                counter.innerText = Math.floor(progress * 2000).toLocaleString();
-                if (progress < 1) requestAnimationFrame(update);
-                else {
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        drop.style.opacity = '0';
-                        setTimeout(() => drop.classList.add('hidden'), 1000);
-                    }, 1500);
-                }
-            }
-            requestAnimationFrame(update);
-        }
-    </script>
-</body>
-</html>
+    <div id="auth-gate" class="fixed inset-0 z-[500] bg-black/98 flex items-center justify-center hidden">
