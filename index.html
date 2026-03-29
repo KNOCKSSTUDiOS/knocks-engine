@@ -3,158 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | THE SOVEREIGN MASTER</title>
+    <title>KNOCKSSTUDiOS | THE SOVEREIGN GATE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
+        * { cursor: crosshair; margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; }
+
+        /* THE WORKSHOP BACKGROUND */
+        #background-robot {
+            position: fixed; inset: 0; z-index: -1;
+            background: url('1773441360031.jpg') no-repeat center center;
+            background-size: cover; opacity: 0.4; filter: saturate(1.5) brightness(0.7);
+        }
+
+        /* THE FLOATING V-SENTINEL (Animated) */
+        #moving-sentinel {
+            position: absolute; width: 300px; bottom: 10%; right: 5%;
+            filter: drop-shadow(0 0 30px #00f0ff);
+            animation: floatRobot 6s infinite ease-in-out;
+            z-index: 5;
+        }
+        @keyframes floatRobot { 0%, 100% { transform: translateY(0) rotate(2deg); } 50% { transform: translateY(-40px) rotate(-2deg); } }
+
+        /* BUSINESS TILES (LOGIN/SIGNUP) */
+        .auth-container {
+            position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; gap: 15px;
+        }
+        .tile-btn {
+            background: rgba(0, 240, 255, 0.1); border: 2px solid #00f0ff;
+            color: #00f0ff; padding: 10px 25px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 2px;
+            transition: 0.3s; pointer-events: auto;
+        }
+        .tile-btn:hover { background: #00f0ff; color: #000; box-shadow: 0 0 20px #00f0ff; }
+
+        /* THE MAIN HUD */
+        .brand-text { font-size: 8rem; font-weight: 900; letter-spacing: -0.05em; mix-blend-mode: difference; text-shadow: 0 0 20px #fff; }
         
-        * { cursor: none !important; margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; perspective: 2000px; }
-
-        /* THE VOID GRID */
-        #video-container { 
-            position: fixed; inset: 0; z-index: -2; display: grid; 
-            grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-            transition: all 4s cubic-bezier(0.8, 0, 0.2, 1);
-            transform-style: preserve-3d;
+        /* SUBSCRIPTION MODAL */
+        #sub-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            z-index: 200; justify-content: center; align-items: center; text-align: center;
         }
-
-        /* DECAY STATE: TILT + SHATTER + PIXELATE */
-        .persistence-hd #video-container { 
-            grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr);
-            transform: translateZ(-600px) rotateX(45deg) rotateZ(-15deg);
-        }
-
-        .video-shard { 
-            width: 100%; height: 100%; overflow: hidden; position: relative; 
-            border: 1px solid rgba(255,255,255,0.05); mix-blend-mode: screen;
-            transition: transform 8s cubic-bezier(0.1, 0, 0.1, 1), filter 8s;
-        }
-
-        /* VOLUMETRIC SHRAPNEL & LIQUEFACTION */
-        .persistence-hd .video-shard { border-radius: 0 0 50% 50%; }
-        .persistence-hd .video-shard:nth-child(3n) { transform: translate3d(500px, -200px, 1500px) skewY(15deg); }
-        .persistence-hd .video-shard:nth-child(3n+1) { transform: translate3d(-500px, 400px, 1200px) skewX(-10deg); }
-        .persistence-hd .video-shard:nth-child(3n+2) { transform: translate3d(0, -600px, 2000px) scale(0.5); }
-
-        /* SPECTRAL & RESOLUTION COLLAPSE */
-        .persistence-hd #video-container { 
-            animation: spectral-pulse 2s infinite linear, heartbeat 0.4s infinite ease-in-out; 
-        }
-
-        @keyframes spectral-pulse {
-            0% { filter: hue-rotate(0deg) grayscale(0) blur(0px) contrast(1); }
-            100% { filter: hue-rotate(360deg) grayscale(1) blur(40px) contrast(20); }
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { scale: 1; } 50% { scale: 1.1; }
-        }
-
-        video { position: absolute; width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-
-        /* THE KINETIC SUPERNOVA */
-        .shockwave {
-            position: fixed; border: 15px solid #fff; border-radius: 50%; pointer-events: none;
-            z-index: 9999; transform: translate(-50%, -50%);
-            animation: ripple 0.05s linear forwards;
-        }
-        @keyframes ripple { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 8000px; height: 8000px; opacity: 0; } }
-        .pulse-invert { filter: invert(1) brightness(500) saturate(5) !important; }
-
-        /* RECOVERY SNAP (THE SINGULARITY) */
-        .recovery-snap #video-container { 
-            transform: scale(0) rotateZ(14400deg) translateZ(5000px); 
-            filter: brightness(1000) contrast(0) blur(0);
-            transition: all 0.1s steps(2);
-            animation: none;
-        }
-
-        #sort-buffer { position: fixed; inset: 0; z-index: 40; display: none; background: #fff; mix-blend-mode: color-dodge; }
-        .recovery-snap #sort-buffer { display: block; animation: sort-flash 0.005s infinite; }
-        @keyframes sort-flash { 0% { opacity: 0; } 100% { opacity: 1; } }
-
-        /* UI ELEMENTS */
-        .cursor-node { position: fixed; width: 8px; height: 8px; background: #fff; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); box-shadow: 0 0 40px #fff; }
-        .brand-text { font-size: 10rem; font-weight: 900; letter-spacing: -0.05em; mix-blend-mode: difference; }
     </style>
 </head>
-<body id="main-body" class="flex items-center justify-center min-h-screen">
+<body>
 
-    <div id="sort-buffer"></div>
-    <div id="cursor-main" class="cursor-node"></div>
-    <div id="video-container"></div>
+    <div id="background-robot"></div>
+    <img src="image.png" id="moving-sentinel" alt="VALERIUS">
 
-    <main class="z-10 text-center">
-        <h1 class="brand-text mb-20">KNOCKS</h1>
-        <button id="init-btn" class="bg-white text-black py-20 px-4 font-black uppercase text-[12px] tracking-[10em] border-[30px] border-white transition-all hover:invert">
-            ARCHIVE_EXISTENCE
+    <div class="auth-container">
+        <button class="tile-btn" onclick="openGate()">LOGIN</button>
+        <button class="tile-btn" onclick="openGate()">SIGN UP</button>
+        <button class="tile-btn" style="border-color: #ff0055; color: #ff0055;">SUBSCRIBE</button>
+    </div>
+
+    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen">
+        <h1 class="brand-text">KNOCKS</h1>
+        <p class="tracking-[2em] text-[#00f0ff] mb-10">STUDIOS 9K ENGINE</p>
+        
+        <button id="init-btn" onclick="triggerEngine()" class="bg-white text-black py-6 px-12 font-black uppercase text-[14px] tracking-[1em] hover:bg-[#00f0ff] transition-all">
+            BOOT SYSTEM
         </button>
     </main>
 
+    <div id="sub-modal">
+        <div>
+            <h2 style="font-size: 3rem; color: #ff0055;">ACCESS DENIED</h2>
+            <p style="letter-spacing: 5px;">ACTIVE SUBSCRIPTION REQUIRED FOR 9K ENGINE</p>
+            <button class="tile-btn" style="margin-top: 20px;" onclick="closeModal()">RETURN TO GATE</button>
+        </div>
+    </div>
+
     <script>
-        const body = document.getElementById('main-body'), container = document.getElementById('video-container');
-        const initBtn = document.getElementById('init-btn'), mainCursor = document.getElementById('cursor-main');
-
-        // Generate 100 Shards
-        for(let i=0; i<100; i++) {
-            const shard = document.createElement('div');
-            shard.className = 'video-shard';
-            shard.innerHTML = `<video autoplay muted loop><source src="8776550e6409b36ed5834f6e6b473a9b.mp4" type="video/mp4"></video>`;
-            container.appendChild(shard);
+        function triggerEngine() {
+            // This links to your actual live engine file
+            window.location.href = "hollywoodimaging.studio"; 
         }
-        const videos = document.querySelectorAll('video');
 
-        let isRecovering = false, stutterInterval;
+        function openGate() {
+            document.getElementById('sub-modal').style.display = 'flex';
+        }
 
-        // Temporal Stutter Logic
-        const triggerStutter = () => {
-            if(!isRecovering && body.classList.contains('persistence-hd')) {
-                videos.forEach(v => v.pause());
-                setTimeout(() => { if(!isRecovering) videos.forEach(v => v.play()); }, 50);
-            }
-        };
+        function closeModal() {
+            document.getElementById('sub-modal').style.display = 'none';
+        }
 
-        initBtn.addEventListener('click', () => {
-            initBtn.style.display = 'none';
-            body.classList.add('persistence-hd');
-            stutterInterval = setInterval(triggerStutter, 600);
-            setTimeout(() => { videos.forEach(v => v.pause()); }, 8000);
-        });
-
+        // Mouse interaction for the background robot
         document.addEventListener('mousemove', (e) => {
-            const x = e.clientX, y = e.clientY;
-            mainCursor.style.left = x + 'px'; mainCursor.style.top = y + 'px';
-
-            if(body.classList.contains('persistence-hd') && !isRecovering) {
-                // Supernova Shockwave
-                const wave = document.createElement('div');
-                wave.className = 'shockwave';
-                wave.style.left = x + 'px'; wave.style.top = y + 'px';
-                document.body.appendChild(wave);
-                setTimeout(() => wave.remove(), 40);
-
-                // High-Intensity Pulse
-                container.classList.add('pulse-invert');
-                setTimeout(() => container.classList.remove('pulse-invert'), 5);
-            }
-
-            // The Snap-Back (The Singularity)
-            if(body.classList.contains('persistence-hd')) {
-                clearInterval(stutterInterval);
-                isRecovering = true;
-                body.classList.add('recovery-snap');
-                
-                // Max Engine Rewind (-100x)
-                videos.forEach(v => { v.playbackRate = -100.0; v.play(); });
-                
-                setTimeout(() => {
-                    isRecovering = false;
-                    videos.forEach(v => v.playbackRate = 1.0);
-                    body.classList.remove('persistence-hd', 'recovery-snap');
-                    initBtn.style.display = 'block';
-                }, 80);
-            }
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            document.getElementById('background-robot').style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
         });
     </script>
 </body>
