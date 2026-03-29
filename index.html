@@ -93,4 +93,82 @@
         <div class="absolute bottom-12 flex gap-12 opacity-20 text-[9px] all-caps font-bold">
             <span>MASTER: $19.99</span>
             <span>SCHOLAR: $29.99</span>
-            <span>TIT
+            <span>TITAN: $49.99</span>
+            <span class="text-[#ff003c]">ULTRA TITAN: $99.99</span>
+        </div>
+    </main>
+
+    <div id="auth-gate" class="fixed inset-0 z-[30000] bg-black/98 flex items-center justify-center hidden">
+        <div class="w-full max-w-lg p-12 text-center">
+            <h2 id="gate-title" class="text-7xl font-black italic uppercase mb-12 tracking-tighter">ACCESS</h2>
+            <input type="email" id="email" placeholder="IDENTITY@STUDIO" class="w-full bg-white/5 border border-white/10 p-6 text-sm all-caps outline-none focus:border-[#00f0ff] mb-6">
+            <button onclick="confirmAuth()" class="w-full bg-white text-black py-6 font-black uppercase text-xs tracking-[0.6em] hover:bg-[#00f0ff] transition">Initialize Access</button>
+        </div>
+    </div>
+
+    <script>
+        const vid = document.getElementById('intro-vid');
+        const fill = document.getElementById('buffer-fill');
+        const percent = document.getElementById('percent');
+
+        // SYNC HUD TO VIDEO
+        vid.ontimeupdate = () => {
+            const p = (vid.currentTime / vid.duration) * 100;
+            fill.style.width = p + "%";
+            percent.innerText = Math.floor(p) + "%";
+        };
+
+        vid.onended = () => {
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('main-ui').classList.replace('opacity-0', 'opacity-100');
+            }, 1000);
+        };
+
+        function openAuth(type) {
+            document.getElementById('gate-title').innerText = type;
+            document.getElementById('auth-gate').classList.remove('hidden');
+        }
+
+        function confirmAuth() {
+            document.getElementById('auth-gate').classList.add('hidden');
+            triggerVault();
+        }
+
+        function triggerVault() {
+            const drop = document.getElementById('vault-drop');
+            const counter = document.getElementById('counter');
+            const emitter = document.getElementById('emitter');
+            drop.classList.remove('hidden');
+            
+            let count = 0;
+            const startTime = performance.now();
+
+            const interval = setInterval(() => {
+                const p = document.createElement('div');
+                p.className = 'coin-particle';
+                emitter.appendChild(p);
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 70 + Math.random() * 150;
+                p.animate([{ opacity: 1 }, { transform: `translate(${Math.cos(angle)*dist}px, ${Math.sin(angle)*dist}px)`, opacity: 0 }], 1000);
+                setTimeout(() => p.remove(), 1000);
+            }, 25);
+
+            function update(t) {
+                const progress = Math.min((t - startTime) / 2000, 1);
+                counter.innerText = Math.floor(progress * 2000).toLocaleString();
+                if (progress < 1) requestAnimationFrame(update);
+                else {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        drop.style.opacity = '0';
+                        setTimeout(() => drop.classList.add('hidden'), 1000);
+                    }, 1500);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+    </script>
+</body>
+</html>
