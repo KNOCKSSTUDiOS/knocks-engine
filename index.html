@@ -1,185 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS | OMNIPOTENT LIVE</title>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9K REALITY | KNOCKS STUDIOS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Syncopate:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
+        body { background: #0b0b0b; font-family: 'Orbitron', sans-serif; color: #e3e3e3; margin: 0; overflow-x: hidden; }
+        .all-caps { text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
         
-        :root { --gold: #ffcc00; --olive: #6b8e23; --neon: #00f0ff; }
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
-        .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
-        .knocks-font { font-family: 'Orbitron', sans-serif; }
-
-        /* --- THE 9D ANIMATED VOID --- */
-        #live-void { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); }
-        .water-particle { 
-            position: absolute; background: rgba(255, 255, 255, 0.05); border-radius: 50%; 
-            filter: blur(1px); animation: floatUp 12s infinite linear; 
-        }
-        @keyframes floatUp { from { transform: translateY(110vh) scale(0.5); opacity: 0; } to { transform: translateY(-10vh) scale(1.2); opacity: 0.3; } }
-
-        /* --- AUTH TERMINAL --- */
-        #auth-gate { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 10000; 
-            display: flex; align-items: center; justify-content: center; backdrop-filter: blur(30px);
-        }
-        .auth-card { 
-            width: 420px; padding: 50px; border: 1px solid rgba(255, 204, 0, 0.1); 
-            background: linear-gradient(145deg, #050505, #111); text-align: center;
-            box-shadow: 0 0 100px rgba(0,0,0,1);
-        }
-
-        /* --- LIQUID LOGO RENDERING --- */
-        .liquid-text {
-            font-size: 48px; font-weight: 900; letter-spacing: -0.02em;
-            background: linear-gradient(180deg, var(--gold) 0%, var(--olive) 100%);
+        /* 1. SCION NEON & ROTATION (HERO) */
+        .scion-neon {
+            font-size: 7vw; font-weight: 900;
+            background: linear-gradient(90deg, #00f0ff, #7000ff, #00f0ff);
+            background-size: 200% auto;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 25px rgba(255, 204, 0, 0.4));
-            animation: liquidDrip 4s infinite ease-in-out;
-            position: relative; display: inline-block;
+            animation: neonFlow 4s linear infinite, rotateY 8s ease-in-out infinite;
         }
-        @keyframes liquidDrip { 0%, 100% { transform: translateY(0); filter: hue-rotate(0deg); } 50% { transform: translateY(-8px); filter: hue-rotate(15deg); } }
+        @keyframes neonFlow { to { background-position: 200% center; } }
+        @keyframes rotateY { 0%, 100% { transform: rotateY(-15deg); } 50% { transform: rotateY(15deg); } }
 
-        /* --- RANDOMIZED GHOST GEMS --- */
-        .ghost-gem { 
-            position: absolute; width: 14px; height: 14px; background: transparent; 
-            border: 1px solid transparent; cursor: pointer; z-index: 1000; 
+        /* 2. ROBOT EYE REPAIR (KIA) */
+        .eye-container { width: 100px; height: 100px; position: relative; border: 2px solid #333; border-radius: 50%; padding: 5px; }
+        .eye-iris { 
+            width: 100%; height: 100%; background: radial-gradient(circle, #00f0ff 10%, #000 70%); 
+            border-radius: 50%; box-shadow: 0 0 30px #00f0ff; 
+            animation: calibrate 3s infinite ease-in-out; 
         }
-        .ghost-gem:hover { border: 1px solid var(--neon); box-shadow: 0 0 20px var(--neon); background: rgba(0, 240, 255, 0.1); }
+        @keyframes calibrate { 0%, 100% { transform: scale(1) translate(0,0); } 30% { transform: scale(1.2) translate(5px, -5px); } 60% { transform: scale(0.9) translate(-5px, 5px); } }
 
-        /* --- INTERFACE --- */
-        #main-interface { display: none; padding-left: 110px; height: 100vh; overflow-y: auto; padding-top: 60px; }
-        .nav-rail { width: 90px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid rgba(255,255,255,0.05); display: none; flex-direction: column; align-items: center; padding-top: 100px; gap: 45px; z-index: 5000; }
-        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; letter-spacing: 0.8em; cursor: pointer; opacity: 0.3; transition: 0.4s; }
-        .nav-item:hover, .active-nav { opacity: 1; color: var(--neon); }
+        /* 3. FLOW STYLE COMPONENTS */
+        .flow-card { background: #1e1e1e; border-radius: 24px; border: 1px solid #333; transition: 0.3s; cursor: pointer; overflow: hidden; }
+        .flow-card:hover { border-color: #00f0ff; background: #252525; }
+        .google-btn { background: #1e1e1e; border: 1px solid #333; border-radius: 100px; padding: 12px 24px; display: flex; items-center; gap: 12px; }
 
-        .reactor-core { background: #050505; border: 1px solid rgba(255,255,255,0.03); height: 600px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .globe-bg { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, #ffcc0033 0%, transparent 70%); filter: blur(40px); animation: pulseGlobe 8s infinite alternate; }
-        @keyframes pulseGlobe { from { opacity: 0.2; transform: scale(1); } to { opacity: 0.5; transform: scale(1.3); } }
-
-        .input-box { background: #000; border: 1px solid #222; padding: 20px; color: var(--neon); width: 100%; outline: none; font-size: 11px; margin-bottom: 20px; }
+        .view-layer { display: none; min-height: 100vh; flex-direction: column; align-items: center; }
+        #splash { display: flex; justify-content: center; background: url('1773441360031.jpg') center/cover; }
+        #splash::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.8); }
     </style>
 </head>
-<body onload="initVoid()">
+<body>
 
-    <div id="live-void"></div>
+    <audio id="drill-fx" src="drill-mechanical.mp3"></audio>
 
-    <div id="auth-gate">
-        <div class="auth-card">
-            <h2 class="extraordinary text-xs tracking-[1.5em] mb-10 text-[#6b8e23]">IDENTITY CLEARANCE</h2>
-            <input type="text" id="driller-name" placeholder="CREATE DRILLER ID" class="input-box knocks-font">
-            <input type="password" placeholder="SECURE ACCESS KEY" class="input-box knocks-font">
-            <button onclick="unlockEngine()" class="w-full bg-[#ffcc00] text-black py-5 extraordinary text-[10px] font-black hover:bg-white transition-all tracking-[0.3em]">ACTIVATE CORE</button>
-            <p class="text-[7px] opacity-20 mt-8 uppercase tracking-[0.5em]">Knocks Creative Legacy Encryption</p>
-        </div>
-    </div>
-
-    <div id="nav-rail" class="nav-rail">
-        <div class="knocks-font text-[8px] text-[#ffcc00] mb-6">ID: <span id="id-tag">--</span></div>
-        <div class="nav-item active-nav knocks-font" onclick="jump('engine')">CORE</div>
-        <div class="nav-item knocks-font" onclick="jump('cinema')">CINEMA</div>
-        <div class="nav-item knocks-font" onclick="jump('vault')">VAULT</div>
-        <div class="nav-item knocks-font" onclick="location.reload()">OFFLINE</div>
-    </div>
-
-    <main id="main-interface" class="pr-16">
-        <div class="flex justify-between items-start mb-14">
-            <div>
-                <h1 class="liquid-text extraordinary">KNOCKSCREATIVESTUDIOS</h1>
-                <div class="flex gap-10 mt-4 text-[8px] opacity-40 knocks-font tracking-[0.5em]">
-                    <span>LEGACY</span><span>WEALTH</span><span>GROWTH</span><span>YOUTH</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-12 gap-10 relative">
-            <div id="gem-1" class="ghost-gem" onclick="claimReward('Hidden Gold Artwork Stem Unlocked')"></div>
-            <div id="gem-2" class="ghost-gem" onclick="claimReward('Free 9D Render Credit Added')"></div>
-
-            <div class="col-span-4 space-y-6">
-                <div class="bg-white/5 p-10 border border-white/5">
-                    <h3 class="extraordinary text-[9px] opacity-40 mb-6 tracking-widest uppercase">Genetic Input</h3>
-                    <label class="h-32 border border-white/5 flex flex-col items-center justify-center hover:bg-white/5 cursor-pointer transition">
-                        <input type="file" class="hidden">
-                        <span class="text-[8px] knocks-font">UPLOAD RAW MEDIA</span>
-                    </label>
-                </div>
-                <div class="bg-white/5 p-10 border border-white/5">
-                    <h3 class="extraordinary text-[9px] opacity-40 mb-6 tracking-widest uppercase">Command Logic</h3>
-                    <textarea class="input-box h-32 mb-6" placeholder="DESCRIBE THE IMPOSSIBLE..."></textarea>
-                    <button onclick="igniteDrill()" class="w-full bg-[#00f0ff] text-black py-6 extraordinary text-[10px] font-black hover:tracking-[0.8em] transition-all">IGNITE DRILL</button>
-                </div>
-            </div>
-
-            <div class="col-span-8">
-                <div class="reactor-core">
-                    <div class="globe-bg"></div>
-                    <div id="idle-text" class="extraordinary text-[10px] opacity-10 tracking-[3em]">CORE IDLE</div>
-                    
-                    <div id="render-frame" class="hidden w-full h-full relative">
-                        <img src="1773441360031.jpg" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-                        <div class="absolute bottom-10 left-10">
-                            <h2 class="extraordinary text-2xl italic text-[#ffcc00]">RENDER_MANIFEST_01</h2>
-                            <p class="text-[8px] opacity-50 tracking-[1em] mt-2">BLACK WALLSTREET LIQUID LOUNGE SERIES</p>
-                        </div>
+    <main id="splash" class="view-layer relative">
+        <div class="z-10 text-center max-w-4xl px-6">
+            <h1 class="scion-neon mb-4">KNOCKS STUDIOS</h1>
+            <p class="all-caps text-xs opacity-50 mb-12">POWERED BY AI LAB LEGENDS</p>
+            
+            <div class="flow-card p-8 max-w-md mx-auto">
+                <h2 class="text-2xl font-bold mb-8">Choose an account</h2>
+                <div onclick="navTo('dashboard')" class="flex items-center gap-4 p-4 hover:bg-white/5 rounded-xl cursor-pointer mb-2">
+                    <div class="w-10 h-10 rounded-full bg-[#00f0ff] text-black flex items-center justify-center font-bold">K</div>
+                    <div class="text-left">
+                        <p class="font-bold text-sm">KNOCKS STUDIOS</p>
+                        <p class="text-xs opacity-50">gtamayo36@gmail.com</p>
                     </div>
+                </div>
+                <div onclick="navTo('auth')" class="flex items-center gap-4 p-4 hover:bg-white/5 rounded-xl cursor-pointer">
+                    <div class="w-10 h-10 rounded-full border border-dashed border-gray-600 flex items-center justify-center">+</div>
+                    <p class="text-sm">Use another account</p>
                 </div>
             </div>
         </div>
     </main>
 
+    <section id="auth" class="view-layer p-10">
+        <div class="flow-card p-12 w-full max-w-2xl mt-10">
+            <h2 class="text-3xl font-bold mb-10">Initialize Identity</h2>
+            <div class="space-y-6">
+                <input type="text" placeholder="Full Legal Name" class="w-full bg-[#111] border border-[#333] p-5 rounded-2xl outline-none focus:border-[#00f0ff]">
+                <input type="email" placeholder="Email Address" class="w-full bg-[#111] border border-[#333] p-5 rounded-2xl outline-none focus:border-[#00f0ff]">
+                <input type="text" placeholder="Billing Address (Street, City, Zip)" class="w-full bg-[#111] border border-[#333] p-5 rounded-2xl outline-none focus:border-[#00f0ff]">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="password" placeholder="Password" class="bg-[#111] border border-[#333] p-5 rounded-2xl outline-none">
+                    <input type="password" placeholder="Confirm" class="bg-[#111] border border-[#333] p-5 rounded-2xl outline-none">
+                </div>
+                <button onclick="navTo('dashboard')" class="w-full bg-white text-black py-5 rounded-full font-bold all-caps">Create Account</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="view-layer p-6">
+        <header class="w-full flex justify-between items-center mb-10">
+            <div class="flex items-center gap-4">
+                <div class="eye-container scale-50"><div class="eye-iris"></div></div>
+                <h2 class="text-xl font-bold">FLOW</h2>
+            </div>
+            <div class="flex gap-4">
+                <div class="bg-[#1e1e1e] px-6 py-2 rounded-full border border-[#333] text-[#ffcc00] font-bold">2,000c</div>
+                <div class="w-10 h-10 rounded-full bg-gray-700"></div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl">
+            <div class="flow-card h-64 relative group">
+                <img src="1773441360031.jpg" class="w-full h-full object-cover opacity-50">
+                <div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black">
+                    <p class="font-bold">Knocks Creative</p>
+                    <p class="text-xs opacity-50">Mar 29 - 12:08</p>
+                </div>
+            </div>
+            <div class="flow-card h-64 border-dashed border-2 flex items-center justify-center hover:bg-white/5">
+                <div class="text-center">
+                    <p class="text-4xl mb-2">+</p>
+                    <p class="all-caps text-xs">New project</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed bottom-10 w-full max-w-3xl glass p-4 rounded-[40px] border border-[#333] flex items-center gap-4">
+            <button class="p-4 bg-[#252525] rounded-full">+</button>
+            <input type="text" placeholder="What do you want to create?" class="flex-grow bg-transparent outline-none text-sm">
+            <div class="flex items-center gap-2 bg-[#252525] px-4 py-2 rounded-full border border-[#444] text-[10px]">
+                <span>Video</span> <span class="opacity-30">|</span> <span>x2</span>
+            </div>
+            <button onclick="document.getElementById('drill-fx').play()" class="p-4 bg-white text-black rounded-full">→</button>
+        </div>
+    </section>
+
     <script>
-        function initVoid() {
-            const container = document.getElementById('live-void');
-            for(let i=0; i<60; i++) {
-                const p = document.createElement('div');
-                p.className = 'water-particle';
-                p.style.width = Math.random() * 4 + "px";
-                p.style.height = p.style.width;
-                p.style.left = Math.random() * 100 + "vw";
-                p.style.animationDuration = (Math.random() * 10 + 5) + "s";
-                p.style.animationDelay = Math.random() * 5 + "s";
-                container.appendChild(p);
-            }
-        }
-
-        function unlockEngine() {
-            const name = document.getElementById('driller-name').value;
-            if(!name) return alert("Identify Yourself, Driller.");
-            
-            document.getElementById('auth-gate').style.opacity = "0";
-            setTimeout(() => {
-                document.getElementById('auth-gate').style.display = "none";
-                document.getElementById('main-interface').style.display = "block";
-                document.getElementById('nav-rail').style.display = "flex";
-                document.getElementById('id-tag').innerText = name.toUpperCase();
-                shuffleGems();
-            }, 800);
-        }
-
-        function shuffleGems() {
-            ['gem-1', 'gem-2'].forEach(id => {
-                const g = document.getElementById(id);
-                g.style.top = Math.random() * 80 + 10 + "%";
-                g.style.left = Math.random() * 80 + 10 + "%";
-            });
-        }
-
-        function claimReward(msg) {
-            alert("GHOST PROTOCOL ACTIVATED: " + msg);
-            event.target.style.display = 'none';
-        }
-
-        function igniteDrill() {
-            document.getElementById('idle-text').innerText = "GENERATING...";
-            setTimeout(() => {
-                document.getElementById('idle-text').classList.add('hidden');
-                document.getElementById('render-frame').classList.remove('hidden');
-            }, 3000);
+        function navTo(id) {
+            document.querySelectorAll('.view-layer').forEach(v => v.style.display = 'none');
+            document.getElementById(id).style.display = 'flex';
         }
     </script>
 </body>
