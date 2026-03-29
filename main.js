@@ -7,6 +7,7 @@ import java.util.*;
 @CrossOrigin(origins = "*") 
 public class SovereignEngine {
 
+    // THE UNIVERSAL 2000 COIN BASE
     private static final int BASE_COINS = 2000;
 
     @PostMapping("/sync-vault")
@@ -16,10 +17,10 @@ public class SovereignEngine {
         
         Map<String, Object> response = new HashMap<>();
         
-        // 1. THE SMART GATE (Enterprise Detection)
-        boolean isEnterprise = email.matches(".*@(corp|studio|app|platform|enterprise|global)\\..*");
+        // 1. THE SMART GATE (Professional Domain Detection)
+        boolean isEnterprise = email.matches(".*@(corp|studio|app|platform|enterprise|global|agency)\\..*");
 
-        // 2. THE CUMULATIVE 5-TIER MATH (Base 2000 + Tier)
+        // 2. THE CUMULATIVE 5-TIER MATH (Base 2000 + Tier Bonus)
         int tierBonus = switch (tier) {
             case "MASTER" -> 2000;       // Total 4,000
             case "SCHOLAR" -> 4999;      // Total 6,999
@@ -30,16 +31,16 @@ public class SovereignEngine {
 
         int totalCoins = BASE_COINS + tierBonus;
 
-        // 3. BOT SWARM INITIALIZATION
-        int activeBots = isEnterprise ? 50 : 5;
-        String swarmType = isEnterprise ? "Enterprise Scale Swarm" : "Standard Sovereign Swarm";
+        // 3. INTERNAL LOGIC UNIT ALLOCATION (Bot Swarm)
+        int activeUnits = isEnterprise ? 50 : 5;
+        String swarmStatus = isEnterprise ? "Enterprise Multi-Thread Swarm: ONLINE" : "Standard Sovereign Swarm: ONLINE";
 
-        response.put("uid", UUID.randomUUID().toString());
-        response.put("vault_balance", totalCoins);
-        response.put("is_enterprise", isEnterprise);
-        response.put("active_bots", activeBots);
-        response.put("swarm_status", swarmType);
-        response.put("message", "Everyone leaves with a smile.");
+        response.put("vault_id", UUID.randomUUID().toString());
+        response.put("balance", totalCoins);
+        response.put("enterprise_access", isEnterprise);
+        response.put("logic_units", activeUnits);
+        response.put("system_status", swarmStatus);
+        response.put("motto", "Everyone leaves with a smile.");
 
         return ResponseEntity.ok(response);
     }
