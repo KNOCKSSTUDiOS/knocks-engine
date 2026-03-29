@@ -3,157 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT FLOW</title>
+    <title>KNOCKS | OMNIPOTENT APEX</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
         
-        :root { --cyan: #00f0ff; --gold: #ffcc00; --olive: #6b8e23; --bg: #000; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; }
+        :root { --cyan: #00f0ff; --gold: #ffcc00; --olive: #6b8e23; --magenta: #ff00ff; --bg: #000; }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
 
-        /* THE ORIGINAL VIVID SPECTRUM BACKGROUND */
-        #nebula-flow {
+        /* --- THE VIVID SPECTRUM NEBULA (STUNNING & VIBRANT) --- */
+        #nebula {
             position: fixed; inset: 0; z-index: -2;
             background: 
-                radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 204, 0, 0.15) 0%, transparent 50%),
-                linear-gradient(135deg, #050510 0%, #000 100%);
-            background-size: 200% 200%;
-            animation: drift 15s infinite alternate ease-in-out;
+                radial-gradient(circle at 10% 10%, rgba(0, 240, 255, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 90% 90%, rgba(255, 0, 255, 0.3) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 204, 0, 0.15) 0%, transparent 60%),
+                #020205;
+            animation: nebulaShift 10s infinite alternate ease-in-out;
         }
-        @keyframes drift { 0% { background-position: 0% 0%; filter: hue-rotate(0deg); } 100% { background-position: 100% 100%; filter: hue-rotate(60deg); } }
+        @keyframes nebulaShift { from { filter: hue-rotate(0deg) brightness(1); } to { filter: hue-rotate(90deg) brightness(1.3); } }
 
-        /* THE ORIGINAL GOLD LIQUID FLOW LOGO */
+        /* --- THE "I LOVE IT" LIQUID GOLD FLOW --- */
         .liquid-text {
             font-size: 56px; font-weight: 900;
             background: linear-gradient(180deg, var(--gold), var(--olive), var(--cyan));
             background-size: 100% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255, 204, 0, 0.4));
-            animation: flow 4s infinite linear;
+            filter: drop-shadow(0 0 30px rgba(255, 204, 0, 0.5));
+            animation: flowAnim 4s infinite linear;
         }
-        @keyframes flow { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
+        @keyframes flowAnim { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
 
-        /* NAV RAIL - BACK TO ORIGINAL STYLE */
-        .nav-rail { width: 90px; height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.9); z-index: 5000; display: flex; flex-direction: column; align-items: center; padding-top: 80px; gap: 40px; }
-        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; letter-spacing: 0.8em; cursor: pointer; opacity: 0.3; transition: 0.3s; }
-        .nav-item:hover, .active-nav { opacity: 1; color: var(--gold); }
-
-        /* THE ORIGINAL TILE SETUP (AS REQUESTED) */
+        /* --- THE TILES (THE EXACT SETUP) --- */
         .engine-tile { 
-            background: rgba(10,10,15,0.8); border: 1px solid rgba(255, 255, 255, 0.05); 
-            backdrop-filter: blur(40px); transition: 0.4s;
+            background: rgba(10,10,20,0.85); border: 1px solid rgba(0, 240, 255, 0.2); 
+            backdrop-filter: blur(50px); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .engine-tile:hover { border-color: var(--cyan); box-shadow: 0 0 30px rgba(0, 240, 255, 0.1); }
+        .engine-tile:hover { border-color: var(--cyan); box-shadow: 0 0 40px rgba(0, 240, 255, 0.2); transform: scale(1.01); }
 
-        /* AUTH TILES */
+        /* --- NAV RAIL --- */
+        .nav-rail { width: 90px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.95); border-right: 1px solid var(--cyan); z-index: 5000; display: flex; flex-direction: column; align-items: center; padding-top: 80px; gap: 40px; }
+        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; letter-spacing: 0.8em; cursor: pointer; opacity: 0.3; transition: 0.4s; }
+        .nav-item:hover, .active-nav { opacity: 1; color: var(--cyan); text-shadow: 0 0 15px var(--cyan); }
+
+        /* --- AUTH / SIGN IN TILES --- */
         #auth-gate { position: fixed; inset: 0; z-index: 10000; background: #000; display: flex; align-items: center; justify-content: center; }
-        .auth-card { width: 420px; padding: 50px; border: 1px solid var(--gold); background: #050505; text-align: center; }
-        
-        .glow-input { background: #000; border: 1px solid #222; padding: 15px; color: var(--gold); outline: none; width: 100%; font-size: 10px; margin-bottom: 20px; }
-        .ignite-btn { background: var(--gold); color: #000; font-weight: 900; width: 100%; py: 20px; transition: 0.4s; }
+        .auth-tile { width: 420px; padding: 50px; border: 1px solid var(--gold); background: #050505; text-align: center; box-shadow: 0 0 60px rgba(255, 204, 0, 0.1); }
+        .glow-input { background: #000; border: 1px solid #333; padding: 15px; color: var(--cyan); outline: none; width: 100%; font-size: 10px; margin-bottom: 20px; transition: 0.3s; }
+        .glow-input:focus { border-color: var(--cyan); box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+        .ignite-btn { background: var(--cyan); color: #000; font-weight: 900; cursor: pointer; transition: 0.4s; }
+        .ignite-btn:hover { background: #fff; letter-spacing: 0.3em; }
 
         .page-node { display: none; }
-        .page-node.active { display: block; }
-        
-        /* AUDIO TOGGLE */
-        #audio-toggle { position: fixed; top: 20px; right: 20px; z-index: 6000; cursor: pointer; color: var(--cyan); font-size: 8px; border: 1px solid var(--cyan); padding: 5px 10px; }
+        .page-node.active { display: block; animation: entry 0.6s ease-out; }
+        @keyframes entry { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+
+        /* --- MUSIC HUD --- */
+        #music-hud { position: fixed; top: 20px; right: 20px; z-index: 6000; display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.5); padding: 10px 20px; border: 1px solid var(--cyan); }
     </style>
 </head>
-<body onload="initNebula()">
+<body onload="recallDriller()">
 
-    <div id="nebula-flow"></div>
+    <div id="nebula"></div>
     
-    <audio id="core-audio" loop>
+    <audio id="engine-audio" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
-    <div id="audio-toggle" onclick="toggleAudio()" class="extraordinary">MUSIC: ON</div>
+
+    <div id="music-hud" class="hidden">
+        <div class="extraordinary text-[8px] text-cyan-400 animate-pulse">AUDIO PERSISTENT</div>
+        <button onclick="toggleAudio()" id="m-btn" class="text-[8px] extraordinary border border-white/20 px-4 py-1 hover:border-cyan-400">OFF</button>
+    </div>
 
     <div id="auth-gate">
-        <div class="auth-card">
-            <h2 class="extraordinary text-[10px] tracking-[1.5em] text-[#ffcc00] mb-10">INITIALIZE ACCESS</h2>
-            <input type="text" id="driller-name" placeholder="DRILLER NAME" class="glow-input knocks-font">
-            <button onclick="bootFlow()" class="ignite-btn extraordinary py-4 text-[10px]">ACTIVATE CORE</button>
+        <div class="auth-tile">
+            <h2 class="extraordinary text-[9px] tracking-[1.5em] text-[#ffcc00] mb-10">DRILLER IDENTITY</h2>
+            <input type="text" id="driller-id" placeholder="USERNAME" class="glow-input knocks-font">
+            <button onclick="igniteEngine()" class="ignite-btn w-full py-5 extraordinary text-[10px] uppercase">Initialize Engine</button>
         </div>
     </div>
 
     <div id="rail" class="nav-rail" style="display:none;">
-        <div class="knocks-font text-[8px] text-[#ffcc00] mb-8" id="user-display">--</div>
-        <div class="nav-item active-nav extraordinary" onclick="jump('engine')">ENGINE</div>
-        <div class="nav-item extraordinary" onclick="jump('vault')">VAULT</div>
-        <div class="nav-item extraordinary" onclick="location.reload()">OFFLINE</div>
+        <div class="knocks-font text-[8px] text-[#ffcc00] mb-8" id="display-name">--</div>
+        <div id="nav-engine" class="nav-item active-nav extraordinary" onclick="switchPage('engine')">ENGINE</div>
+        <div id="nav-vault" class="nav-item extraordinary" onclick="switchPage('vault')">VAULT</div>
+        <div class="nav-item extraordinary" onclick="systemKill()">OFFLINE</div>
     </div>
 
-    <main id="main-interface" style="display:none;" class="pl-32 pr-10 pt-10">
-        <div class="mb-12"><h1 class="liquid-text extraordinary">KNOCKSCREATIVESTUDIOS</h1></div>
+    <main id="main-ui" style="display:none;" class="pl-32 pr-10 pt-10">
+        <div class="mb-14"><h1 class="liquid-text extraordinary">KNOCKSCREATIVESTUDIOS</h1></div>
 
         <section id="node-engine" class="page-node active">
             <div class="grid grid-cols-12 gap-10">
                 <div class="col-span-4 space-y-8">
                     <div class="engine-tile p-8">
-                        <h3 class="extraordinary text-[9px] opacity-40 mb-6 uppercase tracking-widest">Media Source</h3>
-                        <label class="h-32 border border-white/5 flex items-center justify-center cursor-pointer">
-                            <input type="file" class="hidden"><span class="text-[8px] knocks-font">SYNC MASTER</span>
+                        <h3 class="extraordinary text-[9px] opacity-40 mb-6 uppercase tracking-widest">Media Sync</h3>
+                        <label class="h-32 border border-dashed border-cyan-400/20 flex flex-col items-center justify-center cursor-pointer hover:bg-cyan-400/5">
+                            <input type="file" class="hidden"><span class="text-[8px] knocks-font">UPLOAD RAW DATA</span>
                         </label>
                     </div>
                     <div class="engine-tile p-8">
-                        <textarea class="glow-input h-32 mb-6" placeholder="COMMAND..."></textarea>
-                        <button class="ignite-btn py-5 extraordinary text-[10px]">IGNITE DRILL</button>
+                        <h3 class="extraordinary text-[9px] opacity-40 mb-4 uppercase">Neural Command</h3>
+                        <textarea class="glow-input h-32 mb-6" placeholder="TYPE THE UNSEEN..."></textarea>
+                        <button class="ignite-btn w-full py-6 extraordinary text-[10px]">IGNITE 9D DRILL</button>
                     </div>
                 </div>
-
                 <div class="col-span-8">
                     <div class="engine-tile h-[640px] flex items-center justify-center relative overflow-hidden">
-                        <div class="extraordinary text-[10px] opacity-10 tracking-[3em]">CORE FLOW ACTIVE</div>
+                        <div class="extraordinary text-[12px] opacity-10 tracking-[4em] animate-pulse">REACTOR STANDBY</div>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="node-vault" class="page-node">
-            <h2 class="extraordinary text-4xl mb-12 italic">SOVEREIGN <span class="text-[#ffcc00]">VAULT</span></h2>
-            <div class="grid grid-cols-2 gap-10">
-                <div class="engine-tile p-16 border-2 border-[#ffcc00]">
-                    <h3 class="extraordinary text-xl mb-6">ELITE</h3>
-                    <p class="text-7xl font-black mb-10">$29</p>
-                    <button class="ignite-btn py-5 extraordinary text-[10px]">ASCEND</button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <script>
-        const audio = document.getElementById('core-audio');
-        let playing = false;
-
-        function bootFlow() {
-            const name = document.getElementById('driller-name').value;
-            if(!name) return;
-            document.getElementById('auth-gate').style.display = 'none';
-            document.getElementById('rail').style.display = 'flex';
-            document.getElementById('main-interface').style.display = 'block';
-            document.getElementById('user-display').innerText = name.toUpperCase();
-            audio.play();
-            playing = true;
-        }
-
-        function toggleAudio() {
-            if(playing) { audio.pause(); document.getElementById('audio-toggle').innerText = "MUSIC: OFF"; }
-            else { audio.play(); document.getElementById('audio-toggle').innerText = "MUSIC: ON"; }
-            playing = !playing;
-        }
-
-        function jump(t) {
-            document.querySelectorAll('.page-node').forEach(n => n.classList.remove('active'));
-            document.getElementById('node-' + t).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-nav'));
-            event.target.classList.add('active-nav');
-        }
-
-        function initNebula() {
-            // Keep background subtle but vivid
-        }
-    </script>
-</body>
-</html>
+            <h2 class="extraordinary text-5xl mb-12
