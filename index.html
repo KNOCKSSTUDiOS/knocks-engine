@@ -3,111 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS | OMNIPOTENT APEX</title>
+    <title>KNOCKSSTUDiOS | OMNIPOTENT BEYOND</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
         
-        :root { --cyan: #00f0ff; --gold: #ffcc00; --olive: #6b8e23; --magenta: #ff00ff; --bg: #000; }
-        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
-        .knocks-font { font-family: 'Orbitron', sans-serif; }
+        :root { --cyan: #00f0ff; --gold: #ffcc00; --magenta: #ff00ff; --deep: #050510; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
+        .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- THE VIVID SPECTRUM NEBULA --- */
-        #nebula {
+        /* --- STUNNING 9D SUPERNOVA BACKGROUND --- */
+        #visual-core {
             position: fixed; inset: 0; z-index: -2;
-            background: 
-                radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.4) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(255, 0, 255, 0.3) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(255, 204, 0, 0.2) 0%, transparent 60%),
-                #020205;
-            animation: nebulaShift 8s infinite alternate ease-in-out;
+            background: radial-gradient(circle at 50% 50%, #0a0a20 0%, #000 100%);
+            overflow: hidden;
         }
-        @keyframes nebulaShift { from { filter: hue-rotate(0deg) brightness(1.2); } to { filter: hue-rotate(180deg) brightness(1.5); } }
+        .nebula-cloud {
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.5;
+            animation: drift 20s infinite alternate ease-in-out;
+        }
+        @keyframes drift { 
+            0% { transform: translate(0,0) scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+            100% { transform: translate(100px, 50px) scale(1.5) rotate(90deg); filter: hue-rotate(180deg); }
+        }
 
-        /* --- SIGN IN / CREATE ACCOUNT TILES --- */
-        #auth-gate { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(20px); }
-        .auth-card { width: 450px; padding: 50px; border: 1px solid var(--gold); background: #050505; text-align: center; box-shadow: 0 0 60px rgba(255, 204, 0, 0.15); }
-        .auth-tabs { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
-        .auth-tab { font-size: 10px; cursor: pointer; opacity: 0.4; transition: 0.3s; }
-        .auth-tab.active { opacity: 1; color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: 5px; }
-
-        .glow-input { background: #000; border: 1px solid #222; padding: 15px; color: var(--cyan); outline: none; width: 100%; font-size: 10px; margin-bottom: 20px; transition: 0.3s; }
-        .glow-input:focus { border-color: var(--gold); }
-        .ignite-btn { background: var(--cyan); color: #000; font-weight: 900; cursor: pointer; transition: 0.4s; }
-        .ignite-btn:hover { background: #fff; letter-spacing: 0.2em; }
-
-        /* --- ENGINE INTERFACE (HIDDEN UNTIL LOGIN) --- */
-        #main-engine { display: none; }
-        .liquid-text {
-            font-size: 58px; font-weight: 900;
-            background: linear-gradient(180deg, var(--gold), var(--olive), var(--cyan));
+        /* --- THE LIQUID GOLD ANOMALY --- */
+        .liquid-gold {
+            font-size: 60px; font-weight: 900;
+            background: linear-gradient(180deg, var(--gold) 0%, #6b8e23 50%, var(--cyan) 100%);
             background-size: 100% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 35px rgba(255, 204, 0, 0.6));
-            animation: flowAnim 3s infinite linear;
+            filter: drop-shadow(0 0 40px rgba(255, 204, 0, 0.7));
+            animation: flow 3s infinite linear;
         }
-        @keyframes flowAnim { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
+        @keyframes flow { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
 
-        .engine-tile { background: rgba(5,5,15,0.9); border: 1px solid rgba(0, 240, 255, 0.3); backdrop-filter: blur(60px); position: relative; }
-        .nav-rail { width: 90px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.95); border-right: 1px solid var(--cyan); z-index: 5000; display: flex; flex-direction: column; align-items: center; padding-top: 80px; gap: 40px; }
-        .nav-item { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 9px; letter-spacing: 0.8em; opacity: 0.3; cursor: pointer; }
-        .nav-item:hover, .active-nav { opacity: 1; color: var(--cyan); }
+        /* --- AUTH TILES (OUT OF WORLD DESIGN) --- */
+        #gate { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.85); backdrop-filter: blur(50px); display: flex; align-items: center; justify-content: center; }
+        .auth-tile { 
+            width: 480px; padding: 60px; background: rgba(10,10,20,0.9); border: 2px solid var(--cyan);
+            box-shadow: 0 0 100px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(0, 240, 255, 0.1);
+            text-align: center; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        /* --- INTERFACE --- */
+        #engine-room { opacity: 0; transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); pointer-events: none; }
+        #engine-room.active { opacity: 1; pointer-events: auto; }
+
+        .engine-tile { 
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(0, 240, 255, 0.2); 
+            backdrop-filter: blur(80px); transition: 0.6s; position: relative;
+        }
+        .engine-tile:hover { border-color: var(--cyan); box-shadow: 0 0 50px rgba(0, 240, 255, 0.3); transform: translateY(-5px); }
+        
+        .nav-rail { width: 100px; height: 100vh; position: fixed; left: 0; top: 0; border-right: 1px solid rgba(0, 240, 255, 0.3); background: rgba(0,0,0,0.95); z-index: 5000; }
+        .nav-link { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; letter-spacing: 1em; opacity: 0.3; cursor: pointer; transition: 0.5s; }
+        .nav-link:hover, .active { opacity: 1; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); }
+
+        input { background: #000; border: 1px solid #222; padding: 18px; color: var(--cyan); font-size: 10px; width: 100%; margin-bottom: 25px; outline: none; }
+        .ignite-btn { background: var(--cyan); color: #000; font-weight: 900; letter-spacing: 0.2em; transition: 0.5s; cursor: pointer; }
+        .ignite-btn:hover { background: #fff; box-shadow: 0 0 50px #fff; letter-spacing: 0.5em; }
+
+        /* PERSISTENT AUDIO VISUALIZER */
+        .bar { width: 4px; background: var(--cyan); animation: bounce 0.5s infinite alternate; }
+        @keyframes bounce { from { height: 5px; } to { height: 25px; } }
     </style>
 </head>
-<body onload="initSystem()">
+<body onload="setupVisuals()">
 
-    <div id="nebula"></div>
+    <div id="visual-core">
+        </div>
     
     <audio id="core-audio" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
     </audio>
 
-    <div id="auth-gate">
-        <div class="auth-card">
-            <div class="auth-tabs">
-                <span id="tab-in" class="auth-tab active extraordinary" onclick="switchAuth('in')">SIGN IN</span>
-                <span id="tab-up" class="auth-tab extraordinary" onclick="switchAuth('up')">CREATE ACCOUNT</span>
-            </div>
-            <h2 id="auth-header" class="knocks-font text-[9px] tracking-[1em] text-[#ffcc00] mb-8 uppercase">Initialize Driller</h2>
-            <input type="text" id="u-id" placeholder="IDENTITY NAME" class="glow-input knocks-font">
-            <input type="password" placeholder="ACCESS KEY" class="glow-input knocks-font">
-            <button onclick="bootEngine()" class="ignite-btn w-full py-5 extraordinary text-[10px] uppercase">Initialize Core</button>
+    <div id="gate">
+        <div class="auth-tile">
+            <h2 class="extraordinary text-[12px] text-cyan-400 mb-12 tracking-[2em]">IDENTITY_CORE</h2>
+            <input type="text" id="user-input" placeholder="DESIGNATE DRILLER" class="knocks-font">
+            <button onclick="ignite()" class="ignite-btn w-full py-6 extraordinary text-[10px]">INITIALIZE DIMENSION</button>
         </div>
     </div>
 
-    <div id="main-engine">
-        <div class="nav-rail">
-            <div class="knocks-font text-[8px] text-[#ffcc00] mb-8" id="display-id">--</div>
-            <div class="nav-item active-nav extraordinary">ENGINE</div>
-            <div class="nav-item extraordinary">VAULT</div>
-            <div class="nav-item extraordinary" onclick="location.reload()">OFFLINE</div>
+    <div id="engine-room">
+        <div class="nav-rail flex flex-col items-center pt-24 gap-16">
+            <div class="knocks-font text-[8px] text-[#ffcc00] mb-8" id="display-name">--</div>
+            <div class="nav-link active extraordinary">ENGINE</div>
+            <div class="nav-link extraordinary">VAULT</div>
+            <div class="nav-link extraordinary" onclick="location.reload()">OFFLINE</div>
         </div>
 
-        <main class="pl-32 pr-10 pt-10">
-            <div class="mb-14 flex justify-between items-center">
-                <h1 class="liquid-text extraordinary">KNOCKSSTUDiOS</h1>
-                <div class="text-[9px] knocks-font text-[#ffcc00] animate-pulse">CORE_ONLINE</div>
+        <main class="pl-40 pr-12 pt-12">
+            <div class="flex justify-between items-end mb-16">
+                <h1 class="liquid-gold extraordinary">KNOCKSSTUDiOS</h1>
+                <div class="flex gap-1 h-8 items-end">
+                    <div class="bar" style="animation-delay: 0.1s"></div>
+                    <div class="bar" style="animation-delay: 0.3s"></div>
+                    <div class="bar" style="animation-delay: 0.2s"></div>
+                    <div class="text-[8px] extraordinary ml-4 text-cyan-400">AUDIO_SYNC_ACTIVE</div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-12 gap-10">
-                <div class="col-span-4 space-y-8">
-                    <div class="engine-tile p-8">
-                        <h3 class="extraordinary text-[10px] text-cyan-400 mb-6 tracking-widest">DRILL DUAL VIDEO</h3>
-                        <div class="h-40 border border-dashed border-cyan-400/30 flex items-center justify-center mb-6">
-                            <span class="text-[8px] knocks-font opacity-40">READY FOR SYNC...</span>
+            <div class="grid grid-cols-12 gap-12">
+                <div class="col-span-4">
+                    <div class="engine-tile p-10">
+                        <h3 class="extraordinary text-[10px] text-cyan-400 mb-8 uppercase tracking-widest">Drill Protocol</h3>
+                        <div class="h-48 border-2 border-dashed border-cyan-400/20 flex items-center justify-center mb-10 group cursor-pointer hover:bg-cyan-400/5">
+                            <span class="text-[9px] knocks-font opacity-30 group-hover:opacity-100 transition-opacity">INJECT RAW DATA STREAM</span>
                         </div>
-                        <button class="ignite-btn w-full py-6 extraordinary text-[10px] uppercase">Ignite Drill</button>
+                        <button class="ignite-btn w-full py-6 extraordinary text-[11px] uppercase">Ignite 9D Render</button>
                     </div>
                 </div>
 
-                <div class="col-span-8 grid grid-cols-2 gap-8">
-                    <div class="engine-tile h-[600px] flex flex-col justify-end p-8">
-                        <h4 class="extraordinary text-lg mb-2">RESULT_01</h4>
-                        <button class="border border-cyan-400 text-cyan-400 px-6 py-2 text-[8px] extraordinary">DOWNLOAD</button>
+                <div class="col-span-8 grid grid-cols-2 gap-10">
+                    <div class="engine-tile h-[650px] flex flex-col justify-end p-10 overflow-hidden">
+                        <div class="absolute top-0 left-0 p-4 knocks-font text-[8px] opacity-20">ENCRYPTED_FEED_01</div>
+                        <h4 class="extraordinary text-2xl mb-4 tracking-tighter">RESULT_01</h4>
+                        <button class="border-2 border-cyan-400 text-cyan-400 px-8 py-3 text-[9px] extraordinary hover:bg-cyan-400 hover:text-black transition-all">DOWNLOAD_CORE</button>
                     </div>
-                    <div class="engine-tile h-[600px] flex flex-col justify-end p-8">
-                        <h4 class="extraordinary text-lg mb-2">RESULT_02</h4>
-                        <button class="border border-gold-400 text-gold-400 px-6 py-2 text-[8px] extraordinary">DOWNLOAD</button>
+                    <div class="engine-tile h-[650px] flex flex-col justify-end p-10 overflow-hidden">
+                        <div class="absolute top-0 left-0 p-4 knocks-font text-[8px] opacity-20">ENCRYPTED_FEED_02</div>
+                        <h4 class="extraordinary text-2xl mb-4 tracking-tighter">RESULT_02</h4>
+                        <button class="border-2 border-gold-400 text-gold-400 px-8 py-3 text-[9px] extraordinary hover:bg-gold-400 hover:text-black transition-all">DOWNLOAD_CORE</button>
                     </div>
                 </div>
             </div>
@@ -115,14 +133,32 @@
     </div>
 
     <script>
-        function switchAuth(mode) {
-            document.getElementById('tab-in').classList.toggle('active', mode === 'in');
-            document.getElementById('tab-up').classList.toggle('active', mode === 'up');
-            document.getElementById('auth-header').innerText = mode === 'in' ? 'Initialize Driller' : 'Register Identity';
+        function setupVisuals() {
+            const core = document.getElementById('visual-core');
+            const colors = ['#00f0ff', '#ff00ff', '#ffcc00', '#6b8e23'];
+            for(let i=0; i<8; i++) {
+                const cloud = document.createElement('div');
+                cloud.className = 'nebula-cloud';
+                cloud.style.width = cloud.style.height = (Math.random() * 600 + 400) + 'px';
+                cloud.style.background = colors[Math.floor(Math.random() * colors.length)];
+                cloud.style.left = (Math.random() * 100) + '%';
+                cloud.style.top = (Math.random() * 100) + '%';
+                cloud.style.animationDelay = (Math.random() * 10) + 's';
+                core.appendChild(cloud);
+            }
         }
 
-        function bootEngine() {
-            const id = document.getElementById('u-id').value;
-            if(!id) return;
-            document.getElementById('auth-gate').style.display = 'none';
-            document.getElementById('main-engine').style.display = 'block
+        function ignite() {
+            const name = document.getElementById('user-input').value;
+            if(!name) return;
+            document.getElementById('gate').style.transform = 'translateY(-100%)';
+            document.getElementById('gate').style.transition = '1s ease-in';
+            setTimeout(() => {
+                document.getElementById('engine-room').classList.add('active');
+                document.getElementById('display-name').innerText = name.toUpperCase();
+                document.getElementById('core-audio').play();
+            }, 500);
+        }
+    </script>
+</body>
+</html>
