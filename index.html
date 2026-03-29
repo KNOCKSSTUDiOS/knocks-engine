@@ -2,98 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | 9K SOVEREIGN</title>
+    <title>9K REALITY | KNOCKSSTUDiOS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; scroll-behavior: smooth; }
         .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
-        .tier-card { transition: 0.3s; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .tier-card:hover { border-color: #00f0ff; transform: translateY(-5px); background: rgba(0, 240, 255, 0.05); }
+        .neon-glow { text-shadow: 0 0 15px #00f0ff; }
+        .gallery-item { aspect-ratio: 9/16; background: #111; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
+        .gallery-item:hover { border-color: #ff003c; transform: scale(1.02); }
     </style>
 </head>
 <body>
 
-    <div id="modal" class="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center hidden">
-        <div id="glow" class="absolute w-96 h-96 blur-[150px] opacity-20"></div>
-        <h2 id="m-title" class="text-6xl font-black italic uppercase relative z-10 mb-2">Welcome</h2>
-        <p id="m-sub" class="text-[10px] tracking-[0.8em] uppercase opacity-60 relative z-10 mb-12">Vault Status: Active</p>
-        <button onclick="location.reload()" class="relative z-10 px-12 py-4 border border-white text-[10px] font-black uppercase">Enter Arena</button>
+    <div id="auth-modal" class="fixed inset-0 z-[1000] bg-black flex items-center justify-center p-6 hidden">
+        <div class="glass p-10 w-full max-w-md border-[#00f0ff]/30 text-center">
+            <h2 id="auth-title" class="text-2xl font-black uppercase mb-8 italic">Sign Up</h2>
+            <input type="email" placeholder="IDENTITY EMAIL" class="w-full bg-transparent border-b border-white/20 p-4 mb-6 outline-none focus:border-[#00f0ff] uppercase text-[10px]">
+            <input type="password" placeholder="SECURE KEY" class="w-full bg-transparent border-b border-white/20 p-4 mb-10 outline-none focus:border-[#00f0ff] uppercase text-[10px]">
+            <button onclick="closeAuth()" class="w-full py-4 bg-[#00f0ff] text-black font-black text-[10px] uppercase">Access Vault</button>
+            <p onclick="toggleAuth()" class="mt-6 text-[8px] opacity-40 uppercase cursor-pointer hover:opacity-100">Switch to Sign In</p>
+        </div>
     </div>
 
     <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center glass">
-        <div class="font-black italic text-2xl tracking-tighter">KNOCKSSTUDiOS</div>
-        <div class="flex gap-6 text-[9px] font-black uppercase">
-            <a href="#vault">The Vault</a>
-            <a href="#infra">Infrastructure</a>
+        <div class="font-black italic text-xl tracking-tighter">KNOCKSSTUDiOS</div>
+        <div class="flex gap-6 text-[9px] font-black uppercase tracking-widest">
+            <a href="#gallery">Gallery</a>
+            <a href="#vault">Vault</a>
+            <button onclick="openAuth()" class="text-[#00f0ff]">Sign In</button>
         </div>
     </nav>
 
     <section class="h-screen flex flex-col items-center justify-center text-center px-6">
-        <h1 class="text-7xl md:text-[10rem] font-black italic uppercase leading-none tracking-tighter">9K REALITY</h1>
-        <p class="text-[#00f0ff] tracking-[1em] text-[10px] uppercase mt-4">Sovereign Identity Reconstruction</p>
+        <h1 class="text-7xl md:text-[10rem] font-black italic uppercase leading-none tracking-tighter neon-glow">9K REALITY</h1>
+        <p class="text-[#ffcc00] tracking-[0.5em] text-[10px] font-bold uppercase mt-6">Powered by AI LAB LEGENDS</p>
+        <div class="mt-12 flex gap-4">
+            <a href="#vault" class="px-10 py-4 bg-[#ff003c] font-black text-[10px] uppercase">Join the Legends</a>
+            <a href="#gallery" class="px-10 py-4 border border-white font-black text-[10px] uppercase">View Gallery</a>
+        </div>
     </section>
 
-    <section id="vault" class="py-32 bg-zinc-950 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
-                <div class="tier-card p-8 bg-black">
-                    <h4 class="text-[9px] opacity-40 uppercase font-black">Citizen</h4>
-                    <p class="text-3xl font-black my-4">FREE</p>
-                    <p class="text-xs font-black text-[#00f0ff]">2,000 COINS</p>
-                </div>
-                <div class="tier-card p-8 bg-black" onclick="pay('MASTER')">
-                    <h4 class="text-[9px] text-[#00f0ff] uppercase font-black">Master</h4>
-                    <p class="text-3xl font-black my-4">$19.99</p>
-                    <p class="text-xs font-black">4,000 COINS</p>
-                    <p class="text-[8px] opacity-40 uppercase mt-2">2k Base + 2k Bonus</p>
-                </div>
-                <div class="tier-card p-8 bg-black" onclick="pay('SCHOLAR')">
-                    <h4 class="text-[9px] text-[#ffcc00] uppercase font-black">Scholar</h4>
-                    <p class="text-3xl font-black my-4">$29.99</p>
-                    <p class="text-xs font-black">6,999 COINS</p>
-                    <p class="text-[8px] opacity-40 uppercase mt-2">2k Base + 4999 Bonus</p>
-                </div>
-                <div class="tier-card p-8 bg-black" onclick="pay('TITAN')">
-                    <h4 class="text-[9px] uppercase font-black">Titan</h4>
-                    <p class="text-3xl font-black my-4">$49.99</p>
-                    <p class="text-xs font-black">9,500 COINS</p>
-                    <p class="text-[8px] opacity-40 uppercase mt-2">2k Base + 7500 Bonus</p>
-                </div>
-                <div class="tier-card p-8 bg-[#ff003c]/5 border-[#ff003c]" onclick="pay('ULTRA_TITAN')">
-                    <h4 class="text-[9px] text-[#ff003c] uppercase font-black">Ultra Titan</h4>
-                    <p class="text-3xl font-black my-4">$99.99</p>
-                    <p class="text-xs font-black text-[#ff003c]">12,000+ COINS</p>
-                    <p class="text-[8px] opacity-40 uppercase mt-2">VIP Unit Access</p>
-                </div>
+    <section id="gallery" class="py-32 bg-zinc-950 px-6">
+        <h2 class="text-center text-[10px] tracking-[1em] opacity-30 uppercase mb-16">The 9K Render Stream</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-7xl mx-auto">
+            <div class="gallery-item flex items-end p-4 text-[8px] uppercase opacity-40">Render_001.9k</div>
+            <div class="gallery-item flex items-end p-4 text-[8px] uppercase opacity-40">Render_002.9k</div>
+            <div class="gallery-item flex items-end p-4 text-[8px] uppercase opacity-40 text-[#00f0ff]">Legend_Elite.9k</div>
+            <div class="gallery-item flex items-end p-4 text-[8px] uppercase opacity-40">Render_004.9k</div>
+            <div class="gallery-item flex items-end p-4 text-[8px] uppercase opacity-40">Render_005.9k</div>
+            <div class="gallery-item flex items-end p-4 text-[8px] uppercase opacity-40 text-[#ff003c]">Ultra_Titan.9k</div>
+        </div>
+    </section>
+
+    <section id="vault" class="py-32 bg-black px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-4 text-center">
+            <div class="glass p-8 border-white/5">
+                <h4 class="text-[8px] opacity-40 uppercase font-black">Citizen</h4>
+                <p class="text-2xl font-black my-4">FREE</p>
+                <p class="text-[10px] text-[#00f0ff]">2,000 COINS</p>
+            </div>
+            <div class="glass p-8 border-[#00f0ff]/30">
+                <h4 class="text-[8px] text-[#00f0ff] uppercase font-black">Master</h4>
+                <p class="text-2xl font-black my-4">$19.99</p>
+                <p class="text-[10px]">4,000 COINS</p>
+            </div>
+            <div class="glass p-8 border-[#ffcc00]/30 shadow-xl">
+                <h4 class="text-[8px] text-[#ffcc00] uppercase font-black">Scholar</h4>
+                <p class="text-2xl font-black my-4 text-[#ffcc00]">$29.99</p>
+                <p class="text-[10px]">6,999 COINS</p>
+            </div>
+            <div class="glass p-8 border-white/10">
+                <h4 class="text-[8px] uppercase font-black">Titan</h4>
+                <p class="text-2xl font-black my-4">$49.99</p>
+                <p class="text-[10px]">9,500 COINS</p>
+            </div>
+            <div class="glass p-8 border-[#ff003c]/50 bg-[#ff003c]/5">
+                <h4 class="text-[8px] text-[#ff003c] uppercase font-black">Ultra Titan</h4>
+                <p class="text-2xl font-black my-4">$99.99</p>
+                <p class="text-[10px] text-[#ff003c]">12,000+ COINS</p>
             </div>
         </div>
     </section>
 
-    <section id="infra" class="py-32 border-t border-white/5 bg-black px-6 text-center">
-        <h2 class="text-xs text-[#00f0ff] tracking-[1em] uppercase mb-10">Logic Swarm Architecture</h2>
-        <p class="max-w-2xl mx-auto text-[11px] opacity-40 uppercase tracking-widest leading-loose">
-            Sub-base protocols handle 9K reconstruction via automated logic units. Enterprise domains trigger high-velocity GPU scaling.
-        </p>
-    </section>
-
-    <footer class="p-20 text-center opacity-20 text-[10px] uppercase tracking-[1em]">Everyone leaves with a smile.</footer>
+    <footer class="p-20 text-center opacity-20 text-[10px] uppercase tracking-[1em]">
+        Everyone leaves with a smile.
+    </footer>
 
     <script>
-        async function pay(tier) {
-            const res = await fetch('/api/v1/knocks/initialize-vault', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ email: "user@studio.com", tier: tier })
-            });
-            const data = await res.json();
-            
-            // DEMO MODE: Trigger Modal. LIVE MODE: window.location.href = data.checkoutUrl;
-            const modal = document.getElementById('modal');
-            document.getElementById('m-title').innerText = data.isEnterprise ? "Welcome, Director" : "Welcome, Titan";
-            document.getElementById('m-sub').innerText = data.isEnterprise ? "50 Logic Units Online" : "Vault Online | Smile Confirmed";
-            document.getElementById('glow').style.backgroundColor = data.isEnterprise ? "#00f0ff" : "#ffcc00";
-            modal.classList.remove('hidden');
+        const modal = document.getElementById('auth-modal');
+        const title = document.getElementById('auth-title');
+
+        function openAuth() { modal.classList.remove('hidden'); }
+        function closeAuth() { modal.classList.add('hidden'); alert('Smile Confirmed. Vault syncing...'); }
+        function toggleAuth() {
+            title.innerText = title.innerText === "SIGN UP" ? "SIGN IN" : "SIGN UP";
         }
     </script>
 </body>
