@@ -3,87 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | 9K AUDIO CORE</title>
+    <title>KNOCKSSTUDiOS | THE 9K GATE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
         * { cursor: crosshair; margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; }
 
-        #bg-layer {
+        /* DYNAMIC BACKGROUND ENGINE */
+        #bg-container {
             position: fixed; inset: 0; z-index: -1;
-            background: url('workshop.jpg') no-repeat center center;
-            background-size: cover; opacity: 0.5; filter: brightness(0.7) saturate(1.5);
+            background-size: cover; background-position: center;
+            opacity: 0.5; filter: brightness(0.7) saturate(1.8);
+            /* This tries both names just in case */
+            background-image: url('1773441360031.jpg'), url('1773441360031.JPG');
         }
 
-        #robot-asset {
+        #valerius-asset {
             position: absolute; width: 320px; bottom: 5%; right: 5%;
-            filter: drop-shadow(0 0 30px #00f0ff);
-            animation: float 4s infinite ease-in-out; z-index: 5;
+            filter: drop-shadow(0 0 25px #00f0ff);
+            animation: float 4s infinite ease-in-out;
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+
+        /* THE TILES */
+        .tile-btn {
+            background: rgba(0,0,0,0.8); border: 2px solid #00f0ff;
+            color: #00f0ff; padding: 12px 30px; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 3px; font-size: 12px;
+            transition: 0.3s;
+        }
+        .tile-btn:hover { background: #00f0ff; color: #000; box-shadow: 0 0 30px #00f0ff; }
+
+        .auth-modal {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 1000; justify-content: center; align-items: center;
+        }
     </style>
 </head>
 <body>
 
-    <div id="bg-layer"></div>
-    <img src="image.png" id="robot-asset" alt="VALERIUS_9K">
+    <div id="bg-container"></div>
+    <img src="image.png" id="valerius-asset" alt="SENTINEL">
 
-    <audio id="engine-sound" loop>
+    <audio id="engine-audio" loop>
         <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="fixed top-0 right-0 p-10 flex gap-6 z-50">
-        <button onclick="openAuth()" class="border-2 border-[#00f0ff] px-10 py-3 text-[#00f0ff] font-black hover:bg-[#00f0ff] hover:text-black">SIGN IN</button>
-    </div>
+    <nav class="fixed top-0 right-0 p-10 flex gap-6 z-50">
+        <button onclick="openAuth('LOGIN')" class="tile-btn">SIGN IN</button>
+        <button onclick="openAuth('SIGN UP')" class="tile-btn" style="background: #00f0ff; color: #000;">SIGN UP</button>
+    </nav>
 
     <main class="h-screen flex flex-col items-center justify-center text-center">
         <h1 class="text-9xl font-black mix-blend-difference mb-4">KNOCKS</h1>
         <p class="tracking-[2em] text-[#00f0ff] mb-12">STUDIOS 9K ENGINE</p>
         
-        <button id="boot-btn" onclick="startEngine()" class="bg-white text-black py-8 px-16 font-black uppercase text-[12px] tracking-[1em] hover:bg-[#00f0ff] transition-all">
-            BOOT_SYSTEM_WITH_AUDIO
+        <button id="boot-trigger" onclick="bootSystem()" class="bg-white text-black py-8 px-16 font-black uppercase text-[12px] tracking-[1em] hover:bg-[#00f0ff]">
+            BOOT_SYSTEM
         </button>
     </main>
 
+    <div id="auth-modal" class="auth-modal">
+        <div class="p-10 border-2 border-[#00f0ff] bg-black max-w-md w-full">
+            <h2 id="modal-title" class="text-3xl font-black text-[#00f0ff] mb-6">SYSTEM ACCESS</h2>
+            <input type="email" placeholder="ENCRYPTED_EMAIL" class="w-full bg-cyan-900/20 border border-cyan-400 p-4 mb-4 text-white outline-none">
+            <input type="password" placeholder="SECURITY_KEY" class="w-full bg-cyan-900/20 border border-cyan-400 p-4 mb-4 text-white outline-none">
+            <button onclick="alert('IDENTITY VERIFIED. ENTERING ENGINE.')" class="w-full bg-[#00f0ff] text-black font-black p-4 uppercase tracking-widest">Execute Entry</button>
+            <button onclick="document.getElementById('auth-modal').style.display='none'" class="mt-4 text-xs opacity-50 uppercase">Abort</button>
+        </div>
+    </div>
+
     <script>
-        const audio = document.getElementById('engine-sound');
-        const btn = document.getElementById('boot-btn');
+        const audio = document.getElementById('engine-audio');
 
-        function startEngine() {
-            // UNLOCKS AUDIO ON TABLET
-            audio.play().catch(e => console.log("Audio blocked: Needs user interaction first."));
-            
-            btn.innerText = "SYSTEM_ONLINE";
-            btn.style.background = "#00f0ff";
-            
-            // Pulse the screen with the beat
-            document.body.style.animation = "pulse 0.5s infinite alternate";
-            
-            setTimeout(() => {
-                alert("9K AUDIO CORE INITIALIZED. WELCOME MASTER.");
-            }, 500);
-        }
-
-        function openAuth() {
-            // Making sure audio plays even if they click sign-in first
+        function bootSystem() {
             audio.play();
-            alert("MEMBER PORTAL LOADING...");
+            document.getElementById('boot-trigger').innerText = "SYSTEM_ONLINE";
+            document.getElementById('boot-trigger').style.background = "#00f0ff";
         }
 
-        // Parallax Workshop Effect
+        function openAuth(mode) {
+            audio.play(); // Play music when they try to join
+            document.getElementById('modal-title').innerText = mode;
+            document.getElementById('auth-modal').style.display = 'flex';
+        }
+
+        // Parallax Move
         document.addEventListener('mousemove', (e) => {
             const x = (window.innerWidth / 2 - e.pageX) / 40;
             const y = (window.innerHeight / 2 - e.pageY) / 40;
-            document.getElementById('bg-layer').style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
+            document.getElementById('bg-container').style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
         });
     </script>
-
-    <style>
-        @keyframes pulse {
-            from { filter: brightness(1); }
-            to { filter: brightness(1.2); }
-        }
-    </style>
 </body>
 </html>
