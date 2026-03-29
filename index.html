@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | THE SOVEREIGN GATE</title>
+    <title>KNOCKSSTUDiOS | SOVEREIGN AUTH</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap');
@@ -11,91 +11,56 @@
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow: hidden; }
 
         /* THE WORKSHOP BACKGROUND */
-        #background-robot {
+        #bg-video-layer {
             position: fixed; inset: 0; z-index: -1;
             background: url('1773441360031.jpg') no-repeat center center;
-            background-size: cover; opacity: 0.4; filter: saturate(1.5) brightness(0.7);
+            background-size: cover; opacity: 0.3; filter: brightness(0.6) saturate(1.5);
         }
 
-        /* THE FLOATING V-SENTINEL (Animated) */
-        #moving-sentinel {
-            position: absolute; width: 300px; bottom: 10%; right: 5%;
-            filter: drop-shadow(0 0 30px #00f0ff);
-            animation: floatRobot 6s infinite ease-in-out;
+        /* FLOATING ROBOT ASSET */
+        #sentinel-vessel {
+            position: absolute; width: 300px; bottom: 5%; right: 5%;
+            filter: drop-shadow(0 0 25px #00f0ff);
+            animation: float 4s infinite ease-in-out;
             z-index: 5;
         }
-        @keyframes floatRobot { 0%, 100% { transform: translateY(0) rotate(2deg); } 50% { transform: translateY(-40px) rotate(-2deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
 
-        /* BUSINESS TILES (LOGIN/SIGNUP) */
-        .auth-container {
-            position: fixed; top: 20px; right: 20px; z-index: 100; display: flex; gap: 15px;
+        /* AUTH TILES & MODAL */
+        .auth-tile {
+            background: rgba(0,0,0,0.8); border: 2px solid #00f0ff;
+            padding: 30px; width: 100%; max-width: 400px;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.2);
         }
-        .tile-btn {
-            background: rgba(0, 240, 255, 0.1); border: 2px solid #00f0ff;
-            color: #00f0ff; padding: 10px 25px; font-weight: 900;
-            text-transform: uppercase; letter-spacing: 2px;
-            transition: 0.3s; pointer-events: auto;
+        input {
+            background: rgba(255,255,255,0.05); border: 1px solid #00f0ff;
+            color: #fff; padding: 12px; margin: 10px 0; width: 100%; outline: none;
         }
-        .tile-btn:hover { background: #00f0ff; color: #000; box-shadow: 0 0 20px #00f0ff; }
+        .action-btn {
+            background: #00f0ff; color: #000; font-weight: 900;
+            width: 100%; padding: 15px; margin-top: 15px; transition: 0.3s;
+        }
+        .action-btn:hover { background: #fff; box-shadow: 0 0 30px #fff; }
 
-        /* THE MAIN HUD */
-        .brand-text { font-size: 8rem; font-weight: 900; letter-spacing: -0.05em; mix-blend-mode: difference; text-shadow: 0 0 20px #fff; }
-        
-        /* SUBSCRIPTION MODAL */
-        #sub-modal {
-            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-            z-index: 200; justify-content: center; align-items: center; text-align: center;
+        #modal-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            z-index: 1000; justify-content: center; align-items: center;
         }
+
+        .brand-header { font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; letter-spacing: -2px; }
     </style>
 </head>
 <body>
 
-    <div id="background-robot"></div>
-    <img src="image.png" id="moving-sentinel" alt="VALERIUS">
+    <div id="bg-video-layer"></div>
+    <img src="image.png" id="sentinel-vessel" alt="VALERIUS">
 
-    <div class="auth-container">
-        <button class="tile-btn" onclick="openGate()">LOGIN</button>
-        <button class="tile-btn" onclick="openGate()">SIGN UP</button>
-        <button class="tile-btn" style="border-color: #ff0055; color: #ff0055;">SUBSCRIBE</button>
-    </div>
+    <nav class="fixed top-0 w-full p-6 flex justify-end gap-4 z-50">
+        <button onclick="toggleAuth('signin')" class="border-2 border-[#00f0ff] px-8 py-2 text-[#00f0ff] font-bold hover:bg-[#00f0ff] hover:text-black transition">SIGN IN</button>
+        <button onclick="toggleAuth('signup')" class="bg-[#00f0ff] text-black px-8 py-2 font-bold hover:bg-white transition">SIGN UP</button>
+    </nav>
 
-    <main class="relative z-10 flex flex-col items-center justify-center min-h-screen">
-        <h1 class="brand-text">KNOCKS</h1>
-        <p class="tracking-[2em] text-[#00f0ff] mb-10">STUDIOS 9K ENGINE</p>
-        
-        <button id="init-btn" onclick="triggerEngine()" class="bg-white text-black py-6 px-12 font-black uppercase text-[14px] tracking-[1em] hover:bg-[#00f0ff] transition-all">
-            BOOT SYSTEM
-        </button>
-    </main>
-
-    <div id="sub-modal">
-        <div>
-            <h2 style="font-size: 3rem; color: #ff0055;">ACCESS DENIED</h2>
-            <p style="letter-spacing: 5px;">ACTIVE SUBSCRIPTION REQUIRED FOR 9K ENGINE</p>
-            <button class="tile-btn" style="margin-top: 20px;" onclick="closeModal()">RETURN TO GATE</button>
-        </div>
-    </div>
-
-    <script>
-        function triggerEngine() {
-            // This links to your actual live engine file
-            window.location.href = "hollywoodimaging.studio"; 
-        }
-
-        function openGate() {
-            document.getElementById('sub-modal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('sub-modal').style.display = 'none';
-        }
-
-        // Mouse interaction for the background robot
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
-            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
-            document.getElementById('background-robot').style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
-        });
-    </script>
-</body>
-</html>
+    <main class="h-screen flex flex-col items-center justify-center text-center p-4">
+        <h1 class="brand-header text-white mix-blend-difference">KNOCKS</h1>
+        <p class="tracking-[1.5em] text-[#00f0ff] mb-8">STUDIOS 9K ENGINE</p>
+        <button onclick="toggleAuth('signup')" class
