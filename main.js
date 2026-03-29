@@ -1,41 +1,45 @@
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/v1/sovereign")
-public class SovereignEngineController {
+@RequestMapping("/api/v1/knocks")
+@CrossOrigin(origins = "*") 
+public class SovereignEngine {
 
-    // THE FOUNDATION: 2000 BASE COINS
     private static final int BASE_COINS = 2000;
 
-    @PostMapping("/onboard")
-    public ResponseEntity<Map<String, Object>> onboardUser(@RequestBody Map<String, String> userData) {
-        String email = userData.get("email");
-        String tier = userData.get("tier").toUpperCase();
+    @PostMapping("/sync-vault")
+    public ResponseEntity<Map<String, Object>> syncUserVault(@RequestBody Map<String, String> request) {
+        String email = request.get("email").toLowerCase();
+        String tier = request.get("tier").toUpperCase();
         
         Map<String, Object> response = new HashMap<>();
         
-        // 1. THE SMART GATE: DETECTION
-        boolean isEnterprise = email.contains("@corp") || email.contains("@studio") || email.contains("@platform");
+        // 1. THE SMART GATE (Enterprise Detection)
+        boolean isEnterprise = email.matches(".*@(corp|studio|app|platform|enterprise|global)\\..*");
 
-        // 2. THE CUMULATIVE ECONOMY MATH
+        // 2. THE CUMULATIVE 5-TIER MATH (Base 2000 + Tier)
         int tierBonus = switch (tier) {
-            case "MASTER" -> 2000;       // Total: 4000
-            case "SCHOLAR" -> 4999;      // Total: 6999
-            case "TITAN" -> 7500;        // Total: 9500
-            case "ULTRA_TITAN" -> 10000; // Total: 12000
-            default -> 0;                // Citizen: 2000
+            case "MASTER" -> 2000;       // Total 4,000
+            case "SCHOLAR" -> 4999;      // Total 6,999
+            case "TITAN" -> 7500;        // Total 9,500
+            case "ULTRA_TITAN" -> 10000; // Total 12,000
+            default -> 0;                // Citizen: 2,000
         };
 
-        int totalVaultBalance = BASE_COINS + tierBonus;
+        int totalCoins = BASE_COINS + tierBonus;
 
-        // 3. WAKE THE BOTS
-        String botStatus = isEnterprise ? "Enterprise Swarm Active: 50 Bots Assigned" : "Standard Bot Swarm: 5 Bots Assigned";
+        // 3. BOT SWARM INITIALIZATION
+        int activeBots = isEnterprise ? 50 : 5;
+        String swarmType = isEnterprise ? "Enterprise Scale Swarm" : "Standard Sovereign Swarm";
 
-        response.put("balance", totalVaultBalance);
-        response.put("isEnterprise", isEnterprise);
-        response.put("status", "Everyone leaves with a smile.");
-        response.put("botLog", botStatus);
+        response.put("uid", UUID.randomUUID().toString());
+        response.put("vault_balance", totalCoins);
+        response.put("is_enterprise", isEnterprise);
+        response.put("active_bots", activeBots);
+        response.put("swarm_status", swarmType);
+        response.put("message", "Everyone leaves with a smile.");
 
         return ResponseEntity.ok(response);
     }
