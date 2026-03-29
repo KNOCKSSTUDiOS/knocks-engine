@@ -15,182 +15,185 @@
         /* --- THE SHUTTER JUMP --- */
         #shutter {
             position: fixed; inset: 0; background: #000; z-index: 9999;
-            transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-            display: flex; align-items: center; justify-content: center;
+            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.8, 0, 0.2, 1);
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
         }
-        #shutter.active { transform: translateX(0); }
-        .shutter-line { width: 2px; height: 100%; background: #00f0ff; box-shadow: 0 0 30px #00f0ff; position: absolute; right: 0; }
-
-        /* --- ROBOT EYE CORE --- */
-        .robot-eye { width: 100px; height: 100px; border: 3px solid #111; border-radius: 50%; position: relative; background: #000; }
-        .iris-core { 
-            position: absolute; inset: 25%; background: radial-gradient(circle, #00f0ff 0%, #000 85%); 
-            border-radius: 50%; box-shadow: 0 0 30px #00f0ff;
-            animation: calibrate 1.5s infinite ease-in-out;
-        }
-        @keyframes calibrate { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); filter: brightness(1.5); } }
+        #shutter.active { transform: translateY(0); }
+        .shutter-glow { width: 100%; height: 2px; background: #00f0ff; box-shadow: 0 0 30px #00f0ff; position: absolute; top: 0; }
 
         /* --- PAGE NODES --- */
         .page-node { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; }
         .page-node.active { display: flex; animation: jumpIn 0.3s ease-out; }
-        @keyframes jumpIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes jumpIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
 
-        /* --- UI ELEMENTS --- */
-        .studio-card { background: rgba(5, 5, 5, 0.98); border: 1px solid #1a1a1a; transition: 0.2s; cursor: pointer; }
-        .studio-card:hover { border-color: #00f0ff; background: #080808; }
+        /* --- STUDIO COMPONENTS --- */
+        .studio-card { background: rgba(5, 5, 5, 0.98); border: 1px solid #1a1a1a; transition: 0.2s; cursor: pointer; position: relative; overflow: hidden; }
+        .studio-card:hover { border-color: #00f0ff; }
         .active-sel { border-color: #00f0ff !important; background: rgba(0, 240, 255, 0.05) !important; }
-        
-        .vault-input { background: #000; border: 1px solid #222; padding: 18px; color: #00f0ff; font-family: monospace; outline: none; width: 100%; font-size: 13px; }
-        .vault-input:focus { border-color: #00f0ff; }
-        
-        .workshop-bg { position: absolute; inset: 0; background: url('1773441360031.jpg') center/cover; opacity: 0.15; filter: grayscale(100%); z-index: -1; }
-        .overlay { position: absolute; inset: 0; background: radial-gradient(circle, transparent, #000 95%); z-index: -1; }
-        
-        /* Typewriter Effect */
-        #welcome-text { min-height: 1.5em; }
+
+        /* --- WATERMARK OVERLAY --- */
+        .watermark { position: absolute; bottom: 10px; right: 10px; font-size: 8px; opacity: 0.5; color: #00f0ff; font-family: 'Orbitron'; pointer-events: none; }
+
+        /* --- RADIO UI --- */
+        .radio-pulse { width: 12px; height: 12px; background: #00f0ff; border-radius: 50%; box-shadow: 0 0 10px #00f0ff; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+
+        .vault-input { background: #000; border: 1px solid #222; padding: 18px; color: #00f0ff; font-family: monospace; outline: none; width: 100%; }
     </style>
 </head>
 <body>
 
-    <div id="shutter"><div class="shutter-line"></div></div>
-    <div class="workshop-bg"></div>
-    <div class="overlay"></div>
+    <div id="shutter">
+        <div class="shutter-glow"></div>
+        <div class="knocks-font text-[10px] tracking-[2em] text-[#00f0ff] animate-pulse">DRILLING...</div>
+    </div>
 
     <main id="node-splash" class="page-node active">
-        <h1 class="knocks-font text-6xl md:text-8xl uppercase mb-8 italic font-black">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
-        <div id="welcome-text" class="text-[#00f0ff] knocks-font text-[10px] tracking-[0.5em] uppercase mb-12 h-6"></div>
+        <h1 class="knocks-font text-6xl md:text-9xl uppercase mb-12 italic font-black">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
         <div class="flex gap-6">
-            <button onclick="jump('engine')" class="knocks-font border border-[#00f0ff] px-10 py-5 text-xs hover:bg-[#00f0ff] hover:text-black transition uppercase font-black">Enter Studio</button>
-            <button onclick="jump('signup')" class="knocks-font bg-white text-black px-10 py-5 text-xs hover:bg-gray-200 transition uppercase font-black">Register Identity</button>
+            <button onclick="jump('engine')" class="knocks-font border border-[#00f0ff] px-12 py-6 text-xs hover:bg-[#00f0ff] hover:text-black transition uppercase font-black">Open Engine</button>
+            <button onclick="jump('signup')" class="knocks-font bg-white text-black px-12 py-6 text-xs hover:bg-gray-200 transition uppercase font-black">Register Vault</button>
         </div>
     </main>
 
     <section id="node-signup" class="page-node">
         <div class="w-full max-w-xl px-8">
-            <h2 class="knocks-font text-3xl mb-10 text-[#00f0ff] uppercase italic">Secure Registry</h2>
+            <h2 class="knocks-font text-3xl mb-8 text-[#00f0ff] uppercase italic">Identity Record</h2>
             <div class="space-y-4 mb-8">
-                <input type="text" placeholder="LEGAL FULL NAME" class="vault-input">
+                <input type="text" placeholder="LEGAL NAME" class="vault-input">
                 <input type="email" placeholder="SECURE EMAIL" class="vault-input">
                 <input type="password" placeholder="ACCESS KEY" class="vault-input">
             </div>
-            <button onclick="completeSignup()" class="w-full bg-[#00f0ff] text-black py-6 font-black knocks-font uppercase text-xs">Initialize Sync</button>
-            <p onclick="jump('splash')" class="text-center mt-6 text-[9px] opacity-30 uppercase cursor-pointer hover:opacity-100">← Back</p>
+            <button onclick="completeSignup()" class="w-full bg-[#00f0ff] text-black py-6 font-black knocks-font uppercase text-xs">Sync Identity</button>
         </div>
     </section>
 
-    <section id="node-engine" class="page-node" style="background: rgba(0,0,0,0.9);">
+    <section id="node-engine" class="page-node">
         <header class="fixed top-0 w-full p-8 flex justify-between items-center border-b border-white/5 bg-black z-50">
-            <h1 class="knocks-font text-xl uppercase italic font-black">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
-            <div class="flex gap-8 items-center">
-                <div class="text-right">
-                    <p class="text-[9px] opacity-20 uppercase">Free Quota: <span id="q-val" class="text-white">0/2</span></p>
-                    <p class="text-2xl font-black text-[#ffcc00] knocks-font">2,000c</p>
+            <div class="flex items-center gap-4">
+                <h1 class="knocks-font text-xl uppercase italic font-black">KNOCKS STUD<span class="neon-i">i</span>OS</h1>
+                <div class="flex items-center gap-2 ml-10 opacity-40">
+                    <div id="radio-light" class="w-2 h-2 rounded-full bg-gray-700"></div>
+                    <p onclick="toggleRadio()" class="text-[9px] uppercase cursor-pointer hover:text-[#00f0ff]">Studio Radio: <span id="radio-status">OFF</span></p>
                 </div>
-                <div onclick="jump('subs')" class="bg-[#ffcc00] text-black px-4 py-2 text-[10px] font-black uppercase cursor-pointer hover:bg-white transition">Upgrade</div>
+            </div>
+            <div class="flex gap-10 items-center">
+                <p class="text-[9px] opacity-20 uppercase">Quota: <span id="q-val" class="text-white">0/2</span></p>
+                <div onclick="jump('subs')" class="bg-[#ffcc00] text-black px-4 py-2 text-[10px] font-black uppercase cursor-pointer">Upgrade</div>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-12 w-full max-w-[1700px] px-12 mt-16">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-10 w-full max-w-[1700px] px-12 mt-20">
             <div class="space-y-3">
-                <h3 class="knocks-font text-[9px] opacity-20 mb-6 tracking-[0.8em]">BOT OVERSEERS</h3>
+                <h3 class="knocks-font text-[9px] opacity-20 mb-6 tracking-[0.8em]">SELECT BOT</h3>
                 <div onclick="selectBot(this, '9K RENDER BOT')" class="studio-card p-6 text-[10px] font-bold uppercase active-sel">9K Render Bot</div>
                 <div onclick="selectBot(this, 'ANIME CORE')" class="studio-card p-6 text-[10px] font-bold uppercase">Anime Core</div>
-                <div onclick="selectBot(this, '3D MANIFEST')" class="studio-card p-6 text-[10px] font-bold uppercase">3D Manifest</div>
             </div>
 
-            <div class="lg:col-span-3 studio-card p-16 border-dashed border-2 border-white/5 flex flex-col items-center justify-center min-h-[550px]">
-                <div class="robot-eye mb-10"><div class="iris-core"></div></div>
-                <h4 id="bot-display" class="knocks-font text-5xl mb-12 text-[#00f0ff] italic uppercase">9K RENDER BOT</h4>
-                
-                <div class="w-full max-w-2xl flex bg-[#050505] border border-white/10 p-2">
-                    <input id="prompt" type="text" placeholder="COMMAND LOGIC..." class="flex-grow bg-transparent p-6 knocks-font text-[10px] outline-none text-[#00f0ff]">
-                    <button onclick="executeDrill()" class="bg-[#00f0ff] text-black px-12 font-black knocks-font uppercase text-xs hover:bg-white transition">DRILL</button>
+            <div class="lg:col-span-3 flex flex-col gap-6">
+                <div class="studio-card p-8 border-dashed border-2 border-white/5">
+                    <div class="flex bg-[#050505] border border-white/10 p-2">
+                        <input id="prompt" type="text" placeholder="INPUT RENDERING LOGIC..." class="flex-grow bg-transparent p-6 knocks-font text-[10px] outline-none text-[#00f0ff]">
+                        <button onclick="dualDrill()" class="bg-[#00f0ff] text-black px-12 font-black knocks-font uppercase text-xs">CREATE VIDEO (x2)</button>
+                    </div>
+                </div>
+
+                <div id="results" class="grid grid-cols-2 gap-4 h-[400px] hidden">
+                    <div class="studio-card bg-gray-900 flex items-center justify-center">
+                        <span class="text-[10px] opacity-30">VIDEO_01_RENDERED</span>
+                        <div id="wm-1" class="watermark">KNOCKS STUDiOS</div>
+                        <button onclick="download(1)" class="absolute top-4 right-4 bg-white/10 p-2 text-[8px] uppercase">Download</button>
+                    </div>
+                    <div class="studio-card bg-gray-900 flex items-center justify-center">
+                        <span class="text-[10px] opacity-30">VIDEO_02_RENDERED</span>
+                        <div id="wm-2" class="watermark">KNOCKS STUDiOS</div>
+                        <button onclick="download(2)" class="absolute top-4 right-4 bg-white/10 p-2 text-[8px] uppercase">Download</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="node-subs" class="page-node" style="background: #050505;">
-        <div class="w-full max-w-5xl px-8">
-            <h2 class="knocks-font text-4xl mb-16 text-center italic uppercase">Subscription Vault</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="studio-card p-10 border-t-2 border-white/10">
+        <div class="w-full max-w-4xl px-8">
+            <h2 class="knocks-font text-4xl mb-12 text-center uppercase italic">Upgrade Vault</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="studio-card p-10">
                     <p class="knocks-font text-[10px] mb-4 opacity-40">FREE TIER</p>
-                    <p class="text-4xl font-black mb-10">$0</p>
-                    <button onclick="jump('engine')" class="w-full border border-white/10 py-4 text-[10px] font-black uppercase">Active</button>
+                    <p class="text-3xl font-black mb-6">$0</p>
+                    <p class="text-[9px] opacity-50 mb-10 uppercase font-bold tracking-widest">• Watermarked Downloads</p>
+                    <button onclick="jump('engine')" class="w-full border border-white/10 py-4 text-[10px] font-black uppercase">Continue Free</button>
                 </div>
-                <div class="studio-card p-10 border-t-2 border-[#ffcc00] bg-[#ffcc00]/5">
+                <div class="studio-card p-10 border-[#ffcc00] bg-[#ffcc00]/5">
                     <p class="knocks-font text-[10px] mb-4 text-[#ffcc00]">PRO DRILLER</p>
-                    <p class="text-4xl font-black mb-10">$29<span class="text-xs">/mo</span></p>
-                    <button class="w-full bg-[#ffcc00] text-black py-4 text-[10px] font-black uppercase">Select Pro</button>
-                </div>
-                <div class="studio-card p-10 border-t-2 border-[#00f0ff]">
-                    <p class="knocks-font text-[10px] mb-4 text-[#00f0ff]">STUDiO MAX</p>
-                    <p class="text-4xl font-black mb-10">$99<span class="text-xs">/mo</span></p>
-                    <button class="w-full bg-[#00f0ff] text-black py-4 text-[10px] font-black uppercase">Select Max</button>
+                    <p class="text-3xl font-black mb-6">$29<span class="text-xs">/mo</span></p>
+                    <p class="text-[9px] opacity-100 mb-10 uppercase font-bold tracking-widest text-[#ffcc00]">• NO WATERMARK<br>• UNLIMITED RENDERS</p>
+                    <button onclick="upgrade()" class="w-full bg-[#ffcc00] text-black py-4 text-[10px] font-black uppercase">Unlock Vault</button>
                 </div>
             </div>
-            <p onclick="jump('engine')" class="text-center mt-12 text-[9px] opacity-30 uppercase cursor-pointer hover:opacity-100">Return to Engine</p>
         </div>
     </section>
 
+    <audio id="studio-radio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
+        let isPro = false;
         let isRegistered = false;
         let vCount = 0;
-        const speech = "Welcome to the Sovereign Engine... Powered by Ai Lab Legends.";
-        let i = 0;
 
-        // Typewriter Logic
-        function typeWriter() {
-            if (i < speech.length) {
-                document.getElementById("welcome-text").innerHTML += speech.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50;
-            }
-        }
-        window.onload = typeWriter;
-
-        // JUMP SYSTEM
         function jump(target) {
             const shutter = document.getElementById('shutter');
             shutter.classList.add('active');
             setTimeout(() => {
                 document.querySelectorAll('.page-node').forEach(n => n.classList.remove('active'));
                 document.getElementById('node-' + target).classList.add('active');
-                setTimeout(() => shutter.classList.remove('active'), 300);
-            }, 400);
+                setTimeout(() => shutter.classList.remove('active'), 400);
+            }, 500);
         }
 
-        function completeSignup() {
-            isRegistered = true;
-            jump('engine');
-        }
+        function completeSignup() { isRegistered = true; jump('engine'); }
+        function upgrade() { isPro = true; jump('engine'); }
 
-        function selectBot(el, name) {
-            document.querySelectorAll('.studio-card').forEach(c => c.classList.remove('active-sel'));
-            el.classList.add('active-sel');
-            document.getElementById('bot-display').innerText = name;
-        }
-
-        function executeDrill() {
-            if (!isRegistered) {
-                alert("IDENTITY REQUIRED. PLEASE REGISTER.");
-                jump('signup');
-                return;
+        function toggleRadio() {
+            const radio = document.getElementById('studio-radio');
+            const light = document.getElementById('radio-light');
+            const status = document.getElementById('radio-status');
+            if (radio.paused) {
+                radio.play();
+                light.classList.add('radio-pulse');
+                status.innerText = "ON";
+            } else {
+                radio.pause();
+                light.classList.remove('radio-pulse');
+                status.innerText = "OFF";
             }
-            if (vCount >= 2) {
-                alert("FREE TIER EXHAUSTED. UPGRADE VAULT.");
-                jump('subs');
-                return;
-            }
+        }
+
+        function dualDrill() {
+            if (!isRegistered) { alert("IDENTITY REQUIRED"); jump('signup'); return; }
+            if (vCount >= 2) { alert("FREE LIMIT EXCEEDED"); jump('subs'); return; }
+
             vCount++;
             document.getElementById('q-val').innerText = vCount + "/2";
             const shutter = document.getElementById('shutter');
             shutter.classList.add('active');
+
             setTimeout(() => {
-                alert("RENDER SUCCESSFUL via " + document.getElementById('bot-display').innerText);
+                document.getElementById('results').classList.remove('hidden');
+                // Apply watermark if not Pro
+                if (isPro) {
+                    document.getElementById('wm-1').style.display = 'none';
+                    document.getElementById('wm-2').style.display = 'none';
+                }
                 shutter.classList.remove('active');
-            }, 800);
+            }, 1500);
+        }
+
+        function download(id) {
+            const label = isPro ? "PRO_HQ_RENDER" : "FREE_WATERMARKED_RENDER";
+            alert("DOWNLOADING: " + label + "_0" + id);
         }
     </script>
 </body>
