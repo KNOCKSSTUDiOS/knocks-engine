@@ -10,35 +10,40 @@
         
         body { background: #000; font-family: 'Orbitron', sans-serif; color: #fff; overflow-x: hidden; }
         
-        /* 1. HUD & VIDEO SECTION */
-        #splash { position: fixed; inset: 0; z-index: 50; background: #000; transition: opacity 1s ease; }
+        /* 1. CINEMATIC INTRO & HUD */
+        #splash { position: fixed; inset: 0; z-index: 100; background: #000; transition: opacity 1s ease; }
         video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6); }
         
         .hud-mask { 
             position: absolute; bottom: 30px; right: 30px; 
             width: 320px; padding: 25px; 
             background: rgba(0,0,0,0.9); backdrop-filter: blur(15px);
-            border-right: 3px solid #00f0ff; z-index: 60;
+            border-right: 3px solid #00f0ff; z-index: 110;
         }
 
         #buffer-fill { width: 0%; height: 2px; background: #00f0ff; box-shadow: 0 0 15px #00f0ff; transition: width 0.1s linear; }
 
-        /* 2. THE VAULT DROP (THE LAYER THAT WAS FREEZING YOU) */
+        /* 2. THE VAULT DROP (REPAIRED & UNPROMPTED) */
         #vault-drop { 
-            position: fixed; inset: 0; z-index: 100; 
-            background: rgba(0,0,0,0.95); 
+            position: fixed; inset: 0; z-index: 1000; 
+            background: rgba(0,0,0,0.98); 
             display: flex; align-items: center; justify-content: center;
             opacity: 0; visibility: hidden; pointer-events: none;
-            transition: opacity 0.5s, visibility 0.5s;
+            transition: opacity 0.5s ease;
         }
 
+        /* This class triggers the animation layer */
         #vault-drop.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
         .coin-particle { position: absolute; width: 4px; height: 4px; background: #ffcc00; box-shadow: 0 0 10px #ffcc00; border-radius: 50%; }
 
-        /* 3. UI STYLING */
+        /* 3. CORE UI COMPONENTS */
         .glass { background: rgba(255,255,255,0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); }
-        .all-caps { text-transform: uppercase !important; letter-spacing: 0.2em; }
+        .all-caps { text-transform: uppercase !important; letter-spacing: 0.3em; font-weight: 900; }
+        
+        /* THE TILES - THE MAIN TARGET */
+        .auth-tile { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; }
+        .auth-tile:hover { transform: scale(1.02) translateY(-5px); border-color: white; background: rgba(255,255,255,0.07); }
     </style>
 </head>
 <body>
@@ -49,12 +54,12 @@
         </video>
         
         <div class="hud-mask">
-            <div class="flex justify-between items-center text-[9px] font-black text-[#00f0ff] all-caps">
+            <div class="flex justify-between items-center text-[9px] text-[#00f0ff] all-caps">
                 <span>9K_BUFFER_SYNC</span>
                 <span id="percent">0%</span>
             </div>
             <div class="w-full bg-white/10 h-[2px] mt-3"><div id="buffer-fill"></div></div>
-            <div class="mt-4 text-[7px] opacity-40 all-caps">ENGINE: AI LAB LEGENDS</div>
+            <div class="mt-4 text-[7px] opacity-40 all-caps italic">POWERED BY AI LAB LEGENDS</div>
         </div>
 
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -64,8 +69,8 @@
 
     <div id="vault-drop">
         <div id="emitter" class="relative text-center">
-            <div id="counter" class="text-[10rem] font-black italic text-[#ffcc00] tracking-tighter">0</div>
-            <p class="text-[11px] tracking-[1.5em] uppercase text-[#ffcc00] font-black">COINS SYNCED</p>
+            <div id="counter" class="text-[12rem] font-black italic text-[#ffcc00] tracking-tighter leading-none">0</div>
+            <p class="text-[12px] tracking-[1.8em] uppercase text-[#ffcc00] font-black mt-4">COINS SYNCED</p>
         </div>
     </div>
 
@@ -73,26 +78,20 @@
         
         <nav class="fixed top-0 w-full p-10 flex justify-between items-center">
             <div class="font-black italic text-3xl tracking-tighter">KNOCKSSTUDiOS</div>
-            <div class="text-[10px] opacity-30 all-caps">HOLLYWOODIMAGING.STUDIO</div>
+            <div class="text-[10px] opacity-30 all-caps font-bold">HOLLYWOODIMAGING.STUDIO</div>
         </nav>
 
-        <h1 class="text-7xl md:text-[11rem] font-black italic uppercase tracking-tighter mb-20 leading-none text-center">9K REALITY</h1>
+        <h1 class="text-7xl md:text-[10rem] font-black italic uppercase tracking-tighter mb-20 leading-none text-center">9K REALITY</h1>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl px-6">
             
-            <div onclick="openAuth('SIGN UP')" class="glass p-16 hover:border-[#00f0ff] transition-all cursor-pointer group">
-                <h3 class="text-[#00f0ff] text-[10px] font-black all-caps mb-4">NEW IDENTITY</h3>
-                <h2 class="text-5xl font-black italic uppercase tracking-widest group-hover:translate-x-4 transition-transform">SIGN UP</h2>
-                <p class="text-[10px] opacity-20 mt-6 all-caps">CLAIM 2,000 BASE STACK</p>
+            <div onclick="openAuth('SIGN UP')" class="auth-tile glass p-16 border-[#00f0ff]/20">
+                <h3 class="text-[#00f0ff] text-[10px] all-caps mb-4">IDENTITY INITIALIZATION</h3>
+                <h2 class="text-6xl font-black italic all-caps tracking-widest">SIGN UP</h2>
+                <p class="text-[10px] opacity-20 mt-6 all-caps">CLAIM 2,000 BASE STACK & START</p>
             </div>
 
-            <div onclick="openAuth('SIGN IN')" class="glass p-16 hover:border-white transition-all cursor-pointer group">
-                <h3 class="text-[#ffcc00] text-[10px] font-black all-caps mb-4">TITAN ACCESS</h3>
-                <h2 class="text-5xl font-black italic uppercase tracking-widest group-hover:translate-x-4 transition-transform">SIGN IN</h2>
-                <p class="text-[10px] opacity-20 mt-6 all-caps">AI LAB LEGENDS ENGINE</p>
-            </div>
-
-        </div>
-    </main>
-
-    <div id="auth-gate" class="fixed inset-0 z-[500] bg-black/98 flex items-center justify-center hidden">
+            <div onclick="openAuth('SIGN IN')" class="auth-tile glass p-16 border-white/10">
+                <h3 class="text-[#ffcc00] text-[10px] all-caps mb-4">SOVEREIGN ACCESS</h3>
+                <h2 class="text-6xl font-black italic all-caps tracking-widest">SIGN IN</h2>
+                <p class="text-[10px] opacity-20 mt-6 all-caps">ACTIVATE AI
