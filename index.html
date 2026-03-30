@@ -3,135 +3,625 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT 4D</title>
+    <title>KNOCKSSTUDiOS | Powered by AI LAB LEGENDS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; perspective: 1000px; }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- 4D CHAMELEON HEADER --- */
+        /* ── VISUAL CORE BACKGROUND ── */
+        #visual-core {
+            position: fixed; inset: 0; z-index: -1; background: #000;
+        }
+        .nebula {
+            position: absolute; border-radius: 50%;
+            filter: blur(200px); opacity: 0.2; mix-blend-mode: screen;
+            animation: drift 20s ease-in-out infinite alternate;
+        }
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(40px, -30px) scale(1.1); }
+            100% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        /* ── HERO ── */
+        .hero-section {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
         .chameleon-header {
-            font-size: 5rem;
+            font-size: clamp(3rem, 8vw, 7rem);
             letter-spacing: -4px;
             position: relative;
             display: inline-block;
-            background: linear-gradient(90deg, #ff0000 0%, #ff6b00 25%, #00ff88 50%, #00f0ff 75%, #bf00ff 100%);
+            background: linear-gradient(90deg, #ff0000 0%, #ff6b00 15%, #ffcc00 30%, #00ff88 50%, #00f0ff 70%, #0055ff 85%, #bf00ff 100%);
             background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: worm 5s linear infinite, typewriter 3.5s steps(14) forwards;
-            white-space: nowrap;
-            overflow: hidden;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            animation: worm 6s linear infinite;
         }
+        @keyframes worm { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
 
-        @keyframes worm { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-        @keyframes typewriter { from { width: 0; } to { width: 100%; } }
-
-        /* SWORD SWISH / GLASS SHINE */
         .chameleon-header::after {
             content: "";
-            position: absolute;
-            top: 0; left: -100%;
+            position: absolute; top: 0; left: -100%;
             width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
             transform: skewX(-30deg);
-            animation: swish 4s infinite ease-in-out;
+            animation: swish 5s infinite ease-in-out;
         }
-        @keyframes swish { 0% { left: -100%; } 20% { left: 150%; } 100% { left: 150%; } }
+        @keyframes swish { 0% { left: -100%; } 25% { left: 150%; } 100% { left: 150%; } }
 
-        /* --- 3D HYPER-TILES --- */
-        .tool-card-3d { 
-            background: rgba(15, 15, 25, 0.8);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            height: 320px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
+        .powered-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 999px;
+            padding: 8px 24px;
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(10px);
+            animation: fadeSlideUp 1.2s 0.6s both;
+        }
+
+        .ai-lab-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.25em;
+            background: linear-gradient(90deg, #00f0ff, #bf00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: rgba(255,255,255,0.6);
+            max-width: 700px;
+            line-height: 1.7;
+            animation: fadeSlideUp 1.2s 0.9s both;
+        }
+
+        /* ── FADE ANIMATIONS ── */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeSlideUp 1s both; }
+        .fade-up-d1 { animation: fadeSlideUp 1s 0.15s both; }
+        .fade-up-d2 { animation: fadeSlideUp 1s 0.3s both; }
+        .fade-up-d3 { animation: fadeSlideUp 1s 0.45s both; }
+        .fade-up-d4 { animation: fadeSlideUp 1s 0.6s both; }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1; transform: translateY(0);
+        }
+
+        /* ── SECTION DIVIDER ── */
+        .section-divider {
+            width: 120px; height: 2px; margin: 0 auto;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        }
+
+        /* ── FEATURE CARDS ── */
+        .feature-card {
+            background: rgba(15, 15, 25, 0.7);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 48px 36px;
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.1);
+            overflow: hidden;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        .feature-card .bevel {
+            position: absolute; bottom: 0; left: 0;
+            height: 4px; width: 100%;
+            border-radius: 0 0 12px 12px;
+        }
+        .feature-icon {
+            width: 56px; height: 56px;
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
         }
 
-        .tool-card-3d:hover {
-            transform: translateZ(50px) rotateX(5deg) rotateY(-5deg);
-            border-color: rgba(255,255,255,0.4);
-            box-shadow: 0 30px 60px rgba(0,0,0,1), 0 0 20px rgba(255,255,255,0.05);
+        /* ── REEL STRIP ── */
+        .reel-strip {
+            display: flex; gap: 0;
+            animation: scrollReel 30s linear infinite;
+        }
+        @keyframes scrollReel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .reel-frame {
+            min-width: 320px; height: 180px;
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .reel-frame::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.02), transparent 70%);
         }
 
-        /* 3D BEVEL STRIPS */
-        .bevel { position: absolute; bottom: 0; left: 0; height: 6px; width: 100%; border-radius: 0 0 8px 8px; }
-        .red-orange { background: linear-gradient(90deg, #ff0000, #ff6b00); box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4); }
-        .green-lime { background: linear-gradient(90deg, #00ff88, #bcff00); box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4); }
-        .cyan-blue { background: linear-gradient(90deg, #00f0ff, #0055ff); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4); }
-        .gold-purple { background: linear-gradient(90deg, #ffcc00, #bf00ff); box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4); }
+        /* ── STATS BAR ── */
+        .stat-item {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(180deg, #fff, rgba(255,255,255,0.5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        /* --- VISUAL CORE --- */
-        #visual-core { position: fixed; inset: 0; z-index: -1; background: #000; }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(180px); opacity: 0.25; mix-blend-mode: screen; }
+        /* ── CTA ── */
+        .cta-button {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 40px;
+            border-radius: 999px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .cta-primary {
+            background: linear-gradient(135deg, #ff0000, #ff6b00);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(255,107,0,0.3);
+        }
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(255,107,0,0.5);
+        }
+        .cta-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .cta-outline:hover {
+            border-color: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255,255,255,0.05);
+        }
 
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 1000; }
+        /* ── TESTIMONIAL ── */
+        .quote-mark {
+            font-size: 5rem; line-height: 1;
+            background: linear-gradient(135deg, #00f0ff, #bf00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.4;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* ── PULSE DOT ── */
+        .pulse-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: #00ff88;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0,255,136,0.5); }
+            50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(0,255,136,0); }
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+
+        /* ── COUNTER ANIMATION ── */
+        .count-up { display: inline-block; }
     </style>
 </head>
-<body onload="ignite()">
+<body>
 
     <div id="visual-core"></div>
 
-    <nav class="sidebar flex flex-col items-center pt-10 gap-10">
-        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">⚡</div>
-        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">📂</div>
-        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">🛒</div>
-    </nav>
+    <!-- ═══════════════════════════════════════════════
+         SECTION 1 — HERO
+    ════════════════════════════════════════════════ -->
+    <section class="hero-section px-6">
+        <div class="powered-badge mb-8">
+            <div class="pulse-dot"></div>
+            <span class="ai-lab-text">AI LAB LEGENDS</span>
+        </div>
 
-    <main class="pl-[120px] pr-10 pt-10">
-        <header class="mb-24 border-b border-white/5 pb-12 flex justify-between items-center">
-            <h1 class="extraordinary chameleon-header">KNOCKSSTUDiOS</h1>
-            <div class="knocks-font text-[12px] text-emerald-400 tracking-[0.3em]">VAULT_ACTIVE</div>
-        </header>
+        <h1 class="extraordinary chameleon-header mb-6">KNOCKSSTUDiOS</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="tool-card-3d">
-                <div class="bevel red-orange"></div>
-                <h3 class="extraordinary text-sm mb-1">STORE</h3>
-                <p class="text-[9px] knocks-font text-[#ff6b00]">3D_MODULES</p>
+        <p class="tagline mb-12">
+            Where cinematic imagination meets omnipotent AI.<br>
+            Build worlds. Render legends. Ship the impossible.
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center" style="animation: fadeSlideUp 1.2s 1.2s both;">
+            <a href="#features" class="cta-primary cta-button">EXPLORE THE ENGINE</a>
+            <a href="#reel" class="cta-outline cta-button">WATCH THE REEL</a>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2" style="animation: fadeSlideUp 1.5s 2s both;">
+            <div class="knocks-font text-[10px] text-white/30 tracking-[0.4em] animate-bounce">SCROLL</div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 2 — MANIFESTO
+    ════════════════════════════════════════════════ -->
+    <section class="py-32 px-6">
+        <div class="max-w-4xl mx-auto text-center reveal">
+            <p class="knocks-font text-[10px] text-[#00f0ff] tracking-[0.5em] mb-6">THE VISION</p>
+            <h2 class="text-3xl md:text-5xl font-light leading-tight mb-8" style="font-family: 'Inter', sans-serif;">
+                We don't follow the industry.<br>
+                <span class="font-semibold" style="background: linear-gradient(90deg, #ff6b00, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">We render it from scratch.</span>
+            </h2>
+            <p class="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed">
+                KNOCKSSTUDiOS is the convergence of next-generation 3D engines, AI-driven content pipelines, and a creative academy built for legends. Powered by AI LAB LEGENDS, every tool is designed to obliterate the gap between imagination and output.
+            </p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 3 — FEATURES / TOOLS
+    ════════════════════════════════════════════════ -->
+    <section id="features" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <p class="knocks-font text-[10px] text-[#ff6b00] tracking-[0.5em] mb-4">THE ARSENAL</p>
+                <h2 class="extraordinary text-2xl md:text-4xl">Four Pillars of Power</h2>
             </div>
-            <div class="tool-card-3d">
-                <div class="bevel green-lime"></div>
-                <h3 class="extraordinary text-sm mb-1">RENDER</h3>
-                <p class="text-[9px] knocks-font text-[#00ff88]">REAL_ANIME</p>
-            </div>
-            <div class="tool-card-3d">
-                <div class="bevel cyan-blue"></div>
-                <h3 class="extraordinary text-sm mb-1">CREATE</h3>
-                <p class="text-[9px] knocks-font text-[#00f0ff]">CORE_ENGINE</p>
-            </div>
-            <div class="tool-card-3d">
-                <div class="bevel gold-purple"></div>
-                <h3 class="extraordinary text-sm mb-1">SCHOOL</h3>
-                <p class="text-[9px] knocks-font text-[#ffcc00]">ACADEMY</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- STORE -->
+                <div class="feature-card reveal">
+                    <div class="bevel" style="background: linear-gradient(90deg, #ff0000, #ff6b00); box-shadow: 0 4px 15px rgba(255,107,0,0.3);"></div>
+                    <div class="feature-icon" style="background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.2);">
+                        <span>🛒</span>
+                    </div>
+                    <h3 class="extraordinary text-lg mb-2">STORE</h3>
+                    <p class="knocks-font text-[10px] text-[#ff6b00] tracking-[0.3em] mb-4">3D_MODULES</p>
+                    <p class="text-white/40 text-sm leading-relaxed">
+                        Premium 3D assets, shaders, and production-ready modules. Every asset is forged in the OMNIPOTENT ENGINE and battle-tested in real pipelines.
+                    </p>
+                </div>
+
+                <!-- RENDER -->
+                <div class="feature-card reveal">
+                    <div class="bevel" style="background: linear-gradient(90deg, #00ff88, #bcff00); box-shadow: 0 4px 15px rgba(0,255,136,0.3);"></div>
+                    <div class="feature-icon" style="background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.2);">
+                        <span>🎬</span>
+                    </div>
+                    <h3 class="extraordinary text-lg mb-2">RENDER</h3>
+                    <p class="knocks-font text-[10px] text-[#00ff88] tracking-[0.3em] mb-4">REAL_ANIME</p>
+                    <p class="text-white/40 text-sm leading-relaxed">
+                        AI-accelerated rendering that blends photorealism with anime aesthetics. Frame-perfect output at speeds that defy convention.
+                    </p>
+                </div>
+
+                <!-- CREATE -->
+                <div class="feature-card reveal">
+                    <div class="bevel" style="background: linear-gradient(90deg, #00f0ff, #0055ff); box-shadow: 0 4px 15px rgba(0,240,255,0.3);"></div>
+                    <div class="feature-icon" style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.2);">
+                        <span>⚡</span>
+                    </div>
+                    <h3 class="extraordinary text-lg mb-2">CREATE</h3>
+                    <p class="knocks-font text-[10px] text-[#00f0ff] tracking-[0.3em] mb-4">CORE_ENGINE</p>
+                    <p class="text-white/40 text-sm leading-relaxed">
+                        The OMNIPOTENT 4D engine. Real-time world-building with AI co-creation. Shape environments, characters, and cinematics with a single command.
+                    </p>
+                </div>
+
+                <!-- SCHOOL -->
+                <div class="feature-card reveal">
+                    <div class="bevel" style="background: linear-gradient(90deg, #ffcc00, #bf00ff); box-shadow: 0 4px 15px rgba(255,204,0,0.3);"></div>
+                    <div class="feature-icon" style="background: rgba(255,204,0,0.1); border: 1px solid rgba(255,204,0,0.2);">
+                        <span>🎓</span>
+                    </div>
+                    <h3 class="extraordinary text-lg mb-2">SCHOOL</h3>
+                    <p class="knocks-font text-[10px] text-[#ffcc00] tracking-[0.3em] mb-4">ACADEMY</p>
+                    <p class="text-white/40 text-sm leading-relaxed">
+                        Master the craft through AI-guided curriculum. From shader programming to full cinematic pipelines — learn from the legends who built the engine.
+                    </p>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 4 — STATS
+    ════════════════════════════════════════════════ -->
+    <section class="py-24 px-6">
+        <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
+            <div class="stat-item">
+                <div class="stat-number" data-target="9000">9K</div>
+                <p class="knocks-font text-[9px] text-white/30 tracking-[0.3em] mt-2">FPS RENDER</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="4">4D</div>
+                <p class="knocks-font text-[9px] text-white/30 tracking-[0.3em] mt-2">ENGINE CORE</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number" data-target="100">100+</div>
+                <p class="knocks-font text-[9px] text-white/30 tracking-[0.3em] mt-2">AI MODELS</p>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <p class="knocks-font text-[9px] text-white/30 tracking-[0.3em] mt-2">IMAGINATION</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 5 — SHOWCASE REEL
+    ════════════════════════════════════════════════ -->
+    <section id="reel" class="py-32 overflow-hidden">
+        <div class="text-center mb-16 px-6 reveal">
+            <p class="knocks-font text-[10px] text-[#bf00ff] tracking-[0.5em] mb-4">SHOWCASE</p>
+            <h2 class="extraordinary text-2xl md:text-4xl">The Reel</h2>
+        </div>
+
+        <div class="overflow-hidden">
+            <div class="reel-strip">
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">REAL_ANIME</p>
+                        <p class="knocks-font text-[8px] text-[#00ff88]/40 mt-1">CYBERPUNK SEQUENCE</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">CORE_ENGINE</p>
+                        <p class="knocks-font text-[8px] text-[#00f0ff]/40 mt-1">WORLD GENERATION</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">3D_MODULES</p>
+                        <p class="knocks-font text-[8px] text-[#ff6b00]/40 mt-1">METAL SHADER PACK</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">ACADEMY</p>
+                        <p class="knocks-font text-[8px] text-[#ffcc00]/40 mt-1">MASTERCLASS SERIES</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">AI LAB</p>
+                        <p class="knocks-font text-[8px] text-[#bf00ff]/40 mt-1">NEURAL RENDER v9K</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">OMNIPOTENT</p>
+                        <p class="knocks-font text-[8px] text-[#ff0000]/40 mt-1">4D TIMELINE ENGINE</p>
+                    </div>
+                </div>
+                <!-- Duplicate set for seamless loop -->
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">REAL_ANIME</p>
+                        <p class="knocks-font text-[8px] text-[#00ff88]/40 mt-1">CYBERPUNK SEQUENCE</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">CORE_ENGINE</p>
+                        <p class="knocks-font text-[8px] text-[#00f0ff]/40 mt-1">WORLD GENERATION</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">3D_MODULES</p>
+                        <p class="knocks-font text-[8px] text-[#ff6b00]/40 mt-1">METAL SHADER PACK</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">ACADEMY</p>
+                        <p class="knocks-font text-[8px] text-[#ffcc00]/40 mt-1">MASTERCLASS SERIES</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">AI LAB</p>
+                        <p class="knocks-font text-[8px] text-[#bf00ff]/40 mt-1">NEURAL RENDER v9K</p>
+                    </div>
+                </div>
+                <div class="reel-frame">
+                    <div class="text-center">
+                        <p class="extraordinary text-xs text-white/30">OMNIPOTENT</p>
+                        <p class="knocks-font text-[8px] text-[#ff0000]/40 mt-1">4D TIMELINE ENGINE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 6 — AI LAB LEGENDS SPOTLIGHT
+    ════════════════════════════════════════════════ -->
+    <section class="py-32 px-6">
+        <div class="max-w-4xl mx-auto reveal">
+            <div class="text-center mb-16">
+                <p class="knocks-font text-[10px] text-[#00f0ff] tracking-[0.5em] mb-4">THE INTELLIGENCE</p>
+                <h2 class="extraordinary text-2xl md:text-4xl mb-6">Powered by AI LAB LEGENDS</h2>
+                <p class="text-white/40 text-lg max-w-2xl mx-auto leading-relaxed">
+                    Every pixel, every polygon, every frame — supercharged by an AI backbone that learns, adapts, and creates alongside you.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+                <div class="text-center p-8 rounded-xl border border-white/5 bg-white/[0.02]">
+                    <div class="text-3xl mb-4">🧠</div>
+                    <h4 class="extraordinary text-xs mb-3">NEURAL RENDER</h4>
+                    <p class="text-white/30 text-sm">AI models trained on cinematic data to produce Hollywood-grade output in real time.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl border border-white/5 bg-white/[0.02]">
+                    <div class="text-3xl mb-4">🔮</div>
+                    <h4 class="extraordinary text-xs mb-3">PREDICTIVE DESIGN</h4>
+                    <p class="text-white/30 text-sm">The engine anticipates your creative direction and generates assets before you ask.</p>
+                </div>
+                <div class="text-center p-8 rounded-xl border border-white/5 bg-white/[0.02]">
+                    <div class="text-3xl mb-4">⚙️</div>
+                    <h4 class="extraordinary text-xs mb-3">INFINITE PIPELINE</h4>
+                    <p class="text-white/30 text-sm">From concept art to final render — a single, unbroken AI-orchestrated workflow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 7 — TESTIMONIAL
+    ════════════════════════════════════════════════ -->
+    <section class="py-32 px-6">
+        <div class="max-w-3xl mx-auto text-center reveal">
+            <div class="quote-mark">"</div>
+            <blockquote class="text-xl md:text-2xl font-light leading-relaxed text-white/70 mb-8" style="font-family: 'Inter', sans-serif;">
+                KNOCKSSTUDiOS didn't just give us tools — it gave us an unfair advantage. The AI LAB LEGENDS pipeline cut our production time by 10x and the output quality is beyond anything we've shipped before.
+            </blockquote>
+            <div>
+                <p class="extraordinary text-xs text-white/50">PRODUCTION LEAD</p>
+                <p class="knocks-font text-[9px] text-[#bf00ff]/60 tracking-[0.3em] mt-1">OMNIPOTENT ENGINE USER</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION 8 — FINAL CTA
+    ════════════════════════════════════════════════ -->
+    <section class="py-40 px-6 text-center">
+        <div class="reveal">
+            <p class="knocks-font text-[10px] text-white/20 tracking-[0.5em] mb-6">THE FUTURE IS NOW</p>
+            <h2 class="extraordinary text-3xl md:text-5xl mb-4" style="background: linear-gradient(90deg, #ff6b00, #00ff88, #00f0ff, #bf00ff); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: worm 8s linear infinite;">
+                JOIN THE LEGENDS
+            </h2>
+            <p class="text-white/40 text-lg max-w-xl mx-auto mb-12 leading-relaxed">
+                Step into the studio. Build what has never been built. Render the unrenderable.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="#" class="cta-primary cta-button">GET STARTED</a>
+                <a href="#" class="cta-outline cta-button">VIEW DOCS</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════════ -->
+    <footer class="py-16 px-6">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-4">
+                <span class="extraordinary text-sm" style="background: linear-gradient(90deg, #ff0000, #ff6b00, #00ff88, #00f0ff, #bf00ff); background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: worm 6s linear infinite;">KNOCKSSTUDiOS</span>
+                <span class="text-white/10">|</span>
+                <span class="ai-lab-text text-[9px]">AI LAB LEGENDS</span>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="pulse-dot"></div>
+                <span class="knocks-font text-[10px] text-emerald-400/60 tracking-[0.3em]">VAULT_ACTIVE</span>
+            </div>
+            <p class="knocks-font text-[9px] text-white/20 tracking-[0.2em]">&copy; 2026 KNOCKSSTUDiOS. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- ═══════════════════════════════════════════════
+         SCRIPTS
+    ════════════════════════════════════════════════ -->
     <script>
+        // ── Nebula Background ──
         function ignite() {
             const core = document.getElementById('visual-core');
-            const colors = ['#ff0000', '#00ff88', '#00f0ff', '#bf00ff'];
-            for(let i=0; i<8; i++) {
+            const colors = ['#ff0000', '#00ff88', '#00f0ff', '#bf00ff', '#ff6b00', '#ffcc00'];
+            for (let i = 0; i < 10; i++) {
                 const n = document.createElement('div');
                 n.className = 'nebula';
-                n.style.width = '800px'; n.style.height = '800px';
-                n.style.background = colors[i % 4];
-                n.style.left = Math.random() * 100 + '%'; n.style.top = Math.random() * 100 + '%';
+                const size = 400 + Math.random() * 600;
+                n.style.width = size + 'px';
+                n.style.height = size + 'px';
+                n.style.background = colors[i % colors.length];
+                n.style.left = Math.random() * 100 + '%';
+                n.style.top = Math.random() * 100 + '%';
+                n.style.animationDelay = (Math.random() * -20) + 's';
+                n.style.animationDuration = (15 + Math.random() * 15) + 's';
                 core.appendChild(n);
             }
         }
+
+        // ── Scroll Reveal ──
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // ── Init ──
+        document.addEventListener('DOMContentLoaded', () => {
+            ignite();
+            initReveal();
+        });
     </script>
+
 </body>
 </html>
