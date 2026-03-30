@@ -11,80 +11,96 @@
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- THE SHAKE (4X - PERMANENT) --- */
-        @keyframes shake { 
-            0% { transform: translate(2px, 2px); }
-            25% { transform: translate(-2px, -2px); }
-            50% { transform: translate(-3px, 0px); }
-            75% { transform: translate(3px, 2px); }
-            100% { transform: translate(1px, -1px); }
+        /* --- THE CHAMELEON TYPEWRITER & GLASS SHINE --- */
+        .chameleon-text {
+            display: inline-block;
+            position: relative;
+            font-size: 4rem;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, #ff4d00, #00ff88, #00f0ff, #bf00ff, #ffcc00);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: worm 8s linear infinite, typewriter 4s steps(14) forwards;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 4px solid var(--cyan);
         }
-        .overclock-active { animation: shake 0.05s infinite; }
 
-        /* --- REACTIVE BACKGROUND --- */
-        #visual-core { position: fixed; inset: 0; z-index: -1; background: #000; transition: background 0.8s ease; }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(160px); opacity: 0.4; transition: all 1s ease; }
+        /* WORM COLOR SHIFT */
+        @keyframes worm {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
 
-        /* --- MAJESTIC TILES --- */
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.9); border-right: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 100; }
+        /* TYPEWRITER EFFECT */
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* GLASS SHINE / SWORD SWISH */
+        .chameleon-text::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -150%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-20deg);
+            animation: swish 3s infinite;
+        }
+
+        @keyframes swish {
+            0% { left: -150%; }
+            30% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        /* --- THE TILES --- */
+        #visual-core { position: fixed; inset: 0; z-index: -1; background: #000; }
+        .nebula { position: absolute; border-radius: 50%; filter: blur(160px); opacity: 0.3; }
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 100; }
         
         .tool-card { 
             background: rgba(10,10,15,0.98); 
             border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 2px; 
-            cursor: pointer; 
-            transition: 0.4s; 
-            height: 300px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end; 
-            padding: 30px;
+            height: 300px; padding: 30px; display: flex; flex-direction: column; justify-content: flex-end;
         }
-
-        /* TILE SPECIFIC HOVERS */
-        .fire:hover { border-color: #ff4d00; box-shadow: 0 0 30px rgba(255, 77, 0, 0.2); }
-        .nature:hover { border-color: #00ff88; box-shadow: 0 0 30px rgba(0, 255, 136, 0.2); }
-        .tech:hover { border-color: #00f0ff; box-shadow: 0 0 30px rgba(0, 240, 255, 0.2); }
-        .royal:hover { border-color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.2); }
-
-        /* MANUAL SWITCH */
-        #kill-btn { position: fixed; bottom: 30px; right: 30px; z-index: 1000; font-size: 9px; cursor: pointer; color: #ff0000; padding: 5px 10px; border: 1px solid #ff0000; }
     </style>
 </head>
 <body onload="ignite()">
 
     <div id="visual-core"></div>
-    <div id="kill-btn" class="knocks-font" onclick="toggleNebula()">KILL_VISUALS</div>
 
     <div id="engine-wrap">
-        <nav class="sidebar">
-            <div class="text-cyan-400 text-xl cursor-pointer">⚡</div>
+        <nav class="sidebar flex flex-col items-center pt-10 gap-8">
+            <div class="text-cyan-400 text-xl">⚡</div>
             <div class="opacity-20 text-lg">📂</div>
             <div class="opacity-20 text-lg">🛒</div>
         </nav>
 
         <main class="pl-[110px] pr-10 pt-10">
-            <header class="flex justify-between items-end mb-20 border-b border-white/5 pb-10">
-                <h1 class="extraordinary text-6xl tracking-tighter overclock-active">KNOCKSSTUDiOS</h1>
+            <header class="flex justify-between items-center mb-20 border-b border-white/5 pb-10">
+                <h1 class="extraordinary chameleon-text">KNOCKSSTUDiOS</h1>
                 <div class="knocks-font text-[11px] text-emerald-400">Vault: 2000</div>
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="tool-card fire" onmouseover="changeVibe('#ff4d00')" onmouseout="resetVibe()">
-                    <h3 class="extraordinary text-xs text-white">STORE</h3>
-                    <p class="text-[9px] text-[#ff4d00] knocks-font font-black uppercase">Red Fade Orange</p>
+                <div class="tool-card" style="border-left: 2px solid #ff4d00;">
+                    <h3 class="extraordinary text-xs">STORE</h3>
+                    <p class="text-[9px] text-[#ff4d00] knocks-font uppercase">Fire/Orange</p>
                 </div>
-                <div class="tool-card nature" onmouseover="changeVibe('#00ff88')" onmouseout="resetVibe()">
-                    <h3 class="extraordinary text-xs text-white">RENDER</h3>
-                    <p class="text-[9px] text-[#00ff88] knocks-font font-black uppercase">Green Fade Lime</p>
+                <div class="tool-card" style="border-left: 2px solid #00ff88;">
+                    <h3 class="extraordinary text-xs">RENDER</h3>
+                    <p class="text-[9px] text-[#00ff88] knocks-font uppercase">Green/Lime</p>
                 </div>
-                <div class="tool-card tech" onmouseover="changeVibe('#00f0ff')" onmouseout="resetVibe()">
-                    <h3 class="extraordinary text-xs text-white">CREATE</h3>
-                    <p class="text-[9px] text-[#00f0ff] knocks-font font-black uppercase">Cyan Fade Blue</p>
+                <div class="tool-card" style="border-left: 2px solid #00f0ff;">
+                    <h3 class="extraordinary text-xs">CREATE</h3>
+                    <p class="text-[9px] text-[#00f0ff] knocks-font uppercase">Cyan/Blue</p>
                 </div>
-                <div class="tool-card royal" onmouseover="changeVibe('#bf00ff')" onmouseout="resetVibe()">
-                    <h3 class="extraordinary text-xs text-white">SCHOOL</h3>
-                    <p class="text-[9px] text-[#ffcc00] knocks-font font-black uppercase">Gold Fade Purple</p>
+                <div class="tool-card" style="border-left: 2px solid #ffcc00;">
+                    <h3 class="extraordinary text-xs">SCHOOL</h3>
+                    <p class="text-[9px] text-[#ffcc00] knocks-font uppercase">Gold/Purple</p>
                 </div>
             </div>
         </main>
@@ -92,4 +108,16 @@
 
     <script>
         function ignite() {
-            const core = document
+            const core = document.getElementById('visual-core');
+            for(let i=0; i<8; i++) {
+                const n = document.createElement('div');
+                n.className = 'nebula';
+                n.style.width = '600px'; n.style.height = '600px';
+                n.style.background = ['#ff4d00', '#00ff88', '#00f0ff', '#bf00ff'][i%4];
+                n.style.left = Math.random() * 100 + '%'; n.style.top = Math.random() * 100 + '%';
+                core.appendChild(n);
+            }
+        }
+    </script>
+</body>
+</html>
