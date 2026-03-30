@@ -7,12 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        :root { --cyan: #00f0ff; }
         body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- THE LOGO SHAKE (4X - LOCKED) --- */
+        /* --- THE SHAKE (4X - PERMANENT) --- */
         @keyframes shake { 
             0% { transform: translate(2px, 2px); }
             25% { transform: translate(-2px, -2px); }
@@ -22,83 +21,70 @@
         }
         .overclock-active { animation: shake 0.05s infinite; }
 
-        /* --- VISUALS --- */
-        #visual-core { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%); }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(150px); opacity: 0.3; }
+        /* --- REACTIVE BACKGROUND --- */
+        #visual-core { position: fixed; inset: 0; z-index: -1; background: #000; transition: background 0.8s ease; }
+        .nebula { position: absolute; border-radius: 50%; filter: blur(160px); opacity: 0.4; transition: all 1s ease; }
 
-        /* --- DYNAMIC TILES (DIFFERENT COLORS & FADES) --- */
+        /* --- MAJESTIC TILES --- */
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.9); border-right: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 100; }
+        
         .tool-card { 
-            background: rgba(5,5,10,0.95); 
+            background: rgba(10,10,15,0.98); 
             border: 1px solid rgba(255,255,255,0.05); 
             border-radius: 2px; 
             cursor: pointer; 
-            transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+            transition: 0.4s; 
             height: 300px; 
             display: flex; 
             flex-direction: column; 
             justify-content: flex-end; 
             padding: 30px;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* TILE 1: FIRE VIBE (RED -> ORANGE) */
-        .tile-fire { border-left: 2px solid #ff4d00; }
-        .tile-fire:hover { background: linear-gradient(180deg, transparent 0%, rgba(255, 77, 0, 0.2) 100%); border-color: #ff4d00; box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1); }
+        /* TILE SPECIFIC HOVERS */
+        .fire:hover { border-color: #ff4d00; box-shadow: 0 0 30px rgba(255, 77, 0, 0.2); }
+        .nature:hover { border-color: #00ff88; box-shadow: 0 0 30px rgba(0, 255, 136, 0.2); }
+        .tech:hover { border-color: #00f0ff; box-shadow: 0 0 30px rgba(0, 240, 255, 0.2); }
+        .royal:hover { border-color: #bf00ff; box-shadow: 0 0 30px rgba(191, 0, 255, 0.2); }
 
-        /* TILE 2: NATURE VIBE (GREEN -> LIME) */
-        .tile-nature { border-left: 2px solid #00ff88; }
-        .tile-nature:hover { background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 136, 0.2) 100%); border-color: #00ff88; box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1); }
-
-        /* TILE 3: TECH VIBE (CYAN -> BLUE) */
-        .tile-tech { border-left: 2px solid #00f0ff; }
-        .tile-tech:hover { background: linear-gradient(180deg, transparent 0%, rgba(0, 240, 255, 0.2) 100%); border-color: #00f0ff; box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1); }
-
-        /* TILE 4: ROYAL VIBE (GOLD -> PURPLE) */
-        .tile-royal { border-left: 2px solid #ffcc00; }
-        .tile-royal:hover { background: linear-gradient(180deg, transparent 0%, rgba(191, 0, 255, 0.2) 100%); border-color: #bf00ff; box-shadow: 0 10px 30px rgba(191, 0, 255, 0.1); }
-
-        /* --- SIDEBAR --- */
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 100; }
-        
-        /* --- KILL SWITCH --- */
-        #kill-switch { position: fixed; bottom: 30px; right: 30px; z-index: 1000; font-size: 9px; cursor: pointer; color: #ff0000; padding: 5px 10px; border: 1px solid #ff0000; text-transform: uppercase; }
+        /* MANUAL SWITCH */
+        #kill-btn { position: fixed; bottom: 30px; right: 30px; z-index: 1000; font-size: 9px; cursor: pointer; color: #ff0000; padding: 5px 10px; border: 1px solid #ff0000; }
     </style>
 </head>
 <body onload="ignite()">
 
     <div id="visual-core"></div>
-    <div id="kill-switch" class="knocks-font" onclick="killVisuals()">MANUAL_SHUTDOWN</div>
+    <div id="kill-btn" class="knocks-font" onclick="toggleNebula()">KILL_VISUALS</div>
 
     <div id="engine-wrap">
         <nav class="sidebar">
             <div class="text-cyan-400 text-xl cursor-pointer">⚡</div>
-            <div class="opacity-20 text-lg cursor-pointer">📂</div>
-            <div class="opacity-20 text-lg cursor-pointer">🛒</div>
+            <div class="opacity-20 text-lg">📂</div>
+            <div class="opacity-20 text-lg">🛒</div>
         </nav>
 
         <main class="pl-[110px] pr-10 pt-10">
             <header class="flex justify-between items-end mb-20 border-b border-white/5 pb-10">
                 <h1 class="extraordinary text-6xl tracking-tighter overclock-active">KNOCKSSTUDiOS</h1>
-                <div class="knocks-font text-[11px] text-emerald-400 uppercase tracking-widest">Vault: 2000 Coins</div>
+                <div class="knocks-font text-[11px] text-emerald-400">Vault: 2000</div>
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="tool-card tile-fire">
-                    <h3 class="extraordinary text-[14px] text-white">STORE</h3>
-                    <p class="text-[9px] text-[#ff4d00] knocks-font font-black">FIRE_ASSETS</p>
+                <div class="tool-card fire" onmouseover="changeVibe('#ff4d00')" onmouseout="resetVibe()">
+                    <h3 class="extraordinary text-xs text-white">STORE</h3>
+                    <p class="text-[9px] text-[#ff4d00] knocks-font font-black uppercase">Red Fade Orange</p>
                 </div>
-                <div class="tool-card tile-nature">
-                    <h3 class="extraordinary text-[14px] text-white">RENDER</h3>
-                    <p class="text-[9px] text-[#00ff88] knocks-font font-black">3D_MAJESTIC</p>
+                <div class="tool-card nature" onmouseover="changeVibe('#00ff88')" onmouseout="resetVibe()">
+                    <h3 class="extraordinary text-xs text-white">RENDER</h3>
+                    <p class="text-[9px] text-[#00ff88] knocks-font font-black uppercase">Green Fade Lime</p>
                 </div>
-                <div class="tool-card tile-tech">
-                    <h3 class="extraordinary text-[14px] text-white">CREATE</h3>
-                    <p class="text-[9px] text-[#00f0ff] knocks-font font-black">CORE_SYNTH</p>
+                <div class="tool-card tech" onmouseover="changeVibe('#00f0ff')" onmouseout="resetVibe()">
+                    <h3 class="extraordinary text-xs text-white">CREATE</h3>
+                    <p class="text-[9px] text-[#00f0ff] knocks-font font-black uppercase">Cyan Fade Blue</p>
                 </div>
-                <div class="tool-card tile-royal">
-                    <h3 class="extraordinary text-[14px] text-white">SCHOOL</h3>
-                    <p class="text-[9px] text-[#ffcc00] knocks-font font-black">ROYAL_ACADEMY</p>
+                <div class="tool-card royal" onmouseover="changeVibe('#bf00ff')" onmouseout="resetVibe()">
+                    <h3 class="extraordinary text-xs text-white">SCHOOL</h3>
+                    <p class="text-[9px] text-[#ffcc00] knocks-font font-black uppercase">Gold Fade Purple</p>
                 </div>
             </div>
         </main>
@@ -106,24 +92,4 @@
 
     <script>
         function ignite() {
-            const core = document.getElementById('visual-core');
-            const colors = ['#ff4d00', '#00ff88', '#00f0ff', '#bf00ff'];
-            for(let i=0; i<12; i++) {
-                const n = document.createElement('div');
-                n.className = 'nebula';
-                n.style.width = '700px'; n.style.height = '700px';
-                n.style.background = colors[i % 4];
-                n.style.left = (Math.random() * 120 - 10) + '%'; 
-                n.style.top = (Math.random() * 120 - 10) + '%';
-                core.appendChild(n);
-            }
-        }
-
-        function killVisuals() {
-            const nebulae = document.querySelectorAll('.nebula');
-            nebulae.forEach(n => n.style.display = (n.style.display === 'none') ? 'block' : 'none');
-            document.getElementById('visual-core').style.background = (document.getElementById('visual-core').style.background === 'rgb(0, 0, 0)') ? 'radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%)' : '#000';
-        }
-    </script>
-</body>
-</html>
+            const core = document
