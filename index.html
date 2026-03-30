@@ -3,262 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT COMMAND</title>
+    <title>HOLLYWOOD iMAGiNG | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        
-        :root { 
-            --cyan: #00f0ff; 
-            --gold: #ffcc00; 
-            --magenta: #ff00ff; 
-            --panel: rgba(10, 10, 15, 0.9); 
-        }
-
-        body { 
-            background: #000; 
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            overflow: hidden; 
-            margin: 0; 
-            height: 100vh; 
-        }
-
+        :root { --cyan: #00f0ff; --magenta: #ff00ff; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; margin: 0; height: 100vh; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- VIVID SUPERNOVA ENGINE --- */
-        #visual-core { 
-            position: fixed; 
-            inset: 0; 
-            z-index: -2; 
-            background: radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%); 
-        }
+        /* --- VIVID BACKGROUND --- */
+        #visual-core { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%); }
+        .nebula { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.6; animation: drift 15s infinite alternate ease-in-out; }
+        @keyframes drift { 0% { transform: scale(1); } 100% { transform: scale(1.5) translate(5%, 5%); } }
 
-        .nebula { 
-            position: absolute; 
-            border-radius: 50%; 
-            filter: blur(120px); 
-            opacity: 0.6; 
-            animation: drift 15s infinite alternate ease-in-out; 
-        }
+        /* --- AUTH GATE LAYER --- */
+        #auth-gate { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.4); backdrop-filter: blur(20px); display: flex; align-items: center; justify-content: center; transition: 1s cubic-bezier(0.19, 1, 0.22, 1); }
+        .auth-box { background: rgba(10,10,20,0.95); border: 1px solid var(--cyan); padding: 40px; border-radius: 12px; width: 350px; text-align: center; box-shadow: 0 0 50px rgba(0,240,255,0.2); }
+        .auth-input { background: rgba(255,255,255,0.05); border: 1px solid #333; padding: 12px; width: 100%; color: #fff; margin-bottom: 15px; border-radius: 4px; font-size: 10px; outline: none; }
+        .auth-input:focus { border-color: var(--cyan); }
+        .btn-access { background: var(--cyan); color: #000; width: 100%; padding: 12px; font-size: 10px; font-weight: 900; border-radius: 4px; cursor: pointer; transition: 0.3s; }
+        .btn-access:hover { background: #fff; transform: translateY(-2px); }
 
-        @keyframes drift { 
-            0% { transform: scale(1) rotate(0deg); } 
-            100% { transform: scale(1.6) rotate(15deg) translate(5%, 5%); } 
-        }
+        /* --- THE ENGINE (BLURRED UNTIL LOGIN) --- */
+        #engine-wrap { transition: 1.5s filter ease-in-out; filter: blur(15px); pointer-events: none; }
+        .unlocked { filter: blur(0) !important; pointer-events: auto !important; }
 
-        /* --- 4X OVERCLOCK SHAKE --- */
-        @keyframes extreme-shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            25% { transform: translate(-2px, -1px) rotate(-0.5deg); }
-            50% { transform: translate(-1px, 2px) rotate(0.5deg); }
-            75% { transform: translate(2px, -2px) rotate(0deg); }
-            100% { transform: translate(1px, 1px) rotate(0deg); }
-        }
-        .overclock-active { 
-            animation: extreme-shake 0.1s infinite !important; 
-            filter: drop-shadow(0 0 15px var(--cyan)); 
-        }
-
-        /* --- REPAIR SENTINELS --- */
-        .sentinel {
-            position: fixed; 
-            width: 40px; 
-            height: 40px; 
-            background: var(--cyan); 
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            opacity: 0; 
-            transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); 
-            z-index: 1000;
-            filter: drop-shadow(0 0 20px var(--cyan)); 
-            pointer-events: none;
-        }
-
-        /* --- UI COMPONENTS --- */
-        .sidebar { 
-            width: 80px; 
-            height: 100vh; 
-            position: fixed; 
-            left: 0; 
-            top: 0; 
-            background: rgba(0,0,0,0.85); 
-            border-right: 1px solid rgba(255,255,255,0.05); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding-top: 40px; 
-            gap: 35px; 
-            z-index: 500; 
-            backdrop-filter: blur(15px); 
-        }
-
-        .tool-card { 
-            background: var(--panel); 
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 12px; 
-            transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
-            cursor: pointer; 
-            position: relative; 
-            overflow: hidden; 
-        }
-
-        .tool-card:hover { 
-            border-color: var(--cyan); 
-            transform: translateY(-10px); 
-            box-shadow: 0 30px 60px rgba(0,240,255,0.15); 
-        }
-
-        .drill-btn { 
-            border: 1px solid #222; 
-            padding: 10px 22px; 
-            font-size: 10px; 
-            transition: 0.4s; 
-            cursor: pointer; 
-            background: rgba(0,0,0,0.4); 
-            border-radius: 4px; 
-        }
-
-        .drill-btn.active { 
-            background: var(--cyan); 
-            color: #000; 
-            font-weight: 900; 
-            border-color: #fff; 
-            box-shadow: 0 0 25px var(--cyan); 
-        }
-
-        #sys-log { 
-            position: fixed; 
-            bottom: 30px; 
-            right: 30px; 
-            width: 260px; 
-            background: rgba(0,0,0,0.9); 
-            border-left: 3px solid var(--cyan); 
-            padding: 15px; 
-            font-size: 8px; 
-            color: var(--cyan); 
-            z-index: 600; 
-            opacity: 0.8; 
-            line-height: 1.8; 
-        }
-
-        /* SCROLLBAR HIDE */
-        ::-webkit-scrollbar { display: none; }
+        /* --- UI ELEMENTS --- */
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.85); border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 500; }
+        .tool-card { background: rgba(10,10,15,0.9); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; transition: 0.5s; cursor: pointer; }
+        .tool-card:hover { border-color: var(--cyan); transform: translateY(-5px); }
+        .drill-btn { border: 1px solid #222; padding: 8px 16px; font-size: 9px; cursor: pointer; transition: 0.3s; border-radius: 4px; }
+        .drill-btn.active { background: var(--cyan); color: #000; font-weight: 900; }
+        #sys-log { position: fixed; bottom: 30px; right: 30px; width: 240px; background: rgba(0,0,0,0.9); border-left: 3px solid var(--cyan); padding: 12px; font-size: 8px; color: var(--cyan); z-index: 600; opacity: 0.8; }
+        
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 100% { transform: translate(-1px, -1px); } }
+        .overclock-active { animation: shake 0.1s infinite; }
     </style>
 </head>
 <body onload="ignite()">
 
     <div id="visual-core"></div>
-    <div id="sentinel-a" class="sentinel"></div>
-    <div id="sentinel-b" class="sentinel"></div>
 
-    <div id="sys-log" class="knocks-font uppercase">
-        <div id="log-text">> STANDBY_MODE<br>> DRILL_ID_REQUIRED</div>
+    <div id="auth-gate">
+        <div class="auth-box">
+            <h2 class="extraordinary text-white text-lg mb-2">NEURAL ACCESS</h2>
+            <p class="text-[8px] knocks-font text-cyan-400 tracking-widest mb-8">INITIALIZE_SESSION_ID</p>
+            <input type="text" class="auth-input knocks-font" placeholder="IDENTiTY_NAME">
+            <input type="password" class="auth-input knocks-font" placeholder="CORE_PASSWORD">
+            <button class="btn-access extraordinary" onclick="unlock()">Initialize Core</button>
+            <p class="text-[8px] opacity-30 mt-6 uppercase tracking-widest cursor-pointer hover:text-white">Create New Account</p>
+        </div>
     </div>
 
-    <nav class="sidebar">
-        <div class="side-icon text-cyan-400 text-xl">⚡</div>
-        <div class="side-icon opacity-30 hover:opacity-100 transition-all cursor-pointer">📦</div>
-        <div class="side-icon opacity-30 hover:opacity-100 transition-all cursor-pointer">🔮</div>
-        <div class="side-icon opacity-30 hover:opacity-100 transition-all cursor-pointer">🛠️</div>
-    </nav>
+    <div id="engine-wrap">
+        <div id="sys-log" class="knocks-font uppercase">
+            <div id="log-text">> ENGINE_STANDBY<br>> ACCESS_REQUIRED...</div>
+        </div>
 
-    <main class="pl-[110px] pr-10 pt-10 h-screen overflow-y-auto">
-        <header class="flex justify-between items-start mb-16">
-            <div>
-                <h1 id="main-logo" class="extraordinary text-4xl tracking-tighter">KNOCKSSTUDiOS</h1>
-                <div class="flex items-center gap-3 mt-3">
-                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_green]"></span>
-                    <span class="text-[8px] knocks-font tracking-[0.6em] opacity-40 uppercase">Engine Live: 4.0.0</span>
-                </div>
-            </div>
-            <div class="flex gap-3">
-                <div class="drill-btn knocks-font" onclick="overclock(this, 1)">1X</div>
-                <div class="drill-btn knocks-font" onclick="overclock(this, 2)">2X</div>
-                <div class="drill-btn knocks-font active" onclick="overclock(this, 4)">4X</div>
-            </div>
-        </header>
+        <nav class="sidebar">
+            <div class="side-icon text-cyan-400 text-xl">⚡</div>
+            <div class="side-icon opacity-30">📁</div>
+            <div class="side-icon opacity-30">🎨</div>
+        </nav>
 
-        <section>
-            <h2 class="extraordinary text-[10px] opacity-40 mb-8 tracking-[0.4em]">Integrated Tools</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="tool-card p-8">
-                    <div class="h-44 bg-black/50 rounded-lg mb-6 flex items-center justify-center border border-white/5">
-                        <span class="text-[9px] knocks-font opacity-20">GEN_MODULE_01</span>
+        <main class="pl-[110px] pr-10 pt-8">
+            <div class="flex justify-between items-center mb-12 border-b border-white/5 pb-6">
+                <div class="flex items-center gap-6">
+                    <h1 id="main-logo" class="extraordinary text-2xl tracking-tighter">HOLLYWOOD iMAGiNG</h1>
+                    <div class="flex gap-2">
+                        <div class="drill-btn knocks-font" onclick="mode(this, 1)">1X</div>
+                        <div class="drill-btn knocks-font active" onclick="mode(this, 4)">4X</div>
                     </div>
-                    <h3 class="extraordinary text-xs text-cyan-400 mb-2">IMAGE GENERATOR</h3>
-                    <p class="text-[9px] opacity-40 uppercase tracking-widest">Construct visual data</p>
-                </div>
-                <div class="tool-card p-8">
-                    <div class="h-44 bg-black/50 rounded-lg mb-6 flex items-center justify-center border border-white/5">
-                        <span class="text-[9px] knocks-font opacity-20">EDIT_MODULE_02</span>
-                    </div>
-                    <h3 class="extraordinary text-xs text-gold-400 mb-2">ADVANCED EDITOR</h3>
-                    <p class="text-[9px] opacity-40 uppercase tracking-widest">Refine pixel arrays</p>
-                </div>
-                <div class="tool-card p-8">
-                    <div class="h-44 bg-black/50 rounded-lg mb-6 flex items-center justify-center border border-white/5">
-                        <span class="text-[9px] knocks-font opacity-20">SCALE_MODULE_03</span>
-                    </div>
-                    <h3 class="extraordinary text-xs text-magenta-400 mb-2">ULTRA UPSCALER</h3>
-                    <p class="text-[9px] opacity-40 uppercase tracking-widest">Enhance resolution depth</p>
                 </div>
             </div>
-        </section>
 
-        <section class="mt-20 mb-20">
-            <h2 class="extraordinary text-[9px] opacity-30 mb-6 tracking-widest uppercase">Generation History</h2>
-            <div class="grid grid-cols-4 gap-6">
-                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all"></div>
-                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all"></div>
-                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all"></div>
-                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all"></div>
-            </div>
-        </section>
-    </main>
+            <section>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="tool-card p-8">
+                        <div class="h-32 bg-black/50 rounded mb-6 flex items-center border border-white/5"></div>
+                        <h3 class="extraordinary text-[10px] text-cyan-400 mb-2">IMAGE_GEN</h3>
+                        <p class="text-[8px] opacity-40 uppercase tracking-widest">Neural synthesis</p>
+                    </div>
+                    <div class="tool-card p-8">
+                        <div class="h-32 bg-black/50 rounded mb-6 border border-white/5"></div>
+                        <h3 class="extraordinary text-[10px] text-yellow-400 mb-2">CORE_EDITOR</h3>
+                        <p class="text-[8px] opacity-40 uppercase tracking-widest">Pixel precision</p>
+                    </div>
+                    <div class="tool-card p-8">
+                        <div class="h-32 bg-black/50 rounded mb-6 border border-white/5"></div>
+                        <h3 class="extraordinary text-[10px] text-pink-400 mb-2">UPSCALER</h3>
+                        <p class="text-[8px] opacity-40 uppercase tracking-widest">9K Reality</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
 
     <script>
         function ignite() {
             const core = document.getElementById('visual-core');
             const colors = ['#00f0ff', '#ff00ff', '#ffcc00'];
-            for(let i=0; i<12; i++) {
+            for(let i=0; i<10; i++) {
                 const n = document.createElement('div');
                 n.className = 'nebula';
-                n.style.width = n.style.height = (Math.random() * 500 + 400) + 'px';
+                n.style.width = n.style.height = '500px';
                 n.style.background = colors[i % 3];
                 n.style.left = Math.random() * 100 + '%';
                 n.style.top = Math.random() * 100 + '%';
-                n.style.animationDelay = (i * -1.5) + 's';
+                n.style.animationDelay = (i * -2) + 's';
                 core.appendChild(n);
             }
-            overclock(document.querySelectorAll('.drill-btn')[2], 4);
-            setInterval(logUpdate, 2000);
+            mode(document.querySelectorAll('.drill-btn')[1], 4);
         }
 
-        function logUpdate() {
-            const log = document.getElementById('log-text');
-            const status = ["> SYNCING_PIXELS", "> SENTINELS_ACTIVE", "> REPAIRING_SHAKE", "> CORE_AT_4X", "> NEBULA_DENSITY_98%", "> ASSETS_READY"];
-            log.innerHTML += `<br>${status[Math.floor(Math.random()*status.length)]}`;
-            const lines = log.innerHTML.split('<br>');
-            if(lines.length > 5) log.innerHTML = lines.slice(1).join('<br>');
+        function unlock() {
+            document.getElementById('auth-gate').style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById('auth-gate').style.display = "none";
+                document.getElementById('engine-wrap').classList.add('unlocked');
+                updateLog();
+            }, 1000);
         }
 
-        function overclock(btn, val) {
+        function updateLog() {
+            setInterval(() => {
+                const log = document.getElementById('log-text');
+                const msgs = ["> IDENTITY_SYNCED", "> ENGINE_UNLOCK", "> CORE_STABLE", "> SENTINEL_ACTIVE"];
+                log.innerHTML += `<br>${msgs[Math.floor(Math.random()*msgs.length)]}`;
+                const lines = log.innerHTML.split('<br>');
+                if(lines.length > 4) log.innerHTML = lines.slice(1).join('<br>');
+            }, 3000);
+        }
+
+        function mode(btn, val) {
             document.querySelectorAll('.drill-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
             const logo = document.getElementById('main-logo');
-            const s1 = document.getElementById('sentinel-a');
-            const s2 = document.getElementById('sentinel-b');
-
-            if(val === 4) {
-                logo.classList.add('overclock-active');
-                s1.style.opacity = "1"; s1.style.left = "120px"; s1.style.top = "50px";
-                s2.style.opacity = "1"; s2.style.right = "50px"; s2.style.bottom = "50px";
-            } else {
-                logo.classList.remove('overclock-active');
-                s1.style.opacity = "0"; s2.style.opacity = "0";
-            }
+            if(val === 4) logo.classList.add('overclock-active');
+            else logo.classList.remove('overclock-active');
         }
     </script>
 </body>
