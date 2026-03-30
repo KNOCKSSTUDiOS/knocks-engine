@@ -3,117 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
+    <title>KNOCKSSTUDiOS | OMNIPOTENT 4D</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; perspective: 1000px; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- THE CHAMELEON TYPEWRITER & GLASS SHINE --- */
-        .chameleon-text {
-            display: inline-block;
+        /* --- 4D CHAMELEON HEADER --- */
+        .chameleon-header {
+            font-size: 5rem;
+            letter-spacing: -4px;
             position: relative;
-            font-size: 4rem;
-            letter-spacing: -2px;
-            background: linear-gradient(90deg, #ff4d00, #00ff88, #00f0ff, #bf00ff, #ffcc00);
-            background-size: 400% 400%;
+            display: inline-block;
+            background: linear-gradient(90deg, #ff0000 0%, #ff6b00 25%, #00ff88 50%, #00f0ff 75%, #bf00ff 100%);
+            background-size: 300% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: worm 8s linear infinite, typewriter 4s steps(14) forwards;
-            overflow: hidden;
+            animation: worm 5s linear infinite, typewriter 3.5s steps(14) forwards;
             white-space: nowrap;
-            border-right: 4px solid var(--cyan);
+            overflow: hidden;
+            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        /* WORM COLOR SHIFT */
-        @keyframes worm {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
+        @keyframes worm { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
+        @keyframes typewriter { from { width: 0; } to { width: 100%; } }
 
-        /* TYPEWRITER EFFECT */
-        @keyframes typewriter {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-
-        /* GLASS SHINE / SWORD SWISH */
-        .chameleon-text::after {
+        /* SWORD SWISH / GLASS SHINE */
+        .chameleon-header::after {
             content: "";
             position: absolute;
-            top: 0; left: -150%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            transform: skewX(-20deg);
-            animation: swish 3s infinite;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transform: skewX(-30deg);
+            animation: swish 4s infinite ease-in-out;
+        }
+        @keyframes swish { 0% { left: -100%; } 20% { left: 150%; } 100% { left: 150%; } }
+
+        /* --- 3D HYPER-TILES --- */
+        .tool-card-3d { 
+            background: rgba(15, 15, 25, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            height: 320px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.1);
         }
 
-        @keyframes swish {
-            0% { left: -150%; }
-            30% { left: 150%; }
-            100% { left: 150%; }
+        .tool-card-3d:hover {
+            transform: translateZ(50px) rotateX(5deg) rotateY(-5deg);
+            border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 30px 60px rgba(0,0,0,1), 0 0 20px rgba(255,255,255,0.05);
         }
 
-        /* --- THE TILES --- */
+        /* 3D BEVEL STRIPS */
+        .bevel { position: absolute; bottom: 0; left: 0; height: 6px; width: 100%; border-radius: 0 0 8px 8px; }
+        .red-orange { background: linear-gradient(90deg, #ff0000, #ff6b00); box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4); }
+        .green-lime { background: linear-gradient(90deg, #00ff88, #bcff00); box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4); }
+        .cyan-blue { background: linear-gradient(90deg, #00f0ff, #0055ff); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4); }
+        .gold-purple { background: linear-gradient(90deg, #ffcc00, #bf00ff); box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4); }
+
+        /* --- VISUAL CORE --- */
         #visual-core { position: fixed; inset: 0; z-index: -1; background: #000; }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(160px); opacity: 0.3; }
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 100; }
-        
-        .tool-card { 
-            background: rgba(10,10,15,0.98); 
-            border: 1px solid rgba(255,255,255,0.05); 
-            height: 300px; padding: 30px; display: flex; flex-direction: column; justify-content: flex-end;
-        }
+        .nebula { position: absolute; border-radius: 50%; filter: blur(180px); opacity: 0.25; mix-blend-mode: screen; }
+
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 1000; }
     </style>
 </head>
 <body onload="ignite()">
 
     <div id="visual-core"></div>
 
-    <div id="engine-wrap">
-        <nav class="sidebar flex flex-col items-center pt-10 gap-8">
-            <div class="text-cyan-400 text-xl">⚡</div>
-            <div class="opacity-20 text-lg">📂</div>
-            <div class="opacity-20 text-lg">🛒</div>
-        </nav>
+    <nav class="sidebar flex flex-col items-center pt-10 gap-10">
+        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">⚡</div>
+        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">📂</div>
+        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">🛒</div>
+    </nav>
 
-        <main class="pl-[110px] pr-10 pt-10">
-            <header class="flex justify-between items-center mb-20 border-b border-white/5 pb-10">
-                <h1 class="extraordinary chameleon-text">KNOCKSSTUDiOS</h1>
-                <div class="knocks-font text-[11px] text-emerald-400">Vault: 2000</div>
-            </header>
+    <main class="pl-[120px] pr-10 pt-10">
+        <header class="mb-24 border-b border-white/5 pb-12 flex justify-between items-center">
+            <h1 class="extraordinary chameleon-header">KNOCKSSTUDiOS</h1>
+            <div class="knocks-font text-[12px] text-emerald-400 tracking-[0.3em]">VAULT_ACTIVE</div>
+        </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="tool-card" style="border-left: 2px solid #ff4d00;">
-                    <h3 class="extraordinary text-xs">STORE</h3>
-                    <p class="text-[9px] text-[#ff4d00] knocks-font uppercase">Fire/Orange</p>
-                </div>
-                <div class="tool-card" style="border-left: 2px solid #00ff88;">
-                    <h3 class="extraordinary text-xs">RENDER</h3>
-                    <p class="text-[9px] text-[#00ff88] knocks-font uppercase">Green/Lime</p>
-                </div>
-                <div class="tool-card" style="border-left: 2px solid #00f0ff;">
-                    <h3 class="extraordinary text-xs">CREATE</h3>
-                    <p class="text-[9px] text-[#00f0ff] knocks-font uppercase">Cyan/Blue</p>
-                </div>
-                <div class="tool-card" style="border-left: 2px solid #ffcc00;">
-                    <h3 class="extraordinary text-xs">SCHOOL</h3>
-                    <p class="text-[9px] text-[#ffcc00] knocks-font uppercase">Gold/Purple</p>
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="tool-card-3d">
+                <div class="bevel red-orange"></div>
+                <h3 class="extraordinary text-sm mb-1">STORE</h3>
+                <p class="text-[9px] knocks-font text-[#ff6b00]">3D_MODULES</p>
             </div>
-        </main>
-    </div>
+            <div class="tool-card-3d">
+                <div class="bevel green-lime"></div>
+                <h3 class="extraordinary text-sm mb-1">RENDER</h3>
+                <p class="text-[9px] knocks-font text-[#00ff88]">REAL_ANIME</p>
+            </div>
+            <div class="tool-card-3d">
+                <div class="bevel cyan-blue"></div>
+                <h3 class="extraordinary text-sm mb-1">CREATE</h3>
+                <p class="text-[9px] knocks-font text-[#00f0ff]">CORE_ENGINE</p>
+            </div>
+            <div class="tool-card-3d">
+                <div class="bevel gold-purple"></div>
+                <h3 class="extraordinary text-sm mb-1">SCHOOL</h3>
+                <p class="text-[9px] knocks-font text-[#ffcc00]">ACADEMY</p>
+            </div>
+        </div>
+    </main>
 
     <script>
         function ignite() {
             const core = document.getElementById('visual-core');
+            const colors = ['#ff0000', '#00ff88', '#00f0ff', '#bf00ff'];
             for(let i=0; i<8; i++) {
                 const n = document.createElement('div');
                 n.className = 'nebula';
-                n.style.width = '600px'; n.style.height = '600px';
-                n.style.background = ['#ff4d00', '#00ff88', '#00f0ff', '#bf00ff'][i%4];
+                n.style.width = '800px'; n.style.height = '800px';
+                n.style.background = colors[i % 4];
                 n.style.left = Math.random() * 100 + '%'; n.style.top = Math.random() * 100 + '%';
                 core.appendChild(n);
             }
