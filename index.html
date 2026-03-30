@@ -3,135 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT 4D</title>
+    <title>KNOCKSSTUDiOS | OMNIPOTENT ENGINE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; perspective: 1000px; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; perspective: 1200px; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- 4D CHAMELEON HEADER --- */
+        /* CHAMELEON WORM TYPEWRITER */
         .chameleon-header {
-            font-size: 5rem;
-            letter-spacing: -4px;
-            position: relative;
-            display: inline-block;
-            background: linear-gradient(90deg, #ff0000 0%, #ff6b00 25%, #00ff88 50%, #00f0ff 75%, #bf00ff 100%);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: worm 5s linear infinite, typewriter 3.5s steps(14) forwards;
-            white-space: nowrap;
-            overflow: hidden;
-            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            font-size: 5rem; letter-spacing: -4px; position: relative; display: inline-block;
+            background: linear-gradient(90deg, #ff0000, #ff6b00, #00ff88, #00f0ff, #bf00ff);
+            background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: worm 5s linear infinite, typewriter 3s steps(14) forwards;
+            white-space: nowrap; overflow: hidden;
         }
-
         @keyframes worm { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
         @keyframes typewriter { from { width: 0; } to { width: 100%; } }
 
-        /* SWORD SWISH / GLASS SHINE */
+        /* SWORD SWISH SHINE */
         .chameleon-header::after {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-            transform: skewX(-30deg);
-            animation: swish 4s infinite ease-in-out;
+            content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            transform: skewX(-30deg); animation: swish 4s infinite ease-in-out;
         }
-        @keyframes swish { 0% { left: -100%; } 20% { left: 150%; } 100% { left: 150%; } }
+        @keyframes swish { 0% { left: -100%; } 25% { left: 150%; } 100% { left: 150%; } }
 
-        /* --- 3D HYPER-TILES --- */
-        .tool-card-3d { 
-            background: rgba(15, 15, 25, 0.8);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            height: 320px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 1px 1px rgba(255,255,255,0.1);
+        /* 4D TILE LOGIC */
+        .tool-card-4d { 
+            background: rgba(15, 15, 25, 0.95); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px;
+            height: 320px; padding: 40px; display: flex; flex-direction: column; justify-content: flex-end;
+            transform-style: preserve-3d; transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; position: relative;
         }
-
-        .tool-card-3d:hover {
-            transform: translateZ(50px) rotateX(5deg) rotateY(-5deg);
-            border-color: rgba(255,255,255,0.4);
-            box-shadow: 0 30px 60px rgba(0,0,0,1), 0 0 20px rgba(255,255,255,0.05);
-        }
-
-        /* 3D BEVEL STRIPS */
-        .bevel { position: absolute; bottom: 0; left: 0; height: 6px; width: 100%; border-radius: 0 0 8px 8px; }
-        .red-orange { background: linear-gradient(90deg, #ff0000, #ff6b00); box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4); }
-        .green-lime { background: linear-gradient(90deg, #00ff88, #bcff00); box-shadow: 0 5px 15px rgba(0, 255, 136, 0.4); }
-        .cyan-blue { background: linear-gradient(90deg, #00f0ff, #0055ff); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.4); }
-        .gold-purple { background: linear-gradient(90deg, #ffcc00, #bf00ff); box-shadow: 0 5px 15px rgba(255, 204, 0, 0.4); }
-
-        /* --- VISUAL CORE --- */
-        #visual-core { position: fixed; inset: 0; z-index: -1; background: #000; }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(180px); opacity: 0.25; mix-blend-mode: screen; }
-
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 1000; }
+        .tool-card-4d:hover { transform: translateZ(60px) rotateX(6deg) rotateY(-2deg); border-color: rgba(255,255,255,0.5); box-shadow: 0 40px 80px rgba(0,0,0,1); }
+        
+        .bevel { position: absolute; bottom: 0; left: 0; height: 6px; width: 100%; border-radius: 0 0 4px 4px; }
+        
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 1000; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 40px; }
     </style>
 </head>
-<body onload="ignite()">
+<body>
 
-    <div id="visual-core"></div>
-
-    <nav class="sidebar flex flex-col items-center pt-10 gap-10">
-        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">⚡</div>
-        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">📂</div>
-        <div class="text-white text-xl opacity-40 hover:opacity-100 cursor-pointer">🛒</div>
+    <nav class="sidebar">
+        <a href="https://69ca95dd5fd--hollywoodimagingtheomnipotentengine.netlify.app" class="text-cyan-400 text-2xl hover:scale-125 transition-transform">⚡</a>
+        <div class="text-white opacity-20 hover:opacity-100 cursor-pointer">📂</div>
+        <div class="text-white opacity-20 hover:opacity-100 cursor-pointer">🛒</div>
     </nav>
 
     <main class="pl-[120px] pr-10 pt-10">
         <header class="mb-24 border-b border-white/5 pb-12 flex justify-between items-center">
             <h1 class="extraordinary chameleon-header">KNOCKSSTUDiOS</h1>
-            <div class="knocks-font text-[12px] text-emerald-400 tracking-[0.3em]">VAULT_ACTIVE</div>
+            <div class="text-emerald-400 knocks-font font-black text-[10px] tracking-[0.2em]">VAULT_ACTIVE</div>
         </header>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="tool-card-3d">
-                <div class="bevel red-orange"></div>
-                <h3 class="extraordinary text-sm mb-1">STORE</h3>
-                <p class="text-[9px] knocks-font text-[#ff6b00]">3D_MODULES</p>
+            <div class="tool-card-4d" onclick="window.location.href='https://69ca95dd5fd--hollywoodimagingtheomnipotentengine.netlify.app/store'">
+                <div class="bevel" style="background: linear-gradient(90deg, #ff0000, #ff6b00);"></div>
+                <h3 class="extraordinary text-sm">STORE</h3>
+                <p class="text-[9px] knocks-font text-[#ff6b00] mt-2">FIRE_ASSETS</p>
             </div>
-            <div class="tool-card-3d">
-                <div class="bevel green-lime"></div>
-                <h3 class="extraordinary text-sm mb-1">RENDER</h3>
-                <p class="text-[9px] knocks-font text-[#00ff88]">REAL_ANIME</p>
+            <div class="tool-card-4d" onclick="window.location.href='https://69ca95dd5fd--hollywoodimagingtheomnipotentengine.netlify.app/render'">
+                <div class="bevel" style="background: linear-gradient(90deg, #00ff88, #bcff00);"></div>
+                <h3 class="extraordinary text-sm">RENDER</h3>
+                <p class="text-[9px] knocks-font text-[#00ff88] mt-2">MAJESTIC_3D</p>
             </div>
-            <div class="tool-card-3d">
-                <div class="bevel cyan-blue"></div>
-                <h3 class="extraordinary text-sm mb-1">CREATE</h3>
-                <p class="text-[9px] knocks-font text-[#00f0ff]">CORE_ENGINE</p>
+            <div class="tool-card-4d" onclick="window.location.href='https://69ca95dd5fd--hollywoodimagingtheomnipotentengine.netlify.app/create'">
+                <div class="bevel" style="background: linear-gradient(90deg, #00f0ff, #0055ff);"></div>
+                <h3 class="extraordinary text-sm">CREATE</h3>
+                <p class="text-[9px] knocks-font text-[#00f0ff] mt-2">CORE_SYSTEM</p>
             </div>
-            <div class="tool-card-3d">
-                <div class="bevel gold-purple"></div>
-                <h3 class="extraordinary text-sm mb-1">SCHOOL</h3>
-                <p class="text-[9px] knocks-font text-[#ffcc00]">ACADEMY</p>
+            <div class="tool-card-4d" onclick="window.location.href='https://69ca95dd5fd--hollywoodimagingtheomnipotentengine.netlify.app/school'">
+                <div class="bevel" style="background: linear-gradient(90deg, #ffcc00, #bf00ff);"></div>
+                <h3 class="extraordinary text-sm">SCHOOL</h3>
+                <p class="text-[9px] knocks-font text-[#ffcc00] mt-2">ACADEMY</p>
             </div>
         </div>
     </main>
 
-    <script>
-        function ignite() {
-            const core = document.getElementById('visual-core');
-            const colors = ['#ff0000', '#00ff88', '#00f0ff', '#bf00ff'];
-            for(let i=0; i<8; i++) {
-                const n = document.createElement('div');
-                n.className = 'nebula';
-                n.style.width = '800px'; n.style.height = '800px';
-                n.style.background = colors[i % 4];
-                n.style.left = Math.random() * 100 + '%'; n.style.top = Math.random() * 100 + '%';
-                core.appendChild(n);
-            }
-        }
-    </script>
 </body>
 </html>
