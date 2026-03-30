@@ -8,168 +8,51 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
         
-        body { 
-            background: #000; 
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            overflow: hidden; 
-            height: 100vh; 
-            perspective: 1200px; 
-        }
-
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; min-height: 100vh; perspective: 1200px; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
         /* --- THE CHAMELEON WORM HEADER --- */
         .chameleon-header {
-            font-size: 5rem; 
-            letter-spacing: -4px; 
-            position: relative; 
-            display: inline-block;
+            font-size: clamp(2rem, 8vw, 5rem); letter-spacing: -4px; position: relative; display: inline-block;
             background: linear-gradient(90deg, #ff0000, #ff6b00, #00ff88, #00f0ff, #bf00ff);
-            background-size: 300% auto; 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent;
+            background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: worm 5s linear infinite, typewriter 3s steps(14) forwards;
-            white-space: nowrap; 
-            overflow: hidden;
+            white-space: nowrap; overflow: hidden;
         }
-
         @keyframes worm { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
         @keyframes typewriter { from { width: 0; } to { width: 100%; } }
 
-        /* --- SWORD SWISH GLASS SHINE --- */
         .chameleon-header::after {
-            content: ""; 
-            position: absolute; 
-            top: 0; 
-            left: -100%; 
-            width: 50%; 
-            height: 100%;
+            content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            transform: skewX(-30deg); 
-            animation: swish 4s infinite ease-in-out;
+            transform: skewX(-30deg); animation: swish 4s infinite ease-in-out;
         }
         @keyframes swish { 0% { left: -100%; } 25% { left: 150%; } 100% { left: 150%; } }
 
-        /* --- 4D HYPER-DEPTH TILES --- */
-        .tool-card-4d { 
-            background: rgba(15, 15, 25, 0.95); 
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-radius: 4px;
-            height: 320px; 
-            padding: 40px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end;
-            transform-style: preserve-3d; 
-            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
-            cursor: pointer; 
-            position: relative;
+        /* --- 4D TILES & BROADCAST MODULE --- */
+        .tool-card-4d, .broadcast-module { 
+            background: rgba(15, 15, 25, 0.9); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px;
+            transform-style: preserve-3d; transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); position: relative;
         }
+        .tool-card-4d { height: 300px; padding: 40px; display: flex; flex-direction: column; justify-content: flex-end; cursor: pointer; }
+        .tool-card-4d:hover { transform: translateZ(50px) rotateX(4deg); border-color: rgba(255,255,255,0.4); }
 
-        .tool-card-4d:hover { 
-            transform: translateZ(60px) rotateX(6deg) rotateY(-2deg); 
-            border-color: rgba(255,255,255,0.5); 
-            box-shadow: 0 40px 80px rgba(0,0,0,1); 
-        }
+        .broadcast-module { padding: 15px; width: 350px; border-color: rgba(0, 240, 255, 0.2); }
         
-        .bevel { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            height: 6px; 
-            width: 100%; 
-            border-radius: 0 0 4px 4px; 
-        }
+        .bevel { position: absolute; bottom: 0; left: 0; height: 6px; width: 100%; border-radius: 0 0 4px 4px; }
         
-        .sidebar { 
-            width: 80px; 
-            height: 100vh; 
-            position: fixed; 
-            left: 0; 
-            top: 0; 
-            background: #000; 
-            border-right: 1px solid #111; 
-            z-index: 1000; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding-top: 40px; 
-            gap: 40px; 
-        }
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 1000; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 40px; }
 
-        /* SONIC VISUALIZER INDICATOR */
-        #status-light {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 9px;
-            letter-spacing: 2px;
-            color: #333;
-            transition: 0.5s;
+        /* KILL SWITCH STYLING */
+        .kill-switch { 
+            cursor: pointer; font-size: 8px; color: #ff0000; border: 1px solid #ff0000; 
+            padding: 8px 5px; border-radius: 2px; transition: 0.3s; text-align: center; width: 60px;
         }
-        .engine-active { color: #00f0ff !important; text-shadow: 0 0 10px #00f0ff; }
+        .kill-switch.active { color: #00f0ff; border-color: #00f0ff; box-shadow: 0 0 10px #00f0ff; }
     </style>
 </head>
-<body>
-
-    <audio id="v-engine-audio" loop>
-        <source src="v-theme.mp3" type="audio/mpeg">
-    </audio>
-    <div id="status-light" class="knocks-font uppercase">Engine_Standby</div>
+<body onclick="igniteEngine()">
 
     <nav class="sidebar">
-        <a href="https://69ca95dd5fd--hollywoodimagingtheomnipotentengine.netlify.app" class="text-cyan-400 text-2xl hover:scale-125 transition-transform">⚡</a>
-        <div class="text-white opacity-20 hover:opacity-100 cursor-pointer text-xl">📂</div>
-        <div class="text-white opacity-20 hover:opacity-100 cursor-pointer text-xl">🛒</div>
-    </nav>
-
-    <main class="pl-[120px] pr-10 pt-10">
-        <header class="mb-24 border-b border-white/5 pb-12 flex justify-between items-center">
-            <h1 class="extraordinary chameleon-header">KNOCKSSTUDiOS</h1>
-            <div class="text-emerald-400 knocks-font font-black text-[10px] tracking-[0.2em]">VAULT_ACTIVE</div>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="tool-card-4d" onclick="window.location.href='/store'">
-                <div class="bevel" style="background: linear-gradient(90deg, #ff0000, #ff6b00);"></div>
-                <h3 class="extraordinary text-sm">STORE</h3>
-                <p class="text-[9px] knocks-font text-[#ff6b00] mt-2">FIRE_ASSETS</p>
-            </div>
-            
-            <div class="tool-card-4d" onclick="window.location.href='/render'">
-                <div class="bevel" style="background: linear-gradient(90deg, #00ff88, #bcff00);"></div>
-                <h3 class="extraordinary text-sm">RENDER</h3>
-                <p class="text-[9px] knocks-font text-[#00ff88] mt-2">MAJESTIC_3D</p>
-            </div>
-
-            <div class="tool-card-4d" onclick="window.location.href='/create'">
-                <div class="bevel" style="background: linear-gradient(90deg, #00f0ff, #0055ff);"></div>
-                <h3 class="extraordinary text-sm">CREATE</h3>
-                <p class="text-[9px] knocks-font text-[#00f0ff] mt-2">CORE_SYSTEM</p>
-            </div>
-
-            <div class="tool-card-4d" onclick="window.location.href='/school'">
-                <div class="bevel" style="background: linear-gradient(90deg, #ffcc00, #bf00ff);"></div>
-                <h3 class="extraordinary text-sm">SCHOOL</h3>
-                <p class="text-[9px] knocks-font text-[#ffcc00] mt-2">ACADEMY</p>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        document.body.addEventListener('click', function() {
-            const vAudio = document.getElementById('v-engine-audio');
-            const status = document.getElementById('status-light');
-            
-            if (vAudio.paused) {
-                vAudio.play().catch(e => console.log("Engine awaiting interaction."));
-                status.innerText = "Engine_Active";
-                status.classList.add('engine-active');
-            }
-        }, { once: true });
-    </script>
-    </body>
-</html>
+        <a href="https://69ca95dd5fd--
