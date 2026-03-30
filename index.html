@@ -3,103 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT ENGINE</title>
+    <title>KNOCKSSTUDiOS | AI LAB LEGENDS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; perspective: 1200px; }
-        .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
-        .knocks-font { font-family: 'Orbitron', sans-serif; }
-
-        /* CHAMELEON WORM TYPEWRITER */
-        .chameleon-header {
-            font-size: 5rem; letter-spacing: -4px; position: relative; display: inline-block;
-            background: linear-gradient(90deg, #ff0000, #ff6b00, #00ff88, #00f0ff, #bf00ff);
-            background-size: 300% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: worm 5s linear infinite, typewriter 3s steps(14) forwards;
-            white-space: nowrap; overflow: hidden;
-        }
-        @keyframes worm { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-        @keyframes typewriter { from { width: 0; } to { width: 100%; } }
-
-        /* SWORD SWISH SHINE */
-        .chameleon-header::after {
-            content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            transform: skewX(-30deg); animation: swish 4s infinite ease-in-out;
-        }
-        @keyframes swish { 0% { left: -100%; } 25% { left: 150%; } 100% { left: 150%; } }
-
-        /* 4D TILE LOGIC */
-        .tool-card-4d { 
-            background: rgba(15, 15, 25, 0.95); border: 1px solid rgba(255,255,255,0.05); border-radius: 4px;
-            height: 320px; padding: 40px; display: flex; flex-direction: column; justify-content: flex-end;
-            transform-style: preserve-3d; transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); cursor: pointer; position: relative;
-        }
-        .tool-card-4d:hover { transform: translateZ(60px) rotateX(6deg) rotateY(-2deg); border-color: rgba(255,255,255,0.5); box-shadow: 0 40px 80px rgba(0,0,0,1); }
         
-        /* RADIO HIDDEN INSIDE TILE */
-        .radio-hidden {
-            position: absolute; top: 10px; left: 10px; width: calc(100% - 20px); height: 60px;
-            opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+        body { 
+            background: radial-gradient(circle at top right, #1a1a2e, #000); 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            overflow-x: hidden; 
         }
-        .tool-card-4d:hover .radio-hidden { opacity: 1; pointer-events: auto; }
-        
-        .bevel { position: absolute; bottom: 0; left: 0; height: 6px; width: 100%; border-radius: 0 0 4px 4px; }
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; z-index: 1000; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 40px; }
+
+        .chameleon-text {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3rem, 10vw, 6rem);
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, #00fff2, #4facfe, #bf00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .btn-glow {
+            background: linear-gradient(90deg, #ff4b2b, #ff416c);
+            box-shadow: 0 0 20px rgba(255, 75, 43, 0.5);
+            transition: 0.3s;
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 40px rgba(255, 75, 43, 0.8);
+            transform: scale(1.05);
+        }
+
+        .pillar-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pillar-card:hover {
+            border-color: #00fff2;
+            background: rgba(0, 255, 242, 0.05);
+        }
+
+        /* HIDDEN RADIO BOX - ONLY SHOWS ON HOVER */
+        .inner-radio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+            background: #000;
+        }
+
+        .pillar-card:hover .inner-radio {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
-<body onclick="startRadio()">
+<body>
 
-    <nav class="sidebar">
-        <a href="#" class="text-cyan-400 text-2xl">⚡</a>
-        <div class="text-white opacity-20 hover:opacity-100 cursor-pointer text-xl">📂</div>
-        <div class="text-white opacity-20 hover:opacity-100 cursor-pointer text-xl">🛒</div>
-    </nav>
+    <section class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-32 pb-20">
+        <div class="mb-6">
+            <span class="px-4 py-1 rounded-full border border-purple-500/30 text-[10px] font-bold tracking-[0.3em] text-purple-400 uppercase bg-purple-500/10">
+                ● AI LAB LEGENDS
+            </span>
+        </div>
+        
+        <h1 class="chameleon-text mb-8">KNOCKSSTUDiOS</h1>
+        
+        <p class="max-w-2xl text-gray-400 text-lg mb-10 font-light leading-relaxed">
+            Where cinematic imagination meets omnipotent AI. <br>
+            Build worlds. Render legends. Ship the impossible.
+        </p>
 
-    <main class="pl-[120px] pr-10 pt-10">
-        <header class="mb-24 border-b border-white/5 pb-12 flex justify-between items-center">
-            <h1 class="extraordinary chameleon-header">KNOCKSSTUDiOS</h1>
-            <div class="text-emerald-400 knocks-font font-black text-[10px] tracking-[0.2em]">VAULT_ACTIVE</div>
-        </header>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <button class="btn-glow px-10 py-4 rounded-full font-bold text-sm tracking-widest uppercase">Explore the Engine</button>
+            <button class="px-10 py-4 rounded-full border border-white/20 font-bold text-sm tracking-widest uppercase hover:bg-white/5 transition">Watch the Reel</button>
+        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="tool-card-4d" onclick="window.location.href='/store'">
-                <div class="bevel" style="background: linear-gradient(90deg, #ff0000, #ff6b00);"></div>
-                <h3 class="extraordinary text-sm">STORE</h3>
-                <p class="text-[9px] knocks-font text-[#ff6b00] mt-2">FIRE_ASSETS</p>
-            </div>
-            <div class="tool-card-4d" onclick="window.location.href='/render'">
-                <div class="bevel" style="background: linear-gradient(90deg, #00ff88, #bcff00);"></div>
-                <h3 class="extraordinary text-sm">RENDER</h3>
-                <p class="text-[9px] knocks-font text-[#00ff88] mt-2">MAJESTIC_3D</p>
-            </div>
+        <div class="mt-32 opacity-30 text-[10px] tracking-[0.5em] uppercase font-bold">Scroll</div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-32">
+        <div class="mb-20">
+            <span class="text-cyan-400 text-[10px] font-bold tracking-[0.4em] uppercase">The Vision</span>
+            <h2 class="text-5xl font-bold mt-4 leading-tight">
+                We don't follow the industry. <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-emerald-400">We render it from scratch.</span>
+            </h2>
+            <p class="mt-8 text-gray-500 max-w-3xl leading-relaxed">
+                KNOCKSSTUDiOS is the convergence of next-generation 3D engines, AI-driven content pipelines, and a creative academy built for legends. Powered by AI LAB LEGENDS, every tool is designed to obliterate the gap between imagination and output.
+            </p>
+        </div>
+
+        <div class="mt-40">
+            <span class="text-orange-500 text-[10px] font-bold tracking-[0.4em] uppercase">The Arsenal</span>
+            <h2 class="text-4xl font-bold mt-4 uppercase tracking-tighter">Four Pillars of Power</h2>
             
-            <div class="tool-card-4d" id="radio-trigger">
-                <div class="radio-hidden" id="player-anchor"></div>
-                <div class="bevel" style="background: linear-gradient(90deg, #00f0ff, #0055ff);"></div>
-                <h3 class="extraordinary text-sm">CREATE</h3>
-                <p class="text-[9px] knocks-font text-[#00f0ff] mt-2">AUDIO_ENGINE_ON</p>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-12">
+                <div class="pillar-card h-80 rounded-lg p-8 flex flex-col justify-end cursor-pointer" onclick="window.location.href='/store'">
+                    <h3 class="font-bold text-xl uppercase tracking-widest">Store</h3>
+                </div>
+                <div class="pillar-card h-80 rounded-lg p-8 flex flex-col justify-end cursor-pointer" onclick="window.location.href='/render'">
+                    <h3 class="font-bold text-xl uppercase tracking-widest">Render</h3>
+                </div>
+                
+                <div class="pillar-card h-80 rounded-lg p-8 flex flex-col justify-end cursor-pointer">
+                    <div class="inner-radio">
+                         <iframe src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <h3 class="font-bold text-xl uppercase tracking-widest">Create</h3>
+                </div>
 
-            <div class="tool-card-4d" onclick="window.location.href='/school'">
-                <div class="bevel" style="background: linear-gradient(90deg, #ffcc00, #bf00ff);"></div>
-                <h3 class="extraordinary text-sm">SCHOOL</h3>
-                <p class="text-[9px] knocks-font text-[#ffcc00] mt-2">ACADEMY</p>
+                <div class="pillar-card h-80 rounded-lg p-8 flex flex-col justify-end cursor-pointer" onclick="window.location.href='/school'">
+                    <h3 class="font-bold text-xl uppercase tracking-widest">School</h3>
+                </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <script>
-        let isStarted = false;
-        function startRadio() {
-            if (!isStarted) {
-                document.getElementById('player-anchor').innerHTML = `
-                    <iframe src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" 
-                    frameborder="0" width="100%" height="60"></iframe>`;
-                isStarted = true;
-            }
-        }
-    </script>
 </body>
 </html>
