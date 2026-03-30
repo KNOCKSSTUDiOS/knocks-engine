@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOLLYWOOD iMAGiNG | OMNIPOTENT</title>
+    <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        :root { --cyan: #00f0ff; }
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; padding: 0; overflow: hidden; height: 100vh; }
+        :root { --cyan: #00f0ff; --lime: #00ff88; --orange: #ff6b00; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- THE ORIGINAL LOGO SHAKE (4X) --- */
+        /* --- THE SHAKE (4X - PROTECTED) --- */
         @keyframes shake { 
             0% { transform: translate(2px, 2px); }
             25% { transform: translate(-2px, -2px); }
@@ -24,62 +24,71 @@
 
         /* --- VISUALS --- */
         #visual-core { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%); }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5; }
+        .nebula { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.4; }
 
-        /* --- LAYOUT --- */
+        /* --- DUAL-TONE MAJESTIC TILES --- */
+        .tool-card { 
+            background: rgba(10,10,15,0.9); 
+            border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 4px; 
+            cursor: pointer; 
+            transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); 
+            height: 280px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; 
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); }
+
+        /* GRADIENT OVERLAYS */
+        .grad-red-orange { border-bottom: 4px solid #ff4d00; background: linear-gradient(to top, rgba(255, 77, 0, 0.1), transparent); }
+        .grad-green-lime { border-bottom: 4px solid #00ff88; background: linear-gradient(to top, rgba(0, 255, 136, 0.1), transparent); }
+        .grad-cyan-blue { border-bottom: 4px solid #00f0ff; background: linear-gradient(to top, rgba(0, 240, 255, 0.1), transparent); }
+        .grad-gold-yellow { border-bottom: 4px solid #ffcc00; background: linear-gradient(to top, rgba(255, 204, 0, 0.1), transparent); }
+
+        /* --- UI ELEMENTS --- */
         .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.95); border-right: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 100; }
-        .tool-card { background: rgba(10,10,15,0.98); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; cursor: pointer; transition: 0.3s; height: 280px; display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; }
-        .tool-card:hover { border-color: var(--cyan); box-shadow: 0 0 20px rgba(0,240,255,0.1); }
-
-        /* --- LOGIN GATE (THE POP UP) --- */
-        #login-gate { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.8); backdrop-filter: blur(20px); display: none; align-items: center; justify-content: center; }
-        .auth-box { border: 1px solid var(--cyan); padding: 40px; width: 350px; text-align: center; background: #000; }
-        .auth-input { width: 100%; background: #111; border: 1px solid #222; padding: 12px; color: #fff; margin-bottom: 10px; font-size: 10px; outline: none; }
+        #power-switch { position: fixed; top: 30px; right: 30px; z-index: 5000; font-size: 8px; cursor: pointer; border: 1px solid #333; padding: 8px 15px; color: #555; }
+        #power-switch.on { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
     </style>
 </head>
 <body onload="ignite()">
 
     <div id="visual-core"></div>
-
-    <div id="login-gate">
-        <div class="auth-box">
-            <h2 class="extraordinary text-white text-lg mb-6">ACCESS_REQUIRED</h2>
-            <input type="text" class="auth-input knocks-font" placeholder="USERNAME / EMAIL">
-            <input type="password" class="auth-input knocks-font" placeholder="PASSWORD">
-            <button class="w-full bg-cyan-400 text-black py-4 text-[10px] font-black uppercase mb-4" onclick="hideLogin()">Login</button>
-            <p class="text-[8px] opacity-40 uppercase cursor-pointer" onclick="hideLogin()">Create Account</p>
-        </div>
-    </div>
+    <div id="power-switch" class="knocks-font on" onclick="killVisuals()">ENGINE: ACTIVE</div>
 
     <div id="engine-wrap">
         <nav class="sidebar">
-            <div class="text-cyan-400 text-xl">⚡</div>
-            <div class="opacity-30">📂</div>
-            <div class="opacity-30">🛒</div>
+            <div class="text-cyan-400 text-xl cursor-pointer">⚡</div>
+            <div class="opacity-20 text-lg cursor-pointer">📂</div>
+            <div class="opacity-20 text-lg cursor-pointer">🛒</div>
         </nav>
 
         <main class="pl-[110px] pr-10 pt-10">
             <header class="flex justify-between items-end mb-16 border-b border-white/5 pb-10">
-                <h1 id="main-logo" class="extraordinary text-5xl tracking-tighter overclock-active">HOLLYWOOD iMAGiNG</h1>
+                <h1 id="main-logo" class="extraordinary text-5xl tracking-tighter overclock-active">KNOCKSSTUDiOS</h1>
                 <div class="knocks-font text-[10px] text-emerald-400">VAULT: 2000</div>
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="tool-card" onclick="showLogin()">
-                    <h3 class="extraordinary text-xs text-cyan-400 mb-1">STORE</h3>
-                    <p class="text-[8px] opacity-40 uppercase">Assets & Modules</p>
+                <div class="tool-card grad-red-orange">
+                    <h3 class="extraordinary text-xs text-white mb-1">STORE</h3>
+                    <p class="text-[8px] text-[#ff6b00] uppercase font-bold">Assets & Tech</p>
                 </div>
-                <div class="tool-card" onclick="showLogin()">
-                    <h3 class="extraordinary text-xs text-yellow-400 mb-1">RENDER</h3>
-                    <p class="text-[8px] opacity-40 uppercase">3D / Real / Anime</p>
+                <div class="tool-card grad-green-lime">
+                    <h3 class="extraordinary text-xs text-white mb-1">RENDER</h3>
+                    <p class="text-[8px] text-[#00ff88] uppercase font-bold">3D / Real / Anime</p>
                 </div>
-                <div class="tool-card" onclick="showLogin()">
-                    <h3 class="extraordinary text-xs text-pink-400 mb-1">CREATE</h3>
-                    <p class="text-[8px] opacity-40 uppercase">New Projects</p>
+                <div class="tool-card grad-cyan-blue">
+                    <h3 class="extraordinary text-xs text-white mb-1">CREATE</h3>
+                    <p class="text-[8px] text-[#00f0ff] uppercase font-bold">Project Core</p>
                 </div>
-                <div class="tool-card" onclick="showLogin()">
-                    <h3 class="extraordinary text-xs text-emerald-400 mb-1">SCHOOL</h3>
-                    <p class="text-[8px] opacity-40 uppercase">Global Academy</p>
+                <div class="tool-card grad-gold-yellow">
+                    <h3 class="extraordinary text-xs text-white mb-1">SCHOOL</h3>
+                    <p class="text-[8px] text-[#ffcc00] uppercase font-bold">Academy</p>
                 </div>
             </div>
         </main>
@@ -88,7 +97,30 @@
     <script>
         function ignite() {
             const core = document.getElementById('visual-core');
+            const colors = ['#00f0ff', '#ff4d00', '#00ff88', '#ffcc00'];
             for(let i=0; i<8; i++) {
                 const n = document.createElement('div');
                 n.className = 'nebula';
-                n.style.width
+                n.style.width = '600px'; n.style.height = '600px';
+                n.style.background = colors[i % 4];
+                n.style.left = Math.random() * 100 + '%'; n.style.top = Math.random() * 100 + '%';
+                core.appendChild(n);
+            }
+        }
+
+        function killVisuals() {
+            const btn = document.getElementById('power-switch');
+            const nebulae = document.querySelectorAll('.nebula');
+            if(btn.classList.contains('on')) {
+                btn.classList.remove('on'); btn.innerText = "ENGINE: SLEEP";
+                nebulae.forEach(n => n.style.display = 'none');
+                document.getElementById('visual-core').style.background = '#000';
+            } else {
+                btn.classList.add('on'); btn.innerText = "ENGINE: ACTIVE";
+                nebulae.forEach(n => n.style.display = 'block');
+                document.getElementById('visual-core').style.background = 'radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%)';
+            }
+        }
+    </script>
+</body>
+</html>
