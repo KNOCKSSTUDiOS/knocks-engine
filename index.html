@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT 4D</title>
+    <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
@@ -13,9 +13,7 @@
             color: #fff; 
             font-family: 'Inter', sans-serif; 
             margin: 0; 
-            overflow-x: hidden; 
-            min-height: 100vh; 
-            perspective: 1200px; 
+            overflow-x: hidden;
         }
 
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
@@ -23,7 +21,7 @@
 
         /* --- THE CHAMELEON WORM HEADER --- */
         .chameleon-header {
-            font-size: clamp(2rem, 8vw, 5rem); 
+            font-size: 5rem; 
             letter-spacing: -4px; 
             position: relative; 
             display: inline-block;
@@ -31,48 +29,35 @@
             background-size: 300% auto; 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent;
-            animation: worm 5s linear infinite, typewriter 3s steps(14) forwards;
-            white-space: nowrap; 
-            overflow: hidden;
+            animation: worm 5s linear infinite;
+            white-space: nowrap;
         }
 
-        @keyframes worm { 0% { background-position: 0% 50%; } 100% { background-position: 100% 50%; } }
-        @keyframes typewriter { from { width: 0; } to { width: 100%; } }
-
-        /* --- SWORD SWISH GLASS SHINE --- */
-        .chameleon-header::after {
-            content: ""; 
-            position: absolute; 
-            top: 0; 
-            left: -100%; 
-            width: 50%; 
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-            transform: skewX(-30deg); 
-            animation: swish 4s infinite ease-in-out;
+        @keyframes worm { 
+            0% { background-position: 0% 50%; } 
+            100% { background-position: 100% 50%; } 
         }
-        @keyframes swish { 0% { left: -100%; } 25% { left: 150%; } 100% { left: 150%; } }
 
-        /* --- 4D TILES & BROADCAST MODULE --- */
-        .tool-card-4d, .broadcast-module { 
-            background: rgba(15, 15, 25, 0.9); 
+        /* --- 4D TILES --- */
+        .tool-card-4d { 
+            background: rgba(15, 15, 25, 0.95); 
             border: 1px solid rgba(255,255,255,0.05); 
             border-radius: 4px;
-            transform-style: preserve-3d; 
-            transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
+            height: 320px; 
+            padding: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end;
+            transition: 0.3s ease-in-out;
+            cursor: pointer; 
             position: relative;
         }
 
-        .tool-card-4d { height: 320px; padding: 40px; display: flex; flex-direction: column; justify-content: flex-end; cursor: pointer; }
-        .tool-card-4d:hover { transform: translateZ(50px) rotateX(4deg); border-color: rgba(255,255,255,0.4); box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
-
-        .broadcast-module { 
-            padding: 15px; 
-            width: 350px; 
-            height: 460px;
-            border-color: rgba(0, 240, 255, 0.2);
+        .tool-card-4d:hover { 
+            border-color: rgba(255,255,255,0.5); 
+            background: rgba(25, 25, 35, 1);
+            transform: translateY(-5px);
         }
-        .broadcast-module:hover { transform: translateZ(30px) rotateY(-2deg); border-color: #00f0ff; }
         
         .bevel { 
             position: absolute; 
@@ -99,28 +84,30 @@
             gap: 40px; 
         }
 
-        /* CUSTOM SCROLLBAR FOR ENGINE */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #111; border-radius: 10px; }
+        .player-wrapper {
+            background: #050505;
+            border: 1px solid #1a1a1a;
+            padding: 10px;
+            border-radius: 4px;
+            width: 350px;
+        }
     </style>
 </head>
 <body>
 
     <nav class="sidebar">
-        <a href="https://69ca95dd5fd--hollywoodimagingtheomnipotentengine.netlify.app" class="text-cyan-400 text-2xl hover:scale-125 transition-transform">⚡</a>
+        <div class="text-cyan-400 text-2xl">⚡</div>
         <div class="text-white opacity-20 hover:opacity-100 cursor-pointer text-xl">📂</div>
         <div class="text-white opacity-20 hover:opacity-100 cursor-pointer text-xl">🛒</div>
     </nav>
 
     <main class="pl-[120px] pr-10 pt-10">
-        <header class="mb-16 border-b border-white/5 pb-12 flex justify-between items-center">
+        <header class="mb-24 border-b border-white/5 pb-12 flex justify-between items-center">
             <h1 class="extraordinary chameleon-header">KNOCKSSTUDiOS</h1>
-            <div class="text-emerald-400 knocks-font font-black text-[10px] tracking-[0.2em] hidden md:block">VAULT_ACTIVE</div>
+            <div class="text-emerald-400 knocks-font font-black text-[10px] tracking-[0.2em]">VAULT_ACTIVE</div>
         </header>
 
-        <div class="flex flex-col xl:flex-row gap-10 items-start">
-            
+        <div class="flex flex-col xl:flex-row gap-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 flex-grow">
                 <div class="tool-card-4d" onclick="window.location.href='/store'">
                     <div class="bevel" style="background: linear-gradient(90deg, #ff0000, #ff6b00);"></div>
@@ -147,16 +134,10 @@
                 </div>
             </div>
 
-            <div class="broadcast-module self-center xl:self-start">
-                <div class="bevel" style="background: #00f0ff; height: 2px; top: 0; bottom: auto;"></div>
-                <div class="flex justify-between items-center mb-4 px-2">
-                    <span class="text-[9px] knocks-font text-cyan-400 tracking-widest">LIVE_SIGNAL</span>
-                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                </div>
-                <iframe id="embed_player" frameborder="0" width="320" height="396" src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" style="border-radius: 2px;"></iframe>
-                <div class="bevel" style="background: #00f0ff; height: 2px;"></div>
+            <div class="player-wrapper self-start">
+                <div class="text-[10px] knocks-font text-white/30 mb-4 tracking-tighter uppercase">Live Stream Engine</div>
+                <iframe id="embed_player" frameborder="0" width="330" height="396" src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2"></iframe>
             </div>
-
         </div>
     </main>
 
