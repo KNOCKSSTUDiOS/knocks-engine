@@ -3,112 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | MULTI-DRILL</title>
+    <title>KNOCKSSTUDiOS | SENTINEL REPAIR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        
         :root { --cyan: #00f0ff; --gold: #ffcc00; --magenta: #ff00ff; }
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        body { background: #000; color: #fff; font-family: 'Orbitron', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
-        .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- VIVID LIFE-LIKE SUPERNOVA --- */
-        #visual-core { position: fixed; inset: 0; z-index: -2; background: #020205; overflow: hidden; }
+        /* --- VIVID SUPERNOVA ENGINE --- */
+        #visual-core { position: fixed; inset: 0; z-index: -2; background: #020205; }
         .nebula {
             position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.8;
-            animation: move 10s infinite alternate ease-in-out;
+            animation: move 12s infinite alternate ease-in-out;
         }
         @keyframes move { 
-            0% { transform: scale(1) translate(0,0); filter: hue-rotate(0deg); }
-            100% { transform: scale(1.4) translate(15%, 10%); filter: hue-rotate(120deg); }
+            0% { transform: scale(1) translate(0,0); filter: hue-rotate(0deg); opacity: 0.6; }
+            100% { transform: scale(1.6) translate(15%, 10%); filter: hue-rotate(90deg); opacity: 0.9; }
         }
 
-        /* --- LIQUID GOLD LOGO --- */
+        /* --- THE LOGO --- */
         .liquid-gold {
             font-size: clamp(30px, 6vw, 65px); font-weight: 900;
             background: linear-gradient(180deg, var(--gold) 0%, #6b8e23 50%, var(--cyan) 100%);
             background-size: 100% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 40px rgba(255, 204, 0, 0.7));
             animation: flow 3s infinite linear;
         }
         @keyframes flow { 0% { background-position: 0% 0%; } 100% { background-position: 0% 100%; } }
 
-        /* --- GLASSMISM PORTAL --- */
-        #gate { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(50px); transition: 0.6s; }
-        .auth-tile { 
-            width: 440px; padding: 50px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--cyan);
-            box-shadow: 0 0 100px rgba(0, 240, 255, 0.2); text-align: center;
+        /* --- REPAIR ROBOTS (SENTINELS) --- */
+        .sentinel {
+            position: absolute; width: 40px; height: 40px; 
+            background: var(--cyan); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            filter: drop-shadow(0 0 15px var(--cyan));
+            opacity: 0; pointer-events: none; z-index: 9999;
+            transition: 0.5s ease-out;
+        }
+        .laser {
+            position: absolute; background: var(--cyan); height: 1px; width: 0;
+            transform-origin: left; z-index: 9998; opacity: 0;
         }
 
-        /* --- MULTI-DRILL SELECTOR --- */
-        .drill-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
-        .drill-opt { 
-            border: 1px solid rgba(0, 240, 255, 0.3); padding: 15px 0; cursor: pointer; 
-            font-size: 10px; transition: 0.3s; color: var(--cyan);
-        }
-        .drill-opt:hover, .drill-opt.active { background: var(--cyan); color: #000; font-weight: 900; box-shadow: 0 0 20px var(--cyan); }
+        /* --- THE INTERFACE --- */
+        #gate { position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(40px); }
+        .auth-tile { width: 400px; padding: 40px; background: rgba(0,0,0,0.8); border: 1px solid var(--cyan); box-shadow: 0 0 50px rgba(0,240,255,0.2); text-align: center; }
+        
+        .drill-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
+        .drill-opt { border: 1px solid #333; padding: 10px; cursor: pointer; color: var(--cyan); font-size: 10px; }
+        .drill-opt.active { background: var(--cyan); color: #000; font-weight: 900; border-color: #fff; }
 
-        .engine-tile { background: rgba(0,0,0,0.6); border: 1px solid rgba(0, 240, 255, 0.1); backdrop-filter: blur(80px); transition: 0.5s; }
-        .engine-tile:hover { border-color: var(--cyan); box-shadow: 0 0 50px rgba(0, 240, 255, 0.2); }
+        @keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-3px, -2px); } 100% { transform: translate(1px, 1px); } }
+        .extreme-shake { animation: shake 0.1s infinite; }
 
-        input { background: rgba(0,0,0,0.6); border: 1px solid #222; padding: 18px; color: var(--gold); width: 100%; margin-bottom: 20px; outline: none; text-align: center; }
-
-        #interface { opacity: 0; pointer-events: none; transition: 1s; }
+        input { background: #111; border: 1px solid #333; padding: 15px; color: var(--gold); width: 100%; margin-bottom: 20px; outline: none; text-align: center; font-size: 10px; }
+        #interface { opacity: 0; pointer-events: none; transition: 0.5s; }
         #interface.active { opacity: 1; pointer-events: auto; }
     </style>
 </head>
 <body onload="igniteNebula()">
 
     <div id="visual-core"></div>
-    <audio id="core-audio" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+    <div id="sentinel-1" class="sentinel"></div>
+    <div id="sentinel-2" class="sentinel"></div>
+    <div id="laser-beam" class="laser"></div>
 
     <div id="gate">
         <div class="auth-tile">
-            <h2 class="extraordinary text-[10px] text-cyan-400 mb-10 tracking-[1.5em] uppercase">Initialize_ID</h2>
-            <input type="text" id="id-entry" placeholder="DESIGNATE DRILLER" class="knocks-font">
-            <button onclick="boot()" class="w-full bg-cyan-400 text-black py-5 extraordinary text-[10px] hover:bg-white transition-all">INITIALIZE DIMENSION</button>
+            <h2 class="extraordinary text-[10px] text-cyan-400 mb-6 tracking-widest uppercase">Knocks Identity</h2>
+            <input type="text" id="id-entry" placeholder="USER_ID" maxlength="12">
+            <button onclick="boot()" class="w-full bg-cyan-400 text-black py-4 extraordinary text-[10px] hover:bg-white transition-all">CONNECT</button>
         </div>
     </div>
 
     <div id="interface">
-        <div class="fixed left-0 top-0 h-full w-[100px] border-r border-cyan-400/20 flex flex-col items-center pt-24 gap-12 z-50 bg-black/80">
-            <div class="knocks-font text-[8px] text-[#ffcc00]" id="nav-id">--</div>
-            <div class="extraordinary text-[9px] vertical-rl rotate-180 opacity-100 text-cyan-400 cursor-pointer">ENGINE</div>
-            <div class="extraordinary text-[9px] vertical-rl rotate-180 opacity-30 hover:opacity-100 cursor-pointer">VAULT</div>
-        </div>
+        <main class="p-12">
+            <h1 id="main-logo" class="liquid-gold extraordinary mb-12">KNOCKSSTUDiOS</h1>
 
-        <main class="pl-40 pr-12 pt-12">
-            <h1 class="liquid-gold extraordinary mb-16">KNOCKSSTUDiOS</h1>
-
-            <div class="grid grid-cols-12 gap-10">
-                <div class="col-span-4">
-                    <div class="engine-tile p-10">
-                        <h3 class="extraordinary text-[10px] text-cyan-400 mb-8 uppercase">Select Drill Multiplier</h3>
-                        <div class="drill-grid knocks-font">
-                            <div class="drill-opt" onclick="sel(this)">1X</div>
-                            <div class="drill-opt active" onclick="sel(this)">2X</div>
-                            <div class="drill-opt" onclick="sel(this)">3X</div>
-                            <div class="drill-opt" onclick="sel(this)">4X</div>
-                        </div>
-                        <div class="h-32 border border-dashed border-cyan-400/20 flex items-center justify-center mb-8">
-                            <span class="text-[8px] knocks-font opacity-30">LOAD DATA SOURCE</span>
-                        </div>
-                        <button class="w-full bg-cyan-400 text-black py-6 extraordinary text-[11px] uppercase hover:bg-white">Ignite Multi-Drill</button>
+            <div class="grid grid-cols-12 gap-8">
+                <div class="col-span-4 bg-black/60 p-8 border border-white/10 backdrop-blur-md">
+                    <h3 class="text-[9px] text-cyan-400 mb-6 uppercase">Multi-Drill Selector</h3>
+                    <div class="drill-grid">
+                        <div class="drill-opt" onclick="sel(this, false)">1X</div>
+                        <div class="drill-opt" onclick="sel(this, false)">2X</div>
+                        <div class="drill-opt" onclick="sel(this, false)">3X</div>
+                        <div class="drill-opt active" onclick="sel(this, true)">4X</div>
                     </div>
+                    <button class="w-full bg-cyan-400 text-black py-4 text-[10px] uppercase font-bold">Launch Drill</button>
+                    <div id="status-msg" class="mt-4 text-[8px] text-magenta-400 opacity-50 uppercase">System: Stable</div>
                 </div>
 
-                <div class="col-span-8 grid grid-cols-2 gap-10">
-                    <div class="engine-tile h-[600px] flex flex-col justify-end p-10">
-                        <h4 class="extraordinary text-xl mb-4 text-cyan-400">ENCRYPTED_FEED_01</h4>
-                        <button class="border border-cyan-400 text-cyan-400 py-3 text-[9px] extraordinary hover:bg-cyan-400 hover:text-black">DOWNLOAD_CORE</button>
-                    </div>
-                    <div class="engine-tile h-[600px] flex flex-col justify-end p-10">
-                        <h4 class="extraordinary text-xl mb-4 text-[#ffcc00]">ENCRYPTED_FEED_02</h4>
-                        <button class="border border-gold-400 text-[#ffcc00] py-3 text-[9px] extraordinary hover:bg-gold-400 hover:text-black">DOWNLOAD_CORE</button>
-                    </div>
+                <div class="col-span-8 flex gap-4">
+                    <div class="flex-1 bg-white/5 h-[500px] border border-cyan-400/20"></div>
+                    <div class="flex-1 bg-white/5 h-[500px] border-gold-400/20"></div>
                 </div>
             </div>
         </main>
@@ -117,32 +103,65 @@
     <script>
         function igniteNebula() {
             const core = document.getElementById('visual-core');
-            const colors = ['#00f0ff', '#ff00ff', '#ffcc00', '#6b8e23'];
-            for(let i=0; i<8; i++) {
+            const colors = ['#00f0ff', '#ff00ff', '#ffcc00'];
+            for(let i=0; i<10; i++) {
                 const n = document.createElement('div');
                 n.className = 'nebula';
-                n.style.width = n.style.height = '700px';
-                n.style.background = colors[i % colors.length];
+                n.style.width = n.style.height = '600px';
+                n.style.background = colors[i % 3];
                 n.style.left = Math.random() * 100 + '%';
                 n.style.top = Math.random() * 100 + '%';
-                n.style.animationDelay = (i * -2) + 's';
+                n.style.animationDelay = (i * -1.5) + 's';
                 core.appendChild(n);
             }
         }
 
-        function sel(el) {
+        function sel(el, isExtreme) {
             document.querySelectorAll('.drill-opt').forEach(o => o.classList.remove('active'));
             el.classList.add('active');
+            const logo = document.getElementById('main-logo');
+            const status = document.getElementById('status-msg');
+            
+            if(isExtreme) {
+                logo.classList.add('extreme-shake');
+                status.innerText = "WARNING: CORE UNSTABLE";
+                status.style.color = "#ff0000";
+                deployRobots();
+            } else {
+                logo.classList.remove('extreme-shake');
+                status.innerText = "System: Stable";
+                status.style.color = "#00f0ff";
+                hideRobots();
+            }
+        }
+
+        function deployRobots() {
+            const s1 = document.getElementById('sentinel-1');
+            const s2 = document.getElementById('sentinel-2');
+            s1.style.opacity = "1";
+            s2.style.opacity = "1";
+            s1.style.left = "150px"; s1.style.top = "100px";
+            s2.style.right = "150px"; s2.style.top = "150px";
+            // Robotic movement
+            setTimeout(() => {
+                s1.style.transform = "translate(20px, 30px)";
+                s2.style.transform = "translate(-20px, 40px)";
+            }, 500);
+        }
+
+        function hideRobots() {
+            const s1 = document.getElementById('sentinel-1');
+            const s2 = document.getElementById('sentinel-2');
+            s1.style.opacity = "0";
+            s2.style.opacity = "0";
         }
 
         function boot() {
-            const id = document.getElementById('id-entry').value;
-            if(!id) return;
-            document.getElementById('gate').style.opacity = '0';
-            document.getElementById('gate').style.pointerEvents = 'none';
+            if(!document.getElementById('id-entry').value) return;
+            document.getElementById('gate').style.display = 'none';
             document.getElementById('interface').classList.add('active');
-            document.getElementById('nav-id').innerText = id.toUpperCase();
-            document.getElementById('core-audio').play();
+            // Immediate 4X activation
+            deployRobots();
         }
     </script>
 </body>
