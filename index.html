@@ -3,139 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | COMMAND CENTER</title>
+    <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        :root { --cyan: #00f0ff; --gold: #ffcc00; --panel-bg: rgba(15, 15, 20, 0.95); }
-        body { background: #050508; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; }
-        .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; }
+        
+        :root { --cyan: #00f0ff; --gold: #ffcc00; --magenta: #ff00ff; --panel: rgba(10, 10, 15, 0.9); }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; height: 100vh; }
+        .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- VIVID ENGINE BACKGROUND --- */
-        #visual-core { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at 50% 50%, #0a0a1a 0%, #050508 100%); }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.6; animation: drift 20s infinite alternate ease-in-out; }
-        @keyframes drift { 0% { transform: scale(1) translate(0,0); } 100% { transform: scale(1.5) translate(10%, 10%); } }
+        /* --- VIVID SUPERNOVA BACKGROUND --- */
+        #visual-core { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%); }
+        .nebula { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.6; animation: drift 15s infinite alternate ease-in-out; }
+        @keyframes drift { 0% { transform: scale(1) rotate(0deg); } 100% { transform: scale(1.6) rotate(15deg) translate(5%, 5%); } }
 
-        /* --- KLING-STYLE SIDEBAR --- */
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #1a1a1a; display: flex; flex-direction: column; align-items: center; padding-top: 30px; gap: 40px; z-index: 100; }
-        .side-icon { opacity: 0.4; cursor: pointer; transition: 0.3s; }
-        .side-icon:hover, .side-active { opacity: 1; color: var(--cyan); filter: drop-shadow(0 0 8px var(--cyan)); }
-
-        /* --- TOOL CARDS (Mirroring Studio AI) --- */
-        .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .tool-card { background: #111; border: 1px solid #222; border-radius: 12px; overflow: hidden; transition: 0.3s; cursor: pointer; }
-        .tool-card:hover { border-color: var(--cyan); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,240,255,0.1); }
-        .preview-box { height: 180px; background: #1a1a1a; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .preview-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
-        .tool-card:hover img { opacity: 1; transform: scale(1.05); }
-
-        /* --- OVERCLOCK SYSTEM --- */
-        .drill-btn { border: 1px solid #333; padding: 10px 20px; font-size: 10px; transition: 0.3s; cursor: pointer; }
-        .drill-btn.active { background: var(--cyan); color: #000; font-weight: 900; border-color: #fff; box-shadow: 0 0 20px var(--cyan); }
-        @keyframes shake { 0% { transform: translate(1px, 1px); } 100% { transform: translate(-1px, -1px); } }
-        .overclock-active { animation: shake 0.1s infinite; }
+        /* --- THE LOGO & OVERCLOCK SHAKE --- */
+        #main-logo { transition: 0.3s; }
+        @keyframes extreme-shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            25% { transform: translate(-2px, -1px) rotate(-0.5deg); }
+            50% { transform: translate(-1px, 2px) rotate(0.5deg); }
+            75% { transform: translate(2px, -2px) rotate(0deg); }
+            100% { transform: translate(1px, 1px) rotate(0deg); }
+        }
+        .overclock-active { animation: extreme-shake 0.1s infinite !important; filter: drop-shadow(0 0 15px var(--cyan)); }
 
         /* --- SENTINEL ROBOTS --- */
-        .sentinel { position: fixed; width: 50px; height: 50px; background: var(--cyan); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); opacity: 0; transition: 1s; z-index: 200; pointer-events: none; }
+        .sentinel {
+            position: fixed; width: 40px; height: 40px; background: var(--cyan); 
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            opacity: 0; transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); z-index: 1000;
+            filter: drop-shadow(0 0 20px var(--cyan)); pointer-events: none;
+        }
+
+        /* --- DASHBOARD UI --- */
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.8); border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 500; backdrop-filter: blur(15px); }
+        .tool-card { background: var(--panel); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); cursor: pointer; position: relative; overflow: hidden; }
+        .tool-card:hover { border-color: var(--cyan); transform: translateY(-10px); box-shadow: 0 30px 60px rgba(0,240,255,0.1); }
+        .tool-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(45deg, transparent, rgba(0,240,255,0.05), transparent); transform: translateX(-100%); transition: 0.6s; }
+        .tool-card:hover::before { transform: translateX(100%); }
+
+        /* --- INTERACTIVE BUTTONS --- */
+        .drill-btn { border: 1px solid #222; padding: 10px 22px; font-size: 10px; transition: 0.4s; cursor: pointer; background: rgba(0,0,0,0.4); border-radius: 4px; }
+        .drill-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+        .drill-btn.active { background: var(--cyan); color: #000; font-weight: 900; border-color: #fff; box-shadow: 0 0 25px var(--cyan); }
+
+        /* --- REPAIR LOG --- */
+        #sys-log { position: fixed; bottom: 30px; right: 30px; width: 260px; background: rgba(0,0,0,0.9); border-left: 3px solid var(--cyan); padding: 15px; font-size: 8px; color: var(--cyan); z-index: 600; opacity: 0.8; line-height: 1.8; }
+
+        input { background: rgba(255,255,255,0.05); border: 1px solid #333; padding: 15px; color: #fff; width: 100%; border-radius: 4px; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--cyan); box-shadow: 0 0 15px rgba(0,240,255,0.1); }
     </style>
 </head>
-<body onload="launch()">
+<body onload="igniteEngine()">
 
     <div id="visual-core"></div>
-    <div id="sentinel-left" class="sentinel"></div>
-    <div id="sentinel-right" class="sentinel"></div>
+    <div id="sentinel-alpha" class="sentinel"></div>
+    <div id="sentinel-beta" class="sentinel"></div>
+
+    <div id="sys-log" class="knocks-font uppercase">
+        <div id="log-text">> CORE_SYSTEM_NOMINAL<br>> WAITING_FOR_INPUT...</div>
+    </div>
 
     <nav class="sidebar">
-        <div class="side-icon side-active">🏠</div>
-        <div class="side-icon">🖼️</div>
-        <div class="side-icon">🎥</div>
-        <div class="side-icon">⚙️</div>
+        <div class="side-icon text-cyan-400 opacity-100">💠</div>
+        <div class="side-icon opacity-30 hover:opacity-100 transition-all cursor-pointer">📁</div>
+        <div class="side-icon opacity-30 hover:opacity-100 transition-all cursor-pointer">🎨</div>
+        <div class="side-icon opacity-30 hover:opacity-100 transition-all cursor-pointer">⚙️</div>
     </nav>
 
-    <main class="pl-[100px] pr-8 pt-8">
-        <header class="flex justify-between items-center mb-12">
+    <main class="pl-[110px] pr-10 pt-10">
+        <header class="flex justify-between items-start mb-16">
             <div>
-                <h1 id="main-logo" class="extraordinary text-3xl tracking-tighter text-white">KNOCKSSTUDiOS</h1>
-                <p class="text-[9px] opacity-40 knocks-font tracking-[0.4em] mt-1">POWERED BY AI LAB LEGENDS</p>
+                <h1 id="main-logo" class="extraordinary text-4xl tracking-tighter">KNOCKSSTUDiOS</h1>
+                <div class="flex items-center gap-3 mt-3">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_10px_green]"></span>
+                    <span class="text-[8px] knocks-font tracking-[0.6em] opacity-40">SYSTEM: OPERATIONAL</span>
+                </div>
             </div>
-            <div class="flex gap-2">
-                <div class="drill-btn knocks-font" onclick="setMode(this, 1)">1X</div>
-                <div class="drill-btn knocks-font" onclick="setMode(this, 2)">2X</div>
-                <div class="drill-btn knocks-font active" onclick="setMode(this, 4)">4X</div>
+            <div class="flex gap-3">
+                <div class="drill-btn knocks-font" onclick="setPower(this, 1)">1X</div>
+                <div class="drill-btn knocks-font" onclick="setPower(this, 2)">2X</div>
+                <div class="drill-btn knocks-font active" onclick="setPower(this, 4)">4X</div>
             </div>
         </header>
 
-        <h2 class="extraordinary text-[10px] mb-6 opacity-60">SELECT ENGINE MODULE</h2>
-        <div class="tool-grid">
-            <div class="tool-card" onclick="alert('Module Initializing...')">
-                <div class="preview-box"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=400" alt="Editor"></div>
-                <div class="p-5">
-                    <h3 class="extraordinary text-[11px] text-cyan-400 mb-1">AI IMAGE EDITOR</h3>
-                    <p class="text-[9px] opacity-50 uppercase">Upload and refine asset cores</p>
+        <section>
+            <h2 class="extraordinary text-[10px] opacity-40 mb-8 tracking-[0.4em]">Active Modules</h2>
+            <div class="tool-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="tool-card p-8">
+                    <div class="h-40 bg-black/40 rounded-lg mb-6 flex items-center justify-center border border-white/5">
+                        <span class="text-[9px] knocks-font opacity-20">IMAGE_SYNTH_01</span>
+                    </div>
+                    <h3 class="extraordinary text-xs text-cyan-400 mb-2">IMAGE GENERATOR</h3>
+                    <p class="text-[9px] opacity-40 leading-relaxed uppercase">Neural asset creation engine</p>
+                </div>
+                <div class="tool-card p-8">
+                    <div class="h-40 bg-black/40 rounded-lg mb-6 flex items-center justify-center border border-white/5">
+                        <span class="text-[9px] knocks-font opacity-20">CORE_REFINE_02</span>
+                    </div>
+                    <h3 class="extraordinary text-xs text-gold-400 mb-2">ADVANCED EDITOR</h3>
+                    <p class="text-[9px] opacity-40 leading-relaxed uppercase">Precision pixel manipulation</p>
+                </div>
+                <div class="tool-card p-8">
+                    <div class="h-40 bg-black/40 rounded-lg mb-6 flex items-center justify-center border border-white/5">
+                        <span class="text-[9px] knocks-font opacity-20">VECTOR_SCALE_03</span>
+                    </div>
+                    <h3 class="extraordinary text-xs text-magenta-400 mb-2">ULTRA UPSCALER</h3>
+                    <p class="text-[9px] opacity-40 leading-relaxed uppercase">9K Reality resolution scaling</p>
                 </div>
             </div>
-            <div class="tool-card" onclick="alert('Generator Ready.')">
-                <div class="preview-box"><img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=400" alt="Generator"></div>
-                <div class="p-5">
-                    <h3 class="extraordinary text-[11px] text-gold-400 mb-1">AI IMAGE GENERATOR</h3>
-                    <p class="text-[9px] opacity-50 uppercase">Manifest concepts from void</p>
-                </div>
-            </div>
-            <div class="tool-card" onclick="alert('Upscaler Calibrated.')">
-                <div class="preview-box"><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400" alt="Upscaler"></div>
-                <div class="p-5">
-                    <h3 class="extraordinary text-[11px] text-magenta-400 mb-1">IMAGE UPSCALER</h3>
-                    <p class="text-[9px] opacity-50 uppercase">Push quality to 9K Reality</p>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <section class="mt-16">
-            <div class="flex justify-between items-end mb-6">
-                <h2 class="extraordinary text-[10px] opacity-60">RECENT GENERATIONS</h2>
-                <div class="text-[8px] text-cyan-400 knocks-font">VIEW ALL ASSETS →</div>
-            </div>
-            <div class="grid grid-cols-4 gap-4">
-                <div class="aspect-video bg-white/5 border border-white/5 hover:border-cyan-400/50 transition-all cursor-pointer"></div>
-                <div class="aspect-video bg-white/5 border border-white/5 hover:border-cyan-400/50 transition-all cursor-pointer"></div>
-                <div class="aspect-video bg-white/5 border border-white/5 hover:border-cyan-400/50 transition-all cursor-pointer"></div>
-                <div class="aspect-video bg-white/5 border border-white/5 hover:border-cyan-400/50 transition-all cursor-pointer"></div>
+        <section class="mt-20">
+            <h2 class="extraordinary text-[9px] opacity-30 mb-6 tracking-widest">Recent Buffer</h2>
+            <div class="grid grid-cols-4 gap-6">
+                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all cursor-crosshair"></div>
+                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all cursor-crosshair"></div>
+                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all cursor-crosshair"></div>
+                <div class="aspect-video bg-white/5 border border-white/5 rounded-md hover:border-cyan-400 transition-all cursor-crosshair"></div>
             </div>
         </section>
     </main>
 
     <script>
-        function launch() {
+        function igniteEngine() {
             const core = document.getElementById('visual-core');
             const colors = ['#00f0ff', '#ff00ff', '#ffcc00'];
-            for(let i=0; i<8; i++) {
+            for(let i=0; i<12; i++) {
                 const n = document.createElement('div');
                 n.className = 'nebula';
-                n.style.width = n.style.height = '700px';
+                n.style.width = n.style.height = (Math.random() * 500 + 300) + 'px';
                 n.style.background = colors[i % 3];
                 n.style.left = Math.random() * 100 + '%';
                 n.style.top = Math.random() * 100 + '%';
-                n.style.animationDelay = (i * -2) + 's';
+                n.style.animationDelay = (i * -1.2) + 's';
                 core.appendChild(n);
             }
-            setMode(document.querySelectorAll('.drill-btn')[2], 4);
+            setPower(document.querySelectorAll('.drill-btn')[2], 4);
+            setInterval(updateSysLog, 2500);
         }
 
-        function setMode(el, val) {
+        function updateSysLog() {
+            const log = document.getElementById('log-text');
+            const feeds = [
+                "> RECALIBRATING_OPTICS",
+                "> BUFFER_STABILIZED",
+                "> NEBULA_DENSITY_NOMINAL",
+                "> SENTINELS_ACTIVE",
+                "> OVERCLOCK_PROTECTION_ON",
+                "> SCANNING_ID_CORES"
+            ];
+            log.innerHTML += `<br>${feeds[Math.floor(Math.random()*feeds.length)]}`;
+            const lines = log.innerHTML.split('<br>');
+            if(lines.length > 5) log.innerHTML = lines.slice(1).join('<br>');
+        }
+
+        function setPower(btn, val) {
             document.querySelectorAll('.drill-btn').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
+            btn.classList.add('active');
+            
             const logo = document.getElementById('main-logo');
-            const sL = document.getElementById('sentinel-left');
-            const sR = document.getElementById('sentinel-right');
+            const sA = document.getElementById('sentinel-alpha');
+            const sB = document.getElementById('sentinel-beta');
 
             if(val === 4) {
                 logo.classList.add('overclock-active');
-                sL.style.opacity = "1"; sL.style.left = "90px"; sL.style.top = "40px";
-                sR.style.opacity = "1"; sR.style.right = "40px"; sR.style.bottom = "40px";
+                sA.style.opacity = "1"; sA.style.left = "130px"; sA.style.top = "60px";
+                sB.style.opacity = "1"; sB.style.right = "60px"; sB.style.bottom = "60px";
             } else {
                 logo.classList.remove('overclock-active');
-                sL.style.opacity = "0"; sR.style.opacity = "0";
+                sA.style.opacity = "0"; sB.style.opacity = "0";
             }
         }
     </script>
