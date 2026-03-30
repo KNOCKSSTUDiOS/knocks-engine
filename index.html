@@ -7,12 +7,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@400;700&display=swap');
-        :root { --cyan: #00f0ff; --lime: #00ff88; --orange: #ff6b00; }
+        :root { --cyan: #00f0ff; }
         body { background: #000; color: #fff; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
         .extraordinary { font-family: 'Syncopate', sans-serif; font-weight: 700; text-transform: uppercase; }
         .knocks-font { font-family: 'Orbitron', sans-serif; }
 
-        /* --- THE SHAKE (4X - PROTECTED) --- */
+        /* --- THE LOGO SHAKE (4X - LOCKED) --- */
         @keyframes shake { 
             0% { transform: translate(2px, 2px); }
             25% { transform: translate(-2px, -2px); }
@@ -24,41 +24,51 @@
 
         /* --- VISUALS --- */
         #visual-core { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%); }
-        .nebula { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.4; }
+        .nebula { position: absolute; border-radius: 50%; filter: blur(150px); opacity: 0.3; }
 
-        /* --- DUAL-TONE MAJESTIC TILES --- */
+        /* --- DYNAMIC TILES (DIFFERENT COLORS & FADES) --- */
         .tool-card { 
-            background: rgba(10,10,15,0.9); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 4px; 
+            background: rgba(5,5,10,0.95); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            border-radius: 2px; 
             cursor: pointer; 
-            transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1); 
-            height: 280px; 
+            transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
+            height: 300px; 
             display: flex; 
             flex-direction: column; 
             justify-content: flex-end; 
-            padding: 35px;
+            padding: 30px;
             position: relative;
             overflow: hidden;
         }
-        .tool-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.3); }
 
-        /* GRADIENT OVERLAYS */
-        .grad-red-orange { border-bottom: 4px solid #ff4d00; background: linear-gradient(to top, rgba(255, 77, 0, 0.1), transparent); }
-        .grad-green-lime { border-bottom: 4px solid #00ff88; background: linear-gradient(to top, rgba(0, 255, 136, 0.1), transparent); }
-        .grad-cyan-blue { border-bottom: 4px solid #00f0ff; background: linear-gradient(to top, rgba(0, 240, 255, 0.1), transparent); }
-        .grad-gold-yellow { border-bottom: 4px solid #ffcc00; background: linear-gradient(to top, rgba(255, 204, 0, 0.1), transparent); }
+        /* TILE 1: FIRE VIBE (RED -> ORANGE) */
+        .tile-fire { border-left: 2px solid #ff4d00; }
+        .tile-fire:hover { background: linear-gradient(180deg, transparent 0%, rgba(255, 77, 0, 0.2) 100%); border-color: #ff4d00; box-shadow: 0 10px 30px rgba(255, 77, 0, 0.1); }
 
-        /* --- UI ELEMENTS --- */
-        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: rgba(0,0,0,0.95); border-right: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 100; }
-        #power-switch { position: fixed; top: 30px; right: 30px; z-index: 5000; font-size: 8px; cursor: pointer; border: 1px solid #333; padding: 8px 15px; color: #555; }
-        #power-switch.on { color: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
+        /* TILE 2: NATURE VIBE (GREEN -> LIME) */
+        .tile-nature { border-left: 2px solid #00ff88; }
+        .tile-nature:hover { background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 136, 0.2) 100%); border-color: #00ff88; box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1); }
+
+        /* TILE 3: TECH VIBE (CYAN -> BLUE) */
+        .tile-tech { border-left: 2px solid #00f0ff; }
+        .tile-tech:hover { background: linear-gradient(180deg, transparent 0%, rgba(0, 240, 255, 0.2) 100%); border-color: #00f0ff; box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1); }
+
+        /* TILE 4: ROYAL VIBE (GOLD -> PURPLE) */
+        .tile-royal { border-left: 2px solid #ffcc00; }
+        .tile-royal:hover { background: linear-gradient(180deg, transparent 0%, rgba(191, 0, 255, 0.2) 100%); border-color: #bf00ff; box-shadow: 0 10px 30px rgba(191, 0, 255, 0.1); }
+
+        /* --- SIDEBAR --- */
+        .sidebar { width: 80px; height: 100vh; position: fixed; left: 0; top: 0; background: #000; border-right: 1px solid #111; display: flex; flex-direction: column; align-items: center; padding-top: 40px; gap: 35px; z-index: 100; }
+        
+        /* --- KILL SWITCH --- */
+        #kill-switch { position: fixed; bottom: 30px; right: 30px; z-index: 1000; font-size: 9px; cursor: pointer; color: #ff0000; padding: 5px 10px; border: 1px solid #ff0000; text-transform: uppercase; }
     </style>
 </head>
 <body onload="ignite()">
 
     <div id="visual-core"></div>
-    <div id="power-switch" class="knocks-font on" onclick="killVisuals()">ENGINE: ACTIVE</div>
+    <div id="kill-switch" class="knocks-font" onclick="killVisuals()">MANUAL_SHUTDOWN</div>
 
     <div id="engine-wrap">
         <nav class="sidebar">
@@ -68,27 +78,27 @@
         </nav>
 
         <main class="pl-[110px] pr-10 pt-10">
-            <header class="flex justify-between items-end mb-16 border-b border-white/5 pb-10">
-                <h1 id="main-logo" class="extraordinary text-5xl tracking-tighter overclock-active">KNOCKSSTUDiOS</h1>
-                <div class="knocks-font text-[10px] text-emerald-400">VAULT: 2000</div>
+            <header class="flex justify-between items-end mb-20 border-b border-white/5 pb-10">
+                <h1 class="extraordinary text-6xl tracking-tighter overclock-active">KNOCKSSTUDiOS</h1>
+                <div class="knocks-font text-[11px] text-emerald-400 uppercase tracking-widest">Vault: 2000 Coins</div>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="tool-card grad-red-orange">
-                    <h3 class="extraordinary text-xs text-white mb-1">STORE</h3>
-                    <p class="text-[8px] text-[#ff6b00] uppercase font-bold">Assets & Tech</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="tool-card tile-fire">
+                    <h3 class="extraordinary text-[14px] text-white">STORE</h3>
+                    <p class="text-[9px] text-[#ff4d00] knocks-font font-black">FIRE_ASSETS</p>
                 </div>
-                <div class="tool-card grad-green-lime">
-                    <h3 class="extraordinary text-xs text-white mb-1">RENDER</h3>
-                    <p class="text-[8px] text-[#00ff88] uppercase font-bold">3D / Real / Anime</p>
+                <div class="tool-card tile-nature">
+                    <h3 class="extraordinary text-[14px] text-white">RENDER</h3>
+                    <p class="text-[9px] text-[#00ff88] knocks-font font-black">3D_MAJESTIC</p>
                 </div>
-                <div class="tool-card grad-cyan-blue">
-                    <h3 class="extraordinary text-xs text-white mb-1">CREATE</h3>
-                    <p class="text-[8px] text-[#00f0ff] uppercase font-bold">Project Core</p>
+                <div class="tool-card tile-tech">
+                    <h3 class="extraordinary text-[14px] text-white">CREATE</h3>
+                    <p class="text-[9px] text-[#00f0ff] knocks-font font-black">CORE_SYNTH</p>
                 </div>
-                <div class="tool-card grad-gold-yellow">
-                    <h3 class="extraordinary text-xs text-white mb-1">SCHOOL</h3>
-                    <p class="text-[8px] text-[#ffcc00] uppercase font-bold">Academy</p>
+                <div class="tool-card tile-royal">
+                    <h3 class="extraordinary text-[14px] text-white">SCHOOL</h3>
+                    <p class="text-[9px] text-[#ffcc00] knocks-font font-black">ROYAL_ACADEMY</p>
                 </div>
             </div>
         </main>
@@ -97,29 +107,22 @@
     <script>
         function ignite() {
             const core = document.getElementById('visual-core');
-            const colors = ['#00f0ff', '#ff4d00', '#00ff88', '#ffcc00'];
-            for(let i=0; i<8; i++) {
+            const colors = ['#ff4d00', '#00ff88', '#00f0ff', '#bf00ff'];
+            for(let i=0; i<12; i++) {
                 const n = document.createElement('div');
                 n.className = 'nebula';
-                n.style.width = '600px'; n.style.height = '600px';
+                n.style.width = '700px'; n.style.height = '700px';
                 n.style.background = colors[i % 4];
-                n.style.left = Math.random() * 100 + '%'; n.style.top = Math.random() * 100 + '%';
+                n.style.left = (Math.random() * 120 - 10) + '%'; 
+                n.style.top = (Math.random() * 120 - 10) + '%';
                 core.appendChild(n);
             }
         }
 
         function killVisuals() {
-            const btn = document.getElementById('power-switch');
             const nebulae = document.querySelectorAll('.nebula');
-            if(btn.classList.contains('on')) {
-                btn.classList.remove('on'); btn.innerText = "ENGINE: SLEEP";
-                nebulae.forEach(n => n.style.display = 'none');
-                document.getElementById('visual-core').style.background = '#000';
-            } else {
-                btn.classList.add('on'); btn.innerText = "ENGINE: ACTIVE";
-                nebulae.forEach(n => n.style.display = 'block');
-                document.getElementById('visual-core').style.background = 'radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%)';
-            }
+            nebulae.forEach(n => n.style.display = (n.style.display === 'none') ? 'block' : 'none');
+            document.getElementById('visual-core').style.background = (document.getElementById('visual-core').style.background === 'rgb(0, 0, 0)') ? 'radial-gradient(circle at 50% 50%, #08081a 0%, #000 100%)' : '#000';
         }
     </script>
 </body>
