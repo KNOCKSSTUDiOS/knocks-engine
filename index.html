@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@900&display=swap');
+        
         :root { --ks-void: #020205; --ks-cyan: #00fff2; --ks-blood: #ff4b2b; }
         
         body { 
@@ -21,80 +22,122 @@
 
         .ks-monolith { font-family: 'Syncopate'; font-weight: 900; text-transform: uppercase; }
 
+        /* THE EXACT HERO TEXT FROM YOUR IMAGE */
         .hero-title {
-            font-size: 10vw;
-            letter-spacing: -5px;
-            background: linear-gradient(to right, #00fff2, #8a2be2);
+            font-size: 11vw;
+            letter-spacing: -6px;
+            background: linear-gradient(to bottom right, #ffffff 30%, #00fff2, #8a2be2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 0.8;
+            line-height: 0.78;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 242, 0.1));
         }
 
-        .btn-orange { background: #ff4b2b; padding: 18px 45px; border-radius: 50px; font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; border:none; cursor:pointer; }
-        .btn-outline { border: 1px solid rgba(255,255,255,0.2); padding: 18px 45px; border-radius: 50px; font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; background:transparent; color:white; cursor:pointer; }
+        /* THE ORANGE ACTION BUTTON */
+        .btn-orange { 
+            background: #ff4b2b; 
+            padding: 20px 50px; 
+            border-radius: 60px; 
+            font-size: 11px; 
+            font-weight: 900; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            border: none; 
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(255, 75, 43, 0.3);
+            transition: 0.3s;
+        }
+        .btn-orange:hover { transform: scale(1.05); background: #ff5f45; }
 
-        /* THE HIDDEN VAULT */
+        .btn-outline { 
+            border: 1px solid rgba(255,255,255,0.15); 
+            padding: 20px 50px; 
+            border-radius: 60px; 
+            font-size: 11px; 
+            font-weight: 900; 
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            background: transparent; 
+            color: white; 
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* MASTER VAULT (CEO BYPASS) */
         #master-vault { 
             position: fixed; inset: 0; background: rgba(0,0,0,0.99); 
             z-index: 9999; display: none; flex-direction: column; 
-            align-items: center; justify-content: center; backdrop-filter: blur(30px);
+            align-items: center; justify-content: center; backdrop-filter: blur(40px);
         }
         
         .ks-input { 
             background: #050505; border: 1px solid #111; color: var(--ks-cyan); 
-            padding: 22px; text-align: center; width: 300px; outline: none; 
-            font-weight: 900; letter-spacing: 0.4em; margin-bottom: 15px; font-size: 13px;
+            padding: 24px; text-align: center; width: 320px; outline: none; 
+            font-weight: 900; letter-spacing: 0.5em; margin-bottom: 20px; font-size: 14px;
         }
         
         .trigger-btn { 
-            border: 1px solid rgba(255,255,255,0.1); padding: 45px; width: 100%; 
+            border: 1px solid rgba(255,255,255,0.1); padding: 50px; width: 100%; 
             font-weight: 900; letter-spacing: 0.6em; text-transform: uppercase; 
             font-size: 11px; transition: 0.5s; background: transparent; color: white;
         }
-        .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 60px var(--ks-blood); border: none; }
+        .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 70px var(--ks-blood); border: none; }
         
-        .sys-access-btn {
-            position: fixed; bottom: 25px; right: 25px; font-size: 8px; 
-            letter-spacing: 6px; color: rgba(255,255,255,0.05); text-transform: uppercase; font-weight: 900; background:none; border:none;
+        .sys-trigger {
+            position: fixed; bottom: 30px; right: 30px; font-size: 7px; 
+            letter-spacing: 6px; color: rgba(255,255,255,0.03); text-transform: uppercase; font-weight: 900; background:none; border:none; cursor: pointer;
+        }
+
+        .badge-ai {
+            text-transform: uppercase;
+            font-size: 8px;
+            letter-spacing: 4px;
+            font-weight: 900;
+            color: #00fff2;
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(0, 255, 242, 0.05);
         }
     </style>
 </head>
 <body>
 
-    <header class="min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <div class="mb-6">
-            <span class="text-[8px] border border-cyan-500/30 text-cyan-400 px-4 py-1 rounded-full uppercase tracking-widest font-bold">
-                ● AI LAB LEGENDS
-            </span>
+    <header class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20">
+        <div class="mb-10">
+            <span class="badge-ai">● AI LAB LEGENDS</span>
         </div>
-        <h1 class="ks-monolith hero-title mb-8">KNOCKS<br>STUDiOS</h1>
-        <p class="max-w-xl text-gray-400 text-sm tracking-wide mb-10 leading-relaxed">
+        <h1 class="ks-monolith hero-title mb-10">KNOCKS<br>STUDiOS</h1>
+        <p class="max-w-2xl text-gray-400 text-base tracking-wide mb-14 leading-relaxed opacity-80 font-medium">
             Where cinematic imagination meets omnipotent AI.<br>
             Build worlds. Render legends. Ship the impossible.
         </p>
-        <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex flex-col sm:flex-row gap-6">
             <button class="btn-orange">EXPLORE THE ENGINE</button>
             <button class="btn-outline">WATCH THE REEL</button>
         </div>
     </header>
 
-    <button onclick="document.getElementById('master-vault').style.display='flex'" class="sys-access-btn">SYS_LOGIN</button>
+    <button onclick="document.getElementById('master-vault').style.display='flex'" class="sys-trigger">SYS_OVERRIDE</button>
 
     <div id="master-vault">
-        <div class="w-full max-w-sm p-10 bg-black border border-white/5 text-center">
+        <div class="w-full max-w-md p-12 bg-black border border-white/5 text-center">
             
             <div id="entry-gate">
-                <p class="text-[10px] text-gray-700 tracking-[1em] mb-12 font-black uppercase">AUTHENTICATE</p>
+                <p class="text-[10px] text-gray-700 tracking-[1.2em] mb-14 font-black uppercase">AUTHENTICATE_CEO</p>
                 <input type="password" id="pass-field" class="ks-input" placeholder="PASSKEY">
-                <button onclick="checkAccess()" class="w-full py-6 bg-white text-black font-black text-[11px] tracking-[0.6em] uppercase">VERIFY</button>
-                <button onclick="document.getElementById('master-vault').style.display='none'" class="text-[8px] text-gray-800 mt-10 uppercase tracking-widest">Cancel</button>
+                <button onclick="checkAccess()" class="w-full py-6 bg-white text-black font-black text-[12px] tracking-[0.6em] uppercase transition hover:bg-cyan-400">VERIFY</button>
+                <button onclick="document.getElementById('master-vault').style.display='none'" class="text-[8px] text-gray-800 mt-12 uppercase tracking-[0.5em] font-bold">Cancel</button>
             </div>
 
             <div id="ceo-gate" style="display:none;">
-                <p class="text-[10px] text-red-600 tracking-[1.2em] mb-12 font-black uppercase italic">CEO_ULTIMATE_BYPASS</p>
+                <p class="text-[11px] text-red-600 tracking-[1.3em] mb-14 font-black uppercase italic">MASTER_BYPASS_GRANTED</p>
                 <button id="master-trigger" onclick="igniteInfinite()" class="trigger-btn">Infinite_Rendering: OFF</button>
-                <p class="text-[7px] text-cyan-400 mt-10 tracking-[0.5em] uppercase font-black">Life_Time_Credits: gtamayo36@gmail.com</p>
-                <button onclick="location.reload()" class="mt-14 text-[9px] text-gray-800 uppercase tracking-widest">Lock_Engine</button>
+                <div class="mt-12 space-y-3">
+                    <p class="text-[8px] text-cyan-400 tracking-[0.6em] uppercase font-black">USER: gtamayo36@gmail.com</p>
+                    <p class="text-[8px] text-cyan-400 tracking-[0.6em] uppercase font-black">6_BOTS_SYNCED: TRUE</p>
+                </div>
+                <button onclick="location.reload()" class="mt-16 text-[9px] text-gray-800 uppercase tracking-widest border-b border-gray-900 pb-2">Lock_Engine</button>
             </div>
 
         </div>
@@ -106,9 +149,6 @@
             if (p === "0736") { 
                 document.getElementById('entry-gate').style.display = 'none';
                 document.getElementById('ceo-gate').style.display = 'block';
-            } else if (p === "1234") {
-                alert("Observer Mode Active");
-                location.reload();
             } else {
                 alert("ACCESS_DENIED");
                 location.reload();
@@ -120,7 +160,8 @@
             btn.classList.toggle('trigger-active');
             const status = btn.classList.contains('trigger-active');
             btn.innerText = status ? "Infinite_Rendering: ACTIVE" : "Infinite_Rendering: OFF";
-            console.log("6 Bots Syncing to Account...");
+            // SYSTEM BOT SYNC
+            console.log("CEO Override engaged. Bots 1-6 syncing to gtamayo36@gmail.com.");
         }
     </script>
 </body>
