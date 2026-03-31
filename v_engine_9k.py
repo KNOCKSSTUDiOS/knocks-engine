@@ -1,35 +1,46 @@
 """
 ================================================================================
 PROPERTY OF KNOCKSSTUDiOS | OMNIPOTENT_ENGINE_V1
-CORE_ARCHITECT: G. TAMAYO
-© 2026 KNOCKSSTUDiOS. ALL RIGHTS RESERVED.
+VAULT_KEY: [LOCAL_ONLY] | AUTH: G. TAMAYO
 ================================================================================
 """
 import os
 from google import genai
 
-class Knocks9K:
-    def __init__(self):
-        # CEO_ONLY: Fetches keys from your local 'engine.vault' file
-        self.key = self._load_secret()
-        self.engine = genai.Client(api_key=self.key)
-        print("⚡ ENGINE_STATUS: 9K_PERFECTION_ACTIVE")
+class KnocksEngine:
+    def __init__(self, free_access_trigger=False):
+        self.fuel = self._fetch_fuel()
+        self.client = genai.Client(api_key=self.fuel)
+        # The 2nd Trigger State
+        self.unlocked = free_access_trigger 
+        print(f"⚡ ENGINE_IGNITION: UNLOCKED={self.unlocked}")
 
-    def _load_secret(self):
-        try:
+    def _fetch_fuel(self):
+        # CEO SECURITY: Looks for the file hidden by .gitignore
+        if os.path.exists("engine.vault"):
             with open("engine.vault", "r") as f:
                 return f.read().split("=")[1].strip()
-        except:
-            return os.getenv("ENGINE_FUEL_ALPHA")
+        return os.getenv("ENGINE_FUEL_ALPHA")
 
-    def forge_asset(self, asset_name="Metal_Laser_Eye.obj"):
+    def execute_render(self, prompt, is_legend_student=False):
         """
-        Renders your proprietary 3D assets with 9K lighting.
+        Logic for Free Full Access.
+        If 2nd Trigger is ON or user is a Legend Student, bypass cost.
         """
-        prompt = f"Cinematic macro of {asset_name}, rainbow grit shaders, 9k resolution."
-        print(f"🎬 FORGING: {asset_name}")
-        return self.engine.models.generate_videos(model="veo-3.1", prompt=prompt)
+        if self.unlocked or is_legend_student:
+            print("💎 ACCESS_GRANTED: PROPRIETARY_BYPASS_ACTIVE")
+            return self._forge(prompt)
+        else:
+            print("🔒 ACCESS_DENIED: PENDING_ARSENAL_VERIFICATION")
+            return None
 
+    def _forge(self, prompt):
+        # 9K Proprietary Alchemy
+        full_directive = f"{prompt}. 9k cinematic, anamorphic lens, KnocksStudios grit."
+        return self.client.models.generate_videos(model="veo-3.1", prompt=full_directive)
+
+# CEO CONTROL
 if __name__ == "__main__":
-    K9 = Knocks9K()
-    K9.forge_asset()
+    # Simulate turning on the 2nd Trigger from the Admin Page
+    CEO_ENGINE = KnocksEngine(free_access_trigger=True)
+    CEO_ENGINE.execute_render("A 9K cinematic sweep of the Metal_Laser_Eye")
