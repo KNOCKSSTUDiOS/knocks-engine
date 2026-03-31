@@ -3,137 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
+    <title>KNOCKSSTUDiOS | CINEMATIC ENGINE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@900&display=swap');
+        
         :root { --ks-void: #020205; --ks-cyan: #00fff2; --ks-blood: #ff4b2b; }
         
-        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        body { 
+            background: var(--ks-void); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            overflow-x: hidden;
+            background: radial-gradient(circle at top right, #1a2a22, transparent),
+                        radial-gradient(circle at bottom left, #1a1a2a, var(--ks-void));
+        }
+
         .ks-monolith { font-family: 'Syncopate'; font-weight: 900; text-transform: uppercase; }
 
-        .ks-card { 
-            border: 0.5px solid rgba(255, 255, 255, 0.08); 
-            background: rgba(255,255,255,0.01); 
-            height: 500px; padding: 50px; 
-            display: flex; flex-direction: column; justify-content: flex-end; 
-            position: relative; overflow: hidden; transition: 0.8s; 
+        /* THE ORIGINAL HERO TEXT LOOK */
+        .hero-title {
+            font-size: 10vw;
+            letter-spacing: -5px;
+            background: linear-gradient(to right, #00fff2, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 0.8;
         }
-        .ks-card:hover { border-color: var(--ks-cyan); background: rgba(0, 255, 242, 0.03); }
 
+        /* BUTTONS FROM YOUR SCREENSHOT */
+        .btn-orange {
+            background: #ff4b2b;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* VAULT SYSTEM */
         #master-vault { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.99); 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.98); 
             z-index: 9999; display: none; flex-direction: column; 
-            align-items: center; justify-content: center; backdrop-filter: blur(30px);
+            align-items: center; justify-content: center; backdrop-filter: blur(20px);
         }
         
         .ks-input { 
-            background: #050505; border: 1px solid #111; color: var(--ks-cyan); 
-            padding: 22px; text-align: center; width: 100%; outline: none; 
-            font-weight: 900; letter-spacing: 0.4em; margin-bottom: 15px; font-size: 13px;
+            background: #080808; border: 1px solid #222; color: var(--ks-cyan); 
+            padding: 20px; text-align: center; width: 100%; outline: none; 
+            font-weight: 900; letter-spacing: 0.5em; margin-bottom: 15px;
         }
-        
+
         .trigger-btn { 
-            border: 1px solid rgba(255,255,255,0.1); padding: 45px; width: 100%; 
-            font-weight: 900; letter-spacing: 0.6em; text-transform: uppercase; 
-            font-size: 11px; transition: 0.5s; 
+            background: transparent; border: 1px solid rgba(255,255,255,0.1); 
+            padding: 40px; width: 100%; font-weight: 900; letter-spacing: 0.5em; 
+            text-transform: uppercase; font-size: 11px; transition: 0.4s; 
         }
-        .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 60px var(--ks-blood); border: none; }
+        .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 50px var(--ks-blood); border: none; }
         
-        #observer-gate, #ceo-gate { display: none; width: 100%; }
-        .bot-tag { font-size: 8px; color: #333; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; font-weight: bold; }
-        
-        .sys-access-btn {
-            position: fixed; bottom: 25px; right: 25px; font-size: 8px; 
-            letter-spacing: 6px; color: #1a1a1a; text-transform: uppercase; font-weight: 900;
+        .sys-login {
+            position: fixed; bottom: 20px; right: 20px; font-size: 8px; 
+            letter-spacing: 5px; color: rgba(255,255,255,0.1); text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <header class="h-[70vh] flex flex-col items-center justify-center text-center">
-        <p class="text-[9px] tracking-[1.5em] text-cyan-400 mb-8 uppercase font-bold italic">Cinematic_Engine_Active // Netlify_Node</p>
-        <h1 class="ks-monolith text-[8vw] tracking-[-10px] leading-[0.8] mb-4">KNOCKS<br>STUDiOS</h1>
+    <header class="min-h-screen flex flex-col items-center justify-center text-center px-6">
+        <div class="mb-6">
+            <span class="text-[8px] border border-cyan-500/30 text-cyan-400 px-4 py-1 rounded-full uppercase tracking-widest font-bold">
+                ● AI LAB LEGENDS
+            </span>
+        </div>
+        <h1 class="ks-monolith hero-title mb-8">KNOCKS<br>STUDiOS</h1>
+        <p class="max-w-xl text-gray-400 text-sm tracking-wide mb-10 leading-relaxed">
+            Where cinematic imagination meets omnipotent AI.<br>
+            Build worlds. Render legends. Ship the impossible.
+        </p>
+        <div class="flex flex-col md:flex-row gap-4">
+            <button class="btn-orange">EXPLORE THE ENGINE</button>
+            <button class="btn-outline">WATCH THE REEL</button>
+        </div>
     </header>
 
-    <section class="max-w-[1750px] mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-6 pb-40">
-        <div class="ks-card">
-            <div class="absolute top-12 left-12 text-[10px] font-bold text-red-600 tracking-widest uppercase opacity-40">Unit_005 // 3D</div>
-            <h3 class="ks-monolith text-4xl italic">Blender School</h3>
-            <div class="bot-tag">Bots_01_02: RENDERING</div>
-        </div>
-        <div class="ks-card">
-            <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_004 // AI</div>
-            <h3 class="ks-monolith text-4xl italic">Legend School</h3>
-            <div class="bot-tag">Bots_03_04: AI_LOGIC</div>
-        </div>
-        <div class="ks-card">
-            <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_006 // ARS</div>
-            <h3 class="ks-monolith text-4xl italic">The Arsenal</h3>
-            <div class="bot-tag">Bots_05_06: SYSTEM_SYNC</div>
-        </div>
-    </section>
-
-    <button onclick="document.getElementById('master-vault').style.display='flex'" class="sys-access-btn">SYS_LOGIN</button>
+    <button onclick="document.getElementById('master-vault').style.display='flex'" class="sys-login">SYS_LOGIN</button>
 
     <div id="master-vault">
         <div class="w-full max-w-sm p-10 bg-black border border-white/5 text-center">
-            
-            <div id="entry-gate">
-                <p class="text-[10px] text-gray-700 tracking-[1em] mb-12 font-black uppercase">AUTHENTICATE</p>
-                <input type="password" id="pass-field" class="ks-input" placeholder="PASSKEY">
-                <button onclick="checkAccess()" class="w-full py-6 bg-white text-black font-black text-[11px] tracking-[0.6em] uppercase">VERIFY</button>
-                <button onclick="document.getElementById('master-vault').style.display='none'" class="text-[8px] text-gray-800 mt-10 uppercase tracking-widest">Cancel</button>
+            <div id="gate-input">
+                <p class="text-[10px] text-gray-600 tracking-[1em] mb-12 uppercase font-black">Authenticate</p>
+                <input type="password" id="pass-key" class="ks-input" placeholder="PASSKEY">
+                <button onclick="verifyKey()" class="w-full py-5 bg-white text-black font-black text-[11px] tracking-[0.5em] uppercase">Enter Engine</button>
             </div>
 
-            <div id="observer-gate">
-                <p class="text-[10px] text-cyan-400 tracking-[1em] mb-12 font-black uppercase italic">Observer_Level</p>
-                <button onclick="location.reload()" class="w-full py-4 border border-white/10 text-[9px] uppercase tracking-widest">Logout</button>
+            <div id="ceo-dash" class="hidden">
+                <p class="text-[10px] text-red-600 tracking-[1.2em] mb-12 font-black uppercase italic">Master_Bypass_Active</p>
+                <button id="render-trigger" onclick="toggleRender()" class="trigger-btn">Infinite_Rendering: OFF</button>
+                <p class="text-[8px] text-cyan-400 mt-10 tracking-widest uppercase font-bold">Credits: UNLIMITED // CEO: TAMAYO</p>
+                <button onclick="location.reload()" class="mt-12 text-[9px] text-gray-700 uppercase tracking-widest">Logout</button>
             </div>
-
-            <div id="ceo-gate">
-                <p class="text-[10px] text-red-600 tracking-[1.2em] mb-12 font-black uppercase italic">CEO_ULTIMATE_BYPASS</p>
-                <button id="master-trigger" onclick="igniteInfinite()" class="trigger-btn">Infinite_Rendering: OFF</button>
-                <p class="text-[7px] text-cyan-400 mt-10 tracking-[0.5em] uppercase font-black italic">gtamayo36@gmail.com // sovereign_access</p>
-                <button onclick="location.reload()" class="mt-14 text-[9px] text-gray-800 uppercase tracking-widest border-b border-gray-900 pb-2">Lock_Engine</button>
-            </div>
-
         </div>
     </div>
 
-    <footer class="py-40 border-t border-white/5 text-center">
-        <a href="mailto:gtamayo36@gmail.com" class="text-[11px] tracking-[1.5em] text-gray-700 hover:text-cyan-400 transition uppercase font-black">gtamayo36@gmail.com</a>
-    </footer>
-
     <script>
-        function checkAccess() {
-            const p = document.getElementById('pass-field').value;
-            const entry = document.getElementById('entry-gate');
-            if (p === "0736") { 
-                entry.style.display = 'none';
-                document.getElementById('ceo-gate').style.display = 'block';
+        function verifyKey() {
+            const p = document.getElementById('pass-key').value;
+            if (p === "0736") {
+                document.getElementById('gate-input').classList.add('hidden');
+                document.getElementById('ceo-dash').classList.remove('hidden');
             } else if (p === "1234") {
-                entry.style.display = 'none';
-                document.getElementById('observer-gate').style.display = 'block';
+                alert("Observer Mode Enabled");
+                location.reload();
             } else {
                 alert("ACCESS_DENIED");
                 location.reload();
             }
         }
 
-        async function igniteInfinite() {
-            const btn = document.getElementById('master-trigger');
+        function toggleRender() {
+            const btn = document.getElementById('render-trigger');
             btn.classList.toggle('trigger-active');
-            const status = btn.classList.contains('trigger-active');
-            btn.innerText = status ? "Infinite_Rendering: ACTIVE" : "Infinite_Rendering: OFF";
-            
-            try {
-                await fetch('/api/sovereign-bypass', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ceo: "gtamayo36@gmail.com", bypass: status })
-                });
-            } catch (e) { console.log("Engine Override: Success"); }
+            const isActive = btn.classList.contains('trigger-active');
+            btn.innerText = isActive ? "Infinite_Rendering: ACTIVE" : "Infinite_Rendering: OFF";
         }
     </script>
 </body>
