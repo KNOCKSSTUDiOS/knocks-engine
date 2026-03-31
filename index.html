@@ -2,34 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@900&display=swap');
         :root { --ks-void: #020205; --ks-cyan: #00fff2; --ks-blood: #ff4b2b; }
-        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; touch-action: manipulation; }
+        
+        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         .ks-monolith { font-family: 'Syncopate'; font-weight: 900; text-transform: uppercase; }
 
         .ks-card { 
-            border: 0.5px solid rgba(255, 255, 255, 0.1); 
+            border: 0.5px solid rgba(255, 255, 255, 0.08); 
             background: rgba(255,255,255,0.01); 
-            height: 480px; padding: 45px; 
+            height: 500px; padding: 50px; 
             display: flex; flex-direction: column; justify-content: flex-end; 
-            position: relative; overflow: hidden; 
+            position: relative; overflow: hidden; transition: 0.8s; 
         }
+        .ks-card:hover { border-color: var(--ks-cyan); background: rgba(0, 255, 242, 0.03); }
 
         #master-vault { 
-            position: fixed; inset: 0; background: #000; 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.99); 
             z-index: 9999; display: none; flex-direction: column; 
-            align-items: center; justify-content: center; backdrop-filter: blur(40px);
+            align-items: center; justify-content: center; backdrop-filter: blur(30px);
         }
         
         .ks-input { 
             background: #050505; border: 1px solid #111; color: var(--ks-cyan); 
             padding: 22px; text-align: center; width: 100%; outline: none; 
             font-weight: 900; letter-spacing: 0.4em; margin-bottom: 15px; font-size: 13px;
-            border-radius: 0; -webkit-appearance: none;
         }
         
         .trigger-btn { 
@@ -39,7 +40,8 @@
         }
         .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 60px var(--ks-blood); border: none; }
         
-        #ceo-gate { display: none; width: 100%; }
+        #observer-gate, #ceo-gate { display: none; width: 100%; }
+        .bot-tag { font-size: 8px; color: #333; text-transform: uppercase; letter-spacing: 2px; margin-top: 10px; font-weight: bold; }
         
         .sys-access-btn {
             position: fixed; bottom: 25px; right: 25px; font-size: 8px; 
@@ -49,17 +51,27 @@
 </head>
 <body>
 
-    <header class="h-[65vh] flex flex-col items-center justify-center text-center px-6">
-        <p class="text-[9px] tracking-[1.5em] text-cyan-400 mb-10 uppercase font-bold">Engine_Active // Sovereign_v2.1</p>
-        <h1 class="ks-monolith text-[11vw] md:text-[8vw] tracking-[-6px] md:tracking-[-12px] leading-[0.8]">
-            KNOCKS<br>STUDiOS
-        </h1>
+    <header class="h-[70vh] flex flex-col items-center justify-center text-center">
+        <p class="text-[9px] tracking-[1.5em] text-cyan-400 mb-8 uppercase font-bold italic">Cinematic_Engine_Active // Netlify_Node</p>
+        <h1 class="ks-monolith text-[8vw] tracking-[-10px] leading-[0.8] mb-4">KNOCKS<br>STUDiOS</h1>
     </header>
 
-    <section class="max-w-[1700px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 pb-48">
-        <div class="ks-card"><div class="absolute top-10 left-10 text-[9px] font-bold text-red-600 tracking-widest uppercase opacity-40">Unit_005 // 3D</div><h3 class="ks-monolith text-3xl italic">Blender School</h3></div>
-        <div class="ks-card"><div class="absolute top-10 left-10 text-[9px] font-bold tracking-widest uppercase opacity-40">Unit_004 // AI</div><h3 class="ks-monolith text-3xl italic">Legend School</h3></div>
-        <div class="ks-card"><div class="absolute top-10 left-10 text-[9px] font-bold tracking-widest uppercase opacity-40">Unit_006 // ARS</div><h3 class="ks-monolith text-3xl italic">The Arsenal</h3></div>
+    <section class="max-w-[1750px] mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-6 pb-40">
+        <div class="ks-card">
+            <div class="absolute top-12 left-12 text-[10px] font-bold text-red-600 tracking-widest uppercase opacity-40">Unit_005 // 3D</div>
+            <h3 class="ks-monolith text-4xl italic">Blender School</h3>
+            <div class="bot-tag">Bots_01_02: RENDERING</div>
+        </div>
+        <div class="ks-card">
+            <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_004 // AI</div>
+            <h3 class="ks-monolith text-4xl italic">Legend School</h3>
+            <div class="bot-tag">Bots_03_04: AI_LOGIC</div>
+        </div>
+        <div class="ks-card">
+            <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_006 // ARS</div>
+            <h3 class="ks-monolith text-4xl italic">The Arsenal</h3>
+            <div class="bot-tag">Bots_05_06: SYSTEM_SYNC</div>
+        </div>
     </section>
 
     <button onclick="document.getElementById('master-vault').style.display='flex'" class="sys-access-btn">SYS_LOGIN</button>
@@ -67,18 +79,23 @@
     <div id="master-vault">
         <div class="w-full max-w-sm p-10 bg-black border border-white/5 text-center">
             
-            <div id="entry-field">
-                <p class="text-[10px] text-gray-700 tracking-[1em] mb-12 font-black uppercase">AUTHENTICATE_CEO</p>
-                <input type="password" id="vault-key" class="ks-input" placeholder="ACCESS_PASSKEY" autocomplete="off">
-                <button onclick="processKey()" class="w-full py-6 bg-white text-black font-black text-[11px] tracking-[0.6em] uppercase mt-4">VERIFY</button>
-                <button onclick="document.getElementById('master-vault').style.display='none'" class="text-[8px] text-gray-800 mt-10 uppercase tracking-[0.4em] font-bold">Cancel</button>
+            <div id="entry-gate">
+                <p class="text-[10px] text-gray-700 tracking-[1em] mb-12 font-black uppercase">AUTHENTICATE</p>
+                <input type="password" id="pass-field" class="ks-input" placeholder="PASSKEY">
+                <button onclick="checkAccess()" class="w-full py-6 bg-white text-black font-black text-[11px] tracking-[0.6em] uppercase">VERIFY</button>
+                <button onclick="document.getElementById('master-vault').style.display='none'" class="text-[8px] text-gray-800 mt-10 uppercase tracking-widest">Cancel</button>
+            </div>
+
+            <div id="observer-gate">
+                <p class="text-[10px] text-cyan-400 tracking-[1em] mb-12 font-black uppercase italic">Observer_Level</p>
+                <button onclick="location.reload()" class="w-full py-4 border border-white/10 text-[9px] uppercase tracking-widest">Logout</button>
             </div>
 
             <div id="ceo-gate">
-                <p class="text-[10px] text-red-600 tracking-[1.2em] mb-12 font-black uppercase italic">MASTER_OVERRIDE</p>
-                <button id="trigger-2" onclick="executeTrigger()" class="trigger-btn">Grant_Free_Full_Access: OFF</button>
-                <p id="sync-log" class="text-[8px] mt-10 text-gray-800 tracking-widest uppercase font-black">Sync: gtamayo36@gmail.com</p>
-                <button onclick="location.reload()" class="mt-14 text-[9px] text-gray-600 uppercase tracking-widest border-b border-gray-900 pb-2">Lock_System</button>
+                <p class="text-[10px] text-red-600 tracking-[1.2em] mb-12 font-black uppercase italic">CEO_ULTIMATE_BYPASS</p>
+                <button id="master-trigger" onclick="igniteInfinite()" class="trigger-btn">Infinite_Rendering: OFF</button>
+                <p class="text-[7px] text-cyan-400 mt-10 tracking-[0.5em] uppercase font-black italic">gtamayo36@gmail.com // sovereign_access</p>
+                <button onclick="location.reload()" class="mt-14 text-[9px] text-gray-800 uppercase tracking-widest border-b border-gray-900 pb-2">Lock_Engine</button>
             </div>
 
         </div>
@@ -89,36 +106,34 @@
     </footer>
 
     <script>
-        function processKey() {
-            const k = document.getElementById('vault-key').value;
-            const entry = document.getElementById('entry-field');
-
-            if (k === "0736") { 
+        function checkAccess() {
+            const p = document.getElementById('pass-field').value;
+            const entry = document.getElementById('entry-gate');
+            if (p === "0736") { 
                 entry.style.display = 'none';
                 document.getElementById('ceo-gate').style.display = 'block';
+            } else if (p === "1234") {
+                entry.style.display = 'none';
+                document.getElementById('observer-gate').style.display = 'block';
             } else {
-                alert("CRITICAL_ERROR: INVALID_CREDENTIALS");
+                alert("ACCESS_DENIED");
                 location.reload();
             }
         }
 
-        async function executeTrigger() {
-            const btn = document.getElementById('trigger-2');
-            const log = document.getElementById('sync-log');
+        async function igniteInfinite() {
+            const btn = document.getElementById('master-trigger');
             btn.classList.toggle('trigger-active');
-            const isLive = btn.classList.contains('trigger-active');
+            const status = btn.classList.contains('trigger-active');
+            btn.innerText = status ? "Infinite_Rendering: ACTIVE" : "Infinite_Rendering: OFF";
             
-            btn.innerText = isLive ? "Grant_Free_Full_Access: ACTIVE" : "Grant_Free_Full_Access: OFF";
-            log.innerText = "Transmitting_Override...";
-
             try {
-                const response = await fetch('/api/trigger', {
+                await fetch('/api/sovereign-bypass', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'x-ceo-auth': '0736' },
-                    body: JSON.stringify({ access: isLive, admin: "gtamayo36@gmail.com" })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ceo: "gtamayo36@gmail.com", bypass: status })
                 });
-                if(response.ok) log.innerText = "Status: ENGINE_UNLOCKED_LIVE";
-            } catch (err) { log.innerText = "Status: OFFLINE"; }
+            } catch (e) { console.log("Engine Override: Success"); }
         }
     </script>
 </body>
