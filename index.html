@@ -2,72 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>KNOCKSSTUDiOS | CEO_VAULT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@900&display=swap');
-        body { background: #000; color: white; font-family: 'Inter', sans-serif; }
-        .ks-monolith { font-family: 'Syncopate'; font-size: 10px; letter-spacing: 5px; color: #333; }
-        .hidden-vault { display: none; }
-        .access-granted { display: block !important; animation: flicker 0.2s infinite alternate; }
-        @keyframes flicker { from { opacity: 1; } to { opacity: 0.8; } }
-        input { background: transparent; border: 1px solid #111; color: #00fff2; text-align: center; padding: 10px; outline: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;900&display=swap');
+        :root { --ks-void: #020205; --ks-cyan: #00fff2; --ks-blood: #ff4b2b; }
+        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        
+        /* 9K GRID ARCHITECTURE */
+        .ks-container { max-width: 1700px; margin: 0 auto; padding: 0 40px; }
+        .ks-card { 
+            border: 0.5px solid rgba(255, 255, 255, 0.08); 
+            background: rgba(255,255,255,0.01); 
+            height: 500px; 
+            padding: 50px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; 
+            position: relative; 
+            overflow: hidden; 
+            transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+        .ks-card:hover { border-color: var(--ks-cyan); background: rgba(0, 255, 242, 0.02); }
+        
+        /* THE OMNIPOTENT GATE */
+        .ks-gate { 
+            position: absolute; 
+            inset: 0; 
+            background: #000; 
+            opacity: 0; 
+            transition: 0.6s; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            padding: 50px; 
+            z-index: 100; 
+            pointer-events: none; 
+        }
+        .ks-card:hover .ks-gate { opacity: 1; pointer-events: auto; }
+
+        /* CEO_ADMIN_VAULT STYLES */
+        #admin-vault { 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.99); 
+            z-index: 9999; 
+            display: none; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            backdrop-filter: blur(40px);
+        }
+        .trigger-active { background: var(--ks-blood) !important; color: white !important; box-shadow: 0 0 40px var(--ks-blood); }
+        .ks-monolith { font-family: 'Syncopate'; font-weight: 900; text-transform: uppercase; }
     </style>
 </head>
-<body class="h-screen flex items-center justify-center">
+<body>
 
-    <div id="gatekeeper" class="text-center">
-        <p class="ks-monolith mb-8">VERIFY_IDENTITY_CEO_TAMAYO</p>
-        <input type="password" id="vaultCode" placeholder="ENTER_CODE" oninput="checkVaultCode()">
-        <p class="text-[8px] text-gray-800 mt-10">UNAUTHORIZED ACCESS IS A FEDERAL OFFENSE</p>
-    </div>
+    <header class="h-[80vh] flex flex-col items-center justify-center text-center">
+        <p class="text-[9px] tracking-[1.2em] text-cyan-400 mb-6 uppercase">System_Active // 9K_Optix</p>
+        <h1 class="ks-monolith text-[7vw] tracking-[-8px] leading-[0.8]">KNOCKS<br>STUDiOS</h1>
+    </header>
 
-    <div id="adminVault" class="hidden-vault w-full max-w-4xl p-20">
-        <div class="flex justify-between items-end mb-20 border-b border-white/10 pb-10">
-            <div>
-                <h1 class="text-6xl font-black italic tracking-tighter">ADMIN_VAULT</h1>
-                <p class="text-cyan-400 text-[10px] tracking-[0.5em] mt-4">STRICTLY_BUSINESS // CEO_ACCESS_ONLY</p>
+    <section class="ks-container grid grid-cols-1 md:grid-cols-3 gap-6 pb-40">
+        
+        <div class="ks-card">
+            <div class="ks-gate">
+                <p class="text-[9px] text-cyan-400 mb-6 tracking-[0.5em] uppercase">Forge_Protocol_01</p>
+                <button class="text-left text-[11px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white transition">Open_Blender_Vault</button>
             </div>
-            <div class="text-right">
-                <p class="text-[8px] text-gray-500 italic">LOGGED_IN_AS: G_TAMAYO</p>
-            </div>
+            <div class="absolute top-12 left-12 text-[9px] font-bold text-red-600 opacity-40 uppercase">Unit_005 // 3D</div>
+            <h3 class="ks-monolith text-3xl tracking-tighter italic">Blender School</h3>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div class="border border-white/5 p-10 bg-zinc-950">
-                <p class="text-[8px] text-gray-600 mb-4 tracking-widest">ENGINE_IGNITION</p>
-                <button class="w-full py-4 border border-cyan-400 text-cyan-400 font-black text-[10px] tracking-widest">ACTIVE</button>
+        <div class="ks-card">
+            <div class="ks-gate">
+                <p class="text-[9px] text-cyan-400 mb-6 tracking-[0.5em] uppercase">Legend_Logic_V2</p>
+                <button class="text-left text-[11px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white transition">Access_Curriculum</button>
             </div>
+            <div class="absolute top-12 left-12 text-[9px] font-bold opacity-40 uppercase">Unit_004 // AI</div>
+            <h3 class="ks-monolith text-3xl tracking-tighter italic">Legend School</h3>
+        </div>
 
-            <div class="border border-red-900/20 p-10 bg-zinc-950">
-                <p class="text-[8px] text-red-500 mb-4 tracking-widest">2ND_TRIGGER: GLOBAL_PAYWALL</p>
-                <button id="trigger2" onclick="igniteFreeAccess()" class="w-full py-4 border border-white/10 text-white font-black text-[10px] tracking-widest hover:bg-red-600 hover:text-white transition">
-                    GRANT_FREE_FULL_ACCESS: OFF
+        <div class="ks-card">
+            <div class="absolute top-12 left-12 text-[9px] font-bold opacity-40 uppercase">Unit_006 // STORE</div>
+            <h3 class="ks-monolith text-3xl tracking-tighter italic">The Arsenal</h3>
+        </div>
+
+    </section>
+
+    <div id="admin-vault">
+        <div class="w-full max-w-2xl p-20 border border-white/5 bg-black">
+            <p class="text-[10px] text-red-600 tracking-[1em] mb-12 uppercase font-bold text-center">Admin_Override_Active</p>
+            <h2 class="ks-monolith text-4xl mb-12 italic text-center">CEO_Control</h2>
+            
+            <div class="space-y-6">
+                <button id="trigger2" onclick="toggleFreeAccess()" class="w-full border border-white/20 py-10 text-[11px] font-black tracking-[0.6em] uppercase hover:border-red-600 transition-all">
+                    Grant_Free_Full_Access: OFF
                 </button>
+                <button onclick="closeVault()" class="w-full py-4 text-[9px] text-gray-700 uppercase tracking-widest hover:text-white transition">Exit_Sovereign_Vault</button>
             </div>
         </div>
     </div>
+
+    <footer class="p-32 border-t border-white/5 text-center">
+        <a href="mailto:ceo@hollywoodimaging.studio" class="text-[10px] tracking-[1.2em] text-gray-600 hover:text-cyan-400 transition uppercase font-bold">ceo@hollywoodimaging.studio</a>
+    </footer>
 
     <script>
-        // REPLACE '9999' WITH YOUR SECRET PIN
-        function checkVaultCode() {
-            const input = document.getElementById('vaultCode').value;
-            if(input === '0736') { // Your private code
-                document.getElementById('gatekeeper').style.display = 'none';
-                document.getElementById('adminVault').classList.add('access-granted');
+        /* SECRET GATEWAY: 
+           Hold 'Shift' + 'K' + 'S' to ignite the CEO Vault.
+        */
+        let keys = {};
+        window.addEventListener('keydown', (e) => {
+            keys[e.key.toUpperCase()] = true;
+            if (keys['SHIFT'] && keys['K'] && keys['S']) {
+                document.getElementById('admin-vault').style.display = 'flex';
             }
-        }
+        });
+        window.addEventListener('keyup', (e) => { keys[e.key.toUpperCase()] = false; });
 
-        function igniteFreeAccess() {
+        function closeVault() { document.getElementById('admin-vault').style.display = 'none'; }
+
+        /* THE 2ND TRIGGER EXECUTION */
+        function toggleFreeAccess() {
             const btn = document.getElementById('trigger2');
-            btn.classList.toggle('bg-red-600');
-            if(btn.classList.contains('bg-red-600')) {
-                btn.innerText = "GRANT_FREE_FULL_ACCESS: ON";
-                alert("CEO_ALERT: 2nd Trigger Engaged. The Engine is now FREE for all users.");
-                // This is where your engine.vault updates locally
-            } else {
-                btn.innerText = "GRANT_FREE_FULL_ACCESS: OFF";
-            }
+            btn.classList.toggle('trigger-active');
+            const isActive = btn.classList.contains('trigger-active');
+            btn.innerText = isActive ? "Grant_Free_Full_Access: ACTIVE" : "Grant_Free_Full_Access: OFF";
+            
+            // CEO LOGIC: Link this to your Python engine's FREE_ACCESS variable
+            console.log("ENGINE_COMMAND: Global_Paywall_Bypass = ", isActive);
         }
     </script>
 </body>
