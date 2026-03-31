@@ -3,47 +3,33 @@
 PROPERTY OF KNOCKSSTUDiOS | OMNIPOTENT_ENGINE_V1
 CORE_ARCHITECT: G. TAMAYO
 © 2026 KNOCKSSTUDiOS. ALL RIGHTS RESERVED.
---------------------------------------------------------------------------------
-THIS IS A CLOSED-LOOP SYSTEM. UNAUTHORIZED ACCESS TO THE VAULT IS PROHIBITED.
 ================================================================================
 """
 import os
 from google import genai
-from dotenv import load_dotenv
 
-# Load the proprietary fuel
-load_dotenv('engine.vault')
-
-class KnocksEngine:
+class Knocks9K:
     def __init__(self):
-        self.fuel = os.getenv("ENGINE_FUEL_ALPHA")
-        self.controller = genai.Client(api_key=self.fuel)
-        self.identity = "CEO_OMNIPOTENT"
-        print(f"⚡ {self.identity}: ENGINE_ONLINE // 9K_OPTIX_ENGAGED")
+        # CEO_ONLY: Fetches keys from your local 'engine.vault' file
+        self.key = self._load_secret()
+        self.engine = genai.Client(api_key=self.key)
+        print("⚡ ENGINE_STATUS: 9K_PERFECTION_ACTIVE")
 
-    def synthesize_vision(self, directive):
-        """
-        Processes a raw directive into a 9K Render.
-        Automatically injects KnocksStudios Proprietary Alchemy.
-        """
-        # The Engine adds the 'Blood, Sweat, and Tears' automatically
-        proprietary_refinement = (
-            f"{directive}. 9K resolution, 32-bit depth, "
-            "anamorphic 35mm optics, cinematic grit, "
-            "forged by KNOCKSSTUDiOS OMNIPOTENT ENGINE."
-        )
-        
-        print(f"🎬 ENGINE_SYNTHESIZING: {directive}")
-        
-        # The Engine executes the command
-        result = self.controller.models.generate_videos(
-            model="veo-3.1-generate-preview",
-            prompt=proprietary_refinement,
-        )
-        return result
+    def _load_secret(self):
+        try:
+            with open("engine.vault", "r") as f:
+                return f.read().split("=")[1].strip()
+        except:
+            return os.getenv("ENGINE_FUEL_ALPHA")
 
-# IGNITE
+    def forge_asset(self, asset_name="Metal_Laser_Eye.obj"):
+        """
+        Renders your proprietary 3D assets with 9K lighting.
+        """
+        prompt = f"Cinematic macro of {asset_name}, rainbow grit shaders, 9k resolution."
+        print(f"🎬 FORGING: {asset_name}")
+        return self.engine.models.generate_videos(model="veo-3.1", prompt=prompt)
+
 if __name__ == "__main__":
-    Engine = KnocksEngine()
-    # Direct command to your engine
-    Engine.synthesize_vision("Two legends discovering the vault code")
+    K9 = Knocks9K()
+    K9.forge_asset()
