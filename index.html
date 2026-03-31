@@ -2,92 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@900&display=swap');
         :root { --ks-void: #020205; --ks-cyan: #00fff2; --ks-blood: #ff4b2b; }
-        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
         .ks-monolith { font-family: 'Syncopate'; font-weight: 900; text-transform: uppercase; }
-        .ks-card { border: 0.5px solid rgba(255, 255, 255, 0.1); height: 500px; padding: 50px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; transition: 0.8s; }
-        .ks-card:hover { border-color: var(--ks-cyan); background: rgba(0, 255, 242, 0.03); }
+
+        /* PRESERVING 9K GRID */
+        .ks-card { 
+            border: 0.5px solid rgba(255, 255, 255, 0.1); 
+            background: rgba(255,255,255,0.01); 
+            height: 450px; padding: 40px; 
+            display: flex; flex-direction: column; justify-content: flex-end; 
+            position: relative; overflow: hidden; 
+        }
+
+        /* DUAL GATE OVERLAY */
+        #admin-vault { 
+            position: fixed; inset: 0; background: #000; 
+            z-index: 9999; display: none; flex-direction: column; 
+            align-items: center; justify-content: center; 
+        }
         
-        /* THE VAULT OVERLAY */
-        #admin-vault { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(50px); }
-        .ks-input { background: transparent; border: 1px solid #111; color: var(--ks-cyan); padding: 15px; text-align: center; width: 100%; outline: none; font-weight: 900; letter-spacing: 0.2em; margin-bottom: 10px; }
-        .trigger-btn { border: 1px solid rgba(255,255,255,0.1); padding: 40px; width: 100%; font-weight: 900; letter-spacing: 0.5em; text-transform: uppercase; font-size: 10px; transition: 0.4s; }
+        .ks-input { 
+            background: #050505; border: 1px solid #222; color: var(--ks-cyan); 
+            padding: 20px; text-align: center; width: 100%; outline: none; 
+            font-weight: 900; letter-spacing: 0.3em; margin-bottom: 15px; font-size: 14px;
+            border-radius: 0;
+        }
+        
+        .trigger-btn { 
+            border: 1px solid rgba(255,255,255,0.1); padding: 40px; width: 100%; 
+            font-weight: 900; letter-spacing: 0.5em; text-transform: uppercase; 
+            font-size: 10px; transition: 0.4s; 
+        }
         .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 50px var(--ks-blood); border: none; }
-        #control-panel { display: none; width: 100%; }
+        
+        #standard-panel, #ceo-panel { display: none; width: 100%; }
+        
+        .admin-access-btn {
+            position: fixed; bottom: 20px; right: 20px; font-size: 8px; 
+            letter-spacing: 5px; color: #111; text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
 
-    <header class="h-[70vh] flex flex-col items-center justify-center text-center">
-        <p class="text-[9px] tracking-[1.5em] text-cyan-400 mb-8 uppercase font-bold">Engine_Status: Online</p>
-        <h1 class="ks-monolith text-[8vw] tracking-[-10px] leading-[0.8]">KNOCKS<br>STUDiOS</h1>
+    <header class="h-[60vh] flex flex-col items-center justify-center text-center px-6">
+        <p class="text-[8px] tracking-[1.5em] text-cyan-400 mb-8 uppercase font-bold">Engine_Status: Online</p>
+        <h1 class="ks-monolith text-[10vw] md:text-[8vw] tracking-[-5px] md:tracking-[-10px] leading-[0.8]">
+            KNOCKS<br>STUDiOS
+        </h1>
     </header>
 
-    <section class="max-w-[1750px] mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-6 pb-40">
-        <div class="ks-card">
-            <div class="absolute top-12 left-12 text-[10px] font-bold text-red-600 tracking-widest uppercase opacity-40">Unit_005 // 3D</div>
-            <h3 class="ks-monolith text-4xl italic">Blender School</h3>
-        </div>
-        <div class="ks-card">
-            <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_004 // AI</div>
-            <h3 class="ks-monolith text-4xl italic">Legend School</h3>
-        </div>
-        <div class="ks-card">
-            <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_006 // ARS</div>
-            <h3 class="ks-monolith text-4xl italic">The Arsenal</h3>
-        </div>
+    <section class="max-w-[1750px] mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6 pb-40">
+        <div class="ks-card"><h3 class="ks-monolith text-3xl italic">Blender School</h3></div>
+        <div class="ks-card"><h3 class="ks-monolith text-3xl italic">Legend School</h3></div>
+        <div class="ks-card"><h3 class="ks-monolith text-3xl italic">The Arsenal</h3></div>
     </section>
 
+    <button onclick="openVault()" class="admin-access-btn">SYS_LOGIN</button>
+
     <div id="admin-vault">
-        <div class="w-full max-w-md p-10 bg-black border border-white/5 text-center">
+        <div class="w-full max-w-sm p-8 bg-black border border-white/5 text-center">
             
             <div id="login-gate">
-                <p class="text-[10px] text-red-600 tracking-[1em] mb-10 font-black uppercase">CEO_IDENT_REQUIRED</p>
-                <input type="text" id="ks-user" class="ks-input" placeholder="USERNAME">
-                <input type="password" id="ks-pin" class="ks-input" placeholder="ACCESS_PIN">
-                <button onclick="verifyCEO()" class="w-full py-4 bg-white text-black font-black text-[10px] tracking-[0.5em] uppercase mt-4">VERIFY</button>
+                <p class="text-[9px] text-gray-600 tracking-[0.8em] mb-10 font-black uppercase">AUTHENTICATE</p>
+                <input type="password" id="ks-pass" class="ks-input" placeholder="PASSKEY">
+                <button onclick="checkAccess()" class="w-full py-6 bg-white text-black font-black text-[10px] tracking-[0.5em] uppercase mt-4">ENTER</button>
+                <button onclick="closeVault()" class="text-[8px] text-gray-800 mt-8 uppercase tracking-widest">Cancel</button>
             </div>
 
-            <div id="control-panel">
-                <p class="text-[10px] text-cyan-400 tracking-[1.2em] mb-10 font-black uppercase italic">ACCESS_GRANTED</p>
+            <div id="standard-panel">
+                <p class="text-[9px] text-cyan-400 tracking-[1em] mb-10 font-black uppercase">STANDARD_ACCESS</p>
+                <p class="text-[8px] text-gray-500 uppercase mb-8 tracking-widest">System is running normally.</p>
+                <button onclick="location.reload()" class="text-[8px] text-white border border-white/10 px-6 py-2 uppercase">Logout</button>
+            </div>
+
+            <div id="ceo-panel">
+                <p class="text-[9px] text-red-600 tracking-[1.2em] mb-10 font-black uppercase italic">CEO_OVERRIDE_GRANTED</p>
                 <button id="2ndTrigger" onclick="igniteTrigger()" class="trigger-btn">Grant_Free_Full_Access: OFF</button>
-                <p id="status-log" class="text-[8px] mt-8 text-gray-700 tracking-widest uppercase">Engine_Status: Waiting</p>
-                <button onclick="location.reload()" class="mt-12 text-[8px] text-gray-800 uppercase tracking-widest">Lock_Vault</button>
+                <p id="status-log" class="text-[8px] mt-8 text-gray-700 tracking-widest uppercase font-bold">Engine_Sync: Priority</p>
+                <button onclick="location.reload()" class="mt-12 text-[8px] text-gray-800 uppercase tracking-widest">Logout_&_Lock</button>
             </div>
 
         </div>
     </div>
 
     <script>
-        // STEP 1: HOTKEY ACCESS (Shift + K + S)
-        let keys = {};
-        window.addEventListener('keydown', (e) => {
-            keys[e.key.toUpperCase()] = true;
-            if (keys['SHIFT'] && keys['K'] && keys['S']) { document.getElementById('admin-vault').style.display = 'flex'; }
-        });
-        window.addEventListener('keyup', (e) => { keys[e.key.toUpperCase()] = false; });
+        function openVault() { document.getElementById('admin-vault').style.display = 'flex'; }
+        function closeVault() { document.getElementById('admin-vault').style.display = 'none'; }
 
-        // STEP 2: CEO CREDENTIAL CHECK
-        function verifyCEO() {
-            const u = document.getElementById('ks-user').value;
-            const p = document.getElementById('ks-pin').value;
-            
-            // SET YOUR CREDENTIALS HERE
-            if (u.toUpperCase() === "TAMAYO" && p === "0736") {
-                document.getElementById('login-gate').style.display = 'none';
-                document.getElementById('control-panel').style.display = 'block';
-            } else {
-                alert("ACCESS_DENIED: UNAUTHORIZED_USER");
+        function checkAccess() {
+            const pass = document.getElementById('ks-pass').value;
+            const gate = document.getElementById('login-gate');
+
+            if (pass === "0736") { // CEO PASSWORD
+                gate.style.display = 'none';
+                document.getElementById('ceo-panel').style.display = 'block';
+            } 
+            else if (pass === "0000") { // REGULAR PASSWORD
+                gate.style.display = 'none';
+                document.getElementById('standard-panel').style.display = 'block';
+            } 
+            else {
+                alert("INVALID_KEY");
                 location.reload();
             }
         }
 
-        // STEP 3: THE 2ND TRIGGER
         async function igniteTrigger() {
             const btn = document.getElementById('2ndTrigger');
             const log = document.getElementById('status-log');
@@ -95,7 +121,7 @@
             const isLive = btn.classList.contains('trigger-active');
             
             btn.innerText = isLive ? "Grant_Free_Full_Access: ACTIVE" : "Grant_Free_Full_Access: OFF";
-            log.innerText = "Syncing_with_Omnipotent_Engine...";
+            log.innerText = "Syncing_Live_Engine...";
 
             try {
                 const response = await fetch('/api/trigger', {
@@ -103,8 +129,8 @@
                     headers: { 'Content-Type': 'application/json', 'x-ceo-auth': '0736' },
                     body: JSON.stringify({ access: isLive })
                 });
-                if(response.ok) log.innerText = "Status: ENGINE_UNLOCKED_LIVE";
-            } catch (err) { log.innerText = "Status: OFFLINE_ERROR"; }
+                if(response.ok) log.innerText = "Status: ENGINE_UNLOCKED";
+            } catch (err) { log.innerText = "Status: OFFLINE"; }
         }
     </script>
 </body>
