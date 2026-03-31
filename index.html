@@ -6,98 +6,88 @@
     <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@900&display=swap');
         :root { --ks-void: #020205; --ks-cyan: #00fff2; --ks-blood: #ff4b2b; }
-        
-        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+        body { background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         .ks-monolith { font-family: 'Syncopate'; font-weight: 900; text-transform: uppercase; }
-
-        /* PRESERVING YOUR EXACT UI LAYOUT */
-        .ks-card { 
-            border: 0.5px solid rgba(255, 255, 255, 0.1); 
-            background: rgba(255,255,255,0.01); 
-            height: 500px; padding: 50px; 
-            display: flex; flex-direction: column; justify-content: flex-end; 
-            position: relative; overflow: hidden; transition: 0.8s; 
-        }
+        .ks-card { border: 0.5px solid rgba(255, 255, 255, 0.1); height: 500px; padding: 50px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; transition: 0.8s; }
         .ks-card:hover { border-color: var(--ks-cyan); background: rgba(0, 255, 242, 0.03); }
         
-        .ks-gate { 
-            position: absolute; inset: 0; background: #000; opacity: 0; 
-            transition: 0.6s; display: flex; flex-direction: column; 
-            justify-content: center; padding: 50px; z-index: 100; pointer-events: none; 
-        }
-        .ks-card:hover .ks-gate { opacity: 1; pointer-events: auto; }
-
-        /* THE INVISIBLE ADMIN VAULT */
-        #admin-vault { 
-            position: fixed; inset: 0; background: rgba(0,0,0,0.99); 
-            z-index: 9999; display: none; flex-direction: column; 
-            align-items: center; justify-content: center; backdrop-filter: blur(30px);
-        }
-        .trigger-btn { border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; padding: 40px; width: 100%; font-weight: 900; letter-spacing: 0.5em; text-transform: uppercase; font-size: 10px; }
+        /* THE VAULT OVERLAY */
+        #admin-vault { position: fixed; inset: 0; background: #000; z-index: 9999; display: none; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(50px); }
+        .ks-input { background: transparent; border: 1px solid #111; color: var(--ks-cyan); padding: 15px; text-align: center; width: 100%; outline: none; font-weight: 900; letter-spacing: 0.2em; margin-bottom: 10px; }
+        .trigger-btn { border: 1px solid rgba(255,255,255,0.1); padding: 40px; width: 100%; font-weight: 900; letter-spacing: 0.5em; text-transform: uppercase; font-size: 10px; transition: 0.4s; }
         .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 50px var(--ks-blood); border: none; }
+        #control-panel { display: none; width: 100%; }
     </style>
 </head>
 <body>
 
     <header class="h-[70vh] flex flex-col items-center justify-center text-center">
         <p class="text-[9px] tracking-[1.5em] text-cyan-400 mb-8 uppercase font-bold">Engine_Status: Online</p>
-        <h1 class="ks-monolith text-[8vw] tracking-[-10px] leading-[0.8] mb-4">KNOCKS<br>STUDiOS</h1>
+        <h1 class="ks-monolith text-[8vw] tracking-[-10px] leading-[0.8]">KNOCKS<br>STUDiOS</h1>
     </header>
 
     <section class="max-w-[1750px] mx-auto px-10 grid grid-cols-1 md:grid-cols-3 gap-6 pb-40">
-        
         <div class="ks-card">
-            <div class="ks-gate">
-                <p class="text-[10px] text-cyan-400 mb-4 tracking-[0.5em] uppercase font-bold">Forge_Protocol_01</p>
-                <button class="text-left text-[12px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white transition">Enter_3D_Environment</button>
-            </div>
             <div class="absolute top-12 left-12 text-[10px] font-bold text-red-600 tracking-widest uppercase opacity-40">Unit_005 // 3D</div>
-            <h3 class="ks-monolith text-4xl tracking-tighter italic">Blender School</h3>
+            <h3 class="ks-monolith text-4xl italic">Blender School</h3>
         </div>
-
         <div class="ks-card">
-            <div class="ks-gate">
-                <p class="text-[10px] text-cyan-400 mb-4 tracking-[0.5em] uppercase font-bold">AI_Secure_Curriculum</p>
-                <button class="text-left text-[12px] font-black uppercase tracking-[0.3em] text-gray-500 hover:text-white transition">Access_Logic_Gates</button>
-            </div>
             <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_004 // AI</div>
-            <h3 class="ks-monolith text-4xl tracking-tighter italic">Legend School</h3>
+            <h3 class="ks-monolith text-4xl italic">Legend School</h3>
         </div>
-
         <div class="ks-card">
             <div class="absolute top-12 left-12 text-[10px] font-bold tracking-widest uppercase opacity-40">Unit_006 // ARS</div>
-            <h3 class="ks-monolith text-4xl tracking-tighter italic">The Arsenal</h3>
+            <h3 class="ks-monolith text-4xl italic">The Arsenal</h3>
         </div>
-
     </section>
 
     <div id="admin-vault">
-        <div class="w-full max-w-2xl p-20 border border-white/10 bg-black text-center">
-            <p class="text-[10px] text-red-600 tracking-[1.5em] mb-12 font-black uppercase">CEO_ADMIN_OVERRIDE</p>
-            <button id="2ndTrigger" onclick="igniteTrigger()" class="trigger-btn">Grant_Free_Full_Access: OFF</button>
-            <p id="status-log" class="text-[8px] mt-8 text-gray-700 tracking-widest uppercase">Waiting_for_Command...</p>
-            <button onclick="document.getElementById('admin-vault').style.display='none'" class="mt-12 text-[8px] text-gray-500 uppercase tracking-widest hover:text-white transition">Close_Vault</button>
+        <div class="w-full max-w-md p-10 bg-black border border-white/5 text-center">
+            
+            <div id="login-gate">
+                <p class="text-[10px] text-red-600 tracking-[1em] mb-10 font-black uppercase">CEO_IDENT_REQUIRED</p>
+                <input type="text" id="ks-user" class="ks-input" placeholder="USERNAME">
+                <input type="password" id="ks-pin" class="ks-input" placeholder="ACCESS_PIN">
+                <button onclick="verifyCEO()" class="w-full py-4 bg-white text-black font-black text-[10px] tracking-[0.5em] uppercase mt-4">VERIFY</button>
+            </div>
+
+            <div id="control-panel">
+                <p class="text-[10px] text-cyan-400 tracking-[1.2em] mb-10 font-black uppercase italic">ACCESS_GRANTED</p>
+                <button id="2ndTrigger" onclick="igniteTrigger()" class="trigger-btn">Grant_Free_Full_Access: OFF</button>
+                <p id="status-log" class="text-[8px] mt-8 text-gray-700 tracking-widest uppercase">Engine_Status: Waiting</p>
+                <button onclick="location.reload()" class="mt-12 text-[8px] text-gray-800 uppercase tracking-widest">Lock_Vault</button>
+            </div>
+
         </div>
     </div>
 
-    <footer class="py-40 border-t border-white/5 text-center">
-        <a href="mailto:ceo@hollywoodimaging.studio" class="text-[11px] tracking-[1.5em] text-gray-700 hover:text-cyan-400 transition uppercase font-black">ceo@hollywoodimaging.studio</a>
-    </footer>
-
     <script>
-        // CEO GATEWAY: Press Shift + K + S to open the vault
+        // STEP 1: HOTKEY ACCESS (Shift + K + S)
         let keys = {};
         window.addEventListener('keydown', (e) => {
             keys[e.key.toUpperCase()] = true;
-            if (keys['SHIFT'] && keys['K'] && keys['S']) {
-                document.getElementById('admin-vault').style.display = 'flex';
-            }
+            if (keys['SHIFT'] && keys['K'] && keys['S']) { document.getElementById('admin-vault').style.display = 'flex'; }
         });
         window.addEventListener('keyup', (e) => { keys[e.key.toUpperCase()] = false; });
 
-        // THE 2ND TRIGGER EXECUTION
+        // STEP 2: CEO CREDENTIAL CHECK
+        function verifyCEO() {
+            const u = document.getElementById('ks-user').value;
+            const p = document.getElementById('ks-pin').value;
+            
+            // SET YOUR CREDENTIALS HERE
+            if (u.toUpperCase() === "TAMAYO" && p === "0736") {
+                document.getElementById('login-gate').style.display = 'none';
+                document.getElementById('control-panel').style.display = 'block';
+            } else {
+                alert("ACCESS_DENIED: UNAUTHORIZED_USER");
+                location.reload();
+            }
+        }
+
+        // STEP 3: THE 2ND TRIGGER
         async function igniteTrigger() {
             const btn = document.getElementById('2ndTrigger');
             const log = document.getElementById('status-log');
@@ -108,16 +98,13 @@
             log.innerText = "Syncing_with_Omnipotent_Engine...";
 
             try {
-                // This connects the button to your live Netlify API
                 const response = await fetch('/api/trigger', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'x-ceo-auth': '0736' },
                     body: JSON.stringify({ access: isLive })
                 });
                 if(response.ok) log.innerText = "Status: ENGINE_UNLOCKED_LIVE";
-            } catch (err) {
-                log.innerText = "Status: OFFLINE_ERROR";
-            }
+            } catch (err) { log.innerText = "Status: OFFLINE_ERROR"; }
         }
     </script>
 </body>
