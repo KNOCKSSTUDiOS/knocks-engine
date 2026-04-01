@@ -3,155 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KNOCKSSTUDiOS | OMNIPOTENT ENGINE</title>
+    <title>KNOCKS | SOVEREIGN ENGINE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Syncopate:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --ks-cyan: #00fff2;
-            --ks-purple: #8a2be2;
-            --ks-orange: #ff4b2b;
-            --ks-void: #020205;
+            --core-void: #020205;
+            --core-cyan: #00fff2;
+            --core-blood: #ff4b2b;
+            --core-ultra: #8a2be2;
         }
 
-        /* ADDED: High-Density AI Depth Field */
         body {
-            background-color: var(--ks-void);
-            color: white;
+            background-color: var(--core-void);
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
             margin: 0;
             overflow-x: hidden;
+            /* PROPRIETARY DEPTH: Triple-Layer Light Forge */
             background-image: 
-                radial-gradient(circle at 50% -20%, rgba(0, 255, 242, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 10% 40%, rgba(255, 75, 43, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 10% 10%, rgba(0, 255, 242, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 90% 90%, rgba(138, 43, 226, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(255, 75, 43, 0.04) 0%, transparent 60%);
             background-attachment: fixed;
         }
 
-        .ks-monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
+        .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
 
-        /* ADDED: Elite Kinetic Title Gradient */
-        .hero-title {
-            font-size: clamp(3.5rem, 12vw, 9rem);
-            line-height: 0.8;
-            letter-spacing: -0.05em;
-            background: linear-gradient(135deg, #ffffff 30%, var(--ks-cyan), var(--ks-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            filter: drop-shadow(0 0 40px rgba(0, 255, 242, 0.2));
-        }
-
-        /* ADDED: Sovereign Badge FX */
-        .badge-ai {
+        /* THE ELITE HEADER ARCHITECTURE */
+        .identity-badge {
             display: inline-block;
-            background: rgba(0, 255, 242, 0.05);
-            border: 1px solid rgba(0, 255, 242, 0.3);
-            padding: 10px 28px;
-            border-radius: 50px;
+            border: 1px solid rgba(0, 255, 242, 0.25);
+            background: rgba(0, 255, 242, 0.02);
+            padding: 12px 35px;
+            border-radius: 100px;
             font-size: 9px;
             font-weight: 900;
-            letter-spacing: 0.4em;
-            color: var(--ks-cyan);
-            text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(0, 255, 242, 0.1);
+            letter-spacing: 0.6em;
+            color: var(--core-cyan);
+            margin-bottom: 3.5rem;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.05);
         }
 
-        /* ADDED: King AI Button Weight */
-        .btn-orange-king {
-            background: linear-gradient(to right, #ff4b2b, #ff7b2b);
-            padding: 22px 55px;
-            border-radius: 60px;
+        .engine-title {
+            font-size: clamp(3.8rem, 14vw, 11rem);
+            line-height: 0.76;
+            letter-spacing: -0.07em;
+            background: linear-gradient(145deg, #ffffff 35%, var(--core-cyan), var(--core-ultra));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 50px rgba(0, 255, 242, 0.2));
+        }
+
+        /* KINETIC RESPONSE SYSTEM (VEO/KING AI LEVEL) */
+        .action-primary {
+            background: var(--core-blood);
+            color: #ffffff;
+            padding: 24px 70px;
+            border-radius: 100px;
             font-size: 11px;
             font-weight: 900;
-            letter-spacing: 0.3em;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            box-shadow: 0 10px 40px rgba(255, 75, 43, 0.4);
-            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
-            color: white; border: none; cursor: pointer;
+            box-shadow: 0 15px 50px rgba(255, 75, 43, 0.4);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            border: none; cursor: pointer;
         }
-        .btn-orange-king:hover { transform: translateY(-3px); box-shadow: 0 20px 50px rgba(255, 75, 43, 0.6); }
+        .action-primary:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 25px 70px rgba(255, 75, 43, 0.6);
+        }
 
-        /* ADDED: Command Signal Drawer Fix */
-        #nav-drawer {
-            position: fixed; top: 0; right: -100%; width: 100%; max-width: 420px;
+        /* COMMAND DRAWER ARCHITECTURE */
+        #command-drawer {
+            position: fixed; top: 0; right: -100%; width: 100%; max-width: 480px;
             height: 100vh; background: rgba(0,0,0,0.98); z-index: 1000;
-            backdrop-filter: blur(30px); border-left: 1px solid rgba(255,255,255,0.1);
-            transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1); padding: 60px 40px;
+            backdrop-filter: blur(40px); border-left: 1px solid rgba(255,255,255,0.05);
+            transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); padding: 80px 40px;
         }
-        #nav-drawer.active { right: 0; }
+        #command-drawer.active { right: 0; }
     </style>
 </head>
 <body>
 
-    <div class="fixed top-10 right-10 z-[1001] cursor-pointer group" onclick="toggleNav()">
-        <div class="w-10 h-[2px] bg-white mb-2 transition-all group-hover:bg-cyan-400"></div>
-        <div class="w-10 h-[2px] bg-orange-600 mb-2"></div>
-        <div class="w-6 h-[2px] bg-white ml-auto transition-all group-hover:w-10"></div>
+    <div class="fixed top-12 right-12 z-[1001] cursor-pointer group" onclick="toggleNav()">
+        <div class="w-12 h-[2px] bg-white mb-2 transition-all group-hover:bg-cyan-400"></div>
+        <div class="w-12 h-[2px] bg-orange-600 mb-2"></div>
+        <div class="w-8 h-[2px] bg-white ml-auto transition-all group-hover:w-12"></div>
     </div>
 
-    <div id="nav-drawer">
-        <p class="ks-monolith text-[10px] text-cyan-400 tracking-[0.8em] mb-10">Signal Status: Active</p>
-        <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-            <iframe src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" frameborder="0" width="100%" height="420"></iframe>
+    <div id="command-drawer">
+        <p class="monolith text-[10px] text-cyan-400 tracking-[1.2em] mb-12 italic">Core_Signal_Active</p>
+        <div class="rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-black">
+            <iframe src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" frameborder="0" width="100%" height="480"></iframe>
         </div>
-        <button onclick="toggleNav()" class="mt-20 text-[10px] text-gray-600 uppercase tracking-widest hover:text-white">Disconnect</button>
+        <button onclick="toggleNav()" class="mt-24 text-[10px] text-gray-700 uppercase tracking-[0.8em] hover:text-white transition">Halt_Transmission</button>
     </div>
 
-    <main class="min-h-screen flex flex-col items-center justify-center text-center px-6 relative z-50">
-        <div class="mb-10">
-            <span class="badge-ai">● AI LAB LEGENDS</span>
-        </div>
+    <main class="min-h-screen flex flex-col items-center justify-center text-center px-8 relative z-50">
+        <div class="identity-badge monolith">● AI LAB LEGENDS</div>
         
-        <h1 class="hero-title ks-monolith">
+        <h1 class="monolith engine-title">
             KNOCKS<br>STUDiOS
         </h1>
 
-        <p class="mt-12 text-gray-500 text-sm tracking-[0.4em] uppercase max-w-lg leading-relaxed font-bold">
-            The Vision. The Engine. The Empire.
+        <p class="mt-16 text-gray-500 text-sm md:text-base tracking-[0.5em] uppercase max-w-2xl leading-loose font-black opacity-70">
+            SOVEREIGN ARCHITECTURE. <br>CINEMATIC OMNIPOTENCE.
         </p>
 
-        <div class="mt-16 flex flex-col sm:flex-row gap-8">
-            <button class="btn-orange-king">Explore the Engine</button>
-            <button class="border border-white/20 px-14 py-5 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-white/5 transition">The Vision</button>
+        <div class="mt-20 flex flex-col sm:flex-row gap-10">
+            <button class="action-primary">Explore Engine</button>
+            <button class="border border-white/15 px-16 py-6 rounded-full text-[11px] font-black uppercase tracking-[0.4em] hover:bg-white/5 transition">The Vision</button>
         </div>
     </main>
 
-    <section class="py-40 px-10 border-t border-white/5">
-        <div class="max-w-6xl mx-auto">
-            <span class="text-cyan-400 text-[10px] tracking-[1em] font-black uppercase block mb-10">The Vision</span>
-            <h2 class="ks-monolith text-5xl md:text-8xl leading-[0.85] mb-14 italic">
-                We render it<br><span style="background: linear-gradient(90deg, #ff4b2b, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">from scratch.</span>
+    <section class="py-56 px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <span class="monolith text-[12px] text-cyan-400 tracking-[1.5em] block mb-12">Manifesto</span>
+            <h2 class="monolith text-5xl md:text-9xl leading-[0.8] mb-20 italic">
+                Rendered<br><span style="background: linear-gradient(90deg, #ff4b2b, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">From_The_Void.</span>
             </h2>
-            <p class="text-gray-500 text-sm md:text-base leading-loose max-w-2xl uppercase tracking-[0.2em] font-bold">
-                KNOCKSSTUDIOS IS THE CONVERGENCE OF SOVEREIGN AI PIPELINES AND HIGH-FIDELITY CINEMATICS. WE DON'T LICENSE THE FUTURE—WE BUILD THE ENGINE.
-            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-24">
+                <p class="text-gray-500 text-sm leading-loose uppercase tracking-[0.3em] font-black">
+                    WE DO NOT SIMULATE THE FUTURE. WE COMPUTE IT. KNOCKSSTUDIOS IS THE RAW ENGINE OF SOVEREIGN CREATIVITY.
+                </p>
+                <p class="text-gray-500 text-sm leading-loose uppercase tracking-[0.3em] font-black">
+                    POWERED BY THE AI LAB, EVERY FRAME IS A PIXEL-PERFECT TESTAMENT TO OMNIPOTENT STRUCTURE.
+                </p>
+            </div>
         </div>
     </section>
 
-    <button onclick="showVault()" class="fixed bottom-6 right-6 text-[8px] text-white/5 tracking-[0.5em] uppercase hover:text-white transition">Sys_Control</button>
+    <button onclick="openVault()" class="fixed bottom-10 right-10 text-[9px] text-white/5 tracking-[0.8em] uppercase hover:text-white transition">Sys_Bypass</button>
 
     <div id="vault" style="display:none; position:fixed; inset:0; background:black; z-index:10000; align-items:center; justify-content:center;">
-        <div class="text-center p-12 bg-zinc-950 border border-white/10 rounded-[40px] w-full max-w-sm">
-            <p class="ks-monolith text-[11px] text-orange-600 tracking-[1em] mb-12">IDENTIFY_CEO</p>
-            <input type="password" id="pass" class="bg-black border border-white/20 text-white p-6 text-center tracking-[1em] w-full mb-10 outline-none rounded-2xl" placeholder="****">
-            <button onclick="verify()" class="w-full py-5 bg-white text-black font-black text-xs tracking-widest uppercase rounded-2xl hover:bg-cyan-400">Verify Access</button>
-            <button onclick="hideVault()" class="mt-10 text-[9px] text-gray-700 uppercase block mx-auto tracking-widest">Exit</button>
+        <div class="text-center p-20 bg-zinc-950 border border-white/5 rounded-[60px] w-full max-w-lg shadow-2xl">
+            <p class="monolith text-[12px] text-orange-600 tracking-[1.8em] mb-16 italic">AUTHENTICATE_CEO</p>
+            <input type="password" id="pass" class="bg-black border border-white/10 text-white p-7 text-center tracking-[1.5em] w-full mb-14 outline-none rounded-3xl" placeholder="****">
+            <button onclick="verify()" class="w-full py-7 bg-white text-black font-black text-xs tracking-[0.8em] uppercase rounded-3xl hover:bg-cyan-400 transition">Ignite_Core</button>
+            <button onclick="closeVault()" class="mt-12 text-[11px] text-gray-800 uppercase tracking-[0.5em] block mx-auto hover:text-gray-500">Disconnect</button>
         </div>
     </div>
 
     <script>
-        function toggleNav() { document.getElementById('nav-drawer').classList.toggle('active'); }
-        function showVault() { document.getElementById('vault').style.display = 'flex'; }
-        function hideVault() { document.getElementById('vault').style.display = 'none'; }
+        function toggleNav() { document.getElementById('command-drawer').classList.toggle('active'); }
+        function openVault() { document.getElementById('vault').style.display = 'flex'; }
+        function closeVault() { document.getElementById('vault').style.display = 'none'; }
         
         function verify() {
             if(document.getElementById('pass').value === "0736") {
-                alert("SOVEREIGN BYPASS ENGAGED.");
-                hideVault();
+                alert("SOVEREIGN BYPASS GRANTED. WELCOME MASTER.");
+                closeVault();
             } else {
-                alert("ACCESS DENIED.");
+                alert("SIGNAL REJECTED.");
                 location.reload();
             }
         }
