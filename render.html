@@ -98,9 +98,13 @@
         </div>
 
         <div id="coin-info" aria-live="polite">CREDITS: 2000</div>
+        <div id="free-tier-info" style="display:none; text-align:center; margin-bottom:15px; padding:12px; border:1px solid #00FF00; background:rgba(0,255,0,0.05); font-size:0.7rem; color:#00FF00; letter-spacing:2px;" aria-live="polite">
+            FREE TiER: <span id="free-remaining">2</span>/2 ViDEO RENDERS REMAiNiNG (5 SEC EACH)
+        </div>
         <div style="display: flex; gap: 15px; margin-bottom: 10px;">
             <button class="ignite-btn" style="flex: 1; background: transparent; border: 1px solid var(--neon); color: var(--neon); font-size: 0.8rem; padding: 18px;" id="preview-btn" onclick="previewRender()">PREViEW — FREE</button>
             <button class="ignite-btn" style="flex: 1; font-size: 0.8rem; padding: 18px;" id="burn-btn" onclick="startRender()">FULL RENDER — 50 CREDiTS</button>
+            <button class="ignite-btn" id="free-render-btn" style="flex: 1; font-size: 0.8rem; padding: 18px; background: #00FF00; display: none;" onclick="freeRender()">FREE RENDER — 5 SEC</button>
         </div>
         <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Render progress"><div class="bar" id="fill"></div></div>
         <div id="console" aria-live="polite">SYSTEM_READY...</div>
@@ -113,7 +117,65 @@
 
     <script>
         let credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
+        let freeRenders = parseInt(localStorage.getItem('knocks_free_renders')) || 0;
         document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
+
+        // Show free tier UI if user has free renders
+        function updateFreeTierUI() {
+            const freeInfo = document.getElementById('free-tier-info');
+            const freeBtn = document.getElementById('free-render-btn');
+            if (freeRenders > 0) {
+                freeInfo.style.display = 'block';
+                freeBtn.style.display = 'block';
+                document.getElementById('free-remaining').innerText = freeRenders;
+            } else {
+                freeInfo.style.display = 'none';
+                freeBtn.style.display = 'none';
+            }
+        }
+        updateFreeTierUI();
+
+        // FREE 5-SECOND ViDEO RENDER
+        function freeRender() {
+            if (freeRenders <= 0) {
+                alert("NO FREE RENDERS REMAiNiNG. USE CREDiTS OR UPGRADE YOUR TiER.");
+                return;
+            }
+            const prompt = document.getElementById('prompt').value;
+            if (!prompt) { alert("ENTER A PROMPT FiRST"); return; }
+
+            document.getElementById('free-render-btn').disabled = true;
+            const log = document.getElementById('console');
+            const status = document.getElementById('status-text');
+            const bar = document.getElementById('fill');
+            const wm = document.getElementById('wm');
+
+            log.innerText = "GENERATiNG FREE 5-SEC ViDEO RENDER...";
+            let progress = 0;
+            const run = setInterval(() => {
+                progress += 2;
+                bar.style.width = progress + "%";
+                bar.parentElement.setAttribute('aria-valuenow', progress);
+                status.innerText = "FREE_RENDER_FRAME_" + Math.floor(progress * 1.2);
+
+                if (progress == 30) log.innerText = "BUiLDiNG 5-SECOND ViDEO SEQUENCE...";
+                if (progress == 60) log.innerText = "APPLYiNG ViSUAL LAYERS...";
+                if (progress == 85) log.innerText = "FiNALiZiNG 5-SEC OUTPUT...";
+
+                if (progress >= 100) {
+                    clearInterval(run);
+                    freeRenders--;
+                    localStorage.setItem('knocks_free_renders', freeRenders);
+                    updateFreeTierUI();
+
+                    log.innerText = "FREE 5-SEC ViDEO RENDER COMPLETE. " + freeRenders + " FREE RENDER(S) REMAiNiNG.";
+                    status.innerText = "FREE_RENDER_COMPLETE";
+                    wm.style.display = "none";
+                    document.getElementById('free-render-btn').disabled = false;
+                    bar.style.width = "0%";
+                }
+            }, 40);
+        }
 
         // FREE PREViEW — no credits charged
         function previewRender() {

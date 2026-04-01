@@ -32,6 +32,15 @@
         :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
 
         .bonus-tag { text-align: center; color: #00FF00; font-size: 12px; margin-top: 20px; font-weight: bold; }
+
+        /* FREE TIER HIGHLIGHT */
+        .free-highlight { background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); }
+        .free-badge { display: inline-block; background: #00FF00; color: #000; font-size: 9px; font-weight: bold; padding: 3px 8px; letter-spacing: 1px; margin-left: 8px; }
+        .free-promo { background: #0a0a0a; border: 1px solid #00FF00; padding: 30px; text-align: center; margin-bottom: 40px; }
+        .free-promo h3 { color: #00FF00; font-size: 16px; letter-spacing: 3px; margin-bottom: 10px; }
+        .free-promo p { color: #999; font-size: 12px; letter-spacing: 1px; line-height: 1.8; }
+        .free-promo .big-number { font-size: 48px; color: #00FF00; font-weight: bold; display: block; margin: 15px 0 5px; }
+        .free-promo .sub-detail { color: #666; font-size: 11px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -50,9 +59,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="tier-name">FREE_OPERATOR</td>
-                <td>5 SECONDS</td>
+            <tr class="free-highlight">
+                <td class="tier-name">FREE_OPERATOR <span class="free-badge">NO CARD</span></td>
+                <td>2 ViDEOS — 5 SEC EACH</td>
                 <td>$0.00</td>
                 <td>N/A</td>
             </tr>
@@ -77,9 +86,16 @@
         </tbody>
     </table>
 
+    <div class="free-promo">
+        <h3>START FREE — NO CREDiT CARD REQUiRED</h3>
+        <span class="big-number">2</span>
+        <p class="sub-detail">FREE 5-SECOND ViDEO RENDERS</p>
+        <p style="margin-top: 12px;">Sign up as FREE_OPERATOR and get 2 five-second video renders instantly.<br>No payment. No commitment. Just create and render.</p>
+    </div>
+
     <div class="signup-box" role="main">
         <h2>INITIATE_ONBOARDING</h2>
-        <form action="/api/register" method="POST">
+        <form id="signup-form" onsubmit="handleSignup(event)">
             <label for="signup-name">OPERATOR_NAME</label>
             <input type="text" id="signup-name" name="name" required placeholder="FULL_NAME">
 
@@ -90,12 +106,16 @@
             <input type="password" id="signup-password" name="password" required placeholder="********">
 
             <label for="signup-tier">ACCESS_TIER</label>
-            <select id="signup-tier" name="tier">
-                <option value="free">FREE_OPERATOR</option>
-                <option value="basic">BASIC_CORE</option>
-                <option value="pro">PRO_ENGINE</option>
-                <option value="ultra">ULTRA_SOVEREIGN</option>
+            <select id="signup-tier" name="tier" onchange="updateTierInfo()">
+                <option value="free">FREE_OPERATOR — 2 ViDEOS (5 SEC)</option>
+                <option value="basic">BASIC_CORE — 15 MiN</option>
+                <option value="pro">PRO_ENGINE — 1 HOUR</option>
+                <option value="ultra">ULTRA_SOVEREiGN — UNLiMiTED</option>
             </select>
+
+            <div id="tier-info" style="margin-top: 15px; padding: 12px; background: #0a0a0a; border: 1px solid #333; font-size: 11px; color: #00FF00; letter-spacing: 1px;">
+                FREE TiER: 2 ViDEO RENDERS (5 SECONDS EACH) — NO PAYMENT REQUiRED
+            </div>
 
             <button type="submit" class="submit-btn">REGISTER_OPERATOR</button>
         </form>
@@ -106,6 +126,56 @@
         <p style="color: #444; font-size: 10px; letter-spacing: 3px;">NEED MORE COiNS? <a href="store.html" style="color: #00f2ff; text-decoration: none; letter-spacing: 2px;">ViSiT THE ARCHiVE STORE →</a></p>
     </div>
 </div>
+
+<script>
+    function updateTierInfo() {
+        const tier = document.getElementById('signup-tier').value;
+        const info = document.getElementById('tier-info');
+        const tierDetails = {
+            free: 'FREE TiER: 2 ViDEO RENDERS (5 SECONDS EACH) — NO PAYMENT REQUiRED',
+            basic: 'BASiC CORE: 15 MiNUTES OF RENDER TiME — $10.00/MONTH',
+            pro: 'PRO ENGiNE: 1 HOUR OF RENDER TiME — $30.00/MONTH',
+            ultra: 'ULTRA SOVEREiGN: UNLiMiTED RENDER TiME — $60.00/MONTH'
+        };
+        info.innerText = tierDetails[tier] || '';
+        info.style.borderColor = tier === 'free' ? '#00FF00' : '#FF8C00';
+        info.style.color = tier === 'free' ? '#00FF00' : '#FF8C00';
+    }
+
+    function handleSignup(e) {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value;
+        const email = document.getElementById('signup-email').value;
+        const tier = document.getElementById('signup-tier').value;
+
+        // Store user profile in localStorage
+        const userProfile = {
+            name: name,
+            email: email,
+            tier: tier,
+            signupDate: new Date().toISOString(),
+            freeRendersUsed: 0,
+            freeRendersMax: tier === 'free' ? 2 : 0,
+            maxDuration: tier === 'free' ? 5 : null
+        };
+        localStorage.setItem('knocks_user', JSON.stringify(userProfile));
+
+        // Give bonus credits
+        const currentCredits = parseInt(localStorage.getItem('knocks_credits')) || 0;
+        localStorage.setItem('knocks_credits', currentCredits + 500);
+
+        if (tier === 'free') {
+            // Track free renders separately
+            localStorage.setItem('knocks_free_renders', '2');
+            localStorage.setItem('knocks_free_duration', '5');
+            alert('WELCOME, ' + name.toUpperCase() + '! FREE_OPERATOR ACTiVATED.\n\nYou have 2 FREE 5-second video renders ready.\n+500 BONUS COiNS added to your account.');
+        } else {
+            alert('WELCOME, ' + name.toUpperCase() + '! ' + tier.toUpperCase() + ' TiER ACTiVATED.\n+500 BONUS COiNS added.');
+        }
+
+        window.location.href = 'render.html';
+    }
+</script>
 
 </body>
 </html>

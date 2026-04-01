@@ -45,6 +45,10 @@
         <div class="coin-count">COINS: <span id="coin-balance" aria-live="polite">2,000</span></div>
     </header>
 
+    <div id="free-tier-banner" style="display:none; max-width:1200px; margin:0 auto 15px; padding:12px 20px; border:1px solid #00FF00; background:rgba(0,255,0,0.05); font-size:11px; color:#00FF00; letter-spacing:2px; text-align:center;">
+        FREE TiER ACTiVE: <span id="free-renders-left">2</span>/2 FREE 5-SEC ViDEO RENDERS REMAiNiNG
+    </div>
+
     <main class="engine-grid">
         <div class="output-side">
             <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">9K Core Engine</h1>
@@ -64,14 +68,72 @@
             <label for="prompt-input" style="display:block; font-size:10px; color:#666; margin-bottom:8px;">Enter visual or audio rendering parameters</label>
             <textarea id="prompt-input" placeholder="Enter visual/audio parameters..."></textarea>
 
-            <button class="burn-btn" onclick="initiateBurn()">START_BURN</button>
+            <button class="burn-btn" onclick="initiateBurn()">START_BURN — 50 CREDiTS</button>
+            <button class="burn-btn" id="free-burn-btn" style="display:none; background:#00FF00; margin-top:5px;" onclick="freeBurn()">FREE RENDER — 5 SEC ViDEO</button>
             <button class="download-btn" id="dl-btn" onclick="downloadAsset()" aria-label="Download rendered 9K master file">DOWNLOAD_9K_MASTER</button>
         </div>
     </main>
 
     <script>
         let credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
+        let freeRenders = parseInt(localStorage.getItem('knocks_free_renders')) || 0;
         document.getElementById('coin-balance').innerText = credits.toLocaleString();
+
+        // Show user name if available
+        try {
+            const user = JSON.parse(localStorage.getItem('knocks_user'));
+            if (user && user.name) document.getElementById('op-id').innerText = user.name.toUpperCase();
+        } catch(e) {}
+
+        // Show free tier UI
+        function updateFreeUI() {
+            const banner = document.getElementById('free-tier-banner');
+            const freeBtn = document.getElementById('free-burn-btn');
+            if (freeRenders > 0) {
+                banner.style.display = 'block';
+                freeBtn.style.display = 'block';
+                document.getElementById('free-renders-left').innerText = freeRenders;
+            } else {
+                banner.style.display = 'none';
+                freeBtn.style.display = 'none';
+            }
+        }
+        updateFreeUI();
+
+        // FREE 5-SEC ViDEO BURN
+        function freeBurn() {
+            if (freeRenders <= 0) {
+                alert("NO FREE RENDERS LEFT. USE CREDiTS OR UPGRADE.");
+                return;
+            }
+            const prompt = document.getElementById('prompt-input').value;
+            if (!prompt) { alert("ENTER A PROMPT FiRST"); return; }
+
+            const loader = document.getElementById('loader');
+            const video = document.getElementById('main-video');
+            const audio = document.getElementById('audio-module');
+            const dlBtn = document.getElementById('dl-btn');
+
+            document.getElementById('free-burn-btn').disabled = true;
+            loader.innerText = "GENERATiNG FREE 5-SEC ViDEO...";
+
+            setTimeout(() => {
+                freeRenders--;
+                localStorage.setItem('knocks_free_renders', freeRenders);
+                updateFreeUI();
+
+                loader.style.display = 'none';
+                video.style.display = 'block';
+                audio.style.display = 'block';
+                dlBtn.classList.add('active');
+
+                video.src = "your-test-video.mp4";
+                document.getElementById('main-audio').src = "your-test-audio.mp3";
+
+                document.getElementById('free-burn-btn').disabled = false;
+                alert("FREE 5-SEC ViDEO RENDER COMPLETE!\n" + freeRenders + " free render(s) remaining.");
+            }, 3000);
+        }
 
         function initiateBurn() {
             const loader = document.getElementById('loader');
