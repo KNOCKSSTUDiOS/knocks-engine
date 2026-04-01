@@ -70,34 +70,43 @@
     </main>
 
     <script>
+        let credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
+        document.getElementById('coin-balance').innerText = credits.toLocaleString();
+
         function initiateBurn() {
             const loader = document.getElementById('loader');
             const video = document.getElementById('main-video');
             const audio = document.getElementById('audio-module');
             const dlBtn = document.getElementById('dl-btn');
-            const coins = document.getElementById('coin-balance');
+            const prompt = document.getElementById('prompt-input').value;
+            if(!prompt) { alert("ENTER A PROMPT FIRST"); return; }
 
-            // Logic Simulation
+            if(credits < 50) {
+                alert("NEED 50 CREDiTS. YOU HAVE " + credits + ". ViSiT THE STORE.");
+                return;
+            }
+
+            credits -= 50;
+            localStorage.setItem('knocks_credits', credits);
+            document.getElementById('coin-balance').innerText = credits.toLocaleString();
+
             loader.innerText = "GENERATING_NEURAL_LAYERS...";
-            
+
             setTimeout(() => {
                 loader.style.display = 'none';
                 video.style.display = 'block';
                 audio.style.display = 'block';
                 dlBtn.classList.add('active');
-                
-                // This is where your actual v_engine_9k.py would send the file URL
-                video.src = "your-test-video.mp4"; 
+
+                video.src = "your-test-video.mp4";
                 document.getElementById('main-audio').src = "your-test-audio.mp3";
-                
-                coins.innerText = "1,000";
-                alert("9K_RENDER_COMPLETE");
+
+                alert("9K_RENDER_COMPLETE — 50 CREDiTS USED");
             }, 3000);
         }
 
         function downloadAsset() {
             alert("DOWNLOADING_9K_MASTER_FILE...");
-            // Logic to trigger browser download
         }
     </script>
 
