@@ -2,181 +2,1178 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>KNOCKS STUDIOS | SOVEREIGN ENGINE 3.0</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNOCKS STUDIOS | SOVEREIGN ENGINE 3.0</title>
     <style>
+        /* =============================================
+           WINDOWS 2000 SYSTEM THEME
+           ============================================= */
         :root {
-            --cyan: #00fff2;
-            --void: #010103;
-            --silver: #e2e8f0;
-            --glow: 0 0 25px rgba(0, 255, 242, 0.4);
+            --win-bg:        #008080;   /* classic teal desktop */
+            --win-silver:    #d4d0c8;   /* system silver */
+            --win-white:     #ffffff;
+            --win-black:     #000000;
+            --win-title:     #0a246a;   /* deep navy title bar */
+            --win-title-end: #a6caf0;   /* light blue title gradient end */
+            --win-border-lt: #ffffff;   /* light edge of bevel */
+            --win-border-dk: #808080;   /* dark edge of bevel */
+            --win-border-sh: #404040;   /* shadow edge */
+            --win-btn-face:  #d4d0c8;
+            --win-hilight:   #316ac5;   /* selection blue */
+            --win-text:      #000000;
+            --win-gray-text: #808080;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--void);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--win-bg);
+            font-family: 'Tahoma', 'MS Sans Serif', Arial, sans-serif;
+            font-size: 11px;
+            color: var(--win-text);
+            min-height: 100vh;
             overflow-x: hidden;
-            /* VIVID GRADIENT DEPTH */
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(0, 255, 242, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(188, 19, 254, 0.08) 0%, transparent 40%);
-            background-attachment: fixed;
+            /* subtle tiled pattern like Win2K desktop */
+            background-image: none;
         }
 
-        .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
-
-        /* FIX: High-Contrast Metallic Title */
-        .metallic-title {
-            font-size: clamp(3rem, 15vw, 10rem);
-            line-height: 0.8;
-            background: linear-gradient(180deg, #fff 25%, #94a3b8 50%, #fff 75%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(var(--glow));
+        /* ---- Raised / Sunken Bevel Mixins ---- */
+        .raised {
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+        }
+        .sunken {
+            border: 2px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+        }
+        .well {
+            border: 2px solid;
+            border-color: var(--win-border-dk) var(--win-border-lt) var(--win-border-lt) var(--win-border-dk);
+            background: var(--win-white);
         }
 
-        /* HARDWARE ACCELERATED FRAMES */
-        .engine-frame {
+        /* ---- Window Chrome ---- */
+        .window {
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
             position: relative;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 255, 242, 0.2);
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: var(--glow);
-            overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            will-change: transform;
         }
-        .engine-frame:hover { transform: scale(1.03) translateY(-10px); border-color: var(--cyan); }
 
-        /* ACCESSIBLE NEON BUTTON */
-        .btn-core {
-            background: var(--cyan);
-            color: #000;
-            padding: 20px 50px;
-            font-weight: 900;
-            letter-spacing: 4px;
+        .window-titlebar {
+            background: linear-gradient(to right, var(--win-title) 0%, var(--win-title-end) 100%);
+            color: var(--win-white);
+            font-weight: bold;
+            font-size: 11px;
+            padding: 3px 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+            gap: 4px;
+        }
+
+        .window-titlebar .title-left {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+        }
+
+        .window-titlebar .title-icon {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .title-buttons {
+            display: flex;
+            gap: 2px;
+        }
+
+        .title-btn {
+            width: 17px;
+            height: 14px;
+            background: var(--win-silver);
+            border: 1px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            font-size: 9px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--win-black);
+            font-family: 'Marlett', 'Tahoma', serif;
+            padding: 0;
+            line-height: 1;
+        }
+        .title-btn:active {
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+        }
+        .title-btn.close-btn { font-weight: 900; }
+
+        /* ---- Menu Bar ---- */
+        .menubar {
+            background: var(--win-silver);
+            border-bottom: 1px solid var(--win-border-dk);
+            display: flex;
+            gap: 0;
+            padding: 2px 2px 0;
+        }
+        .menu-item {
+            padding: 2px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--win-black);
+        }
+        .menu-item:hover, .menu-item.active {
+            background: var(--win-hilight);
+            color: var(--win-white);
+        }
+        .menu-item span { text-decoration: underline; }
+
+        /* ---- Toolbar ---- */
+        .toolbar {
+            background: var(--win-silver);
+            border-bottom: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            padding: 3px 4px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+        .toolbar-sep {
+            width: 2px;
+            height: 22px;
+            border-left: 1px solid var(--win-border-sh);
+            border-right: 1px solid var(--win-border-lt);
+            margin: 0 3px;
+        }
+        .toolbar-btn {
+            width: 24px;
+            height: 22px;
+            background: var(--win-silver);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--win-black);
+            padding: 0;
+        }
+        .toolbar-btn:hover {
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+        }
+        .toolbar-btn:active {
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+        }
+
+        /* ---- Address Bar ---- */
+        .addressbar {
+            background: var(--win-silver);
+            padding: 2px 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border-bottom: 1px solid var(--win-border-dk);
+        }
+        .addressbar label {
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .addressbar input {
+            flex: 1;
+            height: 20px;
+            border: 2px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            background: var(--win-white);
+            padding: 1px 4px;
+            font-size: 11px;
+            font-family: inherit;
+            outline: none;
+        }
+        .go-btn {
+            height: 20px;
+            padding: 0 8px;
+            background: var(--win-silver);
+            border: 1px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            font-size: 11px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .go-btn:active {
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+        }
+
+        /* ---- Status Bar ---- */
+        .statusbar {
+            background: var(--win-silver);
+            border-top: 1px solid var(--win-border-sh);
+            padding: 2px 4px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+        }
+        .status-panel {
+            border: 1px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            padding: 1px 6px;
+            min-width: 80px;
+        }
+
+        /* ---- Classic Win2K Button ---- */
+        .btn-win {
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            padding: 4px 18px;
+            font-size: 11px;
+            font-family: 'Tahoma', sans-serif;
+            cursor: pointer;
+            color: var(--win-black);
+            min-width: 75px;
+            text-align: center;
+        }
+        .btn-win:active {
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            padding: 5px 17px 3px 19px;
+        }
+        .btn-win:focus {
+            outline: 1px dotted var(--win-black);
+            outline-offset: -4px;
+        }
+        .btn-win.default-btn {
+            border-color: var(--win-black) var(--win-black) var(--win-black) var(--win-black);
+            border-width: 2px;
+        }
+
+        /* ---- Content Area ---- */
+        .content-area {
+            background: var(--win-white);
+            padding: 20px 24px;
+            overflow: auto;
+        }
+
+        /* ---- IE-style content hero ---- */
+        .ie-hero {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--win-white);
+        }
+        .ie-hero h1 {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--win-title);
+            font-family: 'Tahoma', sans-serif;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .ie-hero .subtitle {
+            font-size: 11px;
+            color: var(--win-gray-text);
+            margin-top: 6px;
             text-transform: uppercase;
-            box-shadow: 0 0 30px rgba(0, 255, 242, 0.6);
-            border-radius: 4px;
-            transition: all 0.3s ease;
+            letter-spacing: 2px;
         }
-        .btn-core:hover { background: #fff; box-shadow: 0 0 50px #fff; transform: translateY(-3px); }
+        .ie-hero p {
+            font-size: 11px;
+            color: #333;
+            margin-top: 12px;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
 
-        /* GRID ANIMATION */
-        .grid-bg {
-            position: fixed; inset: 0;
-            background-image: linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -1;
-            mask-image: radial-gradient(circle at center, black, transparent 80%);
+        /* ---- Horizontal Rule ---- */
+        hr.win-hr {
+            border: none;
+            border-top: 1px solid var(--win-border-sh);
+            border-bottom: 1px solid var(--win-border-lt);
+            margin: 12px 0;
+        }
+
+        /* ---- Tab Control ---- */
+        .tab-bar {
+            display: flex;
+            gap: 0;
+            padding: 4px 0 0 8px;
+            background: var(--win-silver);
+        }
+        .tab {
+            padding: 4px 14px 3px;
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-dk) var(--win-silver) var(--win-border-lt);
+            font-size: 11px;
+            cursor: pointer;
+            margin-right: 2px;
+            position: relative;
+            top: 2px;
+        }
+        .tab.active {
+            background: var(--win-white);
+            border-color: var(--win-border-lt) var(--win-border-dk) var(--win-white) var(--win-border-lt);
+            font-weight: bold;
+        }
+        .tab-panel {
+            background: var(--win-white);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-dk) var(--win-border-dk) var(--win-border-lt);
+            padding: 16px;
+        }
+
+        /* ---- Progress Bar ---- */
+        .progress-container {
+            background: var(--win-white);
+            border: 2px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            height: 18px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--win-hilight);
+            display: flex;
+            align-items: center;
+        }
+        .progress-fill-stripe {
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to right,
+                var(--win-hilight) 0px,
+                var(--win-hilight) 12px,
+                #5b8cd1 12px,
+                #5b8cd1 14px
+            );
+        }
+
+        /* ---- IE-style image panels ---- */
+        .img-panel {
+            border: 2px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            overflow: hidden;
+            background: #000;
+            position: relative;
+        }
+        .img-panel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+            display: block;
+        }
+        .img-panel:hover img { opacity: 1; }
+        .img-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: var(--win-title);
+            color: var(--win-white);
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ---- List View ---- */
+        .listview {
+            border: 2px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            background: var(--win-white);
+        }
+        .listview-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            background: var(--win-silver);
+        }
+        .listview-col {
+            padding: 3px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            border-right: 1px solid var(--win-border-sh);
+            border-bottom: 2px solid var(--win-border-sh);
+            cursor: pointer;
+        }
+        .listview-col:hover { background: #bdb9b1; }
+        .listview-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 1px solid #e8e4e0;
+        }
+        .listview-row:hover { background: var(--win-hilight); color: var(--win-white); }
+        .listview-row.selected { background: var(--win-hilight); color: var(--win-white); }
+        .listview-cell {
+            padding: 3px 8px;
+            font-size: 11px;
+            border-right: 1px solid #e8e4e0;
+        }
+
+        /* ---- Dialog Box ---- */
+        .dialog-overlay {
+            position: fixed;
+            inset: 0;
+            background: transparent;
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .dialog-overlay.active { display: flex; }
+        .dialog-box {
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            min-width: 320px;
+            max-width: 400px;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.5);
+        }
+        .dialog-body {
+            padding: 16px 20px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .dialog-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+        .dialog-text { font-size: 11px; line-height: 1.6; }
+        .dialog-buttons {
+            padding: 10px 20px 14px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* ---- Input ---- */
+        .win-input {
+            border: 2px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            background: var(--win-white);
+            padding: 3px 6px;
+            font-size: 11px;
+            font-family: inherit;
+            outline: none;
+            width: 100%;
+        }
+        .win-input:focus {
+            outline: 1px dotted var(--win-hilight);
+        }
+        .win-input[type="password"] {
+            letter-spacing: 4px;
+        }
+
+        /* ---- Taskbar ---- */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: var(--win-silver);
+            border-top: 2px solid;
+            border-color: var(--win-border-lt) transparent transparent var(--win-border-lt);
+            display: flex;
+            align-items: center;
+            padding: 0 2px;
+            z-index: 9000;
+            gap: 4px;
+        }
+        .start-btn {
+            height: 22px;
+            padding: 0 8px 0 4px;
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .start-btn:active {
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+        }
+        .win-logo {
+            width: 16px;
+            height: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+        }
+        .win-logo span {
+            display: block;
+        }
+        .win-logo span:nth-child(1) { background: #f00; }
+        .win-logo span:nth-child(2) { background: #0a0; }
+        .win-logo span:nth-child(3) { background: #00f; }
+        .win-logo span:nth-child(4) { background: #fa0; }
+
+        .taskbar-sep {
+            width: 2px;
+            height: 22px;
+            border-left: 1px solid var(--win-border-sh);
+            border-right: 1px solid var(--win-border-lt);
+            margin: 0 2px;
+        }
+        .taskbar-window-btn {
+            height: 22px;
+            padding: 0 8px;
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-sh) var(--win-border-lt) var(--win-border-lt) var(--win-border-sh);
+            font-size: 11px;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 120px;
+        }
+        .taskbar-window-btn .task-icon { font-size: 12px; }
+
+        .tray {
+            margin-left: auto;
+            height: 100%;
+            border-left: 2px solid;
+            border-color: var(--win-border-sh) transparent transparent var(--win-border-sh);
+            padding: 0 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+        }
+
+        /* ---- Desktop Icons ---- */
+        .desktop-icons {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+        .desktop-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            cursor: pointer;
+            width: 64px;
+        }
+        .desktop-icon .icon-img {
+            width: 32px;
+            height: 32px;
+            font-size: 28px;
+            text-align: center;
+            line-height: 32px;
+        }
+        .desktop-icon .icon-label {
+            color: var(--win-white);
+            font-size: 11px;
+            text-align: center;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.8);
+            line-height: 1.3;
+            word-break: break-word;
+        }
+        .desktop-icon:hover .icon-label {
+            background: var(--win-hilight);
+        }
+        .desktop-icon.selected .icon-img { filter: invert(30%) sepia(100%) hue-rotate(185deg); }
+        .desktop-icon.selected .icon-label { background: var(--win-hilight); }
+
+        /* ---- Main Layout ---- */
+        .desktop {
+            min-height: 100vh;
+            padding: 0 0 32px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 12px;
+            padding-left: 90px;
+            padding-right: 20px;
+        }
+
+        /* ---- Main browser window ---- */
+        .browser-window {
+            width: 100%;
+            max-width: 960px;
+            margin-bottom: 12px;
+        }
+
+        /* ---- Scrollbar ---- */
+        ::-webkit-scrollbar { width: 16px; height: 16px; }
+        ::-webkit-scrollbar-track { background: var(--win-silver); }
+        ::-webkit-scrollbar-thumb {
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+        }
+        ::-webkit-scrollbar-button {
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            height: 16px;
+        }
+        ::-webkit-scrollbar-corner { background: var(--win-silver); }
+
+        /* ---- Panels layout ---- */
+        .panel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .panel-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .info-box {
+            background: var(--win-silver);
+            border: 2px solid;
+            border-color: var(--win-border-lt) var(--win-border-sh) var(--win-border-sh) var(--win-border-lt);
+            padding: 8px 12px;
+        }
+        .info-box h3 {
+            font-size: 11px;
+            font-weight: bold;
+            color: var(--win-title);
+            margin-bottom: 4px;
+            border-bottom: 1px solid var(--win-border-sh);
+            padding-bottom: 3px;
+        }
+        .info-box p {
+            font-size: 11px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ---- Blink animation for "live" indicator ---- */
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+        .blink { animation: blink 1s infinite; }
+
+        /* ---- Animated progress ---- */
+        @keyframes slide-progress {
+            from { background-position: 0 0; }
+            to { background-position: 28px 0; }
+        }
+        .progress-animated {
+            background: repeating-linear-gradient(
+                to right,
+                var(--win-hilight) 0px,
+                var(--win-hilight) 12px,
+                #5b8cd1 12px,
+                #5b8cd1 14px
+            );
+            animation: slide-progress 0.5s linear infinite;
+            background-size: 28px 100%;
+        }
+
+        /* --- Tooltip --- */
+        [data-tip] { position: relative; }
+        [data-tip]:hover::after {
+            content: attr(data-tip);
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            background: #ffffe1;
+            border: 1px solid var(--win-black);
+            padding: 2px 6px;
+            font-size: 11px;
+            white-space: nowrap;
+            z-index: 9999;
+            color: var(--win-black);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+            pointer-events: none;
+        }
+
+        /* ---- Sidebar panel ---- */
+        .sidebar-panel {
+            background: linear-gradient(to bottom, #1d5fac 0%, #0a246a 100%);
+            color: var(--win-white);
+            padding: 12px 8px;
+            width: 160px;
+            flex-shrink: 0;
+        }
+        .sidebar-panel h3 {
+            font-size: 11px;
+            font-weight: bold;
+            color: #ffd700;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+        }
+        .sidebar-link {
+            display: block;
+            color: var(--win-white);
+            font-size: 11px;
+            text-decoration: none;
+            padding: 2px 4px;
+            cursor: pointer;
+        }
+        .sidebar-link:hover {
+            background: rgba(255,255,255,0.2);
+            text-decoration: underline;
+        }
+
+        .main-content-split {
+            display: flex;
+            gap: 0;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 600px) {
+            .panel-grid { grid-template-columns: 1fr; }
+            .panel-2col { grid-template-columns: 1fr; }
+            .desktop { padding-left: 12px; }
+            .desktop-icons { display: none; }
+            .sidebar-panel { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg"></div>
+<!-- Desktop Icons -->
+<div class="desktop-icons" role="complementary" aria-label="Desktop icons">
+    <div class="desktop-icon" onclick="alert('My Computer\n\nSovereign Engine Core v3.0\nDrive C: 120GB')" data-tip="My Computer">
+        <div class="icon-img" aria-hidden="true">🖥️</div>
+        <div class="icon-label">My Computer</div>
+    </div>
+    <div class="desktop-icon" onclick="openVault()" data-tip="Secured Files">
+        <div class="icon-img" aria-hidden="true">📁</div>
+        <div class="icon-label">Secured Files</div>
+    </div>
+    <div class="desktop-icon" onclick="alert('Internet Explorer\n\nConnecting to: knocks.engine...\nBandwidth: Sovereign')" data-tip="Internet Explorer">
+        <div class="icon-img" aria-hidden="true">🌐</div>
+        <div class="icon-label">Internet Explorer</div>
+    </div>
+    <div class="desktop-icon" onclick="alert('Recycle Bin is empty.\n\nAll old engines have been purged.')" data-tip="Recycle Bin">
+        <div class="icon-img" aria-hidden="true">🗑️</div>
+        <div class="icon-label">Recycle Bin</div>
+    </div>
+</div>
 
-    <nav class="fixed top-0 w-full p-8 flex justify-between items-center z-[1000] backdrop-blur-md border-b border-white/5">
-        <div class="monolith text-[9px] tracking-[1em] text-cyan-400">Signal: Sovereign_Active</div>
-        <button onclick="toggleNav()" class="group flex flex-col gap-1" aria-label="Toggle Navigation">
-            <div class="w-8 h-[2px] bg-cyan-400"></div>
-            <div class="w-5 h-[2px] bg-white ml-auto"></div>
-        </button>
-    </nav>
+<!-- Main Desktop Area -->
+<main class="desktop">
 
-    <aside id="drawer" class="fixed top-0 right-[-100%] w-full max-w-md h-full bg-black/95 z-[2000] transition-all duration-500 border-l border-cyan-400/20 p-12 backdrop-blur-3xl">
-        <p class="monolith text-[10px] text-cyan-400 mb-8">Master_Frequency</p>
-        <div class="engine-frame aspect-square">
-            <iframe title="Knocks Radio Live Stream" src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" width="100%" height="100%" frameborder="0"></iframe>
-        </div>
-        <button onclick="toggleNav()" class="mt-12 monolith text-[9px] text-gray-500 hover:text-white">Close_Connection</button>
-    </aside>
+    <!-- === BROWSER WINDOW === -->
+    <div class="window browser-window" role="main" aria-label="KNOCKS STUDIOS - Sovereign Engine 3.0">
 
-    <main class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-        <div class="inline-block border border-cyan-400/30 px-6 py-2 rounded-full mb-12 bg-cyan-400/5">
-            <span class="monolith text-[8px] text-cyan-400 tracking-[0.5em]">AI_ENGINE_CORE_v3.0</span>
-        </div>
-
-        <h1 class="monolith metallic-title">KNOCKS<br>STUDiOS</h1>
-
-        <p class="mt-12 max-w-2xl text-gray-400 text-xs md:text-sm tracking-[0.7em] leading-loose uppercase">
-            The world's most <span class="text-white">Omnipotent</span> AI creative engine for cinematic mastery.
-        </p>
-
-        <div class="mt-16 flex flex-col sm:flex-row gap-8">
-            <button class="btn-core">Ignite Engine</button>
-            <button class="px-12 py-5 border border-white/20 monolith text-[10px] tracking-[0.3em] hover:bg-white hover:text-black transition-all">The Vision</button>
-        </div>
-    </main>
-
-    <section class="py-40 px-6 max-w-7xl mx-auto">
-        <div class="mb-24 flex flex-col md:flex-row justify-between items-end gap-6">
-            <div>
-                <span class="monolith text-cyan-400 text-[10px] tracking-[1em] block mb-4">Capability_Report</span>
-                <h2 class="monolith text-4xl md:text-7xl italic">VISUAL_OVERLOAD</h2>
+        <!-- Title Bar -->
+        <div class="window-titlebar">
+            <div class="title-left">
+                <div class="title-icon" aria-hidden="true">🌐</div>
+                <span>KNOCKS STUDIOS — Sovereign Engine 3.0 — Microsoft Internet Explorer</span>
             </div>
-            <p class="text-gray-500 text-[9px] tracking-widest uppercase max-w-xs">High-fidelity rendering powered by the AI Lab Legends structure.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="engine-frame group h-[450px]">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="Cinematic Vibrant Fluid Render" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">ENGINE_C1</div>
-            </div>
-
-            <div class="engine-frame group h-[450px]">
-                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800" alt="Gold Neural Network Visualization" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">NEURAL_02</div>
-            </div>
-
-            <div class="engine-frame group h-[450px]">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Technical Circuitry Interface" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">MATRIX_03</div>
+            <div class="title-buttons">
+                <button class="title-btn" aria-label="Minimize" title="Minimize">&#x2014;</button>
+                <button class="title-btn" aria-label="Restore" title="Restore">&#x25A1;</button>
+                <button class="title-btn close-btn" aria-label="Close" title="Close" onclick="if(confirm('Are you sure you want to close the Sovereign Engine?')) document.body.style.display='none'">&#x2715;</button>
             </div>
         </div>
 
-        <div class="mt-40 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div class="engine-frame p-16 bg-black">
-                <h3 class="monolith text-4xl mb-8">UNRIVALED<br>STRUCTURE</h3>
-                <p class="text-gray-400 leading-relaxed tracking-widest text-xs uppercase">
-                    We don't just build websites. We build digital fortresses. Every line of code is optimized for INP, LCP, and Sovereign Performance.
-                </p>
-            </div>
-            <div>
-                <h4 class="monolith text-5xl md:text-8xl leading-none italic mb-10"><span class="text-cyan-400">VIVID</span>_VEO</h4>
-                <p class="text-gray-500 tracking-[0.4em] uppercase text-[10px] leading-loose">
-                    BUILT FOR PROFESSIONALS. DESIGNED FOR THE BOLD. KNOCKS STUDIOS IS THE JUNCTION WHERE BRAINS MEET CINEMATIC BEAUTY.
-                </p>
+        <!-- Menu Bar -->
+        <nav class="menubar" role="menubar" aria-label="Browser menu">
+            <a class="menu-item" role="menuitem" href="#" onclick="return false;"><span>F</span>ile</a>
+            <a class="menu-item" role="menuitem" href="#" onclick="return false;"><span>E</span>dit</a>
+            <a class="menu-item" role="menuitem" href="#" onclick="return false;"><span>V</span>iew</a>
+            <a class="menu-item" role="menuitem" href="#" onclick="return false;"><span>F</span>avorites</a>
+            <a class="menu-item" role="menuitem" href="#" onclick="return false;"><span>T</span>ools</a>
+            <a class="menu-item" role="menuitem" href="#" onclick="return false;"><span>H</span>elp</a>
+        </nav>
+
+        <!-- Toolbar -->
+        <div class="toolbar" role="toolbar" aria-label="Navigation toolbar">
+            <button class="toolbar-btn" title="Back" aria-label="Back">◀</button>
+            <button class="toolbar-btn" title="Forward" aria-label="Forward">▶</button>
+            <button class="toolbar-btn" title="Stop" aria-label="Stop">✕</button>
+            <button class="toolbar-btn" title="Refresh" aria-label="Refresh" onclick="location.reload()">↺</button>
+            <button class="toolbar-btn" title="Home" aria-label="Home">🏠</button>
+            <div class="toolbar-sep" aria-hidden="true"></div>
+            <button class="toolbar-btn" title="Search" aria-label="Search" onclick="alert('Search: Sovereign Engine™\n\nNo results found. The engine is beyond search.')">🔍</button>
+            <button class="toolbar-btn" title="Favorites" aria-label="Favorites">⭐</button>
+            <button class="toolbar-btn" title="History" aria-label="History">📋</button>
+            <div class="toolbar-sep" aria-hidden="true"></div>
+            <button class="toolbar-btn" title="Print" aria-label="Print" onclick="window.print()">🖨️</button>
+        </div>
+
+        <!-- Address Bar -->
+        <div class="addressbar" role="search" aria-label="Address bar">
+            <label for="addressInput">Address</label>
+            <input type="text" id="addressInput" value="http://www.knocksstudios.com/engine/v3.0/sovereign" aria-label="Current URL" readonly>
+            <button class="go-btn" aria-label="Go to address">Go</button>
+        </div>
+
+        <!-- Content Area with Sidebar -->
+        <div class="main-content-split">
+
+            <!-- Sidebar -->
+            <aside class="sidebar-panel" aria-label="Navigation sidebar">
+                <h3>Navigation</h3>
+                <a class="sidebar-link" href="#hero">🏠 Home</a>
+                <a class="sidebar-link" href="#capabilities">⚙️ Capabilities</a>
+                <a class="sidebar-link" href="#renders">🖼️ Visual Output</a>
+                <a class="sidebar-link" href="#specs">📊 Specifications</a>
+                <a class="sidebar-link" href="#" onclick="toggleDrawer()">📡 Live Radio</a>
+                <a class="sidebar-link" href="#" onclick="openVault()">🔒 Access Vault</a>
+                <br>
+                <h3>Resources</h3>
+                <a class="sidebar-link" href="#">📥 Download SDK</a>
+                <a class="sidebar-link" href="#">📄 Documentation</a>
+                <a class="sidebar-link" href="#">💬 Support Forum</a>
+            </aside>
+
+            <!-- Main Content -->
+            <div style="flex:1; overflow: hidden;">
+
+                <!-- HERO -->
+                <section id="hero" class="content-area" style="padding-bottom: 8px;">
+                    <div class="ie-hero">
+                        <p class="subtitle">AI_ENGINE_CORE_v3.0 &nbsp;|&nbsp; <span class="blink" style="color:red;">●</span>&nbsp; SIGNAL: SOVEREIGN_ACTIVE</p>
+                        <h1>KNOCKS STUDiOS</h1>
+                        <p>The world&apos;s most <strong>Omnipotent</strong> AI creative engine for cinematic mastery. Built for professionals. Designed for the bold.</p>
+                        <hr class="win-hr" style="max-width:300px; margin: 14px auto;">
+                        <!-- Loading indicator -->
+                        <div style="max-width:260px; margin: 0 auto 14px;">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
+                                <span style="font-size:10px;">Initializing Sovereign Engine...</span>
+                                <span style="font-size:10px;">100%</span>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-fill" style="width:100%;">
+                                    <div class="progress-fill-stripe" style="width:100%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+                            <button class="btn-win default-btn" onclick="alert('Igniting Sovereign Engine...\n\nEngine Core initialized.\nAll systems operational.')">Ignite Engine</button>
+                            <button class="btn-win" onclick="openVision()">The Vision</button>
+                            <button class="btn-win" onclick="toggleDrawer()">Live Radio</button>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="win-hr" style="margin: 0 12px;">
+
+                <!-- TABS SECTION -->
+                <section id="capabilities" style="padding: 0 12px 12px; background: var(--win-silver);">
+                    <div style="padding-top: 10px; padding-bottom: 4px;">
+                        <span style="font-size: 10px; font-weight: bold; color: var(--win-title); text-transform: uppercase; letter-spacing: 2px;">Capability_Report</span>
+                        <h2 style="font-size: 18px; font-weight: bold; color: var(--win-title); margin-top: 2px;">VISUAL_OVERLOAD</h2>
+                        <p style="font-size: 10px; color: var(--win-gray-text); text-transform: uppercase; letter-spacing: 1px;">High-fidelity rendering powered by the AI Lab Legends structure.</p>
+                    </div>
+
+                    <!-- Tab control -->
+                    <div class="tab-bar" role="tablist">
+                        <div class="tab active" id="tab-renders" role="tab" aria-selected="true" aria-controls="panel-renders" onclick="switchTab('renders')">Renders</div>
+                        <div class="tab" id="tab-specs" role="tab" aria-selected="false" aria-controls="panel-specs" onclick="switchTab('specs')">Specifications</div>
+                        <div class="tab" id="tab-about" role="tab" aria-selected="false" aria-controls="panel-about" onclick="switchTab('about')">About Engine</div>
+                    </div>
+
+                    <!-- Tab Panels -->
+                    <div id="panel-renders" class="tab-panel" role="tabpanel" aria-labelledby="tab-renders">
+                        <div class="panel-grid">
+                            <div class="img-panel" style="height: 200px;">
+                                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="Cinematic vibrant fluid render - ENGINE_C1">
+                                <div class="img-label">ENGINE_C1 — Fluid Render</div>
+                            </div>
+                            <div class="img-panel" style="height: 200px;">
+                                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800" alt="Gold neural network visualization - NEURAL_02">
+                                <div class="img-label">NEURAL_02 — Gold Net</div>
+                            </div>
+                            <div class="img-panel" style="height: 200px;">
+                                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Technical circuitry interface - MATRIX_03">
+                                <div class="img-label">MATRIX_03 — Circuit</div>
+                            </div>
+                        </div>
+
+                        <!-- Listview of renders -->
+                        <div class="listview" style="margin-top: 10px;" role="table" aria-label="Render file list">
+                            <div class="listview-header" role="row">
+                                <div class="listview-col" role="columnheader">Name</div>
+                                <div class="listview-col" role="columnheader">Type</div>
+                                <div class="listview-col" role="columnheader">Status</div>
+                            </div>
+                            <div class="listview-row selected" role="row">
+                                <div class="listview-cell" role="cell">🖼️ ENGINE_C1.render</div>
+                                <div class="listview-cell" role="cell">Fluid Simulation</div>
+                                <div class="listview-cell" role="cell" style="color:green;">✔ Rendered</div>
+                            </div>
+                            <div class="listview-row" role="row">
+                                <div class="listview-cell" role="cell">🖼️ NEURAL_02.render</div>
+                                <div class="listview-cell" role="cell">Neural Network</div>
+                                <div class="listview-cell" role="cell" style="color:green;">✔ Rendered</div>
+                            </div>
+                            <div class="listview-row" role="row">
+                                <div class="listview-cell" role="cell">🖼️ MATRIX_03.render</div>
+                                <div class="listview-cell" role="cell">Circuitry Map</div>
+                                <div class="listview-cell" role="cell" style="color:green;">✔ Rendered</div>
+                            </div>
+                            <div class="listview-row" role="row">
+                                <div class="listview-cell" role="cell">🎬 VEO_4K.output</div>
+                                <div class="listview-cell" role="cell">Video Sequence</div>
+                                <div class="listview-cell" role="cell" style="color:orange;"><span class="blink">●</span> Processing</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="panel-specs" class="tab-panel" role="tabpanel" aria-labelledby="tab-specs" style="display:none;">
+                        <div class="panel-2col">
+                            <div class="info-box">
+                                <h3>UNRIVALED STRUCTURE</h3>
+                                <p>We don&apos;t just build websites. We build digital fortresses. Every line of code is optimized for INP, LCP, and Sovereign Performance.</p>
+                            </div>
+                            <div class="info-box">
+                                <h3>VIVID_VEO</h3>
+                                <p>Built for professionals. Designed for the bold. KNOCKS STUDIOS is the junction where brains meet cinematic beauty.</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <div style="font-size: 10px; font-weight: bold; margin-bottom: 4px; color: var(--win-title);">ENGINE PERFORMANCE METRICS</div>
+                            <table style="width:100%; border-collapse: collapse; font-size: 11px;">
+                                <tr style="background: var(--win-title); color: var(--win-white);">
+                                    <th style="padding: 4px 8px; text-align:left; border: 1px solid #eee;">Module</th>
+                                    <th style="padding: 4px 8px; text-align:left; border: 1px solid #eee;">Score</th>
+                                    <th style="padding: 4px 8px; text-align:left; border: 1px solid #eee;">Load</th>
+                                </tr>
+                                <tr><td style="padding:3px 8px; border: 1px solid #ddd;">Render Core</td><td style="padding:3px 8px; border: 1px solid #ddd;">100 / 100</td><td style="padding:3px 8px; border: 1px solid #ddd;"><div class="progress-container" style="height:12px;"><div class="progress-fill" style="width:100%;"><div class="progress-fill-stripe"></div></div></div></td></tr>
+                                <tr style="background:#f4f4f4;"><td style="padding:3px 8px; border: 1px solid #ddd;">Neural Net</td><td style="padding:3px 8px; border: 1px solid #ddd;">98 / 100</td><td style="padding:3px 8px; border: 1px solid #ddd;"><div class="progress-container" style="height:12px;"><div class="progress-fill" style="width:98%;"><div class="progress-fill-stripe"></div></div></div></td></tr>
+                                <tr><td style="padding:3px 8px; border: 1px solid #ddd;">VEO Pipeline</td><td style="padding:3px 8px; border: 1px solid #ddd;">96 / 100</td><td style="padding:3px 8px; border: 1px solid #ddd;"><div class="progress-container" style="height:12px;"><div class="progress-fill" style="width:96%;"><div class="progress-fill-stripe"></div></div></div></td></tr>
+                                <tr style="background:#f4f4f4;"><td style="padding:3px 8px; border: 1px solid #ddd;">Audio Reactor</td><td style="padding:3px 8px; border: 1px solid #ddd;">99 / 100</td><td style="padding:3px 8px; border: 1px solid #ddd;"><div class="progress-container" style="height:12px;"><div class="progress-fill" style="width:99%;"><div class="progress-fill-stripe"></div></div></div></td></tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="panel-about" class="tab-panel" role="tabpanel" aria-labelledby="tab-about" style="display:none;">
+                        <div class="info-box" style="margin-bottom: 8px;">
+                            <h3>About KNOCKS STUDIOS — Sovereign Engine 3.0</h3>
+                            <p>Version 3.0.0 (Build 2026.04.01)<br>
+                            Copyright © 2026 KNOCKS STUDIOS. All rights reserved.<br><br>
+                            This product is licensed under the Sovereign Creative License.<br>
+                            See OFFICIAL_LICENSE.txt for full terms.<br><br>
+                            <strong>System:</strong> AI Engine Core v3.0<br>
+                            <strong>Renderer:</strong> VIVID_VEO™ Pipeline<br>
+                            <strong>Signal:</strong> Sovereign_Active<br>
+                            <strong>INP:</strong> &lt; 50ms &nbsp; <strong>LCP:</strong> &lt; 1.2s</p>
+                        </div>
+                        <div style="display:flex; gap:8px; margin-top:8px;">
+                            <button class="btn-win">OK</button>
+                            <button class="btn-win" onclick="openVault()">System Info</button>
+                        </div>
+                    </div>
+
+                </section>
+
             </div>
         </div>
-    </section>
 
-    <footer class="py-20 text-center border-t border-white/5">
-        <p class="monolith text-[8px] text-gray-700 tracking-[2em]">Sovereign_Engine_Core_2026</p>
-        <button onclick="openVault()" class="mt-12 text-[8px] text-white/10 hover:text-cyan-400 tracking-[1em]">SYSTEM_BYPASS_0736</button>
-    </footer>
-
-    <div id="vault" class="fixed inset-0 bg-black/98 z-[5000] hidden items-center justify-center backdrop-blur-3xl">
-        <div class="max-w-md w-full p-16 engine-frame text-center bg-black">
-            <p class="monolith text-cyan-400 text-xs mb-10">Access_Identify</p>
-            <input type="password" id="p" class="w-full bg-black border border-white/10 p-5 text-white text-center tracking-[1em] outline-none focus:border-cyan-400 mb-8" placeholder="****">
-            <button onclick="verify()" class="btn-core w-full">Enter Core</button>
-            <button onclick="closeVault()" class="mt-8 text-[9px] text-gray-600 block mx-auto">Abort</button>
+        <!-- Status Bar -->
+        <div class="statusbar" role="status" aria-live="polite">
+            <div class="status-panel">✔ Done</div>
+            <div class="status-panel" style="min-width: 200px;">Sovereign Engine Core — 2026</div>
+            <div style="margin-left:auto; font-size:10px; display:flex; align-items:center; gap:4px;">
+                <span class="blink" style="color:green;">●</span> 
+                <span>Signal Active</span>
+                &nbsp;|&nbsp;
+                🌐 Internet
+            </div>
         </div>
     </div>
 
-    <script>
-        function toggleNav() { document.getElementById('drawer').classList.toggle('right-0'); document.getElementById('drawer').classList.toggle('right-[-100%]'); }
-        function openVault() { document.getElementById('vault').style.display = 'flex'; }
-        function closeVault() { document.getElementById('vault').style.display = 'none'; }
-        function verify() {
-            if(document.getElementById('p').value === "0736") { alert("IDENTITY_CONFIRMED. WELCOME."); closeVault(); }
-            else { alert("SIGNAL_REJECTED."); location.reload(); }
+    <!-- === RADIO DRAWER (as a floating window) === -->
+    <div id="drawer" class="window" style="width:380px; display:none; position:fixed; top:60px; right:20px; z-index:3000; box-shadow: 4px 4px 0 rgba(0,0,0,0.4);" role="dialog" aria-modal="true" aria-label="Knocks Radio - Live Stream">
+        <div class="window-titlebar">
+            <div class="title-left">
+                <div class="title-icon" aria-hidden="true">📡</div>
+                <span>Master_Frequency — Knocks Radio</span>
+            </div>
+            <div class="title-buttons">
+                <button class="title-btn close-btn" onclick="toggleDrawer()" aria-label="Close radio">&#x2715;</button>
+            </div>
+        </div>
+        <div style="padding: 8px;">
+            <div class="sunken" style="background:#000; height: 280px;">
+                <iframe title="Knocks Radio Live Stream" src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+            <div style="margin-top: 8px; display:flex; justify-content:flex-end;">
+                <button class="btn-win" onclick="toggleDrawer()">Close</button>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- === VAULT DIALOG === -->
+<div id="vault" class="dialog-overlay" role="dialog" aria-modal="true" aria-label="Secured Files Access">
+    <div class="dialog-box">
+        <div class="window-titlebar">
+            <div class="title-left">
+                <div class="title-icon" aria-hidden="true">🔒</div>
+                <span>Access Vault — Authentication Required</span>
+            </div>
+            <div class="title-buttons">
+                <button class="title-btn close-btn" onclick="closeVault()" aria-label="Close vault">&#x2715;</button>
+            </div>
+        </div>
+        <div class="dialog-body">
+            <div class="dialog-icon" aria-hidden="true">🔑</div>
+            <div>
+                <p class="dialog-text" style="font-weight:bold; margin-bottom: 6px;">Enter Vault Access Code</p>
+                <p class="dialog-text" style="color: var(--win-gray-text); margin-bottom: 10px;">This area is restricted. Please enter your access code to continue.</p>
+                <label for="vaultInput" style="font-size:11px; display:block; margin-bottom:3px;">Access Code:</label>
+                <input type="password" id="vaultInput" class="win-input" style="width: 180px;" placeholder="••••" aria-label="Vault access code">
+            </div>
+        </div>
+        <hr class="win-hr" style="margin: 0 12px;">
+        <div class="dialog-buttons">
+            <button class="btn-win default-btn" onclick="verify()">OK</button>
+            <button class="btn-win" onclick="closeVault()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- === VISION DIALOG === -->
+<div id="visionDialog" class="dialog-overlay" role="dialog" aria-modal="true" aria-label="The Vision">
+    <div class="dialog-box" style="max-width: 440px;">
+        <div class="window-titlebar">
+            <div class="title-left">
+                <div class="title-icon" aria-hidden="true">💡</div>
+                <span>The Vision — KNOCKS STUDIOS</span>
+            </div>
+            <div class="title-buttons">
+                <button class="title-btn close-btn" onclick="closeVision()" aria-label="Close vision dialog">&#x2715;</button>
+            </div>
+        </div>
+        <div class="dialog-body" style="flex-direction: column; gap: 8px;">
+            <p style="font-size:11px; font-weight:bold; color: var(--win-title);">VIVID_VEO™ — Cinematic AI Engine</p>
+            <p style="font-size:11px; line-height:1.7; color:#333;">
+                KNOCKS STUDIOS is the junction where brains meet cinematic beauty. We don&apos;t just build websites — we build digital fortresses. Every line of code is optimized for INP, LCP, and Sovereign Performance.<br><br>
+                The Sovereign Engine 3.0 is our most powerful AI creative system yet. Engineered for those who refuse to compromise.
+            </p>
+            <hr class="win-hr">
+            <p style="font-size:10px; color: var(--win-gray-text);">KNOCKS STUDIOS — Sovereign_Engine_Core_2026</p>
+        </div>
+        <div class="dialog-buttons">
+            <button class="btn-win default-btn" onclick="closeVision()">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- === TASKBAR === -->
+<footer role="contentinfo">
+    <div class="taskbar" aria-label="Windows taskbar">
+        <button class="start-btn" onclick="alert('Start Menu\n\nPrograms ▶\nDocuments ▶\nSettings ▶\nSearch ▶\nHelp\nRun...\n─────────\nShut Down...')" aria-label="Start menu">
+            <div class="win-logo" aria-hidden="true">
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+            Start
+        </button>
+        <div class="taskbar-sep" aria-hidden="true"></div>
+        <button class="taskbar-window-btn" aria-current="true">
+            <span class="task-icon" aria-hidden="true">🌐</span>
+            KNOCKS STUDIOS - IE
+        </button>
+        <button class="taskbar-window-btn" onclick="toggleDrawer()">
+            <span class="task-icon" aria-hidden="true">📡</span>
+            Knocks Radio
+        </button>
+
+        <div class="tray" aria-label="System tray">
+            <span data-tip="Volume">🔊</span>
+            <span data-tip="Network Connected" style="font-size:14px;">📶</span>
+            <span data-tip="Sovereign Engine Active" style="color:green; font-size:10px; font-weight:bold;">⚡</span>
+            <span id="clock" style="min-width:44px; text-align:center;" aria-live="polite" aria-label="Current time"></span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Clock
+    function updateClock() {
+        var d = new Date();
+        var h = d.getHours().toString().padStart(2,'0');
+        var m = d.getMinutes().toString().padStart(2,'0');
+        document.getElementById('clock').textContent = h + ':' + m;
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    // Tab switching
+    function switchTab(name) {
+        var tabs = ['renders', 'specs', 'about'];
+        tabs.forEach(function(t) {
+            document.getElementById('tab-' + t).classList.toggle('active', t === name);
+            document.getElementById('tab-' + t).setAttribute('aria-selected', t === name ? 'true' : 'false');
+            document.getElementById('panel-' + t).style.display = t === name ? 'block' : 'none';
+        });
+    }
+
+    // Drawer
+    function toggleDrawer() {
+        var d = document.getElementById('drawer');
+        d.style.display = d.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Vault
+    function openVault() { document.getElementById('vault').classList.add('active'); document.getElementById('vaultInput').focus(); }
+    function closeVault() { document.getElementById('vault').classList.remove('active'); document.getElementById('vaultInput').value = ''; }
+
+    // Vision
+    function openVision() { document.getElementById('visionDialog').classList.add('active'); }
+    function closeVision() { document.getElementById('visionDialog').classList.remove('active'); }
+
+    // Vault verify
+    function verify() {
+        if(document.getElementById('vaultInput').value === '0736') {
+            closeVault();
+            // Show success dialog
+            setTimeout(function() {
+                alert('IDENTITY CONFIRMED.\n\nWELCOME, KNOCKTURNAL.\n\nAccess granted to Sovereign Files.');
+            }, 100);
+        } else {
+            document.getElementById('vaultInput').value = '';
+            document.getElementById('vaultInput').placeholder = 'SIGNAL REJECTED';
+            document.getElementById('vaultInput').style.borderColor = 'red';
+            setTimeout(function() {
+                document.getElementById('vaultInput').placeholder = '••••';
+                document.getElementById('vaultInput').style.borderColor = '';
+            }, 1500);
         }
-    </script>
+    }
+
+    // Allow Enter key in vault input
+    document.getElementById('vaultInput').addEventListener('keydown', function(e) {
+        if(e.key === 'Enter') verify();
+    });
+
+    // Listview row selection
+    document.querySelectorAll('.listview-row').forEach(function(row) {
+        row.addEventListener('click', function() {
+            document.querySelectorAll('.listview-row').forEach(function(r) { r.classList.remove('selected'); });
+            this.classList.add('selected');
+        });
+    });
+</script>
+
 </body>
 </html>
