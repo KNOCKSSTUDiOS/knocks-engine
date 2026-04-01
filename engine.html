@@ -7,33 +7,85 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: #050505; color: #fff; font-family: 'Courier New', monospace; padding: 20px; }
-        
+
         /* HEADER STATUS BAR */
-        .status-bar { display: flex; justify-content: space-between; padding: 15px; border: 1px solid #222; background: #000; margin-bottom: 20px; }
-        .coin-count { color: #FF8C00; font-weight: bold; }
+        .status-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border: 1px solid #1a1a1a; background: #000; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .coin-count { color: #FF8C00; font-weight: bold; letter-spacing: 2px; font-size: 12px; }
+        .op-label { font-size: 11px; color: #555; letter-spacing: 2px; }
+        .op-label span { color: #00f2ff; }
 
         /* MAIN GENERATOR LAYOUT */
         .engine-grid { display: grid; grid-template-columns: 1fr 350px; gap: 20px; max-width: 1200px; margin: 0 auto; }
 
         /* VIDEO VIEWPORT */
-        .viewport { background: #000; border: 1px solid #FF8C00; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .viewport {
+            background: #000; border: 1px solid #FF8C00; aspect-ratio: 16/9;
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+            transition: border-color 0.5s, box-shadow 0.5s;
+        }
         #main-video { width: 100%; height: 100%; display: none; object-fit: cover; }
-        .placeholder-text { color: #333; letter-spacing: 5px; font-size: 12px; }
+        .placeholder-text { color: #333; letter-spacing: 5px; font-size: 12px; transition: color 0.3s; }
+
+        /* NEURAL SCAN OVERLAY */
+        .scan-line {
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, #00f2ff, transparent);
+            opacity: 0; animation: none; pointer-events: none;
+        }
+        @keyframes scan-move {
+            0% { top: 0; opacity: 0.8; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .scan-active .scan-line { animation: scan-move 2s linear infinite; }
+
+        /* PROGRESS BAR */
+        .progress-bar { height: 3px; background: #111; margin-top: 8px; overflow: hidden; border-radius: 2px; }
+        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #FF8C00, #ffd700); transition: width 0.1s; box-shadow: 0 0 8px #FF8C00; }
+        .progress-fill.free { background: linear-gradient(90deg, #00FF00, #00ff88); box-shadow: 0 0 8px #00FF00; }
+
+        /* AUDIO MODULE */
+        .audio-module { margin-top: 15px; padding: 15px; border: 1px solid #1a1a1a; background: #080808; display: none; }
+        .audio-module audio { width: 100%; margin-top: 8px; }
 
         /* CONTROL PANEL */
-        .controls { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 20px; }
-        h3 { font-size: 14px; letter-spacing: 2px; margin-bottom: 20px; color: #888; }
-        
-        textarea { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 15px; height: 120px; font-family: 'Courier New', monospace; margin-bottom: 20px; outline: none; resize: none; }
-        textarea:focus { border-color: #FF8C00; }
+        .controls { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 20px; display: flex; flex-direction: column; }
+        .panel-title { font-size: 11px; letter-spacing: 3px; margin-bottom: 15px; color: #555; border-bottom: 1px solid #111; padding-bottom: 10px; }
 
-        .burn-btn { width: 100%; background: #FF8C00; color: #000; border: none; padding: 18px; font-weight: bold; cursor: pointer; letter-spacing: 3px; margin-bottom: 10px; }
-        .burn-btn:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+        textarea { width: 100%; background: #000; border: 1px solid #222; color: #fff; padding: 15px; height: 120px; font-family: 'Courier New', monospace; margin-bottom: 15px; outline: none; resize: none; font-size: 11px; letter-spacing: 1px; }
+        textarea:focus { border-color: #FF8C00; box-shadow: 0 0 10px rgba(255,140,0,0.1); }
+
+        .burn-btn {
+            width: 100%; background: #FF8C00; color: #000; border: none;
+            padding: 16px; font-weight: bold; cursor: pointer; letter-spacing: 3px;
+            margin-bottom: 8px; font-size: 11px; font-family: 'Courier New', monospace;
+            transition: all 0.3s;
+        }
+        .burn-btn:hover:not(:disabled) { background: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .burn-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .burn-btn.free-btn { background: #00FF00; color: #000; display: none; }
+        .burn-btn.free-btn:hover:not(:disabled) { background: #88ffaa; box-shadow: 0 0 20px rgba(0,255,0,0.3); }
+
         :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
 
-        .download-btn { width: 100%; background: transparent; border: 1px solid #444; color: #666; padding: 12px; cursor: pointer; display: none; }
+        .download-btn {
+            width: 100%; background: transparent; border: 1px solid #222; color: #333;
+            padding: 12px; cursor: pointer; display: none; font-family: 'Courier New', monospace;
+            font-size: 10px; letter-spacing: 2px; transition: all 0.3s;
+        }
         .download-btn.active { display: block; color: #00FF00; border-color: #00FF00; }
-        .burn-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .download-btn.active:hover { background: rgba(0,255,0,0.05); }
+
+        /* ENGINE STATUS CONSOLE */
+        .console-output {
+            margin-top: auto; padding-top: 15px; border-top: 1px solid #111;
+            font-size: 9px; color: #333; letter-spacing: 2px; min-height: 20px;
+        }
+
+        /* NAV LINKS */
+        .engine-nav { max-width: 1200px; margin: 20px auto 0; display: flex; justify-content: center; gap: 30px; }
+        .engine-nav a { color: #222; text-decoration: none; font-size: 9px; letter-spacing: 2px; transition: color 0.3s; }
+        .engine-nav a:hover { color: #00f2ff; }
 
         /* COMPANiON BOT WiDGET */
         .companion-widget {
@@ -50,23 +102,26 @@
         .companion-name { font-size: 10px; letter-spacing: 2px; color: #00f2ff; font-weight: bold; }
         .companion-role { font-size: 8px; color: #555; letter-spacing: 1px; }
         .companion-body { padding: 12px 15px; }
-        .companion-msg {
-            font-size: 9px; color: #888; letter-spacing: 1px; line-height: 1.6;
-            min-height: 30px;
-        }
+        .companion-msg { font-size: 9px; color: #888; letter-spacing: 1px; line-height: 1.6; min-height: 30px; }
         .companion-msg .tip-label { color: #00f2ff; font-weight: bold; display: block; margin-bottom: 4px; }
         .companion-link { display: block; text-align: center; padding: 8px; border-top: 1px solid #1a1a1a; font-size: 8px; color: #444; text-decoration: none; letter-spacing: 2px; }
         .companion-link:hover { color: #00f2ff; }
+
+        /* RESPONSiVE */
+        @media (max-width: 768px) {
+            .engine-grid { grid-template-columns: 1fr; }
+            body { padding: 10px; }
+        }
     </style>
 </head>
 <body>
 
     <header class="status-bar" role="banner">
-        <div>OPERATOR: <span id="op-id">KNOCKS_OWNER</span></div>
-        <div class="coin-count">COINS: <span id="coin-balance" aria-live="polite">2,000</span></div>
+        <div class="op-label">OPERATOR: <span id="op-id">KNOCKS_OWNER</span></div>
+        <div class="coin-count">COiNS: <span id="coin-balance" aria-live="polite">0</span></div>
     </header>
 
-    <div id="free-tier-banner" style="display:none; max-width:1200px; margin:0 auto 15px; padding:12px 20px; border:1px solid #00FF00; background:rgba(0,255,0,0.05); font-size:11px; color:#00FF00; letter-spacing:2px; text-align:center;">
+    <div id="free-tier-banner" style="display:none; max-width:1200px; margin:0 auto 15px; padding:12px 20px; border:1px solid #00FF00; background:rgba(0,255,0,0.03); font-size:10px; color:#00FF00; letter-spacing:2px; text-align:center;">
         FREE TiER ACTiVE: <span id="free-renders-left">2</span>/2 FREE 5-SEC ViDEO RENDERS REMAiNiNG
     </div>
 
@@ -74,41 +129,59 @@
         <div class="output-side">
             <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">9K Core Engine</h1>
             <div class="viewport" id="viewport">
+                <div class="scan-line" aria-hidden="true"></div>
                 <div class="placeholder-text" id="loader">SYSTEM_READY_FOR_BURN...</div>
+                <video id="main-video" controls aria-label="Generated render output"></video>
             </div>
 
-            <div id="render-result" style="display:none; margin-top:10px; padding:15px; border:1px solid #00FF00; background:rgba(0,255,0,0.05); text-align:center; font-size:11px; color:#00FF00; letter-spacing:2px;">
-                RENDER OUTPUT READY — USE DOWNLOAD BUTTON BELOW
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+            <div class="audio-module" id="audio-module">
+                <span style="font-size: 9px; color: #444; letter-spacing: 2px;" id="audio-label">AUDiO_STREAM_30S</span>
+                <audio id="main-audio" controls style="width: 100%; margin-top: 8px;" aria-labelledby="audio-label"></audio>
+            </div>
+
+            <div id="render-result" style="display:none; margin-top:10px; padding:15px; border:1px solid #00FF00; background:rgba(0,255,0,0.03); text-align:center; font-size:10px; color:#00FF00; letter-spacing:2px;">
+                RENDER OUTPUT READY — USE DOWNLOAD BUTTON
             </div>
         </div>
 
         <div class="controls">
-            <h2 style="font-size:14px; letter-spacing:2px; margin-bottom:20px; color:#888;">INPUT_PROMPT_9K</h2>
-            <label for="prompt-input" style="display:block; font-size:10px; color:#666; margin-bottom:8px;">Enter visual or audio rendering parameters</label>
+            <div class="panel-title">iNPUT_PROMPT_9K</div>
+            <label for="prompt-input" style="display:block; font-size:9px; color:#444; margin-bottom:8px; letter-spacing:1px;">Enter visual or audio rendering parameters</label>
             <textarea id="prompt-input" placeholder="Enter visual/audio parameters..."></textarea>
 
-            <button type="button" class="burn-btn" onclick="initiateBurn()">START_BURN — 50 CREDiTS</button>
-            <button type="button" class="burn-btn" id="free-burn-btn" style="display:none; background:#00FF00; margin-top:5px;" onclick="freeBurn()">FREE RENDER — 5 SEC ViDEO</button>
+            <button type="button" class="burn-btn" id="main-burn-btn" onclick="initiateBurn()">START_BURN — 50 CREDiTS</button>
+            <button type="button" class="burn-btn free-btn" id="free-burn-btn" onclick="freeBurn()">FREE RENDER — 5 SEC ViDEO</button>
             <button type="button" class="download-btn" id="dl-btn" onclick="downloadAsset()" aria-label="Download rendered 9K master file">DOWNLOAD_9K_MASTER</button>
+
+            <div class="console-output" id="console" aria-live="polite">ENGINE_01 // NEURAL_02 — STANDBY</div>
         </div>
     </main>
 
+    <nav class="engine-nav" aria-label="Engine navigation">
+        <a href="render.html">[ RENDER_CORE ]</a>
+        <a href="store.html">[ GET CREDiTS ]</a>
+        <a href="companions.html">[ COMPANiON BOTS ]</a>
+        <a href="index.html">[ DiSCONNECT ]</a>
+    </nav>
+
     <script>
-        let credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
-        let freeRenders = parseInt(localStorage.getItem('knocks_free_renders')) || 0;
-        let renderInProgress = false;
+        var credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
+        var freeRenders = parseInt(localStorage.getItem('knocks_free_renders')) || 0;
+        var renderInProgress = false;
         document.getElementById('coin-balance').innerText = credits.toLocaleString();
 
         // Show user name if available
         try {
-            const user = JSON.parse(localStorage.getItem('knocks_user'));
+            var user = JSON.parse(localStorage.getItem('knocks_user'));
             if (user && user.name) document.getElementById('op-id').innerText = user.name.toUpperCase();
         } catch(e) {}
 
         // Show free tier UI
         function updateFreeUI() {
-            const banner = document.getElementById('free-tier-banner');
-            const freeBtn = document.getElementById('free-burn-btn');
+            var banner = document.getElementById('free-tier-banner');
+            var freeBtn = document.getElementById('free-burn-btn');
             if (freeRenders > 0) {
                 banner.style.display = 'block';
                 freeBtn.style.display = 'block';
@@ -120,41 +193,55 @@
         }
         updateFreeUI();
 
-        // AUTO-PREViEW: If user just logged in, run a demo preview automatically
+        function setConsole(msg) { document.getElementById('console').innerText = msg; }
+        function disableAllBtns() {
+            document.getElementById('main-burn-btn').disabled = true;
+            document.getElementById('free-burn-btn').disabled = true;
+        }
+        function enableAllBtns() {
+            document.getElementById('main-burn-btn').disabled = false;
+            document.getElementById('free-burn-btn').disabled = false;
+        }
+
+        // AUTO-PREViEW on login
         (function autoPreview() {
-            const justLoggedIn = localStorage.getItem('knocks_just_logged_in');
+            var justLoggedIn = localStorage.getItem('knocks_just_logged_in');
             if (justLoggedIn === 'true') {
                 localStorage.removeItem('knocks_just_logged_in');
                 setTimeout(function() {
-                    const promptEl = document.getElementById('prompt-input');
-                    if (!promptEl.value) {
-                        promptEl.value = 'WELCOME BACK — 9K ENGiNE PREViEW';
-                    }
-                    // Run a quick visual preview (no credits charged)
+                    var promptEl = document.getElementById('prompt-input');
+                    if (!promptEl.value) promptEl.value = 'WELCOME BACK — 9K ENGiNE PREViEW';
                     if (renderInProgress) return;
                     renderInProgress = true;
                     disableAllBtns();
                     var loader = document.getElementById('loader');
                     var viewport = document.getElementById('viewport');
+                    var bar = document.getElementById('progress-fill');
                     loader.style.display = 'block';
-                    loader.innerText = 'AUTO-PREViEW ACTiVE — NO CREDiTS CHARGED...';
+                    loader.innerText = 'AUTO-PREViEW ACTiVE...';
                     loader.style.color = '#00f2ff';
+                    viewport.classList.add('scan-active');
+                    setConsole('ENGINE_01 NEURAL_02 — PREViEW MODE');
 
                     var progress = 0;
-                    var previewSteps = ['SCANNiNG NEURAL LAYERS...', 'PREViEW BUiLDiNG...', 'WATERMARK OVERLAY ACTiVE...', 'PREViEW COMPLETE'];
-                    var previewRun = setInterval(function() {
+                    var steps = ['SCANNiNG NEURAL LAYERS...', 'PREViEW BUiLDiNG...', 'WATERMARK OVERLAY ACTiVE...', 'PREViEW COMPLETE'];
+                    var run = setInterval(function() {
                         progress += 4;
-                        if (progress <= 25) loader.innerText = previewSteps[0];
-                        else if (progress <= 50) loader.innerText = previewSteps[1];
-                        else if (progress <= 75) loader.innerText = previewSteps[2];
-                        else loader.innerText = previewSteps[3];
+                        bar.style.width = progress + '%';
+                        if (progress <= 25) loader.innerText = steps[0];
+                        else if (progress <= 50) loader.innerText = steps[1];
+                        else if (progress <= 75) loader.innerText = steps[2];
+                        else loader.innerText = steps[3];
 
                         if (progress >= 100) {
-                            clearInterval(previewRun);
+                            clearInterval(run);
                             loader.innerText = 'PREViEW READY — ENTER A PROMPT TO RENDER.';
                             loader.style.color = '#00f2ff';
                             viewport.style.borderColor = '#00f2ff';
                             viewport.style.boxShadow = '0 0 20px rgba(0,242,255,0.15)';
+                            viewport.classList.remove('scan-active');
+                            bar.style.width = '0%';
+                            setConsole('ENGINE_01 NEURAL_02 — READY');
                             renderInProgress = false;
                             enableAllBtns();
                         }
@@ -163,39 +250,31 @@
             }
         })();
 
-        function disableAllBtns() {
-            document.querySelector('.burn-btn').disabled = true;
-            document.getElementById('free-burn-btn').disabled = true;
-        }
-        function enableAllBtns() {
-            document.querySelector('.burn-btn').disabled = false;
-            document.getElementById('free-burn-btn').disabled = false;
-        }
-
         // FREE 5-SEC ViDEO BURN
         function freeBurn() {
             if (renderInProgress) return;
-            if (freeRenders <= 0) {
-                alert("NO FREE RENDERS LEFT. USE CREDiTS OR UPGRADE.");
-                return;
-            }
-            const prompt = document.getElementById('prompt-input').value;
+            if (freeRenders <= 0) { alert("NO FREE RENDERS LEFT. USE CREDiTS OR UPGRADE."); return; }
+            var prompt = document.getElementById('prompt-input').value;
             if (!prompt) { alert("ENTER A PROMPT FiRST"); return; }
 
             renderInProgress = true;
             disableAllBtns();
-            const loader = document.getElementById('loader');
-            const viewport = document.getElementById('viewport');
+            var loader = document.getElementById('loader');
+            var viewport = document.getElementById('viewport');
+            var bar = document.getElementById('progress-fill');
+            bar.className = 'progress-fill free';
 
             loader.style.display = 'block';
             loader.innerText = "GENERATiNG FREE 5-SEC ViDEO...";
             loader.style.color = '#00FF00';
+            viewport.classList.add('scan-active');
+            setConsole('NEURAL_02 — FREE RENDER ACTiVE');
 
-            // Simulate render progress
-            let progress = 0;
-            const steps = ["iNiTiALiZiNG NEURAL LAYERS...", "BUiLDiNG 5-SEC SEQUENCE...", "APPLYiNG ViSUAL FiLTERS...", "FiNALiZiNG OUTPUT..."];
-            const progressInterval = setInterval(() => {
+            var progress = 0;
+            var steps = ["iNiTiALiZiNG NEURAL LAYERS...", "BUiLDiNG 5-SEC SEQUENCE...", "APPLYiNG ViSUAL FiLTERS...", "FiNALiZiNG OUTPUT..."];
+            var progressInterval = setInterval(function() {
                 progress += 5;
+                bar.style.width = progress + '%';
                 if (progress <= 25) loader.innerText = steps[0];
                 else if (progress <= 50) loader.innerText = steps[1];
                 else if (progress <= 75) loader.innerText = steps[2];
@@ -203,7 +282,6 @@
 
                 if (progress >= 100) {
                     clearInterval(progressInterval);
-                    // Only deduct AFTER render completes
                     freeRenders--;
                     localStorage.setItem('knocks_free_renders', freeRenders);
                     updateFreeUI();
@@ -212,39 +290,44 @@
                     loader.style.color = '#00FF00';
                     viewport.style.borderColor = '#00FF00';
                     viewport.style.boxShadow = '0 0 30px rgba(0,255,0,0.2)';
+                    viewport.classList.remove('scan-active');
+                    bar.style.width = '0%';
+                    bar.className = 'progress-fill';
 
-                    const dlBtn = document.getElementById('dl-btn');
-                    dlBtn.classList.add('active');
-
+                    document.getElementById('dl-btn').classList.add('active');
+                    document.getElementById('render-result').style.display = 'block';
+                    setConsole('ENGINE_01 NEURAL_02 — FREE RENDER COMPLETE');
                     renderInProgress = false;
                     enableAllBtns();
                 }
             }, 60);
         }
 
+        // FULL RENDER — 50 CREDiTS
         function initiateBurn() {
             if (renderInProgress) return;
-            const prompt = document.getElementById('prompt-input').value;
-            if(!prompt) { alert("ENTER A PROMPT FIRST"); return; }
-
-            if(credits < 50) {
-                alert("NEED 50 CREDiTS. YOU HAVE " + credits + ". ViSiT THE STORE.");
-                return;
-            }
+            var prompt = document.getElementById('prompt-input').value;
+            if (!prompt) { alert("ENTER A PROMPT FiRST"); return; }
+            if (credits < 50) { alert("NEED 50 CREDiTS. YOU HAVE " + credits + ". ViSiT THE STORE."); return; }
 
             renderInProgress = true;
             disableAllBtns();
-            const loader = document.getElementById('loader');
-            const viewport = document.getElementById('viewport');
+            var loader = document.getElementById('loader');
+            var viewport = document.getElementById('viewport');
+            var bar = document.getElementById('progress-fill');
+            bar.className = 'progress-fill';
 
             loader.style.display = 'block';
-            loader.innerText = "iNiTiATiNG 9K BURN... CREDiTS CHARGED ON COMPLETiON.";
+            loader.innerText = "iNiTiATiNG 9K BURN...";
             loader.style.color = '#FF8C00';
+            viewport.classList.add('scan-active');
+            setConsole('ENGINE_01 — BURN iNiTiATED // CREDiTS ON COMPLETiON');
 
-            let progress = 0;
-            const steps = ["GENERATING_NEURAL_LAYERS...", "APPLYiNG 9K_RENDER_MATRIX...", "iNJECTiNG TRADEMARK SiGNATURE...", "FiNALiZiNG MASTER OUTPUT..."];
-            const progressInterval = setInterval(() => {
+            var progress = 0;
+            var steps = ["GENERATiNG_NEURAL_LAYERS...", "APPLYiNG 9K_RENDER_MATRiX...", "iNJECTiNG TRADEMARK SiGNATURE...", "FiNALiZiNG MASTER OUTPUT..."];
+            var progressInterval = setInterval(function() {
                 progress += 3;
+                bar.style.width = progress + '%';
                 if (progress <= 25) loader.innerText = steps[0];
                 else if (progress <= 50) loader.innerText = steps[1];
                 else if (progress <= 75) loader.innerText = steps[2];
@@ -252,19 +335,21 @@
 
                 if (progress >= 100) {
                     clearInterval(progressInterval);
-                    // Deduct credits ONLY after successful render
                     credits -= 50;
                     localStorage.setItem('knocks_credits', credits);
                     document.getElementById('coin-balance').innerText = credits.toLocaleString();
 
-                    loader.innerText = "9K_RENDER_COMPLETE — 50 CREDiTS CHARGED. MASTER FiLE READY.";
+                    loader.innerText = "9K_RENDER_COMPLETE — MASTER FiLE READY.";
                     loader.style.color = '#00FF00';
                     viewport.style.borderColor = '#00FF00';
                     viewport.style.boxShadow = '0 0 30px rgba(0,255,0,0.2)';
+                    viewport.classList.remove('scan-active');
+                    bar.style.width = '0%';
 
-                    const dlBtn = document.getElementById('dl-btn');
-                    dlBtn.classList.add('active');
-
+                    document.getElementById('dl-btn').classList.add('active');
+                    document.getElementById('render-result').style.display = 'block';
+                    document.getElementById('audio-module').style.display = 'block';
+                    setConsole('ENGINE_01 NEURAL_02 — RENDER COMPLETE // -50 CREDiTS');
                     renderInProgress = false;
                     enableAllBtns();
                 }
@@ -272,7 +357,7 @@
         }
 
         function downloadAsset() {
-            alert("DOWNLOADING_9K_MASTER_FILE...");
+            alert("DOWNLOADiNG_9K_MASTER_FiLE...");
         }
     </script>
 
@@ -291,11 +376,10 @@
                 Loading...
             </div>
         </div>
-        <a href="companions.html" class="companion-link">UNLOCK MORE BOTS →</a>
+        <a href="companions.html" class="companion-link">UNLOCK MORE BOTS &rarr;</a>
     </div>
 
     <script>
-        // COMPANiON BOT iNiT
         (function initCompanion() {
             var data = localStorage.getItem('knocks_companion');
             if (!data) return;

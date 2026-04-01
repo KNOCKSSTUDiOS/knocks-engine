@@ -91,6 +91,12 @@
         .skip-link { position: absolute; top: -100%; left: 0; background: #000; color: #fff; padding: 12px 24px; z-index: 10000; font-size: 1rem; text-decoration: none; }
         .skip-link:focus { top: 0; }
 
+        /* PULSE DOT */
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
         /* GRID ANIMATION */
         .grid-bg {
             position: fixed; inset: 0;
@@ -158,19 +164,43 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="engine-frame group h-[450px]">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="Cinematic Vibrant Fluid Render" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">ENGINE_C1</div>
+            <!-- ENGINE_01 CARD -->
+            <div class="engine-frame group h-[450px] cursor-pointer" onclick="window.location='engine.html'">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="Cinematic Vibrant Fluid Render" class="w-full h-full object-cover opacity-40 group-hover:opacity-90 transition-all duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-3 py-1.5 bg-black/80 backdrop-blur-sm" style="box-shadow: 0 0 12px rgba(0,255,242,0.2);">ENGINE_01</div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <div class="monolith text-white text-sm tracking-widest mb-2">9K_CORE_ENGINE</div>
+                    <div class="text-gray-400 text-[9px] tracking-[0.3em] uppercase">CiNEMATiC RENDER CORE // ViSUAL OUTPUT SYSTEM</div>
+                    <div class="mt-3 h-[2px] bg-cyan-400/0 group-hover:bg-cyan-400/60 transition-all duration-700 w-0 group-hover:w-full"></div>
+                </div>
+                <div class="absolute top-6 right-6 w-2 h-2 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" style="box-shadow: 0 0 8px #00fff2; animation: pulse-dot 2s infinite;"></div>
             </div>
 
-            <div class="engine-frame group h-[450px]">
-                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800" alt="Gold Neural Network Visualization" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">NEURAL_02</div>
+            <!-- NEURAL_02 CARD -->
+            <div class="engine-frame group h-[450px] cursor-pointer" onclick="window.location='render.html'">
+                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800" alt="Gold Neural Network Visualization" class="w-full h-full object-cover opacity-40 group-hover:opacity-90 transition-all duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-3 py-1.5 bg-black/80 backdrop-blur-sm" style="box-shadow: 0 0 12px rgba(0,255,242,0.2);">NEURAL_02</div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <div class="monolith text-white text-sm tracking-widest mb-2">NEURAL_RENDER</div>
+                    <div class="text-gray-400 text-[9px] tracking-[0.3em] uppercase">Ai NEURAL LAYERS // DEEP RENDER PiPELiNE</div>
+                    <div class="mt-3 h-[2px] bg-purple-500/0 group-hover:bg-purple-500/60 transition-all duration-700 w-0 group-hover:w-full"></div>
+                </div>
+                <div class="absolute top-6 right-6 w-2 h-2 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" style="box-shadow: 0 0 8px #bc13fe; animation: pulse-dot 2s infinite;"></div>
             </div>
 
-            <div class="engine-frame group h-[450px]">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Technical Circuitry Interface" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">MATRIX_03</div>
+            <!-- MATRIX_03 CARD -->
+            <div class="engine-frame group h-[450px] cursor-pointer" onclick="window.location='store.html'">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Technical Circuitry Interface" class="w-full h-full object-cover opacity-40 group-hover:opacity-90 transition-all duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-3 py-1.5 bg-black/80 backdrop-blur-sm" style="box-shadow: 0 0 12px rgba(0,255,242,0.2);">MATRIX_03</div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <div class="monolith text-white text-sm tracking-widest mb-2">ARCHiVE_STORE</div>
+                    <div class="text-gray-400 text-[9px] tracking-[0.3em] uppercase">CREDiT SYSTEM // ASSET VAULT ACCESS</div>
+                    <div class="mt-3 h-[2px] bg-amber-400/0 group-hover:bg-amber-400/60 transition-all duration-700 w-0 group-hover:w-full"></div>
+                </div>
+                <div class="absolute top-6 right-6 w-2 h-2 rounded-full bg-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" style="box-shadow: 0 0 8px #ffd700; animation: pulse-dot 2s infinite;"></div>
             </div>
         </div>
 
@@ -184,7 +214,7 @@
             <div>
                 <h4 class="monolith text-5xl md:text-8xl leading-none italic mb-10"><span class="text-cyan-400">VIVID</span>_VEO</h4>
                 <p class="text-gray-500 tracking-[0.4em] uppercase text-[10px] leading-loose">
-                    BUILT FOR PROFESSIONALS. DESIGNED FOR THE BOLD. KNOCKSSTUDiOS IS THE JUNCTION WHERE BRAINS MEET CINEMATIC BEAUTY.
+                    BUiLT FOR PROFESSiONALS. DESiGNED FOR THE BOLD. KNOCKSSTUDiOS iS THE JUNCTiON WHERE BRAiNS MEET CiNEMATiC BEAUTY.
                 </p>
             </div>
         </div>
