@@ -1,92 +1,111 @@
-            font-weight: 900; letter-spacing: 0.5em; margin-bottom: 20px; font-size: 14px;
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KNOCKSSTUDiOS | OMNIPOTENT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@900&display=swap');
+        :root { --ks-void: #020205; --ks-cyan: #00fff2; --ks-blood: #ff4b2b; }
         
-        .trigger-btn { 
-            border: 1px solid rgba(255,255,255,0.1); padding: 50px; width: 100%; 
-            font-weight: 900; letter-spacing: 0.6em; text-transform: uppercase; 
-            font-size: 11px; transition: 0.5s; background: transparent; color: white;
-        }
-        .trigger-active { background: var(--ks-blood) !important; box-shadow: 0 0 70px var(--ks-blood); border: none; }
-        
-        .sys-trigger {
-            position: fixed; bottom: 30px; right: 30px; font-size: 7px; 
-            letter-spacing: 6px; color: rgba(255,255,255,0.03); text-transform: uppercase; font-weight: 900; background:none; border:none; cursor: pointer;
+        body { 
+            background: var(--ks-void); color: white; font-family: 'Inter', sans-serif; 
+            margin: 0; padding: 0; overflow-x: hidden;
+            background: radial-gradient(circle at top right, #1a2a22, transparent),
+                        radial-gradient(circle at bottom left, #1a1a2a, var(--ks-void));
         }
 
-        .badge-ai {
-            text-transform: uppercase;
-            font-size: 8px;
-            letter-spacing: 4px;
-            font-weight: 900;
-            color: #00fff2;
-            border: 1px solid rgba(0, 255, 242, 0.2);
-            padding: 6px 16px;
-            border-radius: 100px;
-            background: rgba(0, 255, 242, 0.05);
+        /* LAYER FIX: Ensure hero is clickable */
+        header { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; text-align: center; }
+
+        .ks-monolith { font-family: 'Syncopate'; font-weight: 900; text-transform: uppercase; }
+
+        .hero-title {
+            font-size: 11vw; letter-spacing: -6px; line-height: 0.78;
+            background: linear-gradient(to bottom right, #ffffff 30%, #00fff2, #8a2be2);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* BUTTON FIX: Added pointer-events and relative positioning */
+        .btn-orange { 
+            position: relative; z-index: 20; background: #ff4b2b; color: white;
+            padding: 22px 55px; border-radius: 60px; font-size: 11px; 
+            font-weight: 900; letter-spacing: 3px; text-transform: uppercase; 
+            border: none; cursor: pointer; display: inline-block; pointer-events: auto;
+            box-shadow: 0 10px 40px rgba(255, 75, 43, 0.4);
+        }
+
+        .btn-outline { 
+            position: relative; z-index: 20; border: 1px solid rgba(255,255,255,0.3); 
+            padding: 22px 55px; border-radius: 60px; font-size: 11px; 
+            font-weight: 900; letter-spacing: 3px; text-transform: uppercase; 
+            background: transparent; color: white; cursor: pointer; pointer-events: auto;
+        }
+
+        /* VAULT OVERLAY */
+        #master-vault { 
+            position: fixed; inset: 0; background: rgba(0,0,0,0.99); 
+            z-index: 9999; display: none; flex-direction: column; 
+            align-items: center; justify-content: center; backdrop-filter: blur(40px);
+        }
+        
+        .ks-input { 
+            background: #050505; border: 1px solid #222; color: var(--ks-cyan); 
+            padding: 24px; text-align: center; width: 300px; outline: none; 
+            font-weight: 900; letter-spacing: 0.5em; font-size: 16px; margin-bottom: 20px;
+        }
+
+        .sys-trigger {
+            position: fixed; bottom: 20px; right: 20px; z-index: 50;
+            font-size: 8px; letter-spacing: 5px; color: rgba(255,255,255,0.05);
+            background: none; border: none; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <header class="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20">
+    <header>
         <div class="mb-10">
-            <span class="badge-ai">● AI LAB LEGENDS</span>
+            <span style="color:#00fff2; border:1px solid rgba(0,255,242,0.3); padding:8px 20px; border-radius:50px; font-size:8px; font-weight:900; letter-spacing:4px;">● AI LAB LEGENDS</span>
         </div>
-        <h1 class="ks-monolith hero-title mb-10">KNOCKS<br>STUDiOS</h1>
-        <p class="max-w-2xl text-gray-400 text-base tracking-wide mb-14 leading-relaxed opacity-80 font-medium">
+        <h1 class="ks-monolith hero-title mb-12">KNOCKS<br>STUDiOS</h1>
+        <p class="max-w-2xl text-gray-400 text-sm md:text-base tracking-wide mb-14 px-6">
             Where cinematic imagination meets omnipotent AI.<br>
             Build worlds. Render legends. Ship the impossible.
         </p>
         <div class="flex flex-col sm:flex-row gap-6">
-            <button class="btn-orange">EXPLORE THE ENGINE</button>
-            <button class="btn-outline">WATCH THE REEL</button>
+            <button class="btn-orange" onclick="console.log('Exploring...')">EXPLORE THE ENGINE</button>
+            <button class="btn-outline" onclick="console.log('Reel Loading...')">WATCH THE REEL</button>
         </div>
     </header>
 
-    <button onclick="document.getElementById('master-vault').style.display='flex'" class="sys-trigger">SYS_OVERRIDE</button>
+    <button onclick="document.getElementById('master-vault').style.display='flex'" class="sys-trigger">SYS_LOGIN</button>
 
     <div id="master-vault">
-        <div class="w-full max-w-md p-12 bg-black border border-white/5 text-center">
+        <div class="w-full max-w-sm p-10 bg-black border border-white/5 text-center">
+            <p class="text-[10px] text-gray-700 tracking-[1em] mb-12 font-black uppercase">Authenticate</p>
+            <input type="password" id="pass-field" class="ks-input" placeholder="PASSKEY">
+            <button onclick="checkAccess()" style="width:100%; background:white; color:black; padding:20px; font-weight:900; font-size:12px; letter-spacing:4px; border:none; cursor:pointer;">VERIFY</button>
+            <button onclick="document.getElementById('master-vault').style.display='none'" style="margin-top:30px; color:#444; font-size:9px; background:none; border:none; cursor:pointer;">CANCEL</button>
             
-            <div id="entry-gate">
-                <p class="text-[10px] text-gray-700 tracking-[1.2em] mb-14 font-black uppercase">AUTHENTICATE_CEO</p>
-                <input type="password" id="pass-field" class="ks-input" placeholder="PASSKEY">
-                <button onclick="checkAccess()" class="w-full py-6 bg-white text-black font-black text-[12px] tracking-[0.6em] uppercase transition hover:bg-cyan-400">VERIFY</button>
-                <button onclick="document.getElementById('master-vault').style.display='none'" class="text-[8px] text-gray-800 mt-12 uppercase tracking-[0.5em] font-bold">Cancel</button>
+            <div id="ceo-controls" style="display:none; margin-top:40px;">
+                <p style="color:#ff4b2b; font-weight:900; font-size:10px; letter-spacing:5px;">CEO ACCESS GRANTED</p>
+                <button onclick="this.style.background='#00fff2'; this.innerText='INFINITE RENDERING: ON'" style="margin-top:20px; width:100%; padding:20px; background:#111; color:white; border:1px solid #333; font-weight:900; font-size:10px;">TRIGGER_INFINITE_BYPASS</button>
             </div>
-
-            <div id="ceo-gate" style="display:none;">
-                <p class="text-[11px] text-red-600 tracking-[1.3em] mb-14 font-black uppercase italic">MASTER_BYPASS_GRANTED</p>
-                <button id="master-trigger" onclick="igniteInfinite()" class="trigger-btn">Infinite_Rendering: OFF</button>
-                <div class="mt-12 space-y-3">
-                    <p class="text-[8px] text-cyan-400 tracking-[0.6em] uppercase font-black">USER: gtamayo36@gmail.com</p>
-                    <p class="text-[8px] text-cyan-400 tracking-[0.6em] uppercase font-black">6_BOTS_SYNCED: TRUE</p>
-                </div>
-                <button onclick="location.reload()" class="mt-16 text-[9px] text-gray-800 uppercase tracking-widest border-b border-gray-900 pb-2">Lock_Engine</button>
-            </div>
-
         </div>
     </div>
 
     <script>
         function checkAccess() {
             const p = document.getElementById('pass-field').value;
-            if (p === "0736") { 
-                document.getElementById('entry-gate').style.display = 'none';
-                document.getElementById('ceo-gate').style.display = 'block';
+            if (p === "0736") {
+                document.getElementById('ceo-controls').style.display = 'block';
+                document.getElementById('pass-field').style.display = 'none';
             } else {
-                alert("ACCESS_DENIED");
+                alert("ACCESS DENIED");
                 location.reload();
             }
-        }
-
-        function igniteInfinite() {
-            const btn = document.getElementById('master-trigger');
-            btn.classList.toggle('trigger-active');
-            const status = btn.classList.contains('trigger-active');
-            btn.innerText = status ? "Infinite_Rendering: ACTIVE" : "Infinite_Rendering: OFF";
-            // SYSTEM BOT SYNC
-            console.log("CEO Override engaged. Bots 1-6 syncing to gtamayo36@gmail.com.");
         }
     </script>
 </body>
