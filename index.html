@@ -2,288 +2,137 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>KNOCKSSTUDiOS | SOVEREIGN ENGINE 3.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>V | SOVEREIGN_V5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
+            --win-gray: #c0c0c0;
+            --win-blue: #000080;
             --cyan: #00fff2;
             --void: #010103;
-            --silver: #e2e8f0;
-            --glow: 0 0 25px rgba(0, 255, 242, 0.4);
         }
 
         body {
-            background-color: var(--void);
-            color: #ffffff;
+            background-color: #008080; /* Raw Tablet Desktop */
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            /* VIVID GRADIENT DEPTH */
-            background-image: 
-                radial-gradient(circle at 10% 10%, rgba(0, 255, 242, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(188, 19, 254, 0.08) 0%, transparent 40%);
-            background-attachment: fixed;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
 
-        /* ANIMATED METALLIC BRAND TITLE */
-        @keyframes hero-color-fade {
-            0%   { background-position: 0% 50%; }
-            50%  { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* THE SOVEREIGN SHELL */
+        main.v-shell {
+            background: var(--win-gray);
+            border: 3px solid;
+            border-color: #fff #404040 #404040 #fff;
+            width: 98vw;
+            height: 88vh;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.5);
         }
-        .metallic-title {
-            font-size: clamp(3rem, 15vw, 10rem);
-            line-height: 0.8;
-            background: linear-gradient(
-                270deg,
-                #00fff2,
-                #e2e8f0,
-                #00e5ff,
-                #bc13fe,
-                #ff6ec7,
-                #ffd700,
-                #00ffcc,
-                #94a3b8,
-                #ffffff,
-                #00fff2
-            );
-            background-size: 600% 600%;
+
+        .win-title {
+            background: linear-gradient(90deg, var(--win-blue), #1084d0);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-weight: 900;
+            font-size: 13px;
+        }
+
+        .workspace {
+            background: var(--void);
+            margin: 4px;
+            border: 4px inset #fff;
+            flex-grow: 1;
+            padding: 40px;
+            position: relative;
+            background-image: radial-gradient(circle at center, rgba(0,255,242,0.1) 0%, transparent 85%);
+        }
+
+        /* THE BLACK MECH ASSISTANT (downloadfile-65.mp4) */
+        .mech-live-pin {
+            position: fixed;
+            bottom: 75px;
+            right: 40px;
+            width: 250px; 
+            height: 180px;
+            z-index: 9999;
+            border: 2px solid var(--cyan);
+            background: #000;
+            box-shadow: 0 0 35px rgba(0, 255, 242, 0.6);
+            border-radius: 4px;
+            overflow: hidden;
+            animation: tablet-float 5s ease-in-out infinite;
+        }
+
+        @keyframes tablet-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .metallic-v {
+            background: linear-gradient(180deg, #FFFFFF 0%, #718096 50%, #FFFFFF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: hero-color-fade 10s ease infinite;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 242, 0.5))
-                   drop-shadow(0 0 40px rgba(188, 19, 254, 0.3));
+            font-size: clamp(4rem, 18vw, 12rem);
+            filter: drop-shadow(0 0 20px rgba(0,255,242,0.4));
+            line-height: 0.8;
         }
 
-        /* HARDWARE ACCELERATED FRAMES */
-        .engine-frame {
-            position: relative;
-            border-radius: 20px;
+        /* VEO_CORE SYNCED PANELS */
+        .veo-panel {
             border: 1px solid rgba(0, 255, 242, 0.2);
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: var(--glow);
-            overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            will-change: transform;
+            background: rgba(255,255,255,0.02);
+            padding: 25px;
+            transition: 0.2s;
+            cursor: pointer;
         }
-        .engine-frame:hover { transform: scale(1.03) translateY(-10px); border-color: var(--cyan); }
-
-        /* ACCESSIBLE NEON BUTTON */
-        .btn-core {
-            background: var(--cyan);
-            color: #000;
-            padding: 20px 50px;
-            font-weight: 900;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            box-shadow: 0 0 30px rgba(0, 255, 242, 0.6);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        .btn-core:hover { background: #fff; box-shadow: 0 0 50px #fff; transform: translateY(-3px); }
-
-        /* FOCUS STYLES */
-        :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
-        .skip-link { position: absolute; top: -100%; left: 0; background: #000; color: #fff; padding: 12px 24px; z-index: 10000; font-size: 1rem; text-decoration: none; }
-        .skip-link:focus { top: 0; }
-
-        /* PULSE DOT */
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.5); }
+        .veo-panel:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 255, 242, 0.05);
         }
 
-        /* GRID ANIMATION */
-        .grid-bg {
-            position: fixed; inset: 0;
-            background-image: linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: -1;
-            mask-image: radial-gradient(circle at center, black, transparent 80%);
+        /* TASKBAR */
+        .taskbar {
+            height: 50px;
+            background: var(--win-gray);
+            border-top: 3px solid #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
         }
     </style>
 </head>
 <body>
 
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-
-    <div class="grid-bg" aria-hidden="true"></div>
-
-    <nav class="fixed top-0 w-full p-8 flex justify-between items-center z-[1000] backdrop-blur-md border-b border-white/5" aria-label="Main navigation">
-        <div class="monolith text-[9px] tracking-[1em] text-cyan-400">Signal: Sovereign_Active</div>
-        <button onclick="toggleNav()" class="group flex flex-col gap-1" aria-label="Open navigation menu" aria-expanded="false" aria-controls="drawer">
-            <div class="w-8 h-[2px] bg-cyan-400" aria-hidden="true"></div>
-            <div class="w-5 h-[2px] bg-white ml-auto" aria-hidden="true"></div>
-        </button>
-    </nav>
-
-    <aside id="drawer" role="dialog" aria-label="Radio player and navigation" aria-hidden="true" class="fixed top-0 right-[-100%] w-full max-w-md h-full bg-black/95 z-[2000] transition-all duration-500 border-l border-cyan-400/20 p-12 backdrop-blur-3xl">
-        <p class="monolith text-[10px] text-cyan-400 mb-8">Master_Frequency</p>
-        <div class="engine-frame aspect-square">
-            <iframe title="Knocks Radio Live Stream" src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" width="100%" height="100%" frameborder="0"></iframe>
-        </div>
-        <button onclick="toggleNav()" class="mt-12 monolith text-[9px] text-gray-500 hover:text-white" aria-label="Close navigation menu">Close_Connection</button>
-    </aside>
-
-    <main id="main-content" class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
-        <div class="inline-block border border-cyan-400/30 px-6 py-2 rounded-full mb-12 bg-cyan-400/5">
-            <span class="monolith text-[8px] text-cyan-400 tracking-[0.5em]">AI_ENGINE_CORE_v3.0</span>
-        </div>
-
-        <h1 class="monolith metallic-title">KNOCKS<br>STUDiOS</h1>
-
-        <p class="mt-12 max-w-2xl text-gray-400 text-xs md:text-sm tracking-[0.7em] leading-loose uppercase">
-            The world's most <span class="text-white">Omnipotent</span> AI creative engine for cinematic mastery.
-        </p>
-
-        <div class="mt-16 flex flex-col sm:flex-row gap-8">
-            <a href="render.html" class="btn-core inline-block text-center no-underline" style="text-decoration:none;">Ignite Engine</a>
-            <a href="signup.html" class="px-12 py-5 border border-white/20 monolith text-[10px] tracking-[0.3em] hover:bg-white hover:text-black transition-all inline-block text-center no-underline" style="text-decoration:none;">The Vision</a>
-            <a href="companions.html" class="px-12 py-5 border monolith text-[10px] tracking-[0.3em] hover:bg-cyan-400 hover:text-black transition-all inline-block text-center no-underline" style="text-decoration:none; border-color: rgba(0,242,255,0.3); color: #00f2ff;">Companion Bots</a>
-        </div>
-
-        <div class="mt-10">
-            <a href="signup.html" style="text-decoration:none; color: #00ff88; font-family: 'Syncopate', sans-serif; font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; border: 1px solid rgba(0,255,136,0.3); padding: 12px 30px; display: inline-block; transition: all 0.3s;">
-                FREE SiGN UP — 2 ViDEO RENDERS (5 SEC EACH)
-            </a>
-        </div>
-    </main>
-
-    <section class="py-40 px-6 max-w-7xl mx-auto">
-        <div class="mb-24 flex flex-col md:flex-row justify-between items-end gap-6">
-            <div>
-                <span class="monolith text-cyan-400 text-[10px] tracking-[1em] block mb-4">Capability_Report</span>
-                <h2 class="monolith text-4xl md:text-7xl italic">VISUAL_OVERLOAD</h2>
-            </div>
-            <p class="text-gray-500 text-[9px] tracking-widest uppercase max-w-xs">High-fidelity rendering powered by the AI Lab Legends structure.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- ENGINE_01 CARD -->
-            <div class="engine-frame group h-[450px] cursor-pointer" onclick="window.location='engine.html'">
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="Cinematic Vibrant Fluid Render" class="w-full h-full object-cover opacity-40 group-hover:opacity-90 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-3 py-1.5 bg-black/80 backdrop-blur-sm" style="box-shadow: 0 0 12px rgba(0,255,242,0.2);">ENGINE_01</div>
-                <div class="absolute bottom-0 left-0 right-0 p-6">
-                    <div class="monolith text-white text-sm tracking-widest mb-2">9K_CORE_ENGINE</div>
-                    <div class="text-gray-400 text-[9px] tracking-[0.3em] uppercase">CiNEMATiC RENDER CORE // ViSUAL OUTPUT SYSTEM</div>
-                    <div class="mt-3 h-[2px] bg-cyan-400/0 group-hover:bg-cyan-400/60 transition-all duration-700 w-0 group-hover:w-full"></div>
-                </div>
-                <div class="absolute top-6 right-6 w-2 h-2 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity" style="box-shadow: 0 0 8px #00fff2; animation: pulse-dot 2s infinite;"></div>
-            </div>
-
-            <!-- NEURAL_02 CARD -->
-            <div class="engine-frame group h-[450px] cursor-pointer" onclick="window.location='render.html'">
-                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800" alt="Gold Neural Network Visualization" class="w-full h-full object-cover opacity-40 group-hover:opacity-90 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-3 py-1.5 bg-black/80 backdrop-blur-sm" style="box-shadow: 0 0 12px rgba(0,255,242,0.2);">NEURAL_02</div>
-                <div class="absolute bottom-0 left-0 right-0 p-6">
-                    <div class="monolith text-white text-sm tracking-widest mb-2">NEURAL_RENDER</div>
-                    <div class="text-gray-400 text-[9px] tracking-[0.3em] uppercase">Ai NEURAL LAYERS // DEEP RENDER PiPELiNE</div>
-                    <div class="mt-3 h-[2px] bg-purple-500/0 group-hover:bg-purple-500/60 transition-all duration-700 w-0 group-hover:w-full"></div>
-                </div>
-                <div class="absolute top-6 right-6 w-2 h-2 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity" style="box-shadow: 0 0 8px #bc13fe; animation: pulse-dot 2s infinite;"></div>
-            </div>
-
-            <!-- MATRIX_03 CARD -->
-            <div class="engine-frame group h-[450px] cursor-pointer" onclick="window.location='store.html'">
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Technical Circuitry Interface" class="w-full h-full object-cover opacity-40 group-hover:opacity-90 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
-                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-3 py-1.5 bg-black/80 backdrop-blur-sm" style="box-shadow: 0 0 12px rgba(0,255,242,0.2);">MATRIX_03</div>
-                <div class="absolute bottom-0 left-0 right-0 p-6">
-                    <div class="monolith text-white text-sm tracking-widest mb-2">ARCHiVE_STORE</div>
-                    <div class="text-gray-400 text-[9px] tracking-[0.3em] uppercase">CREDiT SYSTEM // ASSET VAULT ACCESS</div>
-                    <div class="mt-3 h-[2px] bg-amber-400/0 group-hover:bg-amber-400/60 transition-all duration-700 w-0 group-hover:w-full"></div>
-                </div>
-                <div class="absolute top-6 right-6 w-2 h-2 rounded-full bg-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" style="box-shadow: 0 0 8px #ffd700; animation: pulse-dot 2s infinite;"></div>
-            </div>
-        </div>
-
-        <div class="mt-40 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div class="engine-frame p-16 bg-black">
-                <h3 class="monolith text-4xl mb-8">UNRIVALED<br>STRUCTURE</h3>
-                <p class="text-gray-400 leading-relaxed tracking-widest text-xs uppercase">
-                    We don't just build websites. We build digital fortresses. Every line of code is optimized for INP, LCP, and Sovereign Performance.
-                </p>
-            </div>
-            <div>
-                <h4 class="monolith text-5xl md:text-8xl leading-none italic mb-10"><span class="text-cyan-400">VIVID</span>_VEO</h4>
-                <p class="text-gray-500 tracking-[0.4em] uppercase text-[10px] leading-loose">
-                    BUiLT FOR PROFESSiONALS. DESiGNED FOR THE BOLD. KNOCKSSTUDiOS iS THE JUNCTiON WHERE BRAiNS MEET CiNEMATiC BEAUTY.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-20 text-center border-t border-white/5" role="contentinfo">
-        <p class="monolith text-[8px] text-gray-700 tracking-[2em]">Sovereign_Engine_Core_2026</p>
-        <button onclick="openVault()" class="mt-12 text-[8px] text-white/10 hover:text-cyan-400 tracking-[1em]" aria-label="Open system access panel">SYSTEM_BYPASS_0736</button>
-    </footer>
-
-    <div id="vault" role="dialog" aria-label="System access verification" aria-hidden="true" class="fixed inset-0 bg-black/98 z-[5000] hidden items-center justify-center backdrop-blur-3xl">
-        <div class="max-w-md w-full p-16 engine-frame text-center bg-black">
-            <p class="monolith text-cyan-400 text-xs mb-10" id="vault-title">Access_Identify</p>
-            <label for="vault-password" class="sr-only">Enter access code</label>
-            <input type="password" id="vault-password" class="w-full bg-black border border-white/10 p-5 text-white text-center tracking-[1em] outline-none focus:border-cyan-400 mb-8" placeholder="****" aria-labelledby="vault-title">
-            <button onclick="verify()" class="btn-core w-full">Enter Core</button>
-            <button onclick="closeVault()" class="mt-8 text-[9px] text-gray-600 block mx-auto" aria-label="Close access panel">Abort</button>
-        </div>
+    <div class="mech-live-pin">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+            <source src="./downloadfile-65.mp4" type="video/mp4">
+        </video>
     </div>
 
-    <script>
-        function toggleNav() {
-            const drawer = document.getElementById('drawer');
-            const navBtn = document.querySelector('nav button');
-            const isOpen = drawer.classList.contains('right-0');
-            drawer.classList.toggle('right-0');
-            drawer.classList.toggle('right-[-100%]');
-            const nowOpen = !isOpen;
-            navBtn.setAttribute('aria-expanded', nowOpen);
-            drawer.setAttribute('aria-hidden', !nowOpen);
-            if (nowOpen) {
-                drawer.querySelector('button').focus();
-            } else {
-                navBtn.focus();
-            }
-        }
+    <main class="v-shell">
+        <div class="win-title">
+            <span>KNOCKSSTiUDiOS_SOVEREIGN_V_OS</span>
+            <div class="flex gap-2">
+                <button class="w-6 h-6 bg-gray-300 border border-black shadow-[inset_1px_1px_#fff]">_</button>
+                <button class="w-6 h-6 bg-gray-300 border border-black shadow-[inset_1px_1px_#fff] text-xs">X</button>
+            </div>
+        </div>
 
-        function openVault() {
-            const vault = document.getElementById('vault');
-            vault.style.display = 'flex';
-            vault.setAttribute('aria-hidden', 'false');
-            document.getElementById('vault-password').focus();
-        }
-
-        function closeVault() {
-            const vault = document.getElementById('vault');
-            vault.style.display = 'none';
-            vault.setAttribute('aria-hidden', 'true');
-        }
-
-        function verify() {
-            if (document.getElementById('vault-password').value === "0736") {
-                alert("IDENTITY_CONFIRMED. WELCOME.");
-                closeVault();
-            } else {
-                alert("SIGNAL_REJECTED.");
-                location.reload();
-            }
-        }
-
-        // Close drawer and vault on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const drawer = document.getElementById('drawer');
-                if (drawer.classList.contains('right-0')) toggleNav();
-                const vault = document.getElementById('vault');
-                if (vault.style.display === 'flex') closeVault();
-            }
-        });
-    </script>
-</body>
-</html>
+        <div class="workspace">
+            <h1 class="monolith metallic-v mb-16">V_OS</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div class="
