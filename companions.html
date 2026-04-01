@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMPANiON BOTS | KNOCKSSTUDiOS</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
+
+        .header { padding: 40px; border-bottom: 1px solid #111; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .brand-sig { font-weight: 900; letter-spacing: 5px; color: #00f2ff; }
+        .nav-back { color: #555; font-size: 11px; letter-spacing: 2px; text-decoration: none; transition: color 0.3s; }
+        .nav-back:hover { color: #00f2ff; }
+
+        .section-label { text-align: center; padding: 50px 20px 10px; }
+        .section-label h2 { font-size: 11px; letter-spacing: 8px; color: #555; text-transform: uppercase; }
+        .section-label p { font-size: 10px; color: #333; letter-spacing: 3px; margin-top: 8px; }
+
+        .intro-box { max-width: 700px; margin: 20px auto 30px; padding: 25px; border: 1px solid #1a1a1a; background: #050505; text-align: center; }
+        .intro-box p { font-size: 11px; color: #888; letter-spacing: 1px; line-height: 1.8; }
+        .intro-box .highlight { color: #00f2ff; font-weight: bold; }
+
+        /* MY COMPANiON PANEL */
+        .my-companion-panel { max-width: 700px; margin: 0 auto 40px; padding: 30px; border: 1px solid #00f2ff; background: rgba(0,242,255,0.03); display: none; }
+        .my-companion-panel h3 { font-size: 12px; letter-spacing: 4px; color: #00f2ff; margin-bottom: 15px; text-align: center; }
+        .my-companion-panel .companion-card-mini { display: flex; align-items: center; gap: 20px; padding: 15px; border: 1px solid #222; background: #0a0a0a; }
+        .companion-avatar-mini { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .companion-info-mini { flex: 1; }
+        .companion-info-mini .name { color: #fff; font-size: 13px; letter-spacing: 2px; font-weight: bold; }
+        .companion-info-mini .role { color: #666; font-size: 10px; letter-spacing: 1px; margin-top: 4px; }
+        .owned-themes { margin-top: 15px; text-align: center; font-size: 10px; color: #555; letter-spacing: 2px; }
+        .owned-themes span { display: inline-block; padding: 4px 10px; margin: 4px; border: 1px solid #333; font-size: 9px; letter-spacing: 1px; }
+        .owned-themes span.active { border-color: #00FF00; color: #00FF00; }
+
+        /* THEME CATEGORiES */
+        .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 30px 50px 20px; }
+        .theme-card { background: #050505; border: 1px solid #222; padding: 30px; text-align: center; position: relative; transition: 0.4s; }
+        .theme-card:hover { transform: translateY(-3px); }
+        .theme-card.school { border-color: #4a90d9; }
+        .theme-card.school:hover { box-shadow: 0 0 40px rgba(74,144,217,0.15); }
+        .theme-card.store-theme { border-color: #ffd700; }
+        .theme-card.store-theme:hover { box-shadow: 0 0 40px rgba(255,215,0,0.15); }
+        .theme-card.rendering { border-color: #ff4500; }
+        .theme-card.rendering:hover { box-shadow: 0 0 40px rgba(255,69,0,0.15); }
+
+        .theme-icon { font-size: 2.5rem; margin-bottom: 15px; display: block; }
+        .theme-card h3 { font-size: 14px; letter-spacing: 3px; margin-bottom: 8px; }
+        .theme-card.school h3 { color: #4a90d9; }
+        .theme-card.store-theme h3 { color: #ffd700; }
+        .theme-card.rendering h3 { color: #ff4500; }
+
+        .theme-desc { font-size: 10px; color: #888; letter-spacing: 1px; line-height: 1.8; margin-bottom: 20px; min-height: 60px; }
+
+        /* BOT LiST iNSiDE EACH THEME */
+        .bot-list { border-top: 1px solid #1a1a1a; padding-top: 15px; margin-bottom: 20px; }
+        .bot-entry { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #0f0f0f; }
+        .bot-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+        .bot-entry .bot-name { font-size: 11px; letter-spacing: 2px; color: #ccc; font-weight: bold; }
+        .bot-entry .bot-role { font-size: 9px; color: #555; letter-spacing: 1px; }
+
+        /* PRiCiNG */
+        .theme-price { font-size: 1.8rem; font-weight: 900; margin: 15px 0 5px; }
+        .theme-card.school .theme-price { color: #4a90d9; }
+        .theme-card.store-theme .theme-price { color: #ffd700; }
+        .theme-card.rendering .theme-price { color: #ff4500; }
+        .price-note { font-size: 9px; color: #555; letter-spacing: 2px; margin-bottom: 20px; }
+
+        .theme-btn { width: 100%; padding: 14px; background: transparent; cursor: pointer; font-weight: bold; letter-spacing: 3px; font-family: 'Courier New', monospace; font-size: 11px; transition: 0.3s; }
+        .theme-card.school .theme-btn { border: 1px solid #4a90d9; color: #4a90d9; }
+        .theme-card.school .theme-btn:hover { background: #4a90d9; color: #000; }
+        .theme-card.store-theme .theme-btn { border: 1px solid #ffd700; color: #ffd700; }
+        .theme-card.store-theme .theme-btn:hover { background: #ffd700; color: #000; }
+        .theme-card.rendering .theme-btn { border: 1px solid #ff4500; color: #ff4500; }
+        .theme-card.rendering .theme-btn:hover { background: #ff4500; color: #000; }
+        .theme-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .theme-btn.owned { border-color: #00FF00; color: #00FF00; }
+
+        :focus-visible { outline: 2px solid #00f2ff; outline-offset: 2px; }
+
+        /* BUNDLE */
+        .bundle-section { max-width: 700px; margin: 30px auto 50px; padding: 35px; border: 2px solid #00f2ff; background: rgba(0,242,255,0.03); text-align: center; position: relative; overflow: hidden; }
+        .bundle-section::before { content: "BEST VALUE"; position: absolute; top: 12px; right: -30px; background: #00f2ff; color: #000; font-size: 8px; font-weight: 900; padding: 4px 40px; transform: rotate(45deg); letter-spacing: 2px; }
+        .bundle-section h3 { font-size: 16px; letter-spacing: 5px; color: #00f2ff; margin-bottom: 10px; }
+        .bundle-section .bundle-desc { font-size: 11px; color: #888; letter-spacing: 1px; margin-bottom: 15px; }
+        .bundle-price { font-size: 2.5rem; font-weight: 900; color: #00f2ff; }
+        .bundle-original { font-size: 12px; color: #555; text-decoration: line-through; margin-bottom: 5px; }
+        .bundle-save { font-size: 11px; color: #00FF00; font-weight: bold; letter-spacing: 2px; margin-bottom: 20px; }
+        .bundle-btn { padding: 18px 40px; background: #00f2ff; color: #000; border: none; cursor: pointer; font-weight: 900; letter-spacing: 4px; font-family: 'Courier New', monospace; font-size: 13px; transition: 0.3s; }
+        .bundle-btn:hover { background: #fff; box-shadow: 0 0 30px rgba(255,255,255,0.3); }
+        .bundle-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .divider { border: none; border-top: 1px solid #111; margin: 0 50px; }
+
+        .footer-nav { text-align: center; padding: 40px 20px 60px; }
+        .footer-nav a { color: #444; text-decoration: none; font-size: 10px; letter-spacing: 3px; margin: 0 15px; transition: color 0.3s; }
+        .footer-nav a:hover { color: #00f2ff; }
+
+        .log-feed { padding: 30px 50px 50px; border-top: 1px solid #111; color: #333; font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div>
+            <h1 class="brand-sig">COMPANiON BOTS</h1>
+            <a href="index.html" class="nav-back">← RETURN_TO_CORE</a>
+        </div>
+    </header>
+
+    <div class="section-label">
+        <h2>PERSONAL Ai COMPANiONS</h2>
+        <p>EVERY OPERATOR GETS A PERSONAL BOT — UNLOCK THEMED SQUADS</p>
+    </div>
+
+    <div class="intro-box">
+        <p>Each signup receives a <span class="highlight">FREE PERSONAL COMPANiON BOT</span> with a unique name. Unlock themed companion packs to add specialized bots to your crew — each with their own personality, skills, and role in the engine.</p>
+    </div>
+
+    <!-- MY COMPANiON PANEL -->
+    <div class="my-companion-panel" id="my-companion-panel">
+        <h3>YOUR PERSONAL COMPANiON</h3>
+        <div class="companion-card-mini">
+            <div class="companion-avatar-mini" id="my-avatar" style="background: #1a1a2e; border: 2px solid #00f2ff;"></div>
+            <div class="companion-info-mini">
+                <div class="name" id="my-companion-name">—</div>
+                <div class="role" id="my-companion-role">—</div>
+            </div>
+        </div>
+        <div class="owned-themes" id="owned-themes-display">
+            UNLOCKED THEMES:
+            <span id="badge-school">SCHOOL</span>
+            <span id="badge-store">STORE</span>
+            <span id="badge-rendering">RENDERiNG</span>
+        </div>
+    </div>
+
+    <!-- THEME CARDS -->
+    <main class="themes-grid">
+        <!-- SCHOOL THEME -->
+        <div class="theme-card school">
+            <span class="theme-icon">&#x1F393;</span>
+            <h3>SCHOOL THEME</h3>
+            <div class="theme-desc">Academic companion bots focused on learning, tutorials, and creative education. They guide you through the engine, explain features, and help you master rendering techniques.</div>
+            <div class="bot-list">
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#1a2744; border:2px solid #4a90d9;">&#x1F4DA;</div>
+                    <div>
+                        <div class="bot-name">PROFESSOR_NOVA</div>
+                        <div class="bot-role">RENDER TUTOR — EXPLAINS EVERY STEP</div>
+                    </div>
+                </div>
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#1a2744; border:2px solid #4a90d9;">&#x1F52C;</div>
+                    <div>
+                        <div class="bot-name">SCHOLAR_FLUX</div>
+                        <div class="bot-role">RESEARCH ASSiSTANT — PROMPT OPTiMiZER</div>
+                    </div>
+                </div>
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#1a2744; border:2px solid #4a90d9;">&#x270D;&#xFE0F;</div>
+                    <div>
+                        <div class="bot-name">CADET_SKETCH</div>
+                        <div class="bot-role">CREATiVE COACH — STYLE GUiDANCE</div>
+                    </div>
+                </div>
+            </div>
+            <div class="theme-price">$4.99</div>
+            <div class="price-note">ONE-TiME UNLOCK — 3 BOTS</div>
+            <button type="button" class="theme-btn" id="btn-school" onclick="buyTheme('school')">UNLOCK SCHOOL PACK</button>
+        </div>
+
+        <!-- STORE THEME -->
+        <div class="theme-card store-theme">
+            <span class="theme-icon">&#x1F3EA;</span>
+            <h3>STORE THEME</h3>
+            <div class="theme-desc">Commerce-savvy companion bots that track your credits, find deals, recommend packs, and help you manage your rendering economy like a pro operator.</div>
+            <div class="bot-list">
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#2a2200; border:2px solid #ffd700;">&#x1F4B0;</div>
+                    <div>
+                        <div class="bot-name">MERCHANT_CYPHER</div>
+                        <div class="bot-role">CREDiT ADViSOR — SPEND SMART</div>
+                    </div>
+                </div>
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#2a2200; border:2px solid #ffd700;">&#x1F4C8;</div>
+                    <div>
+                        <div class="bot-name">BROKER_PULSE</div>
+                        <div class="bot-role">DEAL FiNDER — BUNDLE EXPERT</div>
+                    </div>
+                </div>
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#2a2200; border:2px solid #ffd700;">&#x1F6D2;</div>
+                    <div>
+                        <div class="bot-name">VAULT_KEEPER</div>
+                        <div class="bot-role">iNVENTORY MANAGER — ASSET TRACKER</div>
+                    </div>
+                </div>
+            </div>
+            <div class="theme-price">$6.99</div>
+            <div class="price-note">ONE-TiME UNLOCK — 3 BOTS</div>
+            <button type="button" class="theme-btn" id="btn-store" onclick="buyTheme('store')">UNLOCK STORE PACK</button>
+        </div>
+
+        <!-- RENDERiNG THEME -->
+        <div class="theme-card rendering">
+            <span class="theme-icon">&#x1F525;</span>
+            <h3>RENDERiNG THEME</h3>
+            <div class="theme-desc">Power-user companion bots that optimize your renders, suggest quality settings, monitor progress, and push the 9K engine to its absolute limits.</div>
+            <div class="bot-list">
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#2a0a00; border:2px solid #ff4500;">&#x1F3A8;</div>
+                    <div>
+                        <div class="bot-name">PiXEL_VORTEX</div>
+                        <div class="bot-role">RENDER OPTiMiZER — MAX QUALITY</div>
+                    </div>
+                </div>
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#2a0a00; border:2px solid #ff4500;">&#x1F6E1;&#xFE0F;</div>
+                    <div>
+                        <div class="bot-name">FRAME_SENTiNEL</div>
+                        <div class="bot-role">QUALiTY CHECKER — ERROR PATROL</div>
+                    </div>
+                </div>
+                <div class="bot-entry">
+                    <div class="bot-avatar" style="background:#2a0a00; border:2px solid #ff4500;">&#x26A1;</div>
+                    <div>
+                        <div class="bot-name">BLAZE_CORE</div>
+                        <div class="bot-role">SPEED DAEMON — RENDER ACCELERATOR</div>
+                    </div>
+                </div>
+            </div>
+            <div class="theme-price">$9.99</div>
+            <div class="price-note">ONE-TiME UNLOCK — 3 BOTS</div>
+            <button type="button" class="theme-btn" id="btn-rendering" onclick="buyTheme('rendering')">UNLOCK RENDERiNG PACK</button>
+        </div>
+    </main>
+
+    <hr class="divider">
+
+    <!-- BUNDLE DEAL -->
+    <div class="bundle-section">
+        <h3>FULL SQUAD BUNDLE</h3>
+        <div class="bundle-desc">ALL 3 THEMES — 9 COMPANiON BOTS — EVERY SKILL UNLOCKED</div>
+        <div class="bundle-original">$21.97</div>
+        <div class="bundle-price">$14.99</div>
+        <div class="bundle-save">SAVE $6.98 — ALL THEMES UNLOCKED</div>
+        <button type="button" class="bundle-btn" id="btn-bundle" onclick="buyBundle()">UNLOCK FULL SQUAD</button>
+    </div>
+
+    <hr class="divider">
+
+    <div class="footer-nav">
+        <a href="store.html">CREDiT STORE</a>
+        <a href="render.html">RENDER ENGiNE</a>
+        <a href="engine.html">9K CORE</a>
+        <a href="signup.html">UPGRADE TiER</a>
+        <a href="index.html">HOME</a>
+    </div>
+
+    <div class="log-feed" id="log-feed" role="log" aria-live="polite" aria-label="Companion system log">
+        [SYSTEM] COMPANiON_NETWORK_ONLiNE...<br>
+        [SYSTEM] BOT_REGiSTRY_ACTiVE...
+    </div>
+
+    <script>
+        // COMPANiON BOT NAME POOLS
+        const COMPANION_NAMES = [
+            'AXION', 'CIPHER', 'DRIFT', 'ECHO', 'FLARE', 'GHOST', 'HAZE', 'ION',
+            'JETT', 'KODA', 'LYRIC', 'MAKO', 'NEON', 'ONYX', 'PRISM', 'QUAKE',
+            'RAZE', 'SHARD', 'TRACE', 'UMBRA', 'VOLT', 'WREN', 'XERO', 'ZENITH',
+            'APEX', 'BYTE', 'CRUX', 'DUSK', 'EMBER', 'FUSE', 'GRID', 'HELIX',
+            'INK', 'JAX', 'Knox', 'LUMEN', 'MATRIX', 'NEXUS', 'ORBIT', 'PHASE',
+            'QUARTZ', 'RIFT', 'SPARK', 'TITAN', 'UNIT', 'VEGA', 'WAVE', 'ZION'
+        ];
+
+        const COMPANION_ROLES = [
+            'PERSONAL ASSiSTANT', 'ENGINE GUiDE', 'CREATiVE ALLY',
+            'RENDER PARTNER', 'SYSTEM NAViGATOR', 'PROJECT BUDDY'
+        ];
+
+        const COMPANION_ICONS = [
+            '\u{1F916}', '\u{1F47E}', '\u{2728}', '\u{1F4AB}', '\u{1F30A}', '\u{1F525}',
+            '\u{26A1}', '\u{1F680}', '\u{1F3AF}', '\u{1F4A0}', '\u{1F300}', '\u{2B50}'
+        ];
+
+        // Load companion data
+        function getCompanion() {
+            const data = localStorage.getItem('knocks_companion');
+            return data ? JSON.parse(data) : null;
+        }
+
+        function getOwnedThemes() {
+            const data = localStorage.getItem('knocks_companion_themes');
+            return data ? JSON.parse(data) : [];
+        }
+
+        // Show current companion
+        function displayMyCompanion() {
+            const companion = getCompanion();
+            const panel = document.getElementById('my-companion-panel');
+            if (!companion) {
+                panel.style.display = 'none';
+                return;
+            }
+            panel.style.display = 'block';
+            document.getElementById('my-companion-name').innerText = companion.name;
+            document.getElementById('my-companion-role').innerText = companion.role;
+            document.getElementById('my-avatar').innerText = companion.icon;
+            document.getElementById('my-avatar').style.fontSize = '20px';
+
+            // Show owned themes
+            const themes = getOwnedThemes();
+            ['school', 'store', 'rendering'].forEach(t => {
+                const badge = document.getElementById('badge-' + t);
+                if (themes.includes(t)) {
+                    badge.classList.add('active');
+                }
+            });
+        }
+
+        // Update purchase buttons
+        function updateButtons() {
+            const themes = getOwnedThemes();
+            ['school', 'store', 'rendering'].forEach(t => {
+                const btn = document.getElementById('btn-' + t);
+                if (themes.includes(t)) {
+                    btn.innerText = 'UNLOCKED';
+                    btn.disabled = true;
+                    btn.classList.add('owned');
+                }
+            });
+            if (themes.includes('school') && themes.includes('store') && themes.includes('rendering')) {
+                document.getElementById('btn-bundle').innerText = 'ALL THEMES OWNED';
+                document.getElementById('btn-bundle').disabled = true;
+            }
+        }
+
+        // Buy a theme
+        function buyTheme(theme) {
+            const companion = getCompanion();
+            if (!companion) {
+                alert('SIGN UP FiRST TO GET YOUR PERSONAL COMPANiON BOT.');
+                window.location.href = 'signup.html';
+                return;
+            }
+            const themes = getOwnedThemes();
+            if (themes.includes(theme)) {
+                alert('YOU ALREADY OWN THiS THEME.');
+                return;
+            }
+
+            const prices = { school: '$4.99', store: '$6.99', rendering: '$9.99' };
+            themes.push(theme);
+            localStorage.setItem('knocks_companion_themes', JSON.stringify(themes));
+
+            document.getElementById('log-feed').innerHTML += '<br>[BOT] THEME_UNLOCKED: ' + theme.toUpperCase() + ' — ' + prices[theme];
+
+            alert(theme.toUpperCase() + ' THEME UNLOCKED! 3 NEW COMPANiON BOTS ADDED TO YOUR SQUAD.');
+            updateButtons();
+            displayMyCompanion();
+        }
+
+        // Buy bundle
+        function buyBundle() {
+            const companion = getCompanion();
+            if (!companion) {
+                alert('SIGN UP FiRST TO GET YOUR PERSONAL COMPANiON BOT.');
+                window.location.href = 'signup.html';
+                return;
+            }
+            const allThemes = ['school', 'store', 'rendering'];
+            localStorage.setItem('knocks_companion_themes', JSON.stringify(allThemes));
+
+            document.getElementById('log-feed').innerHTML += '<br>[BOT] FULL_SQUAD_UNLOCKED: ALL THEMES — $14.99';
+
+            alert('FULL SQUAD UNLOCKED! ALL 9 COMPANiON BOTS ACTiVE.\n\nSCHOOL + STORE + RENDERiNG THEMES.');
+            updateButtons();
+            displayMyCompanion();
+        }
+
+        // iNiT
+        displayMyCompanion();
+        updateButtons();
+    </script>
+</body>
+</html>

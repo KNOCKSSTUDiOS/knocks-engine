@@ -104,8 +104,51 @@
 
     <hr class="divider">
 
+    <!-- COMPANiON THEME PACKS -->
+    <div class="section-label">
+        <h2>COMPANiON BOT THEMES</h2>
+        <p>UNLOCK THEMED BOT SQUADS — EACH WiTH 3 PERSONAL BOTS</p>
+    </div>
+
+    <div class="grid">
+        <div class="card" style="border-color: #4a90d9;">
+            <h3 style="color: #4a90d9;">SCHOOL PACK</h3>
+            <div class="coin-amount" style="color: #4a90d9; font-size: 1.5rem;">3 BOTS</div>
+            <div class="price-tag">$4.99</div>
+            <div class="bonus" style="color: #4a90d9;">PROFESSOR_NOVA + SCHOLAR_FLUX + CADET_SKETCH</div>
+            <button type="button" class="btn" style="border-color:#4a90d9; color:#4a90d9;" id="store-btn-school" onclick="buyThemeFromStore('school')" aria-label="Unlock school companion theme for $4.99">UNLOCK</button>
+        </div>
+
+        <div class="card" style="border-color: #ffd700;">
+            <h3 style="color: #ffd700;">STORE PACK</h3>
+            <div class="coin-amount" style="color: #ffd700; font-size: 1.5rem;">3 BOTS</div>
+            <div class="price-tag">$6.99</div>
+            <div class="bonus" style="color: #ffd700;">MERCHANT_CYPHER + BROKER_PULSE + VAULT_KEEPER</div>
+            <button type="button" class="btn" style="border-color:#ffd700; color:#ffd700;" id="store-btn-store" onclick="buyThemeFromStore('store')" aria-label="Unlock store companion theme for $6.99">UNLOCK</button>
+        </div>
+
+        <div class="card" style="border-color: #ff4500;">
+            <h3 style="color: #ff4500;">RENDERiNG PACK</h3>
+            <div class="coin-amount" style="color: #ff4500; font-size: 1.5rem;">3 BOTS</div>
+            <div class="price-tag">$9.99</div>
+            <div class="bonus" style="color: #ff4500;">PiXEL_VORTEX + FRAME_SENTiNEL + BLAZE_CORE</div>
+            <button type="button" class="btn" style="border-color:#ff4500; color:#ff4500;" id="store-btn-rendering" onclick="buyThemeFromStore('rendering')" aria-label="Unlock rendering companion theme for $9.99">UNLOCK</button>
+        </div>
+
+        <div class="card featured" style="border-color: #00f2ff;">
+            <h3 style="color: #00f2ff;">FULL SQUAD BUNDLE</h3>
+            <div class="coin-amount" style="color: #00f2ff; font-size: 1.5rem;">9 BOTS</div>
+            <div class="price-tag"><span style="text-decoration:line-through; color:#555;">$21.97</span> &nbsp; $14.99</div>
+            <div class="bonus" style="color: #00FF00;">SAVE $6.98 — ALL THEMES UNLOCKED</div>
+            <button type="button" class="btn" style="border-color:#00f2ff; color:#00f2ff;" id="store-btn-bundle" onclick="buyBundleFromStore()" aria-label="Unlock all companion themes for $14.99">UNLOCK ALL</button>
+        </div>
+    </div>
+
+    <hr class="divider">
+
     <div class="upgrade-note">
         <p>NEED UNLiMiTED RENDERS? <a href="signup.html">UPGRADE YOUR ACCESS TiER →</a></p>
+        <p style="margin-top: 8px;">WANT COMPANiON BOTS? <a href="companions.html" style="color: #00f2ff;">ViEW ALL COMPANiON BOTS →</a></p>
     </div>
 
     <div class="archive-log" id="log-feed" role="log" aria-live="polite" aria-label="Archive activity log">
@@ -126,6 +169,68 @@
             document.getElementById('log-feed').innerHTML += `<br>[BOT] CREDiT_iNJECT: +${amount.toLocaleString()} COiNS LOADED`;
             alert(`+${amount.toLocaleString()} CREDiTS LOADED. TOTAL: ${newTotal.toLocaleString()}`);
         }
+
+        // COMPANiON THEME PURCHASES
+        function getOwnedThemes() {
+            var data = localStorage.getItem('knocks_companion_themes');
+            return data ? JSON.parse(data) : [];
+        }
+
+        function buyThemeFromStore(theme) {
+            var companion = localStorage.getItem('knocks_companion');
+            if (!companion) {
+                alert('SiGN UP FiRST TO GET YOUR PERSONAL COMPANiON BOT.');
+                window.location.href = 'signup.html';
+                return;
+            }
+            var themes = getOwnedThemes();
+            if (themes.indexOf(theme) !== -1) {
+                alert('YOU ALREADY OWN THiS THEME.');
+                return;
+            }
+            var prices = { school: '$4.99', store: '$6.99', rendering: '$9.99' };
+            themes.push(theme);
+            localStorage.setItem('knocks_companion_themes', JSON.stringify(themes));
+            document.getElementById('log-feed').innerHTML += '<br>[BOT] THEME_UNLOCKED: ' + theme.toUpperCase() + ' — ' + prices[theme];
+            alert(theme.toUpperCase() + ' THEME UNLOCKED! 3 NEW COMPANiON BOTS ADDED.');
+            updateThemeButtons();
+        }
+
+        function buyBundleFromStore() {
+            var companion = localStorage.getItem('knocks_companion');
+            if (!companion) {
+                alert('SiGN UP FiRST TO GET YOUR PERSONAL COMPANiON BOT.');
+                window.location.href = 'signup.html';
+                return;
+            }
+            localStorage.setItem('knocks_companion_themes', JSON.stringify(['school', 'store', 'rendering']));
+            document.getElementById('log-feed').innerHTML += '<br>[BOT] FULL_SQUAD_UNLOCKED: ALL THEMES — $14.99';
+            alert('FULL SQUAD UNLOCKED! ALL 9 COMPANiON BOTS ACTiVE.');
+            updateThemeButtons();
+        }
+
+        function updateThemeButtons() {
+            var themes = getOwnedThemes();
+            ['school', 'store', 'rendering'].forEach(function(t) {
+                var btn = document.getElementById('store-btn-' + t);
+                if (btn && themes.indexOf(t) !== -1) {
+                    btn.innerText = 'OWNED';
+                    btn.disabled = true;
+                    btn.style.borderColor = '#00FF00';
+                    btn.style.color = '#00FF00';
+                }
+            });
+            if (themes.indexOf('school') !== -1 && themes.indexOf('store') !== -1 && themes.indexOf('rendering') !== -1) {
+                var bundleBtn = document.getElementById('store-btn-bundle');
+                if (bundleBtn) {
+                    bundleBtn.innerText = 'ALL OWNED';
+                    bundleBtn.disabled = true;
+                    bundleBtn.style.borderColor = '#00FF00';
+                    bundleBtn.style.color = '#00FF00';
+                }
+            }
+        }
+        updateThemeButtons();
     </script>
 </body>
 </html>

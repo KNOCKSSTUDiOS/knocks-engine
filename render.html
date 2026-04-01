@@ -50,6 +50,29 @@
         #console { font-size: 0.65rem; color: var(--gold); margin-top: 20px; min-height: 20px; text-transform: uppercase; }
         #coin-info { text-align: right; font-size: 0.7rem; color: var(--gold); margin-bottom: 10px; }
         @keyframes brand-color-fade { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* COMPANiON BOT WiDGET */
+        .companion-widget {
+            position: fixed; bottom: 20px; right: 20px; width: 260px;
+            background: #0a0a0a; border: 1px solid #00f2ff; border-radius: 8px;
+            font-family: 'Courier New', monospace; z-index: 100;
+            box-shadow: 0 0 20px rgba(0,242,255,0.1); display: none;
+        }
+        .companion-header {
+            display: flex; align-items: center; gap: 10px; padding: 12px 15px;
+            border-bottom: 1px solid #1a1a1a; cursor: pointer;
+        }
+        .companion-icon { font-size: 18px; }
+        .companion-name { font-size: 10px; letter-spacing: 2px; color: #00f2ff; font-weight: bold; }
+        .companion-role { font-size: 8px; color: #555; letter-spacing: 1px; }
+        .companion-body { padding: 12px 15px; }
+        .companion-msg {
+            font-size: 9px; color: #888; letter-spacing: 1px; line-height: 1.6;
+            min-height: 30px;
+        }
+        .companion-msg .tip-label { color: #00f2ff; font-weight: bold; display: block; margin-bottom: 4px; }
+        .companion-link { display: block; text-align: center; padding: 8px; border-top: 1px solid #1a1a1a; font-size: 8px; color: #444; text-decoration: none; letter-spacing: 2px; }
+        .companion-link:hover { color: #00f2ff; }
         .brand-animated {
             display: inline;
             background: linear-gradient(270deg, #00fff2, #00e5ff, #bc13fe, #ff6ec7, #ffd700, #00ffcc, #e2e8f0, #00fff2);
@@ -111,6 +134,7 @@
 
         <nav style="margin-top: 30px; text-align: center; display: flex; justify-content: center; gap: 30px;" aria-label="Page navigation">
             <a href="store.html" style="color: var(--gold); text-decoration: none; font-size: 0.6rem; letter-spacing: 2px;">[ GET CREDiTS ]</a>
+            <a href="companions.html" style="color: var(--neon); text-decoration: none; font-size: 0.6rem; letter-spacing: 2px;">[ COMPANiON BOTS ]</a>
             <a href="index.html" style="color: #222; text-decoration: none; font-size: 0.6rem;">[ DISCONNECT ]</a>
         </nav>
     </main>
@@ -304,6 +328,55 @@
                     document.getElementById('free-render-btn').disabled = false;
                 }
             }, 50);
+        }
+    </script>
+
+    <!-- COMPANiON BOT WiDGET -->
+    <div class="companion-widget" id="companion-widget" role="complementary" aria-label="Companion bot assistant">
+        <div class="companion-header" onclick="toggleCompanionBody()">
+            <span class="companion-icon" id="cw-icon"></span>
+            <div>
+                <div class="companion-name" id="cw-name">—</div>
+                <div class="companion-role" id="cw-role">—</div>
+            </div>
+        </div>
+        <div class="companion-body" id="cw-body">
+            <div class="companion-msg" id="cw-msg">
+                <span class="tip-label">TiP:</span>
+                Loading...
+            </div>
+        </div>
+        <a href="companions.html" class="companion-link">UNLOCK MORE BOTS →</a>
+    </div>
+
+    <script>
+        (function initCompanion() {
+            var data = localStorage.getItem('knocks_companion');
+            if (!data) return;
+            try {
+                var companion = JSON.parse(data);
+                var widget = document.getElementById('companion-widget');
+                widget.style.display = 'block';
+                document.getElementById('cw-icon').innerText = companion.icon;
+                document.getElementById('cw-name').innerText = companion.name;
+                document.getElementById('cw-role').innerText = companion.role;
+
+                var tips = [
+                    'Use PREViEW mode first — it is free and shows watermarked output.',
+                    'Select PHOTOREAL_PHYSICS for the most lifelike renders.',
+                    'HAND-DRAWN_CELL_v4 creates unique animated cell-shaded looks.',
+                    '9K_ULTRA_RAW gives maximum resolution for large-format output.',
+                    'Your companion bots gain new tips when you unlock more themes.',
+                    'Try the School theme pack for step-by-step render guidance.',
+                    'The Rendering theme pack unlocks speed optimization tips.'
+                ];
+                var tip = tips[Math.floor(Math.random() * tips.length)];
+                document.getElementById('cw-msg').innerHTML = '<span class="tip-label">TiP:</span>' + tip;
+            } catch(e) {}
+        })();
+        function toggleCompanionBody() {
+            var body = document.getElementById('cw-body');
+            body.style.display = body.style.display === 'none' ? 'block' : 'none';
         }
     </script>
 </body>

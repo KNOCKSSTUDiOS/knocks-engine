@@ -158,6 +158,7 @@
 
     <div style="text-align: center; margin-top: 40px;">
         <p style="color: #444; font-size: 10px; letter-spacing: 3px;">NEED MORE COiNS? <a href="store.html" style="color: #00f2ff; text-decoration: none; letter-spacing: 2px;">ViSiT THE ARCHiVE STORE →</a></p>
+        <p style="color: #444; font-size: 10px; letter-spacing: 3px; margin-top: 10px;">WANT COMPANiON BOTS? <a href="companions.html" style="color: #FF8C00; text-decoration: none; letter-spacing: 2px;">UNLOCK THEMED SQUADS →</a></p>
     </div>
 </div>
 
@@ -174,6 +175,36 @@
         info.innerText = tierDetails[tier] || '';
         info.style.borderColor = tier === 'free' ? '#00FF00' : '#FF8C00';
         info.style.color = tier === 'free' ? '#00FF00' : '#FF8C00';
+    }
+
+    // COMPANiON BOT NAME GENERATOR
+    const COMPANION_NAMES = [
+        'AXION', 'CIPHER', 'DRIFT', 'ECHO', 'FLARE', 'GHOST', 'HAZE', 'ION',
+        'JETT', 'KODA', 'LYRIC', 'MAKO', 'NEON', 'ONYX', 'PRISM', 'QUAKE',
+        'RAZE', 'SHARD', 'TRACE', 'UMBRA', 'VOLT', 'WREN', 'XERO', 'ZENITH',
+        'APEX', 'BYTE', 'CRUX', 'DUSK', 'EMBER', 'FUSE', 'GRID', 'HELIX',
+        'INK', 'JAX', 'KNOX', 'LUMEN', 'MATRIX', 'NEXUS', 'ORBIT', 'PHASE',
+        'QUARTZ', 'RIFT', 'SPARK', 'TITAN', 'UNIT', 'VEGA', 'WAVE', 'ZION'
+    ];
+    const COMPANION_ROLES = [
+        'PERSONAL ASSiSTANT', 'ENGINE GUiDE', 'CREATiVE ALLY',
+        'RENDER PARTNER', 'SYSTEM NAViGATOR', 'PROJECT BUDDY'
+    ];
+    const COMPANION_ICONS = [
+        '\u{1F916}', '\u{1F47E}', '\u{2728}', '\u{1F4AB}', '\u{1F30A}', '\u{1F525}',
+        '\u{26A1}', '\u{1F680}', '\u{1F3AF}', '\u{1F4A0}', '\u{1F300}', '\u{2B50}'
+    ];
+
+    function generateCompanion(operatorName) {
+        const nameIdx = Math.floor(Math.random() * COMPANION_NAMES.length);
+        const roleIdx = Math.floor(Math.random() * COMPANION_ROLES.length);
+        const iconIdx = Math.floor(Math.random() * COMPANION_ICONS.length);
+        return {
+            name: COMPANION_NAMES[nameIdx] + '_' + operatorName.split(' ')[0].toUpperCase().slice(0, 4),
+            role: COMPANION_ROLES[roleIdx],
+            icon: COMPANION_ICONS[iconIdx],
+            createdAt: new Date().toISOString()
+        };
     }
 
     function handleSignup(e) {
@@ -198,13 +229,17 @@
         const currentCredits = parseInt(localStorage.getItem('knocks_credits')) || 0;
         localStorage.setItem('knocks_credits', currentCredits + 500);
 
+        // Assign personal companion bot
+        const companion = generateCompanion(name);
+        localStorage.setItem('knocks_companion', JSON.stringify(companion));
+
         if (tier === 'free') {
             // Track free renders separately
             localStorage.setItem('knocks_free_renders', '2');
             localStorage.setItem('knocks_free_duration', '5');
-            alert('WELCOME, ' + name.toUpperCase() + '! FREE_OPERATOR ACTiVATED.\n\nYou have 2 FREE 5-second video renders ready.\n+500 BONUS COiNS added to your account.');
+            alert('WELCOME, ' + name.toUpperCase() + '! FREE_OPERATOR ACTiVATED.\n\nYour personal companion bot ' + companion.name + ' (' + companion.icon + ') is now online!\n\nYou have 2 FREE 5-second video renders ready.\n+500 BONUS COiNS added to your account.\n\nVisit the Companion Bots page to unlock themed squads!');
         } else {
-            alert('WELCOME, ' + name.toUpperCase() + '! ' + tier.toUpperCase() + ' TiER ACTiVATED.\n+500 BONUS COiNS added.');
+            alert('WELCOME, ' + name.toUpperCase() + '! ' + tier.toUpperCase() + ' TiER ACTiVATED.\n\nYour personal companion bot ' + companion.name + ' (' + companion.icon + ') is now online!\n+500 BONUS COiNS added.\n\nVisit the Companion Bots page to unlock themed squads!');
         }
 
         // Mark that user just signed up so engine auto-previews

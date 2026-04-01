@@ -34,6 +34,29 @@
         .download-btn { width: 100%; background: transparent; border: 1px solid #444; color: #666; padding: 12px; cursor: pointer; display: none; }
         .download-btn.active { display: block; color: #00FF00; border-color: #00FF00; }
         .burn-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* COMPANiON BOT WiDGET */
+        .companion-widget {
+            position: fixed; bottom: 20px; right: 20px; width: 260px;
+            background: #0a0a0a; border: 1px solid #00f2ff; border-radius: 8px;
+            font-family: 'Courier New', monospace; z-index: 100;
+            box-shadow: 0 0 20px rgba(0,242,255,0.1); display: none;
+        }
+        .companion-header {
+            display: flex; align-items: center; gap: 10px; padding: 12px 15px;
+            border-bottom: 1px solid #1a1a1a; cursor: pointer;
+        }
+        .companion-icon { font-size: 18px; }
+        .companion-name { font-size: 10px; letter-spacing: 2px; color: #00f2ff; font-weight: bold; }
+        .companion-role { font-size: 8px; color: #555; letter-spacing: 1px; }
+        .companion-body { padding: 12px 15px; }
+        .companion-msg {
+            font-size: 9px; color: #888; letter-spacing: 1px; line-height: 1.6;
+            min-height: 30px;
+        }
+        .companion-msg .tip-label { color: #00f2ff; font-weight: bold; display: block; margin-bottom: 4px; }
+        .companion-link { display: block; text-align: center; padding: 8px; border-top: 1px solid #1a1a1a; font-size: 8px; color: #444; text-decoration: none; letter-spacing: 2px; }
+        .companion-link:hover { color: #00f2ff; }
     </style>
 </head>
 <body>
@@ -250,6 +273,56 @@
 
         function downloadAsset() {
             alert("DOWNLOADING_9K_MASTER_FILE...");
+        }
+    </script>
+
+    <!-- COMPANiON BOT WiDGET -->
+    <div class="companion-widget" id="companion-widget" role="complementary" aria-label="Companion bot assistant">
+        <div class="companion-header" onclick="toggleCompanionBody()">
+            <span class="companion-icon" id="cw-icon"></span>
+            <div>
+                <div class="companion-name" id="cw-name">—</div>
+                <div class="companion-role" id="cw-role">—</div>
+            </div>
+        </div>
+        <div class="companion-body" id="cw-body">
+            <div class="companion-msg" id="cw-msg">
+                <span class="tip-label">TiP:</span>
+                Loading...
+            </div>
+        </div>
+        <a href="companions.html" class="companion-link">UNLOCK MORE BOTS →</a>
+    </div>
+
+    <script>
+        // COMPANiON BOT iNiT
+        (function initCompanion() {
+            var data = localStorage.getItem('knocks_companion');
+            if (!data) return;
+            try {
+                var companion = JSON.parse(data);
+                var widget = document.getElementById('companion-widget');
+                widget.style.display = 'block';
+                document.getElementById('cw-icon').innerText = companion.icon;
+                document.getElementById('cw-name').innerText = companion.name;
+                document.getElementById('cw-role').innerText = companion.role;
+
+                var tips = [
+                    'Enter a detailed prompt for better results. Include style, mood, and camera angle.',
+                    'Free renders are 5 seconds each. Use them to test your ideas before spending credits.',
+                    'Credits are only charged after a render completes. No risk if you cancel.',
+                    'Try combining styles: "cinematic + hand-drawn" for unique outputs.',
+                    'Your render history is saved locally. Come back anytime to continue.',
+                    'Need more credits? Visit the Archive Store for bonus packs.',
+                    'Unlock the School companion pack for render tutorials and tips.'
+                ];
+                var tip = tips[Math.floor(Math.random() * tips.length)];
+                document.getElementById('cw-msg').innerHTML = '<span class="tip-label">TiP:</span>' + tip;
+            } catch(e) {}
+        })();
+        function toggleCompanionBody() {
+            var body = document.getElementById('cw-body');
+            body.style.display = body.style.display === 'none' ? 'block' : 'none';
         }
     </script>
 
