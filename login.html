@@ -14,21 +14,22 @@
         input:focus { border-color: #FF8C00; }
         .btn-sync { width: 100%; background: #FF8C00; color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; letter-spacing: 2px; }
         .btn-sync:hover { background: #fff; box-shadow: 0 0 15px #fff; }
+        :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
         .footer-link { text-align: center; margin-top: 20px; font-size: 10px; color: #444; }
         .footer-link a { color: #FF8C00; text-decoration: none; }
     </style>
 </head>
 <body>
 
-<div class="login-card">
-    <h2>OPERATOR_SYNC</h2>
+<div class="login-card" role="main">
+    <h1 style="color: #FF8C00; letter-spacing: 5px; text-align: center; font-size: 18px; margin-bottom: 30px;">OPERATOR_SYNC</h1>
     <form action="/engine/login" method="POST">
-        <label>OPERATOR_ID / EMAIL</label>
-        <input type="text" name="id" required placeholder="ENTRY_CODE">
-        
-        <label>ACCESS_PASSCODE</label>
-        <input type="password" name="password" required placeholder="********">
-        
+        <label for="login-id">OPERATOR_ID / EMAIL</label>
+        <input type="text" id="login-id" name="id" required placeholder="ENTRY_CODE">
+
+        <label for="login-password">ACCESS_PASSCODE</label>
+        <input type="password" id="login-password" name="password" required placeholder="********">
+
         <button type="submit" class="btn-sync">INITIALIZE_SESSION</button>
     </form>
     <div class="footer-link">

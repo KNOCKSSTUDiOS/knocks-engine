@@ -2,29 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNOCKSSTUDiOS | COMMAND CENTER</title>
     <style>
         body { background: #000; color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 50px; }
         .panel { border: 1px solid #222; padding: 20px; background: #050505; }
-        h1, h2 { letter-spacing: 5px; color: #00f2ff; text-transform: none; }
+        h1 { letter-spacing: 5px; color: #00f2ff; text-transform: none; }
+        h2 { letter-spacing: 5px; color: #00f2ff; text-transform: none; }
         .stat { font-size: 2rem; color: #ffd700; font-weight: bold; }
         .log { background: #000; border: 1px solid #111; height: 200px; overflow-y: auto; padding: 10px; font-size: 0.8rem; color: #555; }
-        .btn { 
-            padding: 10px 20px; background: transparent; border: 1px solid #ffd700; color: #ffd700; 
+        .btn {
+            padding: 10px 20px; background: transparent; border: 1px solid #ffd700; color: #ffd700;
             cursor: pointer; font-weight: bold; margin-top: 10px;
         }
         .btn:hover { background: #ffd700; color: #000; }
+        :focus-visible { outline: 2px solid #00f2ff; outline-offset: 2px; }
     </style>
 </head>
 <body>
 
+    <main>
     <h1>COMMAND CENTER // KNOCKSSTUDiOS</h1>
-    
+
     <div class="grid">
         <div class="panel">
             <h2>ACTiVE RENDERS</h2>
-            <div class="stat" id="render-count">0</div>
+            <div class="stat" id="render-count" aria-live="polite">0</div>
             <p>5sec HQ Queue</p>
             <button class="btn" onclick="simulateRender()">iNiTiATE MANUAL RENDER</button>
         </div>
@@ -32,6 +36,7 @@
         <div class="panel">
             <h2>ECONOMY CONTROL</h2>
             <div class="stat">COiN GATEWAY</div>
+            <label for="user-target" style="display:block; font-size:10px; color:#666; margin-top:10px; margin-bottom:5px;">USER_iD</label>
             <input type="text" id="user-target" placeholder="USER_iD" style="background:#000; border:1px solid #333; color:#fff; padding:5px;">
             <button class="btn" onclick="injectCoins()">iNJECT 2000 COiNS</button>
         </div>
@@ -39,11 +44,12 @@
 
     <div class="panel" style="margin-top: 20px;">
         <h2>SYSTEM LOGS</h2>
-        <div class="log" id="system-log">
+        <div class="log" id="system-log" role="log" aria-live="polite" aria-label="System activity log">
             [19:22:29] DEPLOYMENT SUCCESSFUL: knocks-engine-hbla.vercel.app<br>
             [19:23:00] ENGINE iDiNG...
         </div>
     </div>
+    </main>
 
     <script>
         function logAction(msg) {
