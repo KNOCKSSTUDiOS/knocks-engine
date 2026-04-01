@@ -2,188 +2,180 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>KNOCKS | SOVEREIGN ENGINE 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>KNOCKS STUDIOS | SOVEREIGN ENGINE 3.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Syncopate:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --cyan: #00fff2;
-            --purple: #bc13fe;
             --void: #010103;
-            --glass: rgba(255, 255, 255, 0.03);
+            --silver: #e2e8f0;
+            --glow: 0 0 25px rgba(0, 255, 242, 0.4);
         }
 
         body {
             background-color: var(--void);
             color: #ffffff;
             font-family: 'Inter', sans-serif;
-            margin: 0;
             overflow-x: hidden;
-            /* ULTRA-VIVID LIGHTING FORGE */
+            /* VIVID GRADIENT DEPTH */
             background-image: 
-                radial-gradient(circle at 0% 0%, rgba(0, 255, 242, 0.15) 0%, transparent 35%),
-                radial-gradient(circle at 100% 100%, rgba(188, 19, 254, 0.12) 0%, transparent 35%);
+                radial-gradient(circle at 10% 10%, rgba(0, 255, 242, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(188, 19, 254, 0.08) 0%, transparent 40%);
             background-attachment: fixed;
         }
 
         .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
 
-        /* FIX: High Contrast Metallic Text */
-        .metallic-text {
-            background: linear-gradient(180deg, #FFFFFF 30%, #A0AEC0 60%, #FFFFFF 90%);
+        /* FIX: High-Contrast Metallic Title */
+        .metallic-title {
+            font-size: clamp(3rem, 15vw, 10rem);
+            line-height: 0.8;
+            background: linear-gradient(180deg, #fff 25%, #94a3b8 50%, #fff 75%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(0, 255, 242, 0.4));
+            filter: drop-shadow(var(--glow));
         }
 
-        /* CINEMATIC VIDEO FRAMES */
+        /* HARDWARE ACCELERATED FRAMES */
         .engine-frame {
             position: relative;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(0, 255, 242, 0.3);
-            border-radius: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 242, 0.2);
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: var(--glow);
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 255, 242, 0.1);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            will-change: transform;
         }
-        .engine-frame:hover {
-            border-color: var(--cyan);
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 60px rgba(0, 255, 242, 0.25);
-        }
+        .engine-frame:hover { transform: scale(1.03) translateY(-10px); border-color: var(--cyan); }
 
-        /* NEON GLOW BUTTONS */
-        .btn-ignite {
+        /* ACCESSIBLE NEON BUTTON */
+        .btn-core {
             background: var(--cyan);
             color: #000;
-            padding: 22px 60px;
+            padding: 20px 50px;
             font-weight: 900;
-            text-transform: uppercase;
             letter-spacing: 4px;
+            text-transform: uppercase;
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.6);
             border-radius: 4px;
-            box-shadow: 0 0 30px rgba(0, 255, 242, 0.5);
-            transition: 0.4s;
+            transition: all 0.3s ease;
         }
-        .btn-ignite:hover {
-            background: #fff;
-            box-shadow: 0 0 50px #fff;
-            transform: scale(1.05);
-        }
+        .btn-core:hover { background: #fff; box-shadow: 0 0 50px #fff; transform: translateY(-3px); }
 
-        /* SCANLINE ANIMATION */
-        .scanline {
-            width: 100%; height: 2px;
-            background: rgba(0, 255, 242, 0.1);
-            position: absolute;
-            animation: scan 4s linear infinite;
+        /* GRID ANIMATION */
+        .grid-bg {
+            position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+            mask-image: radial-gradient(circle at center, black, transparent 80%);
         }
-        @keyframes scan { from { top: 0; } to { top: 100%; } }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[1000] p-10 flex justify-between items-center backdrop-blur-md">
-        <div class="monolith text-[10px] tracking-[1em] text-cyan-400">Status: Sovereign_Online</div>
-        <button onclick="toggleNav()" class="flex flex-col gap-2 group" aria-label="Open Command Center">
-            <div class="w-10 h-1 bg-cyan-400 shadow-[0_0_10px_#00fff2]"></div>
-            <div class="w-6 h-1 bg-white ml-auto"></div>
+    <div class="grid-bg"></div>
+
+    <nav class="fixed top-0 w-full p-8 flex justify-between items-center z-[1000] backdrop-blur-md border-b border-white/5">
+        <div class="monolith text-[9px] tracking-[1em] text-cyan-400">Signal: Sovereign_Active</div>
+        <button onclick="toggleNav()" class="group flex flex-col gap-1" aria-label="Toggle Navigation">
+            <div class="w-8 h-[2px] bg-cyan-400"></div>
+            <div class="w-5 h-[2px] bg-white ml-auto"></div>
         </button>
     </nav>
 
-    <aside id="nav-drawer" class="fixed top-0 right-[-100%] w-full max-w-md h-full bg-black/95 z-[2000] transition-all duration-700 border-l border-cyan-400/30 p-12 backdrop-blur-2xl">
-        <h2 class="monolith text-xs text-cyan-400 mb-12 italic">Signal_Override</h2>
+    <aside id="drawer" class="fixed top-0 right-[-100%] w-full max-w-md h-full bg-black/95 z-[2000] transition-all duration-500 border-l border-cyan-400/20 p-12 backdrop-blur-3xl">
+        <p class="monolith text-[10px] text-cyan-400 mb-8">Master_Frequency</p>
         <div class="engine-frame aspect-square">
-            <iframe title="Radio Stream" src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" width="100%" height="100%" frameborder="0"></iframe>
+            <iframe title="Knocks Radio Live Stream" src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" width="100%" height="100%" frameborder="0"></iframe>
         </div>
-        <button onclick="toggleNav()" class="mt-20 text-[10px] monolith text-gray-500 hover:text-white uppercase tracking-widest">Terminate_Link</button>
+        <button onclick="toggleNav()" class="mt-12 monolith text-[9px] text-gray-500 hover:text-white">Close_Connection</button>
     </aside>
 
-    <section class="min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <div class="mb-8 px-5 py-1 border border-cyan-400/40 rounded-full monolith text-[8px] text-cyan-400 tracking-[0.6em] animate-pulse">
-            Sovereign Engine 2.1 Activated
+    <main class="min-h-screen flex flex-col items-center justify-center px-6 text-center">
+        <div class="inline-block border border-cyan-400/30 px-6 py-2 rounded-full mb-12 bg-cyan-400/5">
+            <span class="monolith text-[8px] text-cyan-400 tracking-[0.5em]">AI_ENGINE_CORE_v3.0</span>
         </div>
-        <h1 class="monolith metallic-text text-[clamp(4rem,18vw,14rem)] leading-[0.75] mb-12">
-            KNOCKS<br>STUDiOS
-        </h1>
-        <p class="max-w-2xl text-gray-400 text-xs md:text-sm tracking-[0.8em] uppercase font-bold leading-loose mb-16">
-            Architecting <span class="text-white">Cinematic Omnipotence</span> Through Neural Structure.
+
+        <h1 class="monolith metallic-title">KNOCKS<br>STUDiOS</h1>
+
+        <p class="mt-12 max-w-2xl text-gray-400 text-xs md:text-sm tracking-[0.7em] leading-loose uppercase">
+            The world's most <span class="text-white">Omnipotent</span> AI creative engine for cinematic mastery.
         </p>
-        <div class="flex flex-col sm:flex-row gap-8">
-            <button class="btn-ignite">Ignite Core</button>
-            <button class="px-12 py-5 border border-white/20 monolith text-[10px] tracking-[0.4em] hover:bg-white hover:text-black transition-all">The Vision</button>
+
+        <div class="mt-16 flex flex-col sm:flex-row gap-8">
+            <button class="btn-core">Ignite Engine</button>
+            <button class="px-12 py-5 border border-white/20 monolith text-[10px] tracking-[0.3em] hover:bg-white hover:text-black transition-all">The Vision</button>
         </div>
-    </section>
+    </main>
 
     <section class="py-40 px-6 max-w-7xl mx-auto">
-        <div class="mb-24">
-            <span class="monolith text-cyan-400 text-[10px] tracking-[1em] block mb-4">The_Engine_Capability</span>
-            <h2 class="monolith text-5xl md:text-8xl italic metallic-text">VISUAL_OVERLOAD</h2>
+        <div class="mb-24 flex flex-col md:flex-row justify-between items-end gap-6">
+            <div>
+                <span class="monolith text-cyan-400 text-[10px] tracking-[1em] block mb-4">Capability_Report</span>
+                <h2 class="monolith text-4xl md:text-7xl italic">VISUAL_OVERLOAD</h2>
+            </div>
+            <p class="text-gray-500 text-[9px] tracking-widest uppercase max-w-xs">High-fidelity rendering powered by the AI Lab Legends structure.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <div class="engine-frame group">
-                <div class="scanline"></div>
-                <div class="absolute top-5 left-5 bg-black/80 px-3 py-1 rounded border border-cyan-400/50 text-[8px] monolith text-cyan-400">ENGINE_C1</div>
-                <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800" alt="Cinematic AI Render One" class="w-full h-[400px] object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-700">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="engine-frame group h-[450px]">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800" alt="Cinematic Vibrant Fluid Render" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
+                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">ENGINE_C1</div>
             </div>
 
-            <div class="engine-frame group">
-                <div class="scanline" style="animation-delay: 1s"></div>
-                <div class="absolute top-5 left-5 bg-black/80 px-3 py-1 rounded border border-cyan-400/50 text-[8px] monolith text-cyan-400">NEURAL_02</div>
-                <img src="https://images.unsplash.com/photo-1633167606207-d840b5070fc2?auto=format&fit=crop&q=80&w=800" alt="Neural Network Visual" class="w-full h-[400px] object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-700">
+            <div class="engine-frame group h-[450px]">
+                <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800" alt="Gold Neural Network Visualization" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
+                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">NEURAL_02</div>
             </div>
 
-            <div class="engine-frame group">
-                <div class="scanline" style="animation-delay: 2s"></div>
-                <div class="absolute top-5 left-5 bg-black/80 px-3 py-1 rounded border border-cyan-400/50 text-[8px] monolith text-cyan-400">MATRIX_03</div>
-                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Cyber Security Matrix" class="w-full h-[400px] object-cover opacity-50 group-hover:opacity-100 transition-opacity duration-700">
+            <div class="engine-frame group h-[450px]">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800" alt="Technical Circuitry Interface" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 transition-opacity">
+                <div class="absolute top-6 left-6 monolith text-[8px] text-cyan-400 border border-cyan-400/50 px-2 py-1 bg-black/60">MATRIX_03</div>
             </div>
         </div>
-    </section>
 
-    <section class="py-40 px-6 bg-white/[0.02] border-y border-white/5">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div class="engine-frame p-12 bg-black">
-                <h3 class="monolith text-3xl mb-8">Master_Vault</h3>
-                <p class="text-gray-400 text-sm tracking-widest uppercase leading-loose">
-                    This is not just a layout. It is a digital fortress. Optimized for 100% Performance, 100% Accessibility, and 100% SEO.
+        <div class="mt-40 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <div class="engine-frame p-16 bg-black">
+                <h3 class="monolith text-4xl mb-8">UNRIVALED<br>STRUCTURE</h3>
+                <p class="text-gray-400 leading-relaxed tracking-widest text-xs uppercase">
+                    We don't just build websites. We build digital fortresses. Every line of code is optimized for INP, LCP, and Sovereign Performance.
                 </p>
-                <div class="mt-12 h-1 w-full bg-gradient-to-r from-cyan-400 to-transparent"></div>
             </div>
             <div>
-                <h2 class="monolith text-6xl md:text-8xl leading-none italic mb-10">UNRIVALED<br><span class="text-cyan-400">STRUCTURE</span></h2>
-                <p class="text-gray-500 tracking-[0.4em] uppercase text-xs">The Engine is capable of rendering vivid, vibrant worlds in milliseconds. Build your studio with the power of the Void.</p>
+                <h4 class="monolith text-5xl md:text-8xl leading-none italic mb-10"><span class="text-cyan-400">VIVID</span>_VEO</h4>
+                <p class="text-gray-500 tracking-[0.4em] uppercase text-[10px] leading-loose">
+                    BUILT FOR PROFESSIONALS. DESIGNED FOR THE BOLD. KNOCKS STUDIOS IS THE JUNCTION WHERE BRAINS MEET CINEMATIC BEAUTY.
+                </p>
             </div>
         </div>
     </section>
 
-    <footer class="py-20 text-center">
-        <p class="monolith text-[8px] text-gray-700 tracking-[1.5em] mb-10">Sovereign_Engine_Core_2026</p>
-        <button onclick="openVault()" class="text-[9px] text-white/10 hover:text-cyan-400 transition tracking-[1em]">SYSTEM_BYPASS_0736</button>
+    <footer class="py-20 text-center border-t border-white/5">
+        <p class="monolith text-[8px] text-gray-700 tracking-[2em]">Sovereign_Engine_Core_2026</p>
+        <button onclick="openVault()" class="mt-12 text-[8px] text-white/10 hover:text-cyan-400 tracking-[1em]">SYSTEM_BYPASS_0736</button>
     </footer>
 
-    <div id="vault" class="fixed inset-0 bg-black/95 z-[10000] hidden items-center justify-center backdrop-blur-3xl">
-        <div class="max-w-md w-full mx-4 p-16 engine-frame text-center bg-black">
-            <p class="monolith text-cyan-400 text-xs mb-10">Identify_Master</p>
-            <input type="password" id="pass" class="w-full bg-black border border-white/10 p-5 rounded-lg text-white text-center tracking-[1em] mb-10 outline-none focus:border-cyan-400" placeholder="****">
-            <button onclick="verify()" class="btn-ignite w-full">Access Core</button>
-            <button onclick="closeVault()" class="mt-8 text-[9px] text-gray-600 uppercase">Exit</button>
+    <div id="vault" class="fixed inset-0 bg-black/98 z-[5000] hidden items-center justify-center backdrop-blur-3xl">
+        <div class="max-w-md w-full p-16 engine-frame text-center bg-black">
+            <p class="monolith text-cyan-400 text-xs mb-10">Access_Identify</p>
+            <input type="password" id="p" class="w-full bg-black border border-white/10 p-5 text-white text-center tracking-[1em] outline-none focus:border-cyan-400 mb-8" placeholder="****">
+            <button onclick="verify()" class="btn-core w-full">Enter Core</button>
+            <button onclick="closeVault()" class="mt-8 text-[9px] text-gray-600 block mx-auto">Abort</button>
         </div>
     </div>
 
     <script>
-        function toggleNav() { document.getElementById('nav-drawer').classList.toggle('right-0'); document.getElementById('nav-drawer').classList.toggle('right-[-100%]'); }
+        function toggleNav() { document.getElementById('drawer').classList.toggle('right-0'); document.getElementById('drawer').classList.toggle('right-[-100%]'); }
         function openVault() { document.getElementById('vault').style.display = 'flex'; }
         function closeVault() { document.getElementById('vault').style.display = 'none'; }
         function verify() {
-            if(document.getElementById('pass').value === "0736") {
-                alert("ACCESS GRANTED.");
-                closeVault();
-            } else {
-                alert("ACCESS DENIED.");
-                location.reload();
-            }
+            if(document.getElementById('p').value === "0736") { alert("IDENTITY_CONFIRMED. WELCOME."); closeVault(); }
+            else { alert("SIGNAL_REJECTED."); location.reload(); }
         }
     </script>
 </body>
