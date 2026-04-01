@@ -102,9 +102,9 @@
             FREE TiER: <span id="free-remaining">2</span>/2 ViDEO RENDERS REMAiNiNG (5 SEC EACH)
         </div>
         <div style="display: flex; gap: 15px; margin-bottom: 10px;">
-            <button class="ignite-btn" style="flex: 1; background: transparent; border: 1px solid var(--neon); color: var(--neon); font-size: 0.8rem; padding: 18px;" id="preview-btn" onclick="previewRender()">PREViEW — FREE</button>
-            <button class="ignite-btn" style="flex: 1; font-size: 0.8rem; padding: 18px;" id="burn-btn" onclick="startRender()">FULL RENDER — 50 CREDiTS</button>
-            <button class="ignite-btn" id="free-render-btn" style="flex: 1; font-size: 0.8rem; padding: 18px; background: #00FF00; display: none;" onclick="freeRender()">FREE RENDER — 5 SEC</button>
+            <button type="button" class="ignite-btn" style="flex: 1; background: transparent; border: 1px solid var(--neon); color: var(--neon); font-size: 0.8rem; padding: 18px;" id="preview-btn" onclick="previewRender()">PREViEW — FREE</button>
+            <button type="button" class="ignite-btn" style="flex: 1; font-size: 0.8rem; padding: 18px;" id="burn-btn" onclick="startRender()">FULL RENDER — 50 CREDiTS</button>
+            <button type="button" class="ignite-btn" id="free-render-btn" style="flex: 1; font-size: 0.8rem; padding: 18px; background: #00FF00; display: none;" onclick="freeRender()">FREE RENDER — 5 SEC</button>
         </div>
         <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Render progress"><div class="bar" id="fill"></div></div>
         <div id="console" aria-live="polite">SYSTEM_READY...</div>
@@ -118,6 +118,7 @@
     <script>
         let credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
         let freeRenders = parseInt(localStorage.getItem('knocks_free_renders')) || 0;
+        let renderInProgress = false;
         document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
 
         // Show free tier UI if user has free renders
@@ -137,6 +138,7 @@
 
         // FREE 5-SECOND ViDEO RENDER
         function freeRender() {
+            if (renderInProgress) return;
             if (freeRenders <= 0) {
                 alert("NO FREE RENDERS REMAiNiNG. USE CREDiTS OR UPGRADE YOUR TiER.");
                 return;
@@ -144,11 +146,15 @@
             const prompt = document.getElementById('prompt').value;
             if (!prompt) { alert("ENTER A PROMPT FiRST"); return; }
 
+            renderInProgress = true;
             document.getElementById('free-render-btn').disabled = true;
+            document.getElementById('burn-btn').disabled = true;
+            document.getElementById('preview-btn').disabled = true;
             const log = document.getElementById('console');
             const status = document.getElementById('status-text');
             const bar = document.getElementById('fill');
             const wm = document.getElementById('wm');
+            const display = document.getElementById('display');
 
             log.innerText = "GENERATiNG FREE 5-SEC ViDEO RENDER...";
             let progress = 0;
@@ -164,6 +170,7 @@
 
                 if (progress >= 100) {
                     clearInterval(run);
+                    // Only deduct AFTER render completes
                     freeRenders--;
                     localStorage.setItem('knocks_free_renders', freeRenders);
                     updateFreeTierUI();
@@ -171,7 +178,15 @@
                     log.innerText = "FREE 5-SEC ViDEO RENDER COMPLETE. " + freeRenders + " FREE RENDER(S) REMAiNiNG.";
                     status.innerText = "FREE_RENDER_COMPLETE";
                     wm.style.display = "none";
+                    display.style.borderColor = "#00FF00";
+                    display.style.background = "linear-gradient(135deg, #001a00 0%, #000500 100%)";
+                    status.style.color = "#00FF00";
+                    status.style.fontSize = "0.8rem";
+                    status.style.letterSpacing = "3px";
+                    renderInProgress = false;
                     document.getElementById('free-render-btn').disabled = false;
+                    document.getElementById('burn-btn').disabled = false;
+                    document.getElementById('preview-btn').disabled = false;
                     bar.style.width = "0%";
                 }
             }, 40);
@@ -179,14 +194,19 @@
 
         // FREE PREViEW — no credits charged
         function previewRender() {
+            if (renderInProgress) return;
             const prompt = document.getElementById('prompt').value;
             if(!prompt) { alert("ENTER A PROMPT TO PREViEW"); return; }
 
+            renderInProgress = true;
             document.getElementById('preview-btn').disabled = true;
+            document.getElementById('burn-btn').disabled = true;
+            document.getElementById('free-render-btn').disabled = true;
             const log = document.getElementById('console');
             const status = document.getElementById('status-text');
             const wm = document.getElementById('wm');
             const bar = document.getElementById('fill');
+            const display = document.getElementById('display');
 
             log.innerText = "GENERATING_PREVIEW... (FREE — NO CREDiTS CHARGED)";
             let progress = 0;
@@ -201,14 +221,20 @@
                     log.innerText = "PREViEW READY — WATERMARKED. FULL RENDER FOR CLEAN OUTPUT.";
                     status.innerText = "PREViEW_COMPLETE";
                     wm.style.display = "block";
+                    display.style.borderColor = "var(--neon)";
+                    display.style.background = "linear-gradient(135deg, #001a1a 0%, #050505 100%)";
+                    renderInProgress = false;
                     document.getElementById('preview-btn').disabled = false;
+                    document.getElementById('burn-btn').disabled = false;
+                    document.getElementById('free-render-btn').disabled = false;
                     bar.style.width = "0%";
                 }
             }, 30);
         }
 
-        // FULL RENDER — 50 credits
+        // FULL RENDER — 50 credits (deducted ONLY after completion)
         function startRender() {
+            if (renderInProgress) return;
             if(credits < 50) {
                 alert("NEED 50 CREDiTS. YOU HAVE " + credits + ". ViSiT THE ARCHiVE STORE.");
                 return;
@@ -216,16 +242,19 @@
             const prompt = document.getElementById('prompt').value;
             if(!prompt) { alert("ENTER A PROMPT FIRST"); return; }
 
-            credits -= 50;
-            localStorage.setItem('knocks_credits', credits);
-            document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
+            renderInProgress = true;
             document.getElementById('burn-btn').disabled = true;
+            document.getElementById('preview-btn').disabled = true;
+            document.getElementById('free-render-btn').disabled = true;
 
             let progress = 0;
             const bar = document.getElementById('fill');
             const log = document.getElementById('console');
             const wm = document.getElementById('wm');
             const status = document.getElementById('status-text');
+            const display = document.getElementById('display');
+
+            log.innerText = "iNiTiATiNG 9K RENDER... CREDiTS WiLL BE CHARGED ON COMPLETiON.";
 
             const run = setInterval(() => {
                 progress += 1;
@@ -239,10 +268,23 @@
 
                 if(progress >= 100) {
                     clearInterval(run);
-                    log.innerText = "RENDER COMPLETE — CLEAN OUTPUT READY. -50 CREDiTS.";
+                    // Deduct credits ONLY after successful render
+                    credits -= 50;
+                    localStorage.setItem('knocks_credits', credits);
+                    document.getElementById('coin-info').innerText = `CREDITS: ${credits}`;
+
+                    log.innerText = "RENDER COMPLETE — CLEAN OUTPUT READY. -50 CREDiTS CHARGED.";
                     status.innerText = "RENDER_COMPLETE";
-                    wm.style.display = "none"; // No watermark on paid render
+                    wm.style.display = "none";
+                    display.style.borderColor = "var(--gold)";
+                    display.style.background = "linear-gradient(135deg, #1a1200 0%, #050505 100%)";
+                    status.style.color = "var(--gold)";
+                    status.style.fontSize = "0.8rem";
+                    status.style.letterSpacing = "3px";
+                    renderInProgress = false;
                     document.getElementById('burn-btn').disabled = false;
+                    document.getElementById('preview-btn').disabled = false;
+                    document.getElementById('free-render-btn').disabled = false;
                 }
             }, 50);
         }
