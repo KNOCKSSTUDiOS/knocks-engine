@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SECURE_BRIEF | KNOCKSSTUDIOS</title>
+    <title>SECURE_BRIEF | KNOCKSSTUDiOS</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: #050505; color: #fff; font-family: 'Courier New', Courier, monospace; line-height: 1.6; padding: 40px 20px; }
@@ -32,9 +32,52 @@
         :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
 
         .bonus-tag { text-align: center; color: #00FF00; font-size: 12px; margin-top: 20px; font-weight: bold; }
+
+        /* FREE TIER HIGHLIGHT */
+        .free-highlight { background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); }
+        .free-badge { display: inline-block; background: #00FF00; color: #000; font-size: 9px; font-weight: bold; padding: 3px 8px; letter-spacing: 1px; margin-left: 8px; }
+        .free-promo { background: #0a0a0a; border: 1px solid #00FF00; padding: 30px; text-align: center; margin-bottom: 40px; }
+        .free-promo h3 { color: #00FF00; font-size: 16px; letter-spacing: 3px; margin-bottom: 10px; }
+        .free-promo p { color: #999; font-size: 12px; letter-spacing: 1px; line-height: 1.8; }
+        .free-promo .big-number { font-size: 48px; color: #00FF00; font-weight: bold; display: block; margin: 15px 0 5px; }
+        .free-promo .sub-detail { color: #666; font-size: 11px; letter-spacing: 2px; }
+        /* Auto-preview background */
+        .preview-bg {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,0,0.04) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,140,0,0.04) 0%, transparent 50%);
+        }
+        .preview-scanline {
+            position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #00FF00, transparent);
+            animation: scanDown 5s ease-in-out infinite;
+            opacity: 0.3; z-index: 0; pointer-events: none;
+        }
+        @keyframes scanDown { 0% { top: 0; } 100% { top: 100%; } }
+        .preview-render-box {
+            position: fixed; bottom: 30px; right: 30px; width: 180px; height: 100px;
+            border: 1px solid rgba(255,140,0,0.15); border-radius: 4px;
+            background: rgba(0,0,0,0.8); z-index: 0; pointer-events: none;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            animation: floatPreview 6s ease-in-out infinite;
+        }
+        @keyframes floatPreview { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-10px); opacity: 0.7; } }
+        .preview-render-box span { font-size: 8px; color: #FF8C00; letter-spacing: 3px; }
+        .preview-render-box .bar-demo { width: 80%; height: 2px; background: #111; margin-top: 8px; overflow: hidden; border-radius: 1px; }
+        .preview-render-box .bar-fill { width: 0%; height: 100%; background: #FF8C00; animation: barLoop 3s ease-in-out infinite; }
+        @keyframes barLoop { 0% { width: 0%; } 50% { width: 100%; } 100% { width: 0%; } }
+        .container { position: relative; z-index: 1; }
     </style>
 </head>
 <body>
+
+<div class="preview-bg" aria-hidden="true"></div>
+<div class="preview-scanline" aria-hidden="true"></div>
+<div class="preview-render-box" aria-hidden="true">
+    <span>ENGiNE_PREViEW</span>
+    <div class="bar-demo"><div class="bar-fill"></div></div>
+    <span style="margin-top:6px; font-size:7px; color:#444;">9K_RENDER_READY</span>
+</div>
 
 <div class="container">
     <h1>SECURE_BRIEF</h1>
@@ -50,9 +93,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="tier-name">FREE_OPERATOR</td>
-                <td>5 SECONDS</td>
+            <tr class="free-highlight">
+                <td class="tier-name">FREE_OPERATOR <span class="free-badge">NO CARD</span></td>
+                <td>2 ViDEOS — 5 SEC EACH</td>
                 <td>$0.00</td>
                 <td>N/A</td>
             </tr>
@@ -77,9 +120,16 @@
         </tbody>
     </table>
 
+    <div class="free-promo">
+        <h3>START FREE — NO CREDiT CARD REQUiRED</h3>
+        <span class="big-number">2</span>
+        <p class="sub-detail">FREE 5-SECOND ViDEO RENDERS</p>
+        <p style="margin-top: 12px;">Sign up as FREE_OPERATOR and get 2 five-second video renders instantly.<br>No payment. No commitment. Just create and render.</p>
+    </div>
+
     <div class="signup-box" role="main">
         <h2>INITIATE_ONBOARDING</h2>
-        <form action="/api/register" method="POST">
+        <form id="signup-form" onsubmit="handleSignup(event)">
             <label for="signup-name">OPERATOR_NAME</label>
             <input type="text" id="signup-name" name="name" required placeholder="FULL_NAME">
 
@@ -90,18 +140,113 @@
             <input type="password" id="signup-password" name="password" required placeholder="********">
 
             <label for="signup-tier">ACCESS_TIER</label>
-            <select id="signup-tier" name="tier">
-                <option value="free">FREE_OPERATOR</option>
-                <option value="basic">BASIC_CORE</option>
-                <option value="pro">PRO_ENGINE</option>
-                <option value="ultra">ULTRA_SOVEREIGN</option>
+            <select id="signup-tier" name="tier" onchange="updateTierInfo()">
+                <option value="free">FREE_OPERATOR — 2 ViDEOS (5 SEC)</option>
+                <option value="basic">BASIC_CORE — 15 MiN</option>
+                <option value="pro">PRO_ENGINE — 1 HOUR</option>
+                <option value="ultra">ULTRA_SOVEREiGN — UNLiMiTED</option>
             </select>
+
+            <div id="tier-info" style="margin-top: 15px; padding: 12px; background: #0a0a0a; border: 1px solid #333; font-size: 11px; color: #00FF00; letter-spacing: 1px;">
+                FREE TiER: 2 ViDEO RENDERS (5 SECONDS EACH) — NO PAYMENT REQUiRED
+            </div>
 
             <button type="submit" class="submit-btn">REGISTER_OPERATOR</button>
         </form>
         <div class="bonus-tag">+500 BONUS COINS ON SIGNUP</div>
     </div>
+
+    <div style="text-align: center; margin-top: 40px;">
+        <p style="color: #444; font-size: 10px; letter-spacing: 3px;">NEED MORE COiNS? <a href="store.html" style="color: #00f2ff; text-decoration: none; letter-spacing: 2px;">ViSiT THE ARCHiVE STORE →</a></p>
+        <p style="color: #444; font-size: 10px; letter-spacing: 3px; margin-top: 10px;">WANT COMPANiON BOTS? <a href="companions.html" style="color: #FF8C00; text-decoration: none; letter-spacing: 2px;">UNLOCK THEMED SQUADS →</a></p>
+    </div>
 </div>
+
+<script>
+    function updateTierInfo() {
+        const tier = document.getElementById('signup-tier').value;
+        const info = document.getElementById('tier-info');
+        const tierDetails = {
+            free: 'FREE TiER: 2 ViDEO RENDERS (5 SECONDS EACH) — NO PAYMENT REQUiRED',
+            basic: 'BASiC CORE: 15 MiNUTES OF RENDER TiME — $10.00/MONTH',
+            pro: 'PRO ENGiNE: 1 HOUR OF RENDER TiME — $30.00/MONTH',
+            ultra: 'ULTRA SOVEREiGN: UNLiMiTED RENDER TiME — $60.00/MONTH'
+        };
+        info.innerText = tierDetails[tier] || '';
+        info.style.borderColor = tier === 'free' ? '#00FF00' : '#FF8C00';
+        info.style.color = tier === 'free' ? '#00FF00' : '#FF8C00';
+    }
+
+    // COMPANiON BOT NAME GENERATOR
+    const COMPANION_NAMES = [
+        'AXION', 'CIPHER', 'DRIFT', 'ECHO', 'FLARE', 'GHOST', 'HAZE', 'ION',
+        'JETT', 'KODA', 'LYRIC', 'MAKO', 'NEON', 'ONYX', 'PRISM', 'QUAKE',
+        'RAZE', 'SHARD', 'TRACE', 'UMBRA', 'VOLT', 'WREN', 'XERO', 'ZENITH',
+        'APEX', 'BYTE', 'CRUX', 'DUSK', 'EMBER', 'FUSE', 'GRID', 'HELIX',
+        'INK', 'JAX', 'KNOX', 'LUMEN', 'MATRIX', 'NEXUS', 'ORBIT', 'PHASE',
+        'QUARTZ', 'RIFT', 'SPARK', 'TITAN', 'UNIT', 'VEGA', 'WAVE', 'ZION'
+    ];
+    const COMPANION_ROLES = [
+        'PERSONAL ASSiSTANT', 'ENGINE GUiDE', 'CREATiVE ALLY',
+        'RENDER PARTNER', 'SYSTEM NAViGATOR', 'PROJECT BUDDY'
+    ];
+    const COMPANION_ICONS = [
+        '\u{1F916}', '\u{1F47E}', '\u{2728}', '\u{1F4AB}', '\u{1F30A}', '\u{1F525}',
+        '\u{26A1}', '\u{1F680}', '\u{1F3AF}', '\u{1F4A0}', '\u{1F300}', '\u{2B50}'
+    ];
+
+    function generateCompanion(operatorName) {
+        const nameIdx = Math.floor(Math.random() * COMPANION_NAMES.length);
+        const roleIdx = Math.floor(Math.random() * COMPANION_ROLES.length);
+        const iconIdx = Math.floor(Math.random() * COMPANION_ICONS.length);
+        return {
+            name: COMPANION_NAMES[nameIdx] + '_' + operatorName.split(' ')[0].toUpperCase().slice(0, 4),
+            role: COMPANION_ROLES[roleIdx],
+            icon: COMPANION_ICONS[iconIdx],
+            createdAt: new Date().toISOString()
+        };
+    }
+
+    function handleSignup(e) {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value;
+        const email = document.getElementById('signup-email').value;
+        const tier = document.getElementById('signup-tier').value;
+
+        // Store user profile in localStorage
+        const userProfile = {
+            name: name,
+            email: email,
+            tier: tier,
+            signupDate: new Date().toISOString(),
+            freeRendersUsed: 0,
+            freeRendersMax: tier === 'free' ? 2 : 0,
+            maxDuration: tier === 'free' ? 5 : null
+        };
+        localStorage.setItem('knocks_user', JSON.stringify(userProfile));
+
+        // Give bonus credits
+        const currentCredits = parseInt(localStorage.getItem('knocks_credits')) || 0;
+        localStorage.setItem('knocks_credits', currentCredits + 500);
+
+        // Assign personal companion bot
+        const companion = generateCompanion(name);
+        localStorage.setItem('knocks_companion', JSON.stringify(companion));
+
+        if (tier === 'free') {
+            // Track free renders separately
+            localStorage.setItem('knocks_free_renders', '2');
+            localStorage.setItem('knocks_free_duration', '5');
+            alert('WELCOME, ' + name.toUpperCase() + '! FREE_OPERATOR ACTiVATED.\n\nYour personal companion bot ' + companion.name + ' (' + companion.icon + ') is now online!\n\nYou have 2 FREE 5-second video renders ready.\n+500 BONUS COiNS added to your account.\n\nVisit the Companion Bots page to unlock themed squads!');
+        } else {
+            alert('WELCOME, ' + name.toUpperCase() + '! ' + tier.toUpperCase() + ' TiER ACTiVATED.\n\nYour personal companion bot ' + companion.name + ' (' + companion.icon + ') is now online!\n+500 BONUS COiNS added.\n\nVisit the Companion Bots page to unlock themed squads!');
+        }
+
+        // Mark that user just signed up so engine auto-previews
+        localStorage.setItem('knocks_auto_preview', 'true');
+        window.location.href = 'render.html';
+    }
+</script>
 
 </body>
 </html>

@@ -37,6 +37,17 @@
         #status { font-size: 0.6rem; color: var(--gold); margin-top: 20px; text-align: center; height: 15px; letter-spacing: 2px; }
         
         .credit-tag { font-size: 0.5rem; color: #222; margin-top: 40px; text-align: center; letter-spacing: 2px; }
+        @keyframes brand-color-fade { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .brand-animated {
+            display: inline;
+            background: linear-gradient(270deg, #00fff2, #00e5ff, #bc13fe, #ff6ec7, #ffd700, #00ffcc, #e2e8f0, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brand-color-fade 8s ease infinite;
+            filter: drop-shadow(0 0 12px rgba(0, 255, 242, 0.5));
+        }
     </style>
 </head>
 <body>
@@ -46,7 +57,7 @@
     <main class="briefing-box">
         <div class="header">
             <h1>PROJECT_BRIEFING</h1>
-            <p>ENCRYPTED_UPLINK_v1.0 // KNOCKSSTUDiOS</p>
+            <p>ENCRYPTED_UPLINK_v1.0 // <span class="brand-animated">KNOCKSSTUDiOS</span></p>
         </div>
 
         <form id="briefing-form">
@@ -75,7 +86,7 @@
 
         <div id="status" aria-live="polite"></div>
 
-        <div class="credit-tag" aria-hidden="true">KNOCKSSTUDiOS powered by AI LAB LEGENDS</div>
+        <div class="credit-tag" aria-hidden="true"><span class="brand-animated">KNOCKSSTUDiOS</span> powered by AI LAB LEGENDS</div>
 
         <nav style="margin-top: 20px; text-align: center;" aria-label="Page navigation">
             <a href="index.html" style="color: #222; text-decoration: none; font-size: 0.6rem; letter-spacing: 3px;">[ DISCONNECT_SESSION ]</a>

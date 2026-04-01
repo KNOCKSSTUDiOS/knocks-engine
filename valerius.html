@@ -27,6 +27,17 @@
 
         .footer { margin-top: 60px; border-top: 1px solid #222; padding-top: 20px; display: flex; justify-content: space-between; font-size: 0.6rem; color: #444; }
         a { color: var(--neon); text-decoration: none; }
+        @keyframes brand-color-fade { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .brand-animated {
+            display: inline;
+            background: linear-gradient(270deg, #00fff2, #00e5ff, #bc13fe, #ff6ec7, #ffd700, #00ffcc, #e2e8f0, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brand-color-fade 8s ease infinite;
+            filter: drop-shadow(0 0 12px rgba(0, 255, 242, 0.5));
+        }
     </style>
 </head>
 <body>
@@ -36,7 +47,7 @@
     <main class="container">
         <div class="header">
             <h1>VALERiUS_WHITE_PAPER</h1>
-            <p>ENGINE_AUTHORITY: KNOCKSSTUDiOS powered by AI LAB LEGENDS</p>
+            <p>ENGINE_AUTHORITY: <span class="brand-animated">KNOCKSSTUDiOS</span> powered by AI LAB LEGENDS</p>
         </div>
 
         <section class="section">
@@ -76,7 +87,7 @@
         </section>
 
         <footer class="footer">
-            <span>&copy; 2026 KNOCKSSTUDiOS</span>
+            <span>&copy; 2026 <span class="brand-animated">KNOCKSSTUDiOS</span></span>
             <span>POWERED BY AI LAB LEGENDS</span>
             <a href="index.html">[ RETURN_TO_HUB ]</a>
         </footer>
