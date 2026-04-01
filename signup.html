@@ -29,6 +29,7 @@
 
         .submit-btn { width: 100%; background: #FF8C00; color: #000; border: none; padding: 15px; margin-top: 30px; font-weight: bold; cursor: pointer; letter-spacing: 2px; transition: 0.3s; }
         .submit-btn:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+        :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
 
         .bonus-tag { text-align: center; color: #00FF00; font-size: 12px; margin-top: 20px; font-weight: bold; }
     </style>
@@ -76,7 +77,31 @@
         </tbody>
     </table>
 
-    <div class="signup-box">
+    <div class="signup-box" role="main">
         <h2>INITIATE_ONBOARDING</h2>
         <form action="/api/register" method="POST">
-            <label>OPERATOR_NAME
+            <label for="signup-name">OPERATOR_NAME</label>
+            <input type="text" id="signup-name" name="name" required placeholder="FULL_NAME">
+
+            <label for="signup-email">OPERATOR_EMAIL</label>
+            <input type="email" id="signup-email" name="email" required placeholder="OPERATOR@DOMAIN.COM">
+
+            <label for="signup-password">ACCESS_PASSCODE</label>
+            <input type="password" id="signup-password" name="password" required placeholder="********">
+
+            <label for="signup-tier">ACCESS_TIER</label>
+            <select id="signup-tier" name="tier">
+                <option value="free">FREE_OPERATOR</option>
+                <option value="basic">BASIC_CORE</option>
+                <option value="pro">PRO_ENGINE</option>
+                <option value="ultra">ULTRA_SOVEREIGN</option>
+            </select>
+
+            <button type="submit" class="submit-btn">REGISTER_OPERATOR</button>
+        </form>
+        <div class="bonus-tag">+500 BONUS COINS ON SIGNUP</div>
+    </div>
+</div>
+
+</body>
+</html>

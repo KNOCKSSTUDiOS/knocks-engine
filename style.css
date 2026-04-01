@@ -56,6 +56,37 @@ button:hover {
   transform: translateY(-2px);
 }
 
+/* GLOBAL FOCUS STYLES FOR ACCESSIBILITY */
+:focus-visible {
+  outline: 2px solid var(--primary-glow, #00ffcc);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary-glow, #00ffcc);
+  outline-offset: 2px;
+}
+
+/* SKIP TO MAIN CONTENT LINK */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 12px 24px;
+  z-index: 10000;
+  font-size: 1rem;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 nav {
   display: flex;
   justify-content: space-between;

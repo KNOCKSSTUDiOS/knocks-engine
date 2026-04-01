@@ -29,6 +29,7 @@
 
         .burn-btn { width: 100%; background: #FF8C00; color: #000; border: none; padding: 18px; font-weight: bold; cursor: pointer; letter-spacing: 3px; margin-bottom: 10px; }
         .burn-btn:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+        :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
 
         .download-btn { width: 100%; background: transparent; border: 1px solid #444; color: #666; padding: 12px; cursor: pointer; display: none; }
         .download-btn.active { display: block; color: #00FF00; border-color: #00FF00; }
@@ -39,32 +40,34 @@
 </head>
 <body>
 
-    <div class="status-bar">
+    <header class="status-bar" role="banner">
         <div>OPERATOR: <span id="op-id">KNOCKS_OWNER</span></div>
-        <div class="coin-count">COINS: <span id="coin-balance">2,000</span></div>
-    </div>
+        <div class="coin-count">COINS: <span id="coin-balance" aria-live="polite">2,000</span></div>
+    </header>
 
-    <div class="engine-grid">
+    <main class="engine-grid">
         <div class="output-side">
+            <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">9K Core Engine</h1>
             <div class="viewport" id="viewport">
                 <div class="placeholder-text" id="loader">SYSTEM_READY_FOR_BURN...</div>
-                <video id="main-video" controls></video>
+                <video id="main-video" controls aria-label="Generated render output"></video>
             </div>
-            
+
             <div class="audio-module" id="audio-module">
-                <span style="font-size: 10px; color: #666;">AUDIO_STREAM_30S</span>
-                <audio id="main-audio" controls style="width: 100%; margin-top: 10px;"></audio>
+                <span style="font-size: 10px; color: #666;" id="audio-label">AUDIO_STREAM_30S</span>
+                <audio id="main-audio" controls style="width: 100%; margin-top: 10px;" aria-labelledby="audio-label"></audio>
             </div>
         </div>
 
         <div class="controls">
-            <h3>INPUT_PROMPT_9K</h3>
+            <h2 style="font-size:14px; letter-spacing:2px; margin-bottom:20px; color:#888;">INPUT_PROMPT_9K</h2>
+            <label for="prompt-input" style="display:block; font-size:10px; color:#666; margin-bottom:8px;">Enter visual or audio rendering parameters</label>
             <textarea id="prompt-input" placeholder="Enter visual/audio parameters..."></textarea>
-            
+
             <button class="burn-btn" onclick="initiateBurn()">START_BURN</button>
-            <button class="download-btn" id="dl-btn" onclick="downloadAsset()">DOWNLOAD_9K_MASTER</button>
+            <button class="download-btn" id="dl-btn" onclick="downloadAsset()" aria-label="Download rendered 9K master file">DOWNLOAD_9K_MASTER</button>
         </div>
-    </div>
+    </main>
 
     <script>
         function initiateBurn() {

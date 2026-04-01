@@ -18,35 +18,36 @@
         .card:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
         .price { font-size: 3rem; color: #00f2ff; margin: 20px 0; font-weight: 900; }
         .btn { width: 100%; padding: 15px; background: transparent; border: 1px solid #00f2ff; color: #00f2ff; cursor: pointer; font-weight: bold; letter-spacing: 3px; }
-        
+        :focus-visible { outline: 2px solid #00f2ff; outline-offset: 2px; }
+
         .archive-log { padding: 50px; border-top: 1px solid #111; color: #333; font-size: 0.7rem; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <div class="brand-sig">HOLLYWOODiMAGiNG.STUDiO</div>
-        <div class="meter" id="coin-display">CREDiTS: 0</div>
-    </div>
+    <header class="header">
+        <h1 class="brand-sig">HOLLYWOODiMAGiNG.STUDiO</h1>
+        <div class="meter" id="coin-display" aria-live="polite">CREDiTS: 0</div>
+    </header>
 
-    <div class="grid">
+    <main class="grid">
         <div class="card">
-            <h3>MONTHLY LEGEND</h3>
+            <h2>MONTHLY LEGEND</h2>
             <div class="price">$29.99</div>
             <p>• 5sec HQ Renders</p>
             <p>• +2000 Bonus Coins</p>
-            <button class="btn" onclick="render()">iNiTiATE RENDER</button>
+            <button class="btn" onclick="render()" aria-label="Initiate render with Monthly Legend plan">iNiTiATE RENDER</button>
         </div>
         <div class="card" style="border-color: #ffd700;">
-            <h3 style="color: #ffd700;">ANNUAL STUDiO</h3>
+            <h2 style="color: #ffd700;">ANNUAL STUDiO</h2>
             <div class="price" style="color: #ffd700;">$249.99</div>
             <p>• Unlimited 5sec Clips</p>
             <p>• Priority Encryption</p>
-            <button class="btn" style="border-color: #ffd700; color: #ffd700;" onclick="render()">iNiTiATE RENDER</button>
+            <button class="btn" style="border-color: #ffd700; color: #ffd700;" onclick="render()" aria-label="Initiate render with Annual Studio plan">iNiTiATE RENDER</button>
         </div>
-    </div>
+    </main>
 
-    <div class="archive-log" id="log-feed">
+    <div class="archive-log" id="log-feed" role="log" aria-live="polite" aria-label="Archive activity log">
         [SYSTEM] ARCHiVE_BOT_ONLINE...<br>
         [SYSTEM] 9K_ULTRA_ENGiNE_ACTiVE...
     </div>
