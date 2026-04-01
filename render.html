@@ -136,6 +136,23 @@
         }
         updateFreeTierUI();
 
+        // AUTO-PREViEW: If user just signed up or logged in, run a free preview automatically
+        (function autoPreview() {
+            const shouldPreview = localStorage.getItem('knocks_auto_preview');
+            if (shouldPreview === 'true') {
+                localStorage.removeItem('knocks_auto_preview');
+                // Small delay so user sees the page first
+                setTimeout(function() {
+                    // Set a demo prompt and trigger preview
+                    const promptEl = document.getElementById('prompt');
+                    if (!promptEl.value) {
+                        promptEl.value = 'CiNEMATiC INTRO — WELCOME TO KNOCKSSTUDiOS';
+                    }
+                    previewRender();
+                }, 800);
+            }
+        })();
+
         // FREE 5-SECOND ViDEO RENDER
         function freeRender() {
             if (renderInProgress) return;

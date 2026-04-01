@@ -5,25 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OPERATOR_SYNC | KNOCKSSTUDiOS</title>
     <style>
-        body { background: #000; color: #fff; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
-        .login-card { width: 350px; border: 1px solid #333; padding: 40px; background: #050505; position: relative; }
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
+
+        /* Auto-preview background animation */
+        .preview-bg {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(circle at 30% 40%, rgba(255,140,0,0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(0,242,255,0.04) 0%, transparent 50%);
+        }
+        .preview-scanline {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, #FF8C00, transparent);
+            animation: scanDown 4s ease-in-out infinite;
+            opacity: 0.4; z-index: 0;
+        }
+        @keyframes scanDown { 0% { top: 0; } 100% { top: 100%; } }
+
+        /* Floating preview frames */
+        .preview-frame {
+            position: fixed; border: 1px solid rgba(255,140,0,0.1); border-radius: 4px;
+            background: rgba(255,140,0,0.02); z-index: 0; pointer-events: none;
+        }
+        .pf1 { width: 200px; height: 120px; top: 10%; left: 5%; animation: floatA 8s ease-in-out infinite; }
+        .pf2 { width: 160px; height: 90px; bottom: 15%; right: 8%; animation: floatB 10s ease-in-out infinite; }
+        .pf3 { width: 120px; height: 70px; top: 60%; left: 12%; animation: floatA 12s ease-in-out infinite reverse; }
+        @keyframes floatA { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; } 50% { transform: translateY(-20px) rotate(1deg); opacity: 0.6; } }
+        @keyframes floatB { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.2; } 50% { transform: translateY(15px) rotate(-1deg); opacity: 0.5; } }
+
+        .preview-label {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            font-size: 9px; color: #333; letter-spacing: 4px; z-index: 0;
+            animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+
+        .login-card { width: 350px; border: 1px solid #333; padding: 40px; background: #050505; position: relative; z-index: 1; }
         .login-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #FF8C00; }
-        h2 { color: #FF8C00; letter-spacing: 5px; text-align: center; font-size: 18px; margin-bottom: 30px; }
+        h1 { color: #FF8C00; letter-spacing: 5px; text-align: center; font-size: 18px; margin-bottom: 30px; }
         label { color: #666; font-size: 10px; display: block; margin-bottom: 5px; }
-        input { width: 100%; background: #111; border: 1px solid #222; padding: 12px; color: #fff; margin-bottom: 20px; outline: none; }
+        input { width: 100%; background: #111; border: 1px solid #222; padding: 12px; color: #fff; margin-bottom: 20px; outline: none; font-family: 'Courier New', monospace; box-sizing: border-box; }
         input:focus { border-color: #FF8C00; }
-        .btn-sync { width: 100%; background: #FF8C00; color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; letter-spacing: 2px; }
+        .btn-sync { width: 100%; background: #FF8C00; color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; letter-spacing: 2px; font-family: 'Courier New', monospace; }
         .btn-sync:hover { background: #fff; box-shadow: 0 0 15px #fff; }
         :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
         .footer-link { text-align: center; margin-top: 20px; font-size: 10px; color: #444; }
         .footer-link a { color: #FF8C00; text-decoration: none; }
+        .error-msg { color: #ff4444; font-size: 10px; text-align: center; margin-top: 10px; display: none; letter-spacing: 1px; }
+        .engine-preview-tag { text-align: center; margin-bottom: 20px; font-size: 9px; color: #333; letter-spacing: 3px; }
     </style>
 </head>
 <body>
 
+<div class="preview-bg" aria-hidden="true"></div>
+<div class="preview-scanline" aria-hidden="true"></div>
+<div class="preview-frame pf1" aria-hidden="true"></div>
+<div class="preview-frame pf2" aria-hidden="true"></div>
+<div class="preview-frame pf3" aria-hidden="true"></div>
+<div class="preview-label" aria-hidden="true">ENGiNE_PREViEW_ACTiVE</div>
+
 <div class="login-card" role="main">
-    <h1 style="color: #FF8C00; letter-spacing: 5px; text-align: center; font-size: 18px; margin-bottom: 30px;">OPERATOR_SYNC</h1>
-    <form action="/engine/login" method="POST">
+    <div class="engine-preview-tag">9K_RENDER_ENGiNE_READY</div>
+    <h1>OPERATOR_SYNC</h1>
+    <form id="login-form" onsubmit="handleLogin(event)">
         <label for="login-id">OPERATOR_ID / EMAIL</label>
         <input type="text" id="login-id" name="id" required placeholder="ENTRY_CODE">
 
@@ -32,10 +75,48 @@
 
         <button type="submit" class="btn-sync">INITIALIZE_SESSION</button>
     </form>
+    <div id="login-error" class="error-msg"></div>
     <div class="footer-link">
         UNREGISTERED? <a href="signup.html">SECURE_BRIEF</a>
     </div>
 </div>
+
+<script>
+    function handleLogin(e) {
+        e.preventDefault();
+        const id = document.getElementById('login-id').value.trim();
+        const password = document.getElementById('login-password').value;
+        const errorEl = document.getElementById('login-error');
+
+        if (!id || !password) {
+            errorEl.innerText = 'ENTER OPERATOR_ID AND PASSCODE.';
+            errorEl.style.display = 'block';
+            return;
+        }
+
+        // Check if user exists in localStorage
+        let user = null;
+        try { user = JSON.parse(localStorage.getItem('knocks_user')); } catch(e) {}
+
+        if (user && (user.email === id || user.name === id || user.name.toLowerCase() === id.toLowerCase())) {
+            // Successful login — restore session
+            errorEl.style.display = 'none';
+
+            // Mark that user just logged in so engine can auto-preview
+            localStorage.setItem('knocks_just_logged_in', 'true');
+
+            // Redirect to engine with auto-preview
+            window.location.href = 'engine.html';
+        } else if (!user) {
+            // No user found — offer to sign up
+            errorEl.innerText = 'NO OPERATOR FOUND. SIGN UP FIRST.';
+            errorEl.style.display = 'block';
+        } else {
+            errorEl.innerText = 'OPERATOR_ID DOES NOT MATCH. TRY AGAiN.';
+            errorEl.style.display = 'block';
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -97,6 +97,49 @@
         }
         updateFreeUI();
 
+        // AUTO-PREViEW: If user just logged in, run a demo preview automatically
+        (function autoPreview() {
+            const justLoggedIn = localStorage.getItem('knocks_just_logged_in');
+            if (justLoggedIn === 'true') {
+                localStorage.removeItem('knocks_just_logged_in');
+                setTimeout(function() {
+                    const promptEl = document.getElementById('prompt-input');
+                    if (!promptEl.value) {
+                        promptEl.value = 'WELCOME BACK — 9K ENGiNE PREViEW';
+                    }
+                    // Run a quick visual preview (no credits charged)
+                    if (renderInProgress) return;
+                    renderInProgress = true;
+                    disableAllBtns();
+                    var loader = document.getElementById('loader');
+                    var viewport = document.getElementById('viewport');
+                    loader.style.display = 'block';
+                    loader.innerText = 'AUTO-PREViEW ACTiVE — NO CREDiTS CHARGED...';
+                    loader.style.color = '#00f2ff';
+
+                    var progress = 0;
+                    var previewSteps = ['SCANNiNG NEURAL LAYERS...', 'PREViEW BUiLDiNG...', 'WATERMARK OVERLAY ACTiVE...', 'PREViEW COMPLETE'];
+                    var previewRun = setInterval(function() {
+                        progress += 4;
+                        if (progress <= 25) loader.innerText = previewSteps[0];
+                        else if (progress <= 50) loader.innerText = previewSteps[1];
+                        else if (progress <= 75) loader.innerText = previewSteps[2];
+                        else loader.innerText = previewSteps[3];
+
+                        if (progress >= 100) {
+                            clearInterval(previewRun);
+                            loader.innerText = 'PREViEW READY — ENTER A PROMPT TO RENDER.';
+                            loader.style.color = '#00f2ff';
+                            viewport.style.borderColor = '#00f2ff';
+                            viewport.style.boxShadow = '0 0 20px rgba(0,242,255,0.15)';
+                            renderInProgress = false;
+                            enableAllBtns();
+                        }
+                    }, 50);
+                }, 800);
+            }
+        })();
+
         function disableAllBtns() {
             document.querySelector('.burn-btn').disabled = true;
             document.getElementById('free-burn-btn').disabled = true;

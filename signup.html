@@ -41,9 +41,43 @@
         .free-promo p { color: #999; font-size: 12px; letter-spacing: 1px; line-height: 1.8; }
         .free-promo .big-number { font-size: 48px; color: #00FF00; font-weight: bold; display: block; margin: 15px 0 5px; }
         .free-promo .sub-detail { color: #666; font-size: 11px; letter-spacing: 2px; }
+        /* Auto-preview background */
+        .preview-bg {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background: radial-gradient(circle at 20% 30%, rgba(0,255,0,0.04) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(255,140,0,0.04) 0%, transparent 50%);
+        }
+        .preview-scanline {
+            position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #00FF00, transparent);
+            animation: scanDown 5s ease-in-out infinite;
+            opacity: 0.3; z-index: 0; pointer-events: none;
+        }
+        @keyframes scanDown { 0% { top: 0; } 100% { top: 100%; } }
+        .preview-render-box {
+            position: fixed; bottom: 30px; right: 30px; width: 180px; height: 100px;
+            border: 1px solid rgba(255,140,0,0.15); border-radius: 4px;
+            background: rgba(0,0,0,0.8); z-index: 0; pointer-events: none;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            animation: floatPreview 6s ease-in-out infinite;
+        }
+        @keyframes floatPreview { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-10px); opacity: 0.7; } }
+        .preview-render-box span { font-size: 8px; color: #FF8C00; letter-spacing: 3px; }
+        .preview-render-box .bar-demo { width: 80%; height: 2px; background: #111; margin-top: 8px; overflow: hidden; border-radius: 1px; }
+        .preview-render-box .bar-fill { width: 0%; height: 100%; background: #FF8C00; animation: barLoop 3s ease-in-out infinite; }
+        @keyframes barLoop { 0% { width: 0%; } 50% { width: 100%; } 100% { width: 0%; } }
+        .container { position: relative; z-index: 1; }
     </style>
 </head>
 <body>
+
+<div class="preview-bg" aria-hidden="true"></div>
+<div class="preview-scanline" aria-hidden="true"></div>
+<div class="preview-render-box" aria-hidden="true">
+    <span>ENGiNE_PREViEW</span>
+    <div class="bar-demo"><div class="bar-fill"></div></div>
+    <span style="margin-top:6px; font-size:7px; color:#444;">9K_RENDER_READY</span>
+</div>
 
 <div class="container">
     <h1>SECURE_BRIEF</h1>
@@ -173,6 +207,8 @@
             alert('WELCOME, ' + name.toUpperCase() + '! ' + tier.toUpperCase() + ' TiER ACTiVATED.\n+500 BONUS COiNS added.');
         }
 
+        // Mark that user just signed up so engine auto-previews
+        localStorage.setItem('knocks_auto_preview', 'true');
         window.location.href = 'render.html';
     }
 </script>
