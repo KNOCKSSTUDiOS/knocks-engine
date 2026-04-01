@@ -9,176 +9,221 @@
     
     <style>
         :root {
-            --core-void: #020205;
-            --core-cyan: #00fff2;
-            --core-blood: #ff4b2b;
-            --core-ultra: #8a2be2;
+            --vivid-cyan: #00fff2;
+            --neon-purple: #bc13fe;
+            --metallic-silver: #e2e8f0;
+            --deep-void: #010103;
+            --glow: 0 0 25px rgba(0, 255, 242, 0.6);
         }
 
-        /* OPTIMIZED BACKGROUND: 
-           Using hardware-accelerated gradients to prevent the 215ms UI block 
-           detected in the performance audit.
-        */
         body {
-            background-color: var(--core-void);
-            color: #ffffff;
+            background-color: var(--deep-void);
+            color: white;
             font-family: 'Inter', sans-serif;
             margin: 0;
             overflow-x: hidden;
+            /* ULTRA-VIVID DEPTH FIELD */
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(0, 255, 242, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(138, 43, 226, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(255, 75, 43, 0.04) 0%, transparent 60%);
+                radial-gradient(circle at 10% 10%, rgba(0, 255, 242, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(188, 19, 254, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(255, 75, 43, 0.05) 0%, transparent 50%);
             background-attachment: fixed;
-            will-change: transform;
         }
 
         .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
 
-        /* THE IDENTITY STACK */
-        .identity-badge {
-            display: inline-block;
-            border: 1px solid rgba(0, 255, 242, 0.25);
-            background: rgba(0, 255, 242, 0.02);
-            padding: 10px 30px;
-            border-radius: 100px;
-            font-size: 8px;
-            font-weight: 900;
-            letter-spacing: 0.5em;
-            color: var(--core-cyan);
-            margin-bottom: 3rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .engine-title {
-            font-size: clamp(3.5rem, 12vw, 10rem);
-            line-height: 0.78;
-            letter-spacing: -0.06em;
-            background: linear-gradient(145deg, #ffffff 40%, var(--core-cyan), var(--core-ultra));
+        /* --- SHINY METALLIC TEXT --- */
+        .metallic-title {
+            font-size: clamp(3.5rem, 15vw, 12rem);
+            line-height: 0.75;
+            letter-spacing: -0.08em;
+            background: linear-gradient(180deg, #fff 20%, #888 50%, #fff 80%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 40px rgba(0, 255, 242, 0.15));
+            filter: drop-shadow(var(--glow));
+            animation: shine 8s infinite linear;
         }
 
-        /* KINETIC ACTION SYSTEM: Optimized for low input delay */
-        .action-primary {
-            background: var(--core-blood);
-            color: white;
-            padding: 22px 65px;
-            border-radius: 100px;
-            font-size: 11px;
+        @keyframes shine {
+            0% { filter: hue-rotate(0deg) brightness(1); }
+            50% { filter: hue-rotate(10deg) brightness(1.3); }
+            100% { filter: hue-rotate(0deg) brightness(1); }
+        }
+
+        /* --- FRAMED VIDEO ENGINE (Hardware Accelerated) --- */
+        .video-frame {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), var(--glow);
+            transition: 0.5s transform cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .video-frame:hover { transform: scale(1.02) translateY(-10px); }
+        
+        .frame-label {
+            position: absolute; top: 20px; left: 20px;
+            background: rgba(0, 255, 242, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 5px 15px; border-radius: 5px;
+            font-size: 8px; color: var(--vivid-cyan);
+            border: 1px solid var(--vivid-cyan);
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* --- NEON INTERFACE BUTTONS --- */
+        .btn-neon {
+            background: var(--vivid-cyan);
+            color: black;
+            padding: 20px 50px;
+            border-radius: 5px; /* Industrial Square-ish look */
             font-weight: 900;
-            letter-spacing: 4px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            box-shadow: 0 12px 40px rgba(255, 75, 43, 0.35);
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+            box-shadow: var(--glow);
+            transition: 0.3s;
             border: none; cursor: pointer;
         }
-        .action-primary:active { transform: scale(0.98); }
-
-        /* MANIFESTO ARCHITECTURE */
-        .manifesto-section {
-            padding: 180px 10%;
-            background: linear-gradient(to bottom, transparent, #030307);
-            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        .btn-neon:hover {
+            background: white;
+            box-shadow: 0 0 50px white;
+            transform: scale(1.05);
         }
 
-        .manifesto-title {
-            font-size: clamp(3rem, 10vw, 8rem);
-            line-height: 0.8;
-            font-style: italic;
-            margin-bottom: 50px;
+        /* --- DYNAMIC GRID BACKGROUND --- */
+        .grid-overlay {
+            position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(0, 255, 242, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(0, 255, 242, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        /* SYSTEM COMMAND CENTER */
-        #command-drawer {
-            position: fixed; top: 0; right: -100%; width: 100%; max-width: 450px;
-            height: 100vh; background: rgba(0,0,0,0.98); z-index: 1000;
-            backdrop-filter: blur(30px); border-left: 1px solid rgba(255,255,255,0.05);
-            transition: 0.6s cubic-bezier(0.2, 1, 0.3, 1); padding: 80px 40px;
+        /* --- COMMAND CENTER --- */
+        #nav-drawer {
+            position: fixed; top: 0; right: -100%; width: 100%; max-width: 500px;
+            height: 100vh; background: rgba(0, 10, 15, 0.98); z-index: 2000;
+            backdrop-filter: blur(50px); border-left: 2px solid var(--vivid-cyan);
+            transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); padding: 60px 40px;
         }
-        #command-drawer.active { right: 0; }
+        #nav-drawer.active { right: 0; }
     </style>
 </head>
 <body>
 
-    <div class="fixed top-12 right-12 z-[1001] cursor-pointer group" onclick="toggleNav()">
-        <div class="w-10 h-[2px] bg-white mb-2 transition-all group-hover:bg-cyan-400"></div>
-        <div class="w-10 h-[2px] bg-orange-600 mb-2"></div>
-        <div class="w-6 h-[2px] bg-white ml-auto transition-all group-hover:w-10"></div>
+    <div class="grid-overlay"></div>
+
+    <div class="fixed top-10 right-10 z-[2001] cursor-pointer group" onclick="toggleNav()">
+        <div class="w-12 h-[3px] bg-cyan-400 mb-2 shadow-[0_0_10px_#00fff2]"></div>
+        <div class="w-8 h-[3px] bg-white mb-2 ml-auto"></div>
+        <div class="w-12 h-[3px] bg-purple-500 shadow-[0_0_10px_#bc13fe]"></div>
     </div>
 
-    <div id="command-drawer">
-        <p class="monolith text-[10px] text-cyan-400 tracking-[1em] mb-12 italic">Signal_Active</p>
-        <div class="rounded-3xl overflow-hidden border border-white/5 shadow-2xl bg-black">
-            <iframe src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" frameborder="0" width="100%" height="450" loading="lazy"></iframe>
+    <div id="nav-drawer">
+        <p class="monolith text-[11px] text-cyan-400 tracking-[1em] mb-10">Signal_Live_Frequency</p>
+        <div class="video-frame h-[500px]">
+            <div class="frame-label">Radio_Feed</div>
+            <iframe src="https://knocksstudios.airtime.pro/embed/player?stream=auto&skin=2" frameborder="0" width="100%" height="100%"></iframe>
         </div>
-        <button onclick="toggleNav()" class="mt-20 text-[10px] text-gray-700 uppercase tracking-widest hover:text-white transition">Halt_Transmission</button>
+        <button onclick="toggleNav()" class="mt-20 monolith text-[10px] text-gray-500 hover:text-white">Disconnect_Signal</button>
     </div>
 
-    <main class="min-h-screen flex flex-col items-center justify-center text-center px-8 relative z-50">
-        <div class="identity-badge monolith">● AI LAB LEGENDS</div>
-        
-        <h1 class="monolith engine-title">
+    <main class="min-h-screen flex flex-col items-center justify-center px-6 pt-20">
+        <div class="inline-block border border-cyan-400/30 px-6 py-2 rounded-full mb-10 backdrop-blur-md">
+            <span class="monolith text-[9px] text-cyan-400 tracking-[0.5em]">● AI_LAB_LEGENDS_ACTIVE</span>
+        </div>
+
+        <h1 class="monolith metallic-title text-center">
             KNOCKS<br>STUDiOS
         </h1>
 
-        <p class="mt-14 text-gray-400 text-[11px] md:text-sm tracking-[0.5em] uppercase max-w-xl leading-relaxed font-black opacity-60">
-            Sovereign Architecture. <br>Cinematic Omnipotence.
+        <p class="mt-12 text-center text-gray-400 text-sm md:text-base tracking-[0.6em] uppercase max-w-3xl leading-loose">
+            The World's Most <span class="text-white border-b border-cyan-400">Sovereign</span> AI Creative Engine.
         </p>
 
         <div class="mt-16 flex flex-col sm:flex-row gap-8">
-            <button class="action-primary">Explore Engine</button>
-            <button class="border border-white/10 px-14 py-5 rounded-full text-[11px] font-black uppercase tracking-[0.4em] hover:bg-white/5 transition">The Vision</button>
+            <button class="btn-neon">Ignite Engine</button>
+            <button class="border border-white/20 px-12 py-5 rounded-md monolith text-[10px] tracking-[0.3em] hover:bg-white hover:text-black transition-all">Manifesto</button>
         </div>
     </main>
 
-    <section class="manifesto-section">
+    <section class="py-40 px-6 md:px-20 bg-black/40">
         <div class="max-w-7xl mx-auto">
-            <span class="monolith text-[11px] text-cyan-400 tracking-[1.5em] block mb-12">Manifesto</span>
-            <h2 class="monolith manifesto-title">
-                Rendered<br><span style="background: linear-gradient(90deg, #ff4b2b, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">From_The_Void.</span>
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-                <p class="text-gray-500 text-[12px] leading-loose uppercase tracking-[0.3em] font-black">
-                    WE DO NOT SIMULATE THE FUTURE. WE COMPUTE IT. KNOCKSSTUDIOS IS THE RAW ENGINE OF SOVEREIGN CREATIVITY.
-                </p>
-                <p class="text-gray-500 text-[12px] leading-loose uppercase tracking-[0.3em] font-black">
-                    POWERED BY THE AI LAB, EVERY FRAME IS A PIXEL-PERFECT TESTAMENT TO OMNIPOTENT STRUCTURE.
-                </p>
+            <div class="flex justify-between items-end mb-20">
+                <div>
+                    <span class="monolith text-cyan-400 text-[10px] tracking-[1em] block mb-4">The_Engine_Capability</span>
+                    <h2 class="monolith text-4xl md:text-6xl italic">Visual_Overload</h2>
+                </div>
+                <div class="hidden md:block h-[1px] w-1/2 bg-gradient-to-r from-transparent to-cyan-500 opacity-30"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <div class="video-frame aspect-video">
+                    <div class="frame-label">Engine_01</div>
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover opacity-60 hover:opacity-100 transition-opacity">
+                </div>
+
+                <div class="video-frame aspect-video">
+                    <div class="frame-label">Compute_Live</div>
+                    <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover opacity-60">
+                </div>
+
+                <div class="video-frame aspect-video">
+                    <div class="frame-label">Studio_Output</div>
+                    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover opacity-60">
+                </div>
+
+            </div>
+
+            <div class="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="video-frame h-[400px]">
+                    <div class="frame-label">Master_Vault</div>
+                    <div class="p-10 flex flex-col justify-center h-full">
+                        <h3 class="monolith text-3xl mb-6">Unrivaled_Structure</h3>
+                        <p class="text-gray-400 leading-relaxed tracking-wider uppercase text-xs">
+                            We don't just build websites. We build digital fortresses. Every line of code is optimized for INP, LCP, and Sovereign Performance.
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="monolith text-5xl md:text-7xl leading-tight mb-10">Vivid.<br><span class="text-cyan-400 shadow-cyan-500">Vibrant.</span><br>VEO_3.1</h2>
+                    <p class="text-gray-500 text-sm tracking-widest leading-loose">
+                        BUILT FOR PROFESSIONALS. DESIGNED FOR THE BOLD. KNOCKS STUDIOS IS THE JUNCTION WHERE BRAINS MEET CINEMATIC BEAUTY.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-    <button onclick="openVault()" class="fixed bottom-10 right-10 text-[9px] text-white/5 tracking-[0.8em] uppercase hover:text-white transition">Sys_Bypass</button>
+    <footer class="py-20 text-center border-t border-white/5">
+        <p class="monolith text-[8px] text-gray-700 tracking-[2em]">Sovereign_Engine_Core_2026</p>
+        <button onclick="openVault()" class="mt-10 text-[8px] text-white/5 tracking-[0.5em] hover:text-cyan-400">ADMIN_BYPASS_0736</button>
+    </footer>
 
-    <div id="vault" style="display:none; position:fixed; inset:0; background:black; z-index:10000; align-items:center; justify-content:center;">
-        <div class="text-center p-16 bg-zinc-950 border border-white/5 rounded-[50px] w-full max-w-md shadow-2xl">
-            <p class="monolith text-[11px] text-orange-600 tracking-[1.5em] mb-14 italic">AUTHENTICATE_CEO</p>
-            <input type="password" id="pass" class="bg-black border border-white/10 text-white p-6 text-center tracking-[1.2em] w-full mb-12 outline-none rounded-2xl" placeholder="****">
-            <button onclick="verify()" class="w-full py-6 bg-white text-black font-black text-xs tracking-[0.6em] uppercase rounded-2xl hover:bg-cyan-400 transition">Ignite_Core</button>
-            <button onclick="closeVault()" class="mt-10 text-[10px] text-gray-800 uppercase tracking-widest block mx-auto hover:text-gray-500">Exit</button>
+    <div id="vault" class="fixed inset-0 bg-black z-[10000] hidden items-center justify-center">
+        <div class="bg-zinc-950 border border-cyan-400/20 p-16 rounded-[40px] text-center max-w-sm w-full mx-4">
+            <p class="monolith text-cyan-400 text-xs tracking-widest mb-10 italic">Identify_Master</p>
+            <input type="password" id="pass" class="w-full bg-black border border-white/10 p-5 rounded-xl text-center text-white tracking-[1em] outline-none focus:border-cyan-400 mb-8" placeholder="****">
+            <button onclick="verify()" class="btn-neon w-full py-4 text-xs">Ignite_Core</button>
+            <button onclick="closeVault()" class="mt-8 text-[9px] text-gray-700 uppercase block mx-auto">Exit</button>
         </div>
     </div>
 
     <script>
-        /* Lightweight Logic to prevent INP UI Blocks */
-        function toggleNav() { document.getElementById('command-drawer').classList.toggle('active'); }
+        function toggleNav() { document.getElementById('nav-drawer').classList.toggle('active'); }
         function openVault() { document.getElementById('vault').style.display = 'flex'; }
         function closeVault() { document.getElementById('vault').style.display = 'none'; }
-        
         function verify() {
-            const pass = document.getElementById('pass').value;
-            // Execute non-blocking check
-            requestAnimationFrame(() => {
-                if(pass === "0736") {
-                    alert("MASTER BYPASS ENGAGED.");
-                    closeVault();
-                } else {
-                    alert("SIGNAL REJECTED.");
-                    location.reload();
-                }
-            });
+            if(document.getElementById('pass').value === "0736") {
+                alert("SOVEREIGN_ACCESS_GRANTED. WELCOME CEO.");
+                closeVault();
+            } else {
+                alert("ACCESS_REJECTED.");
+                location.reload();
+            }
         }
     </script>
 </body>
