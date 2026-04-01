@@ -3,22 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE ARCHiVE | HOLLYWOODiMAGiNG.STUDiO</title>
+    <title>THE ARCHiVE | CREDiT STORE</title>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
-        .header { padding: 40px; border-bottom: 1px solid #111; display: flex; justify-content: space-between; align-items: center; }
-        .brand-sig { font-weight: 900; letter-spacing: 5px; color: #00f2ff; text-transform: none; }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; }
+
+        .header { padding: 40px; border-bottom: 1px solid #111; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .brand-sig { font-weight: 900; letter-spacing: 5px; color: #00f2ff; }
+        .nav-back { color: #555; font-size: 11px; letter-spacing: 2px; text-decoration: none; transition: color 0.3s; }
+        .nav-back:hover { color: #00f2ff; }
+
         /* CREDiT METER */
         .meter { border: 1px solid #ffd700; padding: 10px 25px; color: #ffd700; font-weight: bold; background: rgba(255, 215, 0, 0.05); box-shadow: 0 0 20px rgba(255, 215, 0, 0.2); }
-        
-        /* ARCHiVE GRiD */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 50px; }
-        .card { background: #050505; border: 1px solid #222; padding: 40px; text-align: center; position: relative; transition: 0.4s; }
-        .card:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.2); }
-        .price { font-size: 3rem; color: #00f2ff; margin: 20px 0; font-weight: 900; }
-        .btn { width: 100%; padding: 15px; background: transparent; border: 1px solid #00f2ff; color: #00f2ff; cursor: pointer; font-weight: bold; letter-spacing: 3px; }
+
+        .section-label { text-align: center; padding: 50px 20px 10px; }
+        .section-label h2 { font-size: 11px; letter-spacing: 8px; color: #555; text-transform: uppercase; }
+        .section-label p { font-size: 10px; color: #333; letter-spacing: 3px; margin-top: 8px; }
+
+        /* CREDiT PACKS GRiD */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; padding: 30px 50px 50px; }
+        .card { background: #050505; border: 1px solid #222; padding: 35px; text-align: center; position: relative; transition: 0.4s; }
+        .card:hover { border-color: #00f2ff; box-shadow: 0 0 40px rgba(0, 242, 255, 0.15); }
+        .card.featured { border-color: #ffd700; }
+        .card.featured:hover { box-shadow: 0 0 40px rgba(255, 215, 0, 0.2); }
+
+        .card h3 { font-size: 13px; letter-spacing: 4px; color: #888; margin-bottom: 15px; }
+        .card.featured h3 { color: #ffd700; }
+        .coin-amount { font-size: 2.5rem; color: #00f2ff; font-weight: 900; margin: 10px 0; }
+        .card.featured .coin-amount { color: #ffd700; }
+        .price-tag { font-size: 14px; color: #666; margin-bottom: 20px; letter-spacing: 2px; }
+        .bonus { color: #00ff66; font-size: 11px; font-weight: bold; margin-bottom: 20px; letter-spacing: 1px; }
+
+        .btn { width: 100%; padding: 14px; background: transparent; border: 1px solid #00f2ff; color: #00f2ff; cursor: pointer; font-weight: bold; letter-spacing: 3px; font-family: 'Courier New', monospace; font-size: 11px; transition: 0.3s; }
+        .btn:hover { background: #00f2ff; color: #000; }
+        .card.featured .btn { border-color: #ffd700; color: #ffd700; }
+        .card.featured .btn:hover { background: #ffd700; color: #000; }
+
         :focus-visible { outline: 2px solid #00f2ff; outline-offset: 2px; }
+
+        /* SEPARATOR */
+        .divider { border: none; border-top: 1px solid #111; margin: 0 50px; }
+
+        /* UPGRADE NOTE */
+        .upgrade-note { text-align: center; padding: 40px 20px 60px; }
+        .upgrade-note p { font-size: 10px; color: #444; letter-spacing: 3px; }
+        .upgrade-note a { color: #FF8C00; text-decoration: none; letter-spacing: 2px; transition: color 0.3s; }
+        .upgrade-note a:hover { color: #fff; }
 
         .archive-log { padding: 50px; border-top: 1px solid #111; color: #333; font-size: 0.7rem; }
     </style>
@@ -26,30 +56,60 @@
 <body>
 
     <header class="header">
-        <h1 class="brand-sig">HOLLYWOODiMAGiNG.STUDiO</h1>
+        <div>
+            <h1 class="brand-sig">THE ARCHiVE</h1>
+            <a href="index.html" class="nav-back">← RETURN_TO_CORE</a>
+        </div>
         <div class="meter" id="coin-display" aria-live="polite">CREDiTS: 0</div>
     </header>
 
+    <div class="section-label">
+        <h2>CREDiT TOP-UP</h2>
+        <p>PURCHASE COiNS TO POWER YOUR RENDERS</p>
+    </div>
+
     <main class="grid">
         <div class="card">
-            <h2>MONTHLY LEGEND</h2>
-            <div class="price">$29.99</div>
-            <p>• 5sec HQ Renders</p>
-            <p>• +2000 Bonus Coins</p>
-            <button class="btn" onclick="render()" aria-label="Initiate render with Monthly Legend plan">iNiTiATE RENDER</button>
+            <h3>STARTER PACK</h3>
+            <div class="coin-amount">500</div>
+            <div class="price-tag">$4.99</div>
+            <button class="btn" onclick="buyCredits(500)" aria-label="Buy 500 credits for $4.99">ACQUiRE</button>
         </div>
-        <div class="card" style="border-color: #ffd700;">
-            <h2 style="color: #ffd700;">ANNUAL STUDiO</h2>
-            <div class="price" style="color: #ffd700;">$249.99</div>
-            <p>• Unlimited 5sec Clips</p>
-            <p>• Priority Encryption</p>
-            <button class="btn" style="border-color: #ffd700; color: #ffd700;" onclick="render()" aria-label="Initiate render with Annual Studio plan">iNiTiATE RENDER</button>
+
+        <div class="card">
+            <h3>CORE PACK</h3>
+            <div class="coin-amount">1,500</div>
+            <div class="price-tag">$12.99</div>
+            <div class="bonus">+150 BONUS COiNS</div>
+            <button class="btn" onclick="buyCredits(1650)" aria-label="Buy 1500 plus 150 bonus credits for $12.99">ACQUiRE</button>
+        </div>
+
+        <div class="card featured">
+            <h3>ENGiNE PACK</h3>
+            <div class="coin-amount">5,000</div>
+            <div class="price-tag">$39.99</div>
+            <div class="bonus">+1,000 BONUS COiNS</div>
+            <button class="btn" onclick="buyCredits(6000)" aria-label="Buy 5000 plus 1000 bonus credits for $39.99">ACQUiRE</button>
+        </div>
+
+        <div class="card">
+            <h3>SOVEREiGN PACK</h3>
+            <div class="coin-amount">15,000</div>
+            <div class="price-tag">$99.99</div>
+            <div class="bonus">+5,000 BONUS COiNS</div>
+            <button class="btn" onclick="buyCredits(20000)" aria-label="Buy 15000 plus 5000 bonus credits for $99.99">ACQUiRE</button>
         </div>
     </main>
 
+    <hr class="divider">
+
+    <div class="upgrade-note">
+        <p>NEED UNLiMiTED RENDERS? <a href="signup.html">UPGRADE YOUR ACCESS TiER →</a></p>
+    </div>
+
     <div class="archive-log" id="log-feed" role="log" aria-live="polite" aria-label="Archive activity log">
-        [SYSTEM] ARCHiVE_BOT_ONLINE...<br>
-        [SYSTEM] 9K_ULTRA_ENGiNE_ACTiVE...
+        [SYSTEM] ARCHiVE_STORE_ONLiNE...<br>
+        [SYSTEM] CREDiT_ENGINE_ACTiVE...
     </div>
 
     <script>
@@ -57,17 +117,13 @@
         const coins = localStorage.getItem('knocks_credits') || "0";
         document.getElementById('coin-display').innerText = `CREDiTS: ${coins}`;
 
-        function render() {
-            const current = parseInt(localStorage.getItem('knocks_credits'));
-            if(current >= 1000) {
-                const newTotal = current - 1000;
-                localStorage.setItem('knocks_credits', newTotal);
-                document.getElementById('coin-display').innerText = `CREDiTS: ${newTotal}`;
-                document.getElementById('log-feed').innerHTML += `<br>[BOT] RENDER_START: 5.0s HQ_LAYER...`;
-                alert("RENDER iNiTiATED. HQ FiLE ENCRYPTiNG.");
-            } else {
-                alert("iNSUFFiCiENT CREDiTS. TOP UP iN THE STUDiO.");
-            }
+        function buyCredits(amount) {
+            const current = parseInt(localStorage.getItem('knocks_credits') || "0");
+            const newTotal = current + amount;
+            localStorage.setItem('knocks_credits', newTotal);
+            document.getElementById('coin-display').innerText = `CREDiTS: ${newTotal}`;
+            document.getElementById('log-feed').innerHTML += `<br>[BOT] CREDiT_iNJECT: +${amount.toLocaleString()} COiNS LOADED`;
+            alert(`+${amount.toLocaleString()} CREDiTS LOADED. TOTAL: ${newTotal.toLocaleString()}`);
         }
     </script>
 </body>
