@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKS_CORE | 9K_RENDER_ENGINE</title>
+    <title>KNOCKS_CORE | 9K_RENDER_ENGINE // KNOCKSSTUDiOS</title>
     <style>
         :root { --neon: #00f2ff; --gold: #ffd700; --bg: #000; }
         body { margin: 0; background: #000; color: #fff; font-family: 'Courier New', monospace; overflow-x: hidden; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
@@ -49,6 +49,17 @@
 
         #console { font-size: 0.65rem; color: var(--gold); margin-top: 20px; min-height: 20px; text-transform: uppercase; }
         #coin-info { text-align: right; font-size: 0.7rem; color: var(--gold); margin-bottom: 10px; }
+        @keyframes brand-color-fade { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .brand-animated {
+            display: inline;
+            background: linear-gradient(270deg, #00fff2, #00e5ff, #bc13fe, #ff6ec7, #ffd700, #00ffcc, #e2e8f0, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brand-color-fade 8s ease infinite;
+            filter: drop-shadow(0 0 12px rgba(0, 255, 242, 0.5));
+        }
     </style>
 </head>
 <body>
@@ -56,7 +67,7 @@
     <main class="engine-wrap">
         <div class="header">
             <h1>9K_RENDER_CORE</h1>
-            <p>TRADEMARKED_OUTPUT_ENGINE // KNOCKSSTUDiOS</p>
+            <p>TRADEMARKED_OUTPUT_ENGINE // <span class="brand-animated">KNOCKSSTUDiOS</span></p>
         </div>
 
         <div class="render-display" id="display" role="img" aria-label="Render preview window">

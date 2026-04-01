@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>KNOCKS STUDIOS | SOVEREIGN ENGINE 3.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>KNOCKSSTUDiOS | SOVEREIGN ENGINE 3.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
@@ -28,14 +28,35 @@
 
         .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
 
-        /* FIX: High-Contrast Metallic Title */
+        /* ANIMATED METALLIC BRAND TITLE */
+        @keyframes hero-color-fade {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         .metallic-title {
             font-size: clamp(3rem, 15vw, 10rem);
             line-height: 0.8;
-            background: linear-gradient(180deg, #fff 25%, #94a3b8 50%, #fff 75%);
+            background: linear-gradient(
+                270deg,
+                #00fff2,
+                #e2e8f0,
+                #00e5ff,
+                #bc13fe,
+                #ff6ec7,
+                #ffd700,
+                #00ffcc,
+                #94a3b8,
+                #ffffff,
+                #00fff2
+            );
+            background-size: 600% 600%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(var(--glow));
+            background-clip: text;
+            animation: hero-color-fade 10s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 242, 0.5))
+                   drop-shadow(0 0 40px rgba(188, 19, 254, 0.3));
         }
 
         /* HARDWARE ACCELERATED FRAMES */
@@ -156,7 +177,7 @@
             <div>
                 <h4 class="monolith text-5xl md:text-8xl leading-none italic mb-10"><span class="text-cyan-400">VIVID</span>_VEO</h4>
                 <p class="text-gray-500 tracking-[0.4em] uppercase text-[10px] leading-loose">
-                    BUILT FOR PROFESSIONALS. DESIGNED FOR THE BOLD. KNOCKS STUDIOS IS THE JUNCTION WHERE BRAINS MEET CINEMATIC BEAUTY.
+                    BUILT FOR PROFESSIONALS. DESIGNED FOR THE BOLD. KNOCKSSTUDiOS IS THE JUNCTION WHERE BRAINS MEET CINEMATIC BEAUTY.
                 </p>
             </div>
         </div>

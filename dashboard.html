@@ -18,12 +18,23 @@
         }
         .btn:hover { background: #ffd700; color: #000; }
         :focus-visible { outline: 2px solid #00f2ff; outline-offset: 2px; }
+        @keyframes brand-color-fade { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .brand-animated {
+            display: inline;
+            background: linear-gradient(270deg, #00fff2, #00e5ff, #bc13fe, #ff6ec7, #ffd700, #00ffcc, #e2e8f0, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brand-color-fade 8s ease infinite;
+            filter: drop-shadow(0 0 12px rgba(0, 255, 242, 0.5));
+        }
     </style>
 </head>
 <body>
 
     <main>
-    <h1>COMMAND CENTER // KNOCKSSTUDiOS</h1>
+    <h1>COMMAND CENTER // <span class="brand-animated">KNOCKSSTUDiOS</span></h1>
 
     <div class="grid">
         <div class="panel">

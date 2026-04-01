@@ -40,6 +40,37 @@ body::before {
   100% { box-shadow: 0 0 5px var(--primary-glow); }
 }
 
+/* KNOCKSSTUDiOS BRAND ANIMATION — colorful metallic fade */
+@keyframes brand-color-fade {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.brand-animated {
+  display: inline-block;
+  background: linear-gradient(
+    270deg,
+    #00fff2,
+    #00e5ff,
+    #bc13fe,
+    #ff6ec7,
+    #ffd700,
+    #00ffcc,
+    #e2e8f0,
+    #00fff2
+  );
+  background-size: 600% 600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: brand-color-fade 8s ease infinite;
+  filter: drop-shadow(0 0 12px rgba(0, 255, 242, 0.5))
+         drop-shadow(0 0 30px rgba(188, 19, 254, 0.3));
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
 button, .action-card {
   background: var(--surface-dark);
   border: 1px solid #333;
