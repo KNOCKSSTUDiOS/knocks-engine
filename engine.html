@@ -3,173 +3,874 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>9K_CORE_ENGINE | KNOCKSSTUDiOS</title>
+    <title>ENGINE_01 | KNOCKSSTiUDiOS</title>
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="ENGINE_01 | KNOCKSSTiUDiOS" />
+    <meta property="og:description" content="Social media" />
+    <meta property="og:url" content="/engine.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="TikTok" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="ENGINE_01 | KNOCKSSTiUDiOS" />
+    <meta name="twitter:description" content="Social media" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/engine.html" />
+
+    <!-- OG/Twitter Share Image — see index.html for setup instructions -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --cyan: #00fff2;
+            --gold: #ffd700;
+            --orange: #FF8C00;
+            --purple: #a855f7;
+            --void: #010103;
+            --win-gray: #c0c0c0;
+            --win-blue: #000080;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #050505; color: #fff; font-family: 'Courier New', monospace; padding: 20px; }
 
-        /* HEADER STATUS BAR */
-        .status-bar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border: 1px solid #1a1a1a; background: #000; margin-bottom: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; }
-        .coin-count { color: #FF8C00; font-weight: bold; letter-spacing: 2px; font-size: 12px; }
-        .op-label { font-size: 11px; color: #555; letter-spacing: 2px; }
-        .op-label span { color: #00f2ff; }
+        body {
+            background: #000;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
 
-        /* MAIN GENERATOR LAYOUT */
-        .engine-grid { display: grid; grid-template-columns: 1fr 350px; gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* VIDEO VIEWPORT */
-        .viewport {
-            background: #000; border: 1px solid #FF8C00; aspect-ratio: 16/9;
+        /* ═══ PARTICLE CANVAS ═══ */
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ═══ AMBIENT GLOW LAYERS ═══ */
+        .ambient-layer {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(ellipse 600px 400px at 20% 30%, rgba(0,255,242,0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 500px 500px at 80% 70%, rgba(168,85,247,0.03) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 300px at 50% 50%, rgba(255,215,0,0.02) 0%, transparent 70%);
+            animation: ambientShift 20s ease-in-out infinite;
+        }
+        @keyframes ambientShift {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* ═══ MAIN SHELL ═══ */
+        .engine-shell {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px;
+        }
+
+        .shell-frame {
+            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(30px);
+            box-shadow:
+                0 0 80px rgba(0,0,0,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+
+        /* ═══ TITLE BAR (Win95 inspired) ═══ */
+        .title-bar {
+            background: linear-gradient(90deg, var(--win-blue), #1084d0, var(--win-blue));
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .title-bar-btn {
+            width: 20px; height: 20px;
+            background: var(--win-gray);
+            border: 2px outset #fff;
             display: flex; align-items: center; justify-content: center;
-            position: relative; overflow: hidden;
-            transition: border-color 0.5s, box-shadow 0.5s;
+            font-size: 10px; font-weight: 900; color: #000;
+            cursor: pointer;
         }
-        #main-video { width: 100%; height: 100%; display: none; object-fit: cover; }
-        .placeholder-text { color: #333; letter-spacing: 5px; font-size: 12px; transition: color 0.3s; }
+        .title-bar-btn:active { border-style: inset; }
 
-        /* NEURAL SCAN OVERLAY */
-        .scan-line {
-            position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, #00f2ff, transparent);
-            opacity: 0; animation: none; pointer-events: none;
+        /* ═══ ENGINE VIEWPORT ═══ */
+        .viewport-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
         }
-        @keyframes scan-move {
-            0% { top: 0; opacity: 0.8; }
-            100% { top: 100%; opacity: 0; }
+        .viewport-frame::before {
+            content: '';
+            position: absolute; inset: 0;
+            border: 1px solid rgba(0,255,242,0.1);
+            z-index: 5;
+            pointer-events: none;
         }
-        .scan-active .scan-line { animation: scan-move 2s linear infinite; }
 
-        /* PROGRESS BAR */
-        .progress-bar { height: 3px; background: #111; margin-top: 8px; overflow: hidden; border-radius: 2px; }
-        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #FF8C00, #ffd700); transition: width 0.1s; box-shadow: 0 0 8px #FF8C00; }
-        .progress-fill.free { background: linear-gradient(90deg, #00FF00, #00ff88); box-shadow: 0 0 8px #00FF00; }
+        /* Scanline overlay */
+        .scanline-overlay {
+            position: absolute; inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 2px,
+                rgba(0,255,242,0.015) 2px,
+                rgba(0,255,242,0.015) 4px
+            );
+            z-index: 10;
+            pointer-events: none;
+        }
 
-        /* AUDIO MODULE */
-        .audio-module { margin-top: 15px; padding: 15px; border: 1px solid #1a1a1a; background: #080808; display: none; }
-        .audio-module audio { width: 100%; margin-top: 8px; }
+        /* Active scan beam */
+        .active-scan {
+            position: absolute;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            top: 0;
+            opacity: 0.5;
+            animation: scanMove 4s linear infinite;
+            z-index: 11;
+            pointer-events: none;
+            box-shadow: 0 0 30px var(--cyan), 0 0 60px rgba(0,255,242,0.3);
+        }
+        @keyframes scanMove { 0% { top: -3px; } 100% { top: 100%; } }
 
-        /* CONTROL PANEL */
-        .controls { background: #0a0a0a; border: 1px solid #1a1a1a; padding: 20px; display: flex; flex-direction: column; }
-        .panel-title { font-size: 11px; letter-spacing: 3px; margin-bottom: 15px; color: #555; border-bottom: 1px solid #111; padding-bottom: 10px; }
+        /* Chromatic aberration edge */
+        .chroma-edge {
+            position: absolute; inset: 0; z-index: 12; pointer-events: none;
+            box-shadow:
+                inset 3px 0 15px rgba(255,0,100,0.08),
+                inset -3px 0 15px rgba(0,100,255,0.08);
+        }
 
-        textarea { width: 100%; background: #000; border: 1px solid #222; color: #fff; padding: 15px; height: 120px; font-family: 'Courier New', monospace; margin-bottom: 15px; outline: none; resize: none; font-size: 11px; letter-spacing: 1px; }
-        textarea:focus { border-color: #FF8C00; box-shadow: 0 0 10px rgba(255,140,0,0.1); }
+        /* Viewport vignette */
+        .viewport-vignette {
+            position: absolute; inset: 0; z-index: 9; pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%);
+        }
 
+        /* LIVE badge */
+        .live-badge {
+            position: absolute;
+            top: 16px; left: 16px;
+            z-index: 20;
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border: 1px solid rgba(255,0,0,0.3);
+        }
+        .live-dot {
+            width: 8px; height: 8px;
+            background: #ff0040;
+            border-radius: 50%;
+            animation: livePulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 10px #ff0040;
+        }
+        @keyframes livePulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
+
+        /* Timecode HUD */
+        .timecode-hud {
+            position: absolute;
+            bottom: 16px; right: 16px;
+            z-index: 20;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            background: rgba(0,0,0,0.6);
+            padding: 4px 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Frame counter */
+        .frame-counter {
+            position: absolute;
+            top: 16px; right: 16px;
+            z-index: 20;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: var(--cyan);
+            opacity: 0.6;
+        }
+
+        /* Reticle crosshair */
+        .reticle {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            z-index: 15;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+        .reticle::before, .reticle::after {
+            content: '';
+            position: absolute;
+            background: var(--cyan);
+        }
+        .reticle::before { width: 1px; height: 100%; left: 50%; }
+        .reticle::after { width: 100%; height: 1px; top: 50%; }
+
+        /* ═══ PROGRESS SYSTEM ═══ */
+        .progress-section {
+            padding: 20px 24px;
+            background: rgba(5,5,5,0.9);
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .progress-rail {
+            height: 4px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--orange), var(--gold));
+            box-shadow: 0 0 20px var(--gold), 0 0 40px rgba(255,215,0,0.3);
+            border-radius: 2px;
+            transition: width 0.15s ease;
+            position: relative;
+        }
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            right: 0; top: -3px;
+            width: 10px; height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--gold);
+        }
+        .progress-fill.free-mode {
+            background: linear-gradient(90deg, #00ff88, #00ffcc);
+            box-shadow: 0 0 20px #00ff88, 0 0 40px rgba(0,255,136,0.3);
+        }
+        .progress-fill.free-mode::after {
+            box-shadow: 0 0 15px #00ff88;
+        }
+
+        /* ═══ ENGINE INPUT / CONTROLS ═══ */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 0;
+        }
+        @media (max-width: 900px) {
+            .controls-grid { grid-template-columns: 1fr; }
+        }
+
+        .prompt-area {
+            padding: 24px;
+            background: rgba(5,5,5,0.6);
+            border-right: 1px solid rgba(255,255,255,0.04);
+        }
+        .prompt-input {
+            width: 100%;
+            height: 140px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            resize: none;
+            outline: none;
+            letter-spacing: 0.5px;
+            line-height: 1.8;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .prompt-input:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 30px rgba(0,255,242,0.08);
+        }
+        .prompt-input::placeholder { color: rgba(255,255,255,0.15); }
+
+        /* Burn buttons */
         .burn-btn {
-            width: 100%; background: #FF8C00; color: #000; border: none;
-            padding: 16px; font-weight: bold; cursor: pointer; letter-spacing: 3px;
-            margin-bottom: 8px; font-size: 11px; font-family: 'Courier New', monospace;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 900;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-        .burn-btn:hover:not(:disabled) { background: #fff; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-        .burn-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-        .burn-btn.free-btn { background: #00FF00; color: #000; display: none; }
-        .burn-btn.free-btn:hover:not(:disabled) { background: #88ffaa; box-shadow: 0 0 20px rgba(0,255,0,0.3); }
+        .burn-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+        .burn-btn:hover::before { left: 100%; }
 
-        :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
+        .burn-primary {
+            background: linear-gradient(135deg, var(--orange), var(--gold));
+            color: #000;
+            box-shadow: 0 4px 30px rgba(255,140,0,0.3);
+        }
+        .burn-primary:hover:not(:disabled) {
+            box-shadow: 0 4px 50px rgba(255,215,0,0.5);
+            transform: translateY(-1px);
+        }
+        .burn-free {
+            background: linear-gradient(135deg, #00cc66, #00ff88);
+            color: #000;
+            display: none;
+            box-shadow: 0 4px 30px rgba(0,255,136,0.2);
+        }
+        .burn-free:hover:not(:disabled) {
+            box-shadow: 0 4px 50px rgba(0,255,136,0.4);
+        }
+        .burn-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none !important;
+        }
 
         .download-btn {
-            width: 100%; background: transparent; border: 1px solid #222; color: #333;
-            padding: 12px; cursor: pointer; display: none; font-family: 'Courier New', monospace;
-            font-size: 10px; letter-spacing: 2px; transition: all 0.3s;
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.2);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: none;
         }
-        .download-btn.active { display: block; color: #00FF00; border-color: #00FF00; }
-        .download-btn.active:hover { background: rgba(0,255,0,0.05); }
+        .download-btn.active {
+            display: block;
+            color: #00ff88;
+            border-color: rgba(0,255,136,0.3);
+        }
+        .download-btn.active:hover {
+            background: rgba(0,255,136,0.05);
+            box-shadow: 0 0 20px rgba(0,255,136,0.1);
+        }
 
-        /* ENGINE STATUS CONSOLE */
+        /* Right panel */
+        .status-panel {
+            padding: 24px;
+            background: rgba(8,8,8,0.9);
+            display: flex;
+            flex-direction: column;
+        }
+
         .console-output {
-            margin-top: auto; padding-top: 15px; border-top: 1px solid #111;
-            font-size: 9px; color: #333; letter-spacing: 2px; min-height: 20px;
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 1.5px;
+            min-height: 20px;
         }
 
-        /* NAV LINKS */
-        .engine-nav { max-width: 1200px; margin: 20px auto 0; display: flex; justify-content: center; gap: 30px; }
-        .engine-nav a { color: #222; text-decoration: none; font-size: 9px; letter-spacing: 2px; transition: color 0.3s; }
-        .engine-nav a:hover { color: #00f2ff; }
+        /* ═══ MODULE GRID ═══ */
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media (max-width: 768px) {
+            .module-grid { grid-template-columns: 1fr; }
+        }
+        .module-slot {
+            padding: 24px;
+            background: rgba(5,5,5,0.6);
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-right: 1px solid rgba(255,255,255,0.02);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .module-slot:last-child { border-right: none; }
+        .module-slot::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            transition: width 0.4s;
+        }
+        .module-slot:hover { background: rgba(10,10,10,0.9); }
+        .module-slot.mod-cyan:hover::after { width: 100%; background: var(--cyan); box-shadow: 0 0 20px var(--cyan); }
+        .module-slot.mod-purple:hover::after { width: 100%; background: var(--purple); box-shadow: 0 0 20px var(--purple); }
+        .module-slot.mod-gold:hover::after { width: 100%; background: var(--gold); box-shadow: 0 0 20px var(--gold); }
 
-        /* COMPANiON BOT WiDGET */
+        .module-bars {
+            display: flex; gap: 3px; margin-top: 16px;
+        }
+        .module-bars .bar-seg {
+            height: 3px; flex: 1;
+            border-radius: 1px;
+            transition: opacity 0.3s;
+        }
+
+        /* ═══ NAV BAR ═══ */
+        .nav-bar {
+            background: var(--win-gray);
+            padding: 10px 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            border-top: 2px solid #fff;
+        }
+        .nav-btn {
+            background: #000;
+            color: #fff;
+            padding: 6px 16px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 9px;
+            font-weight: 900;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px outset #555;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background: #222; }
+        .nav-btn:active { border-style: inset; }
+        .nav-link {
+            font-size: 9px;
+            font-weight: 900;
+            color: rgba(0,0,0,0.4);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        .nav-link:hover { color: #000; border-bottom-color: #000; }
+
+        /* ═══ FREE TIER BANNER ═══ */
+        .free-banner {
+            display: none;
+            padding: 10px 24px;
+            border-bottom: 1px solid rgba(0,255,136,0.15);
+            background: rgba(0,255,136,0.02);
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #00ff88;
+            letter-spacing: 2px;
+        }
+
+        /* ═══ AUDIO MODULE ═══ */
+        .audio-module {
+            display: none;
+            padding: 16px 24px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            background: rgba(5,5,5,0.8);
+        }
+        .audio-module audio { width: 100%; margin-top: 8px; }
+
+        /* ═══ RENDER RESULT ═══ */
+        .render-result {
+            display: none;
+            padding: 16px 24px;
+            border-top: 1px solid rgba(0,255,136,0.15);
+            background: rgba(0,255,136,0.02);
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: #00ff88;
+            letter-spacing: 2px;
+        }
+
+        /* ═══ COMPANION BOT ═══ */
         .companion-widget {
-            position: fixed; bottom: 20px; right: 20px; width: 260px;
-            background: #0a0a0a; border: 1px solid #00f2ff; border-radius: 8px;
-            font-family: 'Courier New', monospace; z-index: 100;
-            box-shadow: 0 0 20px rgba(0,242,255,0.1); display: none;
+            position: fixed;
+            bottom: 20px; right: 20px;
+            width: 260px;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--cyan);
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            z-index: 100;
+            box-shadow: 0 0 30px rgba(0,242,255,0.1);
+            display: none;
         }
         .companion-header {
-            display: flex; align-items: center; gap: 10px; padding: 12px 15px;
-            border-bottom: 1px solid #1a1a1a; cursor: pointer;
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            cursor: pointer;
         }
         .companion-icon { font-size: 18px; }
-        .companion-name { font-size: 10px; letter-spacing: 2px; color: #00f2ff; font-weight: bold; }
+        .companion-name { font-size: 10px; letter-spacing: 2px; color: var(--cyan); font-weight: bold; }
         .companion-role { font-size: 8px; color: #555; letter-spacing: 1px; }
         .companion-body { padding: 12px 15px; }
         .companion-msg { font-size: 9px; color: #888; letter-spacing: 1px; line-height: 1.6; min-height: 30px; }
-        .companion-msg .tip-label { color: #00f2ff; font-weight: bold; display: block; margin-bottom: 4px; }
-        .companion-link { display: block; text-align: center; padding: 8px; border-top: 1px solid #1a1a1a; font-size: 8px; color: #444; text-decoration: none; letter-spacing: 2px; }
-        .companion-link:hover { color: #00f2ff; }
+        .companion-msg .tip-label { color: var(--cyan); font-weight: bold; display: block; margin-bottom: 4px; }
+        .companion-link { display: block; text-align: center; padding: 8px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 8px; color: #444; text-decoration: none; letter-spacing: 2px; }
+        .companion-link:hover { color: var(--cyan); }
 
-        /* RESPONSiVE */
-        @media (max-width: 768px) {
-            .engine-grid { grid-template-columns: 1fr; }
-            body { padding: 10px; }
+        /* ═══ BRAND ANIMATED ═══ */
+        @keyframes brand-color-fade {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .brand-animated {
+            background: linear-gradient(270deg, #00fff2, #00e5ff, #bc13fe, #ff6ec7, #ffd700, #00ffcc, #e2e8f0, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brand-color-fade 8s ease infinite;
+        }
+
+        /* ═══ COIN STATUS ═══ */
+        .coin-display {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        /* ═══ GLITCH TEXT ═══ */
+        @keyframes glitch {
+            0%, 90%, 100% { transform: none; opacity: 1; }
+            92% { transform: translate(-2px, 1px) skew(0.5deg); }
+            94% { transform: translate(2px, -1px) skew(-0.5deg); }
+            96% { transform: translate(-1px, 2px); }
+        }
+        .glitch-text { animation: glitch 8s ease-in-out infinite; }
+
+        /* ═══ STATUS DOTS ═══ */
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        @keyframes dotPulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+            50% { opacity: 0.3; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
-    <header class="status-bar" role="banner">
-        <div class="op-label">OPERATOR: <span id="op-id">KNOCKS_OWNER</span></div>
-        <div class="coin-count">COiNS: <span id="coin-balance" aria-live="polite">0</span></div>
-    </header>
+    <!-- Particle system canvas -->
+    <canvas id="particle-canvas"></canvas>
+    <div class="ambient-layer" aria-hidden="true"></div>
 
-    <div id="free-tier-banner" style="display:none; max-width:1200px; margin:0 auto 15px; padding:12px 20px; border:1px solid #00FF00; background:rgba(0,255,0,0.03); font-size:10px; color:#00FF00; letter-spacing:2px; text-align:center;">
-        FREE TiER ACTiVE: <span id="free-renders-left">2</span>/2 FREE 5-SEC ViDEO RENDERS REMAiNiNG
+    <div class="engine-shell">
+        <div class="shell-frame">
+
+            <!-- TITLE BAR -->
+            <div class="title-bar">
+                <span class="monolith text-[10px] text-white tracking-wider">KNOCKSSTiUDiOS // <span class="brand-animated">CORE_ENGINE_V5</span></span>
+                <div class="flex gap-1">
+                    <div class="title-bar-btn">_</div>
+                    <div class="title-bar-btn">X</div>
+                </div>
+            </div>
+
+            <!-- FREE TIER BANNER -->
+            <div class="free-banner" id="free-tier-banner">
+                FREE TiER ACTiVE: <span id="free-renders-left">2</span>/2 FREE 5-SEC ViDEO RENDERS REMAiNiNG
+            </div>
+
+            <!-- COIN STATUS -->
+            <div style="padding: 10px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.04);">
+                <div class="mono text-[9px] text-gray-600 tracking-wider">OPERATOR: <span id="op-id" class="text-cyan-400">KNOCKS_OWNER</span></div>
+                <div class="coin-display">COiNS: <span id="coin-balance">0</span></div>
+            </div>
+
+            <!-- ENGINE VIEWPORT -->
+            <section class="viewport-frame" id="viewport">
+                <div class="scanline-overlay" aria-hidden="true"></div>
+                <div class="active-scan" aria-hidden="true"></div>
+                <div class="chroma-edge" aria-hidden="true"></div>
+                <div class="viewport-vignette" aria-hidden="true"></div>
+                <div class="reticle" aria-hidden="true"></div>
+
+                <video autoplay muted loop playsinline class="w-full h-full object-cover" style="opacity:0.85; position:absolute; inset:0; z-index:1;">
+                    <source src="downloadfile-65.mp4" type="video/mp4">
+                </video>
+
+                <!-- LIVE badge -->
+                <div class="live-badge">
+                    <div class="live-dot"></div>
+                    <span class="monolith text-[9px] text-white tracking-wider">LiVE_RENDER_FEED</span>
+                </div>
+
+                <!-- Frame counter -->
+                <div class="frame-counter" id="frame-counter">FRM: 0000</div>
+
+                <!-- Timecode -->
+                <div class="timecode-hud" id="timecode">00:00:00:00</div>
+
+                <!-- Loader text (shown during renders) -->
+                <div id="loader" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:20; font-family:'JetBrains Mono',monospace; font-size:12px; color:#333; letter-spacing:4px; display:none;">
+                    SYSTEM_READY_FOR_BURN...
+                </div>
+            </section>
+
+            <!-- PROGRESS -->
+            <section class="progress-section">
+                <div style="display:flex; justify-content:space-between; align-items:end; margin-bottom:12px;">
+                    <div>
+                        <h2 class="monolith text-[10px] text-cyan-400 tracking-wider">ENGINE_01 // PROCESSiNG</h2>
+                        <p class="mono text-[9px] text-gray-600 mt-1">STATUS: <span id="engine-status">NEURAL_MAP_STANDBY</span></p>
+                    </div>
+                    <div class="text-right">
+                        <span class="monolith text-[9px]" style="color: var(--gold);">0736_BYPASS_ENABLED</span>
+                    </div>
+                </div>
+                <div class="progress-rail">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+                </div>
+            </section>
+
+            <!-- CONTROLS GRID -->
+            <div class="controls-grid">
+
+                <!-- Prompt area -->
+                <div class="prompt-area">
+                    <label for="prompt-input" class="mono text-[9px] text-gray-500 tracking-wider block mb-2">iNPUT_PROMPT // ViSUAL_OR_AUDiO_PARAMS</label>
+                    <textarea id="prompt-input" class="prompt-input" placeholder="Describe your cinematic vision... style, mood, camera, lighting..."></textarea>
+
+                    <div style="display:flex; gap:8px; margin-top:12px;">
+                        <button type="button" class="burn-btn burn-primary" id="main-burn-btn" onclick="initiateBurn()" style="flex:1;">START_BURN — 50 CREDiTS</button>
+                        <button type="button" class="burn-btn burn-free" id="free-burn-btn" onclick="freeBurn()" style="flex:1;">FREE RENDER — 5 SEC</button>
+                    </div>
+                    <button type="button" class="download-btn" id="dl-btn" onclick="downloadAsset()" style="margin-top:8px;">DOWNLOAD_9K_MASTER_FiLE</button>
+                </div>
+
+                <!-- Status panel -->
+                <div class="status-panel">
+                    <div class="monolith text-[9px] text-gray-500 tracking-wider mb-4" style="border-bottom:1px solid rgba(255,255,255,0.04); padding-bottom:10px;">SYSTEM_TELEMETRY</div>
+
+                    <div class="space-y-3 text-[9px] mono">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">RENDER_ENGINE</span>
+                            <span class="text-cyan-400">9K_ULTRA</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">NEURAL_SYNC</span>
+                            <span class="text-green-400">ONLiNE</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">FRAME_RATE</span>
+                            <span id="fps-counter" class="text-purple-400">120 FPS</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">GPU_LOAD</span>
+                            <span id="gpu-load" class="text-yellow-400">12%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">VRAM</span>
+                            <span id="vram" class="text-orange-400">2.4 / 24 GB</span>
+                        </div>
+                    </div>
+
+                    <div class="console-output" id="console">ENGINE_01 // NEURAL_02 — STANDBY</div>
+                </div>
+            </div>
+
+            <!-- AUDIO MODULE -->
+            <div class="audio-module" id="audio-module">
+                <span class="mono text-[9px] text-gray-500 tracking-wider" id="audio-label">AUDiO_STREAM_30S</span>
+                <audio id="main-audio" controls aria-labelledby="audio-label"></audio>
+            </div>
+
+            <!-- RENDER RESULT -->
+            <div class="render-result" id="render-result">RENDER OUTPUT READY — USE DOWNLOAD BUTTON</div>
+
+            <!-- MODULE GRID -->
+            <div class="module-grid">
+                <div class="module-slot mod-cyan">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="status-dot" style="color: var(--cyan); background: var(--cyan);"></div>
+                        <span class="monolith text-[9px] text-cyan-400">ENGINE_01</span>
+                    </div>
+                    <p class="text-xs font-black tracking-widest uppercase">9K_CORE_ENGINE</p>
+                    <p class="mono text-[8px] text-gray-600 mt-1">RESOLUTiON: 9216 x 5184</p>
+                    <div class="module-bars">
+                        <div class="bar-seg bg-cyan-400"></div>
+                        <div class="bar-seg bg-cyan-400"></div>
+                        <div class="bar-seg bg-cyan-400 opacity-30"></div>
+                        <div class="bar-seg bg-cyan-400 opacity-10"></div>
+                    </div>
+                </div>
+                <div class="module-slot mod-purple" style="border-left:1px solid rgba(255,255,255,0.02); border-right:1px solid rgba(255,255,255,0.02);">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="status-dot" style="color: var(--purple); background: var(--purple);"></div>
+                        <span class="monolith text-[9px] text-purple-400">NEURAL_02</span>
+                    </div>
+                    <p class="text-xs font-black tracking-widest uppercase">NEURAL_RENDER</p>
+                    <p class="mono text-[8px] text-gray-600 mt-1">FRAME_SYNC: STABLE</p>
+                    <div class="module-bars">
+                        <div class="bar-seg bg-purple-400"></div>
+                        <div class="bar-seg bg-purple-400"></div>
+                        <div class="bar-seg bg-purple-400"></div>
+                        <div class="bar-seg bg-purple-400 opacity-20"></div>
+                    </div>
+                </div>
+                <div class="module-slot mod-gold">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="status-dot" style="color: var(--gold); background: var(--gold);"></div>
+                        <span class="monolith text-[9px] text-yellow-400">MATRiX_03</span>
+                    </div>
+                    <p class="text-xs font-black tracking-widest uppercase">ARCHiVE_STORE</p>
+                    <button onclick="window.location.href='render.html'" class="mono text-[8px] mt-2 border border-white/10 px-3 py-1 text-gray-400 hover:bg-white hover:text-black transition-all cursor-pointer">OPEN_VAULT</button>
+                    <div class="module-bars">
+                        <div class="bar-seg bg-yellow-400"></div>
+                        <div class="bar-seg bg-yellow-400 opacity-40"></div>
+                        <div class="bar-seg bg-yellow-400 opacity-10"></div>
+                        <div class="bar-seg bg-yellow-400 opacity-10"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NAV BAR -->
+            <nav class="nav-bar" aria-label="Engine navigation">
+                <a href="index.html" class="nav-btn">HOME</a>
+                <a href="render.html" class="nav-link">RENDER_CORE</a>
+                <a href="companions.html" class="nav-link">COMPANiON_BOTS</a>
+                <a href="login.html" class="nav-link">OPERATOR_SYNC</a>
+                <div class="ml-auto mono text-[9px] text-black/40">ENGINE_01 // NEURAL_02 SYNC: TRUE</div>
+            </nav>
+
+        </div>
     </div>
 
-    <main class="engine-grid">
-        <div class="output-side">
-            <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">9K Core Engine</h1>
-            <div class="viewport" id="viewport">
-                <div class="scan-line" aria-hidden="true"></div>
-                <div class="placeholder-text" id="loader">SYSTEM_READY_FOR_BURN...</div>
-                <video id="main-video" controls aria-label="Generated render output"></video>
-            </div>
+    <!-- ═══ PARTICLE SYSTEM ═══ -->
+    <script>
+    (function() {
+        var canvas = document.getElementById('particle-canvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var particleCount = 80;
 
-            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
 
-            <div class="audio-module" id="audio-module">
-                <span style="font-size: 9px; color: #444; letter-spacing: 2px;" id="audio-label">AUDiO_STREAM_30S</span>
-                <audio id="main-audio" controls style="width: 100%; margin-top: 8px;" aria-labelledby="audio-label"></audio>
-            </div>
+        function Particle() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.alpha = Math.random() * 0.3 + 0.05;
+            this.color = ['0,255,242', '168,85,247', '255,215,0'][Math.floor(Math.random() * 3)];
+        }
 
-            <div id="render-result" style="display:none; margin-top:10px; padding:15px; border:1px solid #00FF00; background:rgba(0,255,0,0.03); text-align:center; font-size:10px; color:#00FF00; letter-spacing:2px;">
-                RENDER OUTPUT READY — USE DOWNLOAD BUTTON
-            </div>
-        </div>
+        for (var i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
 
-        <div class="controls">
-            <div class="panel-title">iNPUT_PROMPT_9K</div>
-            <label for="prompt-input" style="display:block; font-size:9px; color:#444; margin-bottom:8px; letter-spacing:1px;">Enter visual or audio rendering parameters</label>
-            <textarea id="prompt-input" placeholder="Enter visual/audio parameters..."></textarea>
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            <button type="button" class="burn-btn" id="main-burn-btn" onclick="initiateBurn()">START_BURN — 50 CREDiTS</button>
-            <button type="button" class="burn-btn free-btn" id="free-burn-btn" onclick="freeBurn()">FREE RENDER — 5 SEC ViDEO</button>
-            <button type="button" class="download-btn" id="dl-btn" onclick="downloadAsset()" aria-label="Download rendered 9K master file">DOWNLOAD_9K_MASTER</button>
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
 
-            <div class="console-output" id="console" aria-live="polite">ENGINE_01 // NEURAL_02 — STANDBY</div>
-        </div>
-    </main>
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
 
-    <nav class="engine-nav" aria-label="Engine navigation">
-        <a href="render.html">[ RENDER_CORE ]</a>
-        <a href="store.html">[ GET CREDiTS ]</a>
-        <a href="companions.html">[ COMPANiON BOTS ]</a>
-        <a href="index.html">[ DiSCONNECT ]</a>
-    </nav>
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.color + ',' + p.alpha + ')';
+                ctx.fill();
 
+                // Draw connections
+                for (var j = i + 1; j < particles.length; j++) {
+                    var p2 = particles[j];
+                    var dx = p.x - p2.x;
+                    var dy = p.y - p2.y;
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = 'rgba(' + p.color + ',' + (0.03 * (1 - dist / 150)) + ')';
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    })();
+    </script>
+
+    <!-- ═══ HUD TELEMETRY ═══ -->
+    <script>
+    (function() {
+        var frameCount = 0;
+        var frameEl = document.getElementById('frame-counter');
+        var tcEl = document.getElementById('timecode');
+        var gpuEl = document.getElementById('gpu-load');
+        var vramEl = document.getElementById('vram');
+        var startTime = Date.now();
+
+        setInterval(function() {
+            frameCount++;
+            var pad = ('0000' + frameCount).slice(-4);
+            if (frameEl) frameEl.textContent = 'FRM: ' + pad;
+
+            var elapsed = Math.floor((Date.now() - startTime) / 1000);
+            var h = ('00' + Math.floor(elapsed / 3600)).slice(-2);
+            var m = ('00' + Math.floor((elapsed % 3600) / 60)).slice(-2);
+            var s = ('00' + (elapsed % 60)).slice(-2);
+            var f = ('00' + (frameCount % 30)).slice(-2);
+            if (tcEl) tcEl.textContent = h + ':' + m + ':' + s + ':' + f;
+
+            // Simulate GPU telemetry
+            var gpu = 10 + Math.floor(Math.random() * 8);
+            var vram = (2.1 + Math.random() * 0.8).toFixed(1);
+            if (gpuEl) gpuEl.textContent = gpu + '%';
+            if (vramEl) vramEl.textContent = vram + ' / 24 GB';
+        }, 33);
+    })();
+    </script>
+
+    <!-- ═══ ENGINE LOGIC ═══ -->
     <script>
         var credits = parseInt(localStorage.getItem('knocks_credits')) || 0;
         var freeRenders = parseInt(localStorage.getItem('knocks_free_renders')) || 0;
         var renderInProgress = false;
+
         document.getElementById('coin-balance').innerText = credits.toLocaleString();
 
         // Show user name if available
@@ -178,7 +879,7 @@
             if (user && user.name) document.getElementById('op-id').innerText = user.name.toUpperCase();
         } catch(e) {}
 
-        // Show free tier UI
+        // Free tier UI
         function updateFreeUI() {
             var banner = document.getElementById('free-tier-banner');
             var freeBtn = document.getElementById('free-burn-btn');
@@ -194,6 +895,8 @@
         updateFreeUI();
 
         function setConsole(msg) { document.getElementById('console').innerText = msg; }
+        function setStatus(msg) { document.getElementById('engine-status').innerText = msg; }
+
         function disableAllBtns() {
             document.getElementById('main-burn-btn').disabled = true;
             document.getElementById('free-burn-btn').disabled = true;
@@ -203,6 +906,16 @@
             document.getElementById('free-burn-btn').disabled = false;
         }
 
+        function showLoader(text, color) {
+            var loader = document.getElementById('loader');
+            loader.style.display = 'flex';
+            loader.innerText = text;
+            loader.style.color = color || '#333';
+        }
+        function hideLoader() {
+            document.getElementById('loader').style.display = 'none';
+        }
+
         // AUTO-PREViEW on login
         (function autoPreview() {
             var justLoggedIn = localStorage.getItem('knocks_just_logged_in');
@@ -210,38 +923,32 @@
                 localStorage.removeItem('knocks_just_logged_in');
                 setTimeout(function() {
                     var promptEl = document.getElementById('prompt-input');
-                    if (!promptEl.value) promptEl.value = 'WELCOME BACK — 9K ENGiNE PREViEW';
+                    if (!promptEl.value) promptEl.value = 'WELCOME BACK — 9K ENGiNE CiNEMATiC PREViEW';
                     if (renderInProgress) return;
                     renderInProgress = true;
                     disableAllBtns();
-                    var loader = document.getElementById('loader');
-                    var viewport = document.getElementById('viewport');
-                    var bar = document.getElementById('progress-fill');
-                    loader.style.display = 'block';
-                    loader.innerText = 'AUTO-PREViEW ACTiVE...';
-                    loader.style.color = '#00f2ff';
-                    viewport.classList.add('scan-active');
-                    setConsole('ENGINE_01 NEURAL_02 — PREViEW MODE');
 
+                    showLoader('AUTO-PREViEW ACTiVE...', '#00f2ff');
+                    setConsole('ENGINE_01 NEURAL_02 — PREViEW MODE');
+                    setStatus('AUTO_PREViEW_RUNNiNG');
+
+                    var bar = document.getElementById('progress-fill');
                     var progress = 0;
                     var steps = ['SCANNiNG NEURAL LAYERS...', 'PREViEW BUiLDiNG...', 'WATERMARK OVERLAY ACTiVE...', 'PREViEW COMPLETE'];
                     var run = setInterval(function() {
                         progress += 4;
                         bar.style.width = progress + '%';
-                        if (progress <= 25) loader.innerText = steps[0];
-                        else if (progress <= 50) loader.innerText = steps[1];
-                        else if (progress <= 75) loader.innerText = steps[2];
-                        else loader.innerText = steps[3];
+                        if (progress <= 25) showLoader(steps[0], '#00f2ff');
+                        else if (progress <= 50) showLoader(steps[1], '#00f2ff');
+                        else if (progress <= 75) showLoader(steps[2], '#a855f7');
+                        else showLoader(steps[3], '#00ff88');
 
                         if (progress >= 100) {
                             clearInterval(run);
-                            loader.innerText = 'PREViEW READY — ENTER A PROMPT TO RENDER.';
-                            loader.style.color = '#00f2ff';
-                            viewport.style.borderColor = '#00f2ff';
-                            viewport.style.boxShadow = '0 0 20px rgba(0,242,255,0.15)';
-                            viewport.classList.remove('scan-active');
+                            hideLoader();
                             bar.style.width = '0%';
                             setConsole('ENGINE_01 NEURAL_02 — READY');
+                            setStatus('NEURAL_MAP_READY');
                             renderInProgress = false;
                             enableAllBtns();
                         }
@@ -259,26 +966,26 @@
 
             renderInProgress = true;
             disableAllBtns();
-            var loader = document.getElementById('loader');
-            var viewport = document.getElementById('viewport');
             var bar = document.getElementById('progress-fill');
-            bar.className = 'progress-fill free';
+            bar.className = 'progress-fill free-mode';
 
-            loader.style.display = 'block';
-            loader.innerText = "GENERATiNG FREE 5-SEC ViDEO...";
-            loader.style.color = '#00FF00';
-            viewport.classList.add('scan-active');
+            showLoader('GENERATiNG FREE 5-SEC ViDEO...', '#00ff88');
             setConsole('NEURAL_02 — FREE RENDER ACTiVE');
+            setStatus('FREE_RENDER_PROCESSiNG');
 
             var progress = 0;
             var steps = ["iNiTiALiZiNG NEURAL LAYERS...", "BUiLDiNG 5-SEC SEQUENCE...", "APPLYiNG ViSUAL FiLTERS...", "FiNALiZiNG OUTPUT..."];
             var progressInterval = setInterval(function() {
                 progress += 5;
                 bar.style.width = progress + '%';
-                if (progress <= 25) loader.innerText = steps[0];
-                else if (progress <= 50) loader.innerText = steps[1];
-                else if (progress <= 75) loader.innerText = steps[2];
-                else loader.innerText = steps[3];
+                if (progress <= 25) showLoader(steps[0], '#00ff88');
+                else if (progress <= 50) showLoader(steps[1], '#00ff88');
+                else if (progress <= 75) showLoader(steps[2], '#00ffcc');
+                else showLoader(steps[3], '#00ff88');
+
+                // Simulate GPU spike
+                var gpuEl = document.getElementById('gpu-load');
+                if (gpuEl) gpuEl.textContent = Math.min(95, 40 + Math.floor(progress * 0.5)) + '%';
 
                 if (progress >= 100) {
                     clearInterval(progressInterval);
@@ -286,17 +993,14 @@
                     localStorage.setItem('knocks_free_renders', freeRenders);
                     updateFreeUI();
 
-                    loader.innerText = "FREE 5-SEC ViDEO RENDER COMPLETE — " + freeRenders + " FREE RENDER(S) REMAiNiNG";
-                    loader.style.color = '#00FF00';
-                    viewport.style.borderColor = '#00FF00';
-                    viewport.style.boxShadow = '0 0 30px rgba(0,255,0,0.2)';
-                    viewport.classList.remove('scan-active');
+                    hideLoader();
                     bar.style.width = '0%';
                     bar.className = 'progress-fill';
 
                     document.getElementById('dl-btn').classList.add('active');
                     document.getElementById('render-result').style.display = 'block';
-                    setConsole('ENGINE_01 NEURAL_02 — FREE RENDER COMPLETE');
+                    setConsole('ENGINE_01 NEURAL_02 — FREE RENDER COMPLETE // ' + freeRenders + ' REMAiNiNG');
+                    setStatus('FREE_RENDER_COMPLETE');
                     renderInProgress = false;
                     enableAllBtns();
                 }
@@ -312,26 +1016,26 @@
 
             renderInProgress = true;
             disableAllBtns();
-            var loader = document.getElementById('loader');
-            var viewport = document.getElementById('viewport');
             var bar = document.getElementById('progress-fill');
             bar.className = 'progress-fill';
 
-            loader.style.display = 'block';
-            loader.innerText = "iNiTiATiNG 9K BURN...";
-            loader.style.color = '#FF8C00';
-            viewport.classList.add('scan-active');
+            showLoader('iNiTiATiNG 9K BURN...', '#FF8C00');
             setConsole('ENGINE_01 — BURN iNiTiATED // CREDiTS ON COMPLETiON');
+            setStatus('9K_BURN_ACTiVE');
 
             var progress = 0;
             var steps = ["GENERATiNG_NEURAL_LAYERS...", "APPLYiNG 9K_RENDER_MATRiX...", "iNJECTiNG TRADEMARK SiGNATURE...", "FiNALiZiNG MASTER OUTPUT..."];
             var progressInterval = setInterval(function() {
                 progress += 3;
                 bar.style.width = progress + '%';
-                if (progress <= 25) loader.innerText = steps[0];
-                else if (progress <= 50) loader.innerText = steps[1];
-                else if (progress <= 75) loader.innerText = steps[2];
-                else loader.innerText = steps[3];
+                if (progress <= 25) showLoader(steps[0], '#FF8C00');
+                else if (progress <= 50) showLoader(steps[1], '#ffd700');
+                else if (progress <= 75) showLoader(steps[2], '#a855f7');
+                else showLoader(steps[3], '#00ff88');
+
+                // Simulate GPU spike
+                var gpuEl = document.getElementById('gpu-load');
+                if (gpuEl) gpuEl.textContent = Math.min(98, 50 + Math.floor(progress * 0.5)) + '%';
 
                 if (progress >= 100) {
                     clearInterval(progressInterval);
@@ -339,17 +1043,14 @@
                     localStorage.setItem('knocks_credits', credits);
                     document.getElementById('coin-balance').innerText = credits.toLocaleString();
 
-                    loader.innerText = "9K_RENDER_COMPLETE — MASTER FiLE READY.";
-                    loader.style.color = '#00FF00';
-                    viewport.style.borderColor = '#00FF00';
-                    viewport.style.boxShadow = '0 0 30px rgba(0,255,0,0.2)';
-                    viewport.classList.remove('scan-active');
+                    hideLoader();
                     bar.style.width = '0%';
 
                     document.getElementById('dl-btn').classList.add('active');
                     document.getElementById('render-result').style.display = 'block';
                     document.getElementById('audio-module').style.display = 'block';
                     setConsole('ENGINE_01 NEURAL_02 — RENDER COMPLETE // -50 CREDiTS');
+                    setStatus('9K_RENDER_COMPLETE');
                     renderInProgress = false;
                     enableAllBtns();
                 }
