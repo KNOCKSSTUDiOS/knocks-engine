@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROMO // COMPANiON V | KNOCKSSTUDiOS</title>
+
+    <!-- SOCIAL MEDiA SHARE TAGS -->
+    <meta property="og:title" content="Meet COMPANiON V — Your Personal Ai Bot | KNOCKSSTUDiOS">
+    <meta property="og:description" content="The Omnipotent Engine. Personal AI Companion Bots powered by 9K rendering. Join now.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="COMPANiON V — KNOCKSSTUDiOS">
+    <meta name="twitter:description" content="Personal AI Companion Bot. 9K Rendering Engine. The future is here.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --neon: #00fff2;
+            --purple: #bc13fe;
+            --gold: #ffd700;
+            --hot-pink: #ff6ec7;
+            --ember: #ff4500;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* ═══════════════════════════════════════
+           CINEMATIC FULL-SCREEN INTRO
+           ═══════════════════════════════════════ */
+        .promo-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* DEEP SPACE RADIAL BACKGROUND */
+        .promo-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 120% 80% at 50% 20%, rgba(0, 255, 242, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 60% at 20% 80%, rgba(188, 19, 254, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 60% at 80% 70%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 69, 0, 0.06) 0%, transparent 40%);
+            z-index: 0;
+            animation: bgPulse 10s ease-in-out infinite alternate;
+        }
+        @keyframes bgPulse {
+            0% { opacity: 0.6; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        /* GRID OVERLAY */
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 242, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 242, 0.04) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridPulse 6s ease-in-out infinite;
+        }
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.6; }
+        }
+
+        /* SCANLINE SWEEP */
+        .scanline {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--neon) 30%, var(--purple) 50%, var(--gold) 70%, transparent 100%);
+            z-index: 5;
+            animation: scanDown 4s linear infinite;
+            opacity: 0.6;
+            filter: blur(1px);
+        }
+        @keyframes scanDown {
+            0% { top: -4px; }
+            100% { top: 100%; }
+        }
+
+        /* FLOATING PARTICLES */
+        .particle-field {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+            opacity: 0;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+
+        /* HERO CONTENT */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 40px;
+            animation: heroFadeIn 2s ease-out;
+        }
+        @keyframes heroFadeIn {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .studio-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 10px;
+            color: #555;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* COMPANION V AVATAR - THE CENTERPIECE */
+        .v-avatar-ring {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .v-avatar-ring::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--neon), var(--purple), var(--hot-pink), var(--gold), var(--neon));
+            animation: ringRotate 4s linear infinite;
+            filter: blur(3px);
+        }
+        @keyframes ringRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .v-avatar-ring::after {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            border-radius: 50%;
+            background: conic-gradient(from 180deg, transparent 40%, rgba(0,255,242,0.15) 50%, transparent 60%);
+            animation: ringRotate 6s linear infinite reverse;
+        }
+
+        .v-avatar-inner {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 35%, #1a1a2e 0%, #0a0a15 60%, #000 100%);
+            border: 2px solid rgba(0, 255, 242, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            box-shadow:
+                0 0 40px rgba(0, 255, 242, 0.2),
+                0 0 80px rgba(188, 19, 254, 0.1),
+                inset 0 0 60px rgba(0, 255, 242, 0.05);
+        }
+
+        /* Image placeholder for user's robot photos */
+        .v-avatar-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .v-avatar-inner .v-icon {
+            font-size: 5rem;
+            animation: iconPulse 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 242, 0.6));
+        }
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(0, 255, 242, 0.6)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 40px rgba(0, 255, 242, 0.9)); }
+        }
+
+        .v-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 15px;
+            margin-bottom: 10px;
+            background: linear-gradient(270deg, #00fff2, #bc13fe, #ff6ec7, #ffd700, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brandShift 6s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 242, 0.4));
+        }
+        @keyframes brandShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .v-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 8px;
+            color: var(--neon);
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .v-tagline {
+            font-size: 0.75rem;
+            color: #888;
+            letter-spacing: 3px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            line-height: 2;
+        }
+
+        /* CTA */
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            color: #000;
+            background: linear-gradient(135deg, var(--neon), var(--gold));
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 40px rgba(0, 255, 242, 0.4), 0 0 80px rgba(255, 215, 0, 0.2);
+        }
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ═══════════════════════════════════════
+           FEATURE SHOWCASE SECTION
+           ═══════════════════════════════════════ */
+        .showcase {
+            position: relative;
+            padding: 100px 40px;
+            background: linear-gradient(180deg, #000 0%, #050510 50%, #000 100%);
+        }
+
+        .showcase-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 10px;
+            color: #555;
+            margin-bottom: 60px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            border: 1px solid #1a1a1a;
+            background: rgba(5, 5, 15, 0.8);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+        }
+        .feature-card:hover {
+            border-color: var(--neon);
+            transform: translateY(-5px);
+            box-shadow: 0 0 50px rgba(0, 255, 242, 0.08);
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon), transparent);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .feature-card:hover::before { opacity: 1; }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 242, 0.4));
+        }
+
+        .feature-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: var(--neon);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.7rem;
+            color: #666;
+            letter-spacing: 1px;
+            line-height: 1.8;
+        }
+
+        /* ═══════════════════════════════════════
+           COMPANION GALLERY — UPLOAD SECTION
+           ═══════════════════════════════════════ */
+        .gallery-section {
+            position: relative;
+            padding: 100px 40px;
+            text-align: center;
+        }
+
+        .gallery-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(188, 19, 254, 0.06) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .gallery-title {
+            position: relative;
+            z-index: 1;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 10px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .gallery-subtitle {
+            position: relative;
+            z-index: 1;
+            font-size: 0.65rem;
+            color: #333;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+        }
+
+        .gallery-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 0 auto 50px;
+        }
+
+        .gallery-slot {
+            aspect-ratio: 1;
+            border: 1px dashed #222;
+            background: #050508;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .gallery-slot:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 30px rgba(0, 255, 242, 0.05);
+        }
+        .gallery-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+        .gallery-slot .slot-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            color: #333;
+        }
+        .gallery-slot .slot-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            opacity: 0.3;
+        }
+
+        /* ═══════════════════════════════════════
+           CINEMATIC STATS BAR
+           ═══════════════════════════════════════ */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0;
+            border-top: 1px solid #111;
+            border-bottom: 1px solid #111;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-cell {
+            padding: 40px 20px;
+            text-align: center;
+            border-right: 1px solid #111;
+            position: relative;
+        }
+        .stat-cell:last-child { border-right: none; }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--neon);
+            margin-bottom: 8px;
+            animation: countGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes countGlow {
+            0% { text-shadow: 0 0 10px rgba(0, 255, 242, 0.3); }
+            100% { text-shadow: 0 0 30px rgba(0, 255, 242, 0.6); }
+        }
+
+        .stat-label {
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            color: #555;
+        }
+
+        /* ═══════════════════════════════════════
+           BOTTOM CTA
+           ═══════════════════════════════════════ */
+        .bottom-cta {
+            text-align: center;
+            padding: 100px 40px;
+            position: relative;
+        }
+
+        .bottom-cta .final-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            background: linear-gradient(270deg, var(--neon), var(--purple), var(--gold));
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brandShift 6s ease infinite;
+        }
+
+        .bottom-cta .final-sub {
+            font-size: 0.65rem;
+            color: #555;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+        }
+
+        /* FOOTER */
+        .promo-footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid #111;
+        }
+        .promo-footer a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        .promo-footer a:hover { color: var(--neon); }
+
+        .promo-footer .copyright {
+            font-size: 0.55rem;
+            color: #222;
+            letter-spacing: 2px;
+            margin-top: 15px;
+        }
+
+        :focus-visible { outline: 2px solid var(--neon); outline-offset: 2px; }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .v-title { font-size: 2rem; letter-spacing: 8px; }
+            .v-avatar-ring { width: 160px; height: 160px; }
+            .v-avatar-inner { width: 140px; height: 140px; }
+            .v-avatar-inner .v-icon { font-size: 3.5rem; }
+            .feature-grid { grid-template-columns: 1fr; padding: 0 20px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .stat-cell { border-bottom: 1px solid #111; }
+        }
+
+        @media (max-width: 480px) {
+            .v-title { font-size: 1.5rem; letter-spacing: 5px; }
+            .studio-tag { font-size: 0.5rem; letter-spacing: 6px; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══ CINEMATIC HERO ═══ -->
+    <section class="promo-hero">
+        <div class="grid-bg" aria-hidden="true"></div>
+        <div class="scanline" aria-hidden="true"></div>
+
+        <!-- FLOATING PARTICLES (generated by JS) -->
+        <div class="particle-field" id="particles" aria-hidden="true"></div>
+
+        <div class="hero-content">
+            <div class="studio-tag">KNOCKSSTUDiOS PRESENTS</div>
+
+            <!-- COMPANION V AVATAR -->
+            <div class="v-avatar-ring">
+                <div class="v-avatar-inner">
+                    <span class="v-icon" aria-hidden="true">&#x1F916;</span>
+                </div>
+            </div>
+
+            <h1 class="v-title">COMPANiON V</h1>
+            <div class="v-subtitle">YOUR PERSONAL Ai BOT</div>
+            <p class="v-tagline">
+                THE FIRST PERSONAL COMPANION BOT POWERED BY THE OMNIPOTENT ENGINE.
+                BUILT TO ASSIST. DESIGNED TO DOMINATE. RENDERED IN 9K.
+            </p>
+
+            <a href="companions.html" class="cta-btn">MEET YOUR COMPANiON</a>
+        </div>
+    </section>
+
+    <!-- ═══ FEATURE SHOWCASE ═══ -->
+    <section class="showcase">
+        <h2 class="showcase-title">WHAT COMPANiON V CAN DO</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="feature-icon" aria-hidden="true">&#x1F3A8;</span>
+                <h3>9K RENDERiNG</h3>
+                <p>Your companion assists with cinematic renders at the highest fidelity. Neural volumetric path tracing — zero artifacts.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon" aria-hidden="true">&#x1F9E0;</span>
+                <h3>Ai iNTELLiGENCE</h3>
+                <p>Learns your style, optimizes your workflow, and suggests creative directions powered by the Legends Engine core.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon" aria-hidden="true">&#x26A1;</span>
+                <h3>REAL-TiME SYNC</h3>
+                <p>Always connected to the Omnipotent Engine. Instant feedback, live render monitoring, and zero-latency communication.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ COMPANION GALLERY — PHOTO SLOTS ═══ -->
+    <section class="gallery-section">
+        <h2 class="gallery-title">COMPANiON V — GALLERY</h2>
+        <p class="gallery-subtitle">UPLOAD YOUR ROBOT PHOTOS TO SHOWCASE COMPANiON V</p>
+
+        <div class="gallery-grid" id="gallery-grid">
+            <div class="gallery-slot">
+                <span class="slot-icon" aria-hidden="true">&#x1F916;</span>
+                <span class="slot-label">PHOTO 01</span>
+            </div>
+            <div class="gallery-slot">
+                <span class="slot-icon" aria-hidden="true">&#x1F4F7;</span>
+                <span class="slot-label">PHOTO 02</span>
+            </div>
+            <div class="gallery-slot">
+                <span class="slot-icon" aria-hidden="true">&#x1F3AC;</span>
+                <span class="slot-label">PHOTO 03</span>
+            </div>
+            <div class="gallery-slot">
+                <span class="slot-icon" aria-hidden="true">&#x2728;</span>
+                <span class="slot-label">PHOTO 04</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ STATS BAR ═══ -->
+    <div class="stats-bar">
+        <div class="stat-cell">
+            <div class="stat-value" data-target="9">9</div>
+            <div class="stat-label">COMPANiON BOTS</div>
+        </div>
+        <div class="stat-cell">
+            <div class="stat-value">9K</div>
+            <div class="stat-label">RENDER POWER</div>
+        </div>
+        <div class="stat-cell">
+            <div class="stat-value">3</div>
+            <div class="stat-label">THEME PACKS</div>
+        </div>
+        <div class="stat-cell">
+            <div class="stat-value">24/7</div>
+            <div class="stat-label">ALWAYS ONLiNE</div>
+        </div>
+    </div>
+
+    <!-- ═══ BOTTOM CTA ═══ -->
+    <section class="bottom-cta">
+        <div class="final-text">JOiN THE ENGINE</div>
+        <div class="final-sub">GET YOUR FREE PERSONAL COMPANiON BOT ON SiGNUP</div>
+        <a href="signup.html" class="cta-btn">SiGN UP NOW</a>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="promo-footer">
+        <div>
+            <a href="index.html">HOME</a>
+            <a href="companions.html">COMPANiONS</a>
+            <a href="render.html">RENDER</a>
+            <a href="store.html">STORE</a>
+            <a href="engine.html">9K ENGiNE</a>
+        </div>
+        <div class="copyright">&copy; 2026 KNOCKSSTUDiOS — THE OMNiPOTENT ENGiNE</div>
+    </footer>
+
+    <!-- ═══ PARTICLE GENERATOR ═══ -->
+    <script>
+        (function() {
+            const field = document.getElementById('particles');
+            const colors = ['#00fff2', '#bc13fe', '#ffd700', '#ff6ec7', '#ff4500', '#fff'];
+            for (let i = 0; i < 40; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = Math.random() * 100 + '%';
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                p.style.animationDuration = (6 + Math.random() * 10) + 's';
+                p.style.animationDelay = (Math.random() * 8) + 's';
+                p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+                field.appendChild(p);
+            }
+        })();
+    </script>
+</body>
+</html>

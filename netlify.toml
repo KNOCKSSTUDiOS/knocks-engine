@@ -11,4 +11,4 @@
 [[plugins]]
   package = "netlify-plugin-cypress"
   [plugins.inputs]
-    skip = true
+    enable = false
