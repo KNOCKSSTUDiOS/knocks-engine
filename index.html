@@ -4,14 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>V | SOVEREiGN_OS</title>
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="V | SOVEREiGN_OS" />
+    <meta property="og:description" content="Social media" />
+    <meta property="og:url" content="/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TikTok" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="V | SOVEREiGN_OS" />
+    <meta name="twitter:description" content="Social media" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/" />
+
+    <!--
+      OG/Twitter Share Image — TODO:
+      1. Place a share image at /public/og-image.png (recommended: 1200x630px).
+      2. Use Netlify Image CDN to serve at exact dimensions:
+         /.netlify/images?url=/og-image.png&w=1200&h=630&fit=cover&fm=png
+      3. Add these meta tags once the image is ready:
+         <meta property="og:image" content="/.netlify/images?url=/og-image.png&w=1200&h=630&fit=cover&fm=png" />
+         <meta property="og:image:width" content="1200" />
+         <meta property="og:image:height" content="630" />
+         <meta name="twitter:image" content="/.netlify/images?url=/og-image.png&w=1200&h=630&fit=cover&fm=png" />
+      4. Change twitter:card from "summary" to "summary_large_image" once an image exists.
+    -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --win-gray: #c0c0c0; --win-blue: #000080; --cyan: #00fff2; --gold: #ffd700; --purple: #a855f7; --void: #010103; }
-        body { background-color: #008080; font-family: 'Inter', sans-serif; height: 100vh; margin: 0; overflow: hidden; display: flex; flex-direction: column; }
-        .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
 
-        /* THE V-SHELL TABLET */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #008080;
+            font-family: 'Inter', sans-serif;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        /* ═══ PARTICLE CANVAS ═══ */
+        #particle-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ═══ THE V-SHELL TABLET ═══ */
         main.v-shell {
             background: var(--win-gray);
             border: 3px solid;
@@ -19,76 +69,207 @@
             width: 98vw; height: 90vh; margin: auto;
             display: flex; flex-direction: column;
             box-shadow: 20px 20px 0px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 1;
         }
 
         .title-bar {
             background: linear-gradient(90deg, var(--win-blue), #1084d0);
-            padding: 10px 15px; display: flex; justify-content: space-between;
-            color: white; font-weight: 900; font-size: 12px;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            font-weight: 900;
+            font-size: 12px;
         }
+        .title-bar-btn {
+            width: 24px; height: 24px;
+            background: var(--win-gray);
+            border: 2px outset #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 900; color: #000;
+            cursor: pointer;
+        }
+        .title-bar-btn:active { border-style: inset; }
 
-        /* THE BLACK MECH ASSISTANT (downloadfile-65.mp4) */
+        /* ═══ BLACK MECH ASSiSTANT (downloadfile-65.mp4) ═══ */
         .mech-live-pin {
             position: fixed; bottom: 80px; right: 40px;
-            width: 280px; height: 190px; z-index: 9999;
+            width: 300px; height: 200px; z-index: 9999;
             border: 2px solid var(--cyan); background: #000;
-            box-shadow: 0 0 50px rgba(0, 255, 242, 0.4);
+            box-shadow:
+                0 0 60px rgba(0,255,242,0.3),
+                0 0 120px rgba(0,255,242,0.1),
+                inset 0 0 30px rgba(0,255,242,0.05);
             border-radius: 4px; overflow: hidden;
             animation: tablet-float 5s ease-in-out infinite;
         }
+        .mech-live-pin::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0px, transparent 2px,
+                rgba(0,255,242,0.03) 2px, rgba(0,255,242,0.03) 4px
+            );
+            z-index: 2;
+            pointer-events: none;
+        }
+        .mech-live-pin::after {
+            content: 'LiVE';
+            position: absolute;
+            top: 8px; left: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8px;
+            color: #ff0040;
+            letter-spacing: 2px;
+            z-index: 3;
+            animation: liveBlink 1.5s ease-in-out infinite;
+        }
+        @keyframes liveBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         @keyframes tablet-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
+        /* ═══ WORKSPACE ═══ */
         .workspace {
-            background: var(--void); margin: 4px; border: 4px inset #fff;
-            flex-grow: 1; padding: 40px; position: relative;
-            background-image: linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
+            background: var(--void);
+            margin: 4px;
+            border: 4px inset #fff;
+            flex-grow: 1;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            background-image:
+                linear-gradient(rgba(0,255,242,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,242,0.03) 1px, transparent 1px);
             background-size: 40px 40px;
         }
 
-        /* SHOWCASE CARDS (ENGINE_01, NEURAL_02, MATRIX_03) */
+        /* Ambient glow inside workspace */
+        .workspace::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 500px 300px at 20% 30%, rgba(0,255,242,0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 400px at 80% 70%, rgba(168,85,247,0.03) 0%, transparent 70%);
+            pointer-events: none;
+            animation: wsGlow 15s ease-in-out infinite alternate;
+        }
+        @keyframes wsGlow { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* ═══ SHOWCASE CARDS ═══ */
         .showcase-card {
-            position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.06);
             background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer; height: 160px;
+            cursor: pointer;
+            height: 170px;
+            backdrop-filter: blur(10px);
         }
-        .showcase-card:hover { border-color: var(--cyan); transform: translateY(-5px); }
-        .showcase-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; transition: 0.4s; }
-        .card-cyan:hover::after { width: 100%; background: var(--cyan); box-shadow: 0 0 15px var(--cyan); }
-        .card-purple:hover::after { width: 100%; background: var(--purple); box-shadow: 0 0 15px var(--purple); }
-        .card-gold:hover::after { width: 100%; background: var(--gold); box-shadow: 0 0 15px var(--gold); }
+        .showcase-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .showcase-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 3px;
+            transition: 0.4s;
+        }
+        .card-cyan:hover::after { width: 100%; background: var(--cyan); box-shadow: 0 0 20px var(--cyan); }
+        .card-purple:hover::after { width: 100%; background: var(--purple); box-shadow: 0 0 20px var(--purple); }
+        .card-gold:hover::after { width: 100%; background: var(--gold); box-shadow: 0 0 20px var(--gold); }
 
-        .status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        /* Card inner glow on hover */
+        .card-cyan:hover { box-shadow: 0 10px 40px rgba(0,255,242,0.1), inset 0 0 30px rgba(0,255,242,0.03); }
+        .card-purple:hover { box-shadow: 0 10px 40px rgba(168,85,247,0.1), inset 0 0 30px rgba(168,85,247,0.03); }
+        .card-gold:hover { box-shadow: 0 10px 40px rgba(255,215,0,0.1), inset 0 0 30px rgba(255,215,0,0.03); }
 
+        .status-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+            50% { opacity: 0.3; box-shadow: none; }
+            100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+        }
+
+        /* ═══ METALLIC V ═══ */
         .metallic-v {
-            background: linear-gradient(180deg, #FFFFFF 0%, #718096 50%, #FFFFFF 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-size: 6rem; filter: drop-shadow(0 0 20px rgba(0,255,242,0.4));
+            background: linear-gradient(180deg, #FFFFFF 0%, #718096 30%, #FFFFFF 50%, #718096 70%, #FFFFFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 6rem;
+            filter: drop-shadow(0 0 30px rgba(0,255,242,0.4)) drop-shadow(0 0 60px rgba(0,255,242,0.15));
+            line-height: 1;
         }
 
-        .taskbar { height: 50px; background: var(--win-gray); border-top: 3px solid #fff; display: flex; align-items: center; padding: 0 10px; }
+        /* ═══ TASKBAR ═══ */
+        .taskbar {
+            height: 50px;
+            background: var(--win-gray);
+            border-top: 3px solid #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+        }
+        .start-btn {
+            background: var(--win-gray);
+            border: 2px outset #fff;
+            padding: 4px 20px;
+            font-weight: 900;
+            color: #000;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .start-btn:active { border-style: inset; }
+
+        /* ═══ BRAND ANIMATED ═══ */
+        @keyframes brand-color-fade {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .brand-animated {
+            background: linear-gradient(270deg, #00fff2, #00e5ff, #bc13fe, #ff6ec7, #ffd700, #00ffcc, #e2e8f0, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brand-color-fade 8s ease infinite;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Particle canvas -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- MECH LIVE PIN (floating video) -->
     <div class="mech-live-pin">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover" style="opacity:0.85;">
             <source src="downloadfile-65.mp4" type="video/mp4">
         </video>
     </div>
 
     <main class="v-shell">
         <div class="title-bar">
-            <span class="monolith">KNOCKSSTiUDiOS_VIVID_VEO_SYSTEMS</span>
+            <span class="monolith text-[11px]">KNOCKSSTiUDiOS // <span class="brand-animated">ViViD_VEO_SYSTEMS</span></span>
             <div class="flex gap-2">
-                <button class="w-6 h-6 bg-gray-300 border border-black shadow-[inset_1px_1px_#fff]">_</button>
-                <button class="w-6 h-6 bg-gray-300 border border-black shadow-[inset_1px_1px_#fff] text-xs">X</button>
+                <div class="title-bar-btn">_</div>
+                <div class="title-bar-btn">X</div>
             </div>
         </div>
 
         <div class="workspace">
-            <div class="flex justify-between items-start mb-12">
+            <!-- Header section -->
+            <div class="flex justify-between items-start mb-12 relative z-10">
                 <h1 class="monolith metallic-v leading-none">V_OS</h1>
                 <div class="p-6 border-l-4 border-cyan-400 bg-white/5 backdrop-blur-sm">
                     <span class="monolith text-cyan-400 text-[10px] block mb-2 tracking-[0.5em]">BYPASS_0736</span>
@@ -96,40 +277,50 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="showcase-card card-cyan p-6 flex flex-col justify-between">
+            <!-- Showcase cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
+                <a href="engine.html" class="showcase-card card-cyan p-6 flex flex-col justify-between no-underline text-white">
                     <div>
-                        <div class="status-dot bg-cyan-400 mr-2"></div>
+                        <div class="status-dot bg-cyan-400 mr-2" style="color: #22d3ee;"></div>
                         <span class="monolith text-cyan-400 text-[9px]">ENGINE_01</span>
                     </div>
-                    <p class="text-white text-xs font-black tracking-[0.3em] uppercase">9K_CORE_ENGINE</p>
-                </div>
-
-                <div class="showcase-card card-purple p-6 flex flex-col justify-between">
                     <div>
-                        <div class="status-dot bg-purple-500 mr-2"></div>
+                        <p class="text-xs font-black tracking-[0.3em] uppercase">9K_CORE_ENGINE</p>
+                        <p class="mono text-[8px] text-gray-600 mt-1">RENDER_RESOLUTiON: 9216px</p>
+                    </div>
+                </a>
+
+                <a href="render.html" class="showcase-card card-purple p-6 flex flex-col justify-between no-underline text-white">
+                    <div>
+                        <div class="status-dot bg-purple-500 mr-2" style="color: #a855f7;"></div>
                         <span class="monolith text-purple-400 text-[9px]">NEURAL_02</span>
                     </div>
-                    <p class="text-white text-xs font-black tracking-[0.3em] uppercase">NEURAL_RENDER</p>
-                </div>
-
-                <div class="showcase-card card-gold p-6 flex flex-col justify-between">
                     <div>
-                        <div class="status-dot bg-yellow-500 mr-2"></div>
-                        <span class="monolith text-yellow-400 text-[9px]">MATRIX_03</span>
+                        <p class="text-xs font-black tracking-[0.3em] uppercase">NEURAL_RENDER</p>
+                        <p class="mono text-[8px] text-gray-600 mt-1">FRAME_SYNC: STABLE</p>
                     </div>
-                    <p class="text-white text-xs font-black tracking-[0.3em] uppercase">ARCHiVE_STORE</p>
-                </div>
+                </a>
+
+                <a href="companions.html" class="showcase-card card-gold p-6 flex flex-col justify-between no-underline text-white">
+                    <div>
+                        <div class="status-dot bg-yellow-500 mr-2" style="color: #eab308;"></div>
+                        <span class="monolith text-yellow-400 text-[9px]">MATRiX_03</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-black tracking-[0.3em] uppercase">ARCHiVE_STORE</p>
+                        <p class="mono text-[8px] text-gray-600 mt-1">COMPANiON_BOTS_READY</p>
+                    </div>
+                </a>
             </div>
 
-            <div class="mt-12 text-[10px] monolith text-gray-500 tracking-[0.6em] uppercase">
+            <div class="mt-12 text-[10px] monolith text-gray-500 tracking-[0.6em] uppercase relative z-10">
                 Status: KNOCKSSTiUDiOS_VEO_Core_Synced // 100%
             </div>
         </div>
     </main>
 
     <footer class="taskbar">
-        <button class="bg-gray-300 border-2 border-outset border-white px-6 py-1 font-black text-black">START</button>
+        <button class="start-btn">START</button>
         <div class="ml-4 flex gap-2">
             <div class="bg-gray-400 border-2 border-inset px-4 py-1 text-black text-[9px] font-black">SOVEREiGN_DASH</div>
         </div>
@@ -137,6 +328,71 @@
             ENGINE_01_ONLiNE
         </div>
     </footer>
+
+    <!-- ═══ PARTICLE SYSTEM ═══ -->
+    <script>
+    (function() {
+        var canvas = document.getElementById('particle-canvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var particleCount = 50;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function Particle() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.2;
+            this.vy = (Math.random() - 0.5) * 0.2;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.alpha = Math.random() * 0.15 + 0.03;
+            this.color = ['0,255,242', '168,85,247', '255,215,0'][Math.floor(Math.random() * 3)];
+        }
+
+        for (var i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < particles.length; i++) {
+                var p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + p.color + ',' + p.alpha + ')';
+                ctx.fill();
+
+                for (var j = i + 1; j < particles.length; j++) {
+                    var p2 = particles[j];
+                    var dx = p.x - p2.x;
+                    var dy = p.y - p2.y;
+                    var dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.strokeStyle = 'rgba(' + p.color + ',' + (0.02 * (1 - dist / 120)) + ')';
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    })();
+    </script>
 
 </body>
 </html>
