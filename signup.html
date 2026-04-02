@@ -3,249 +3,523 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SECURE_BRIEF | KNOCKSSTUDiOS</title>
+    <title>Sign Up | KNOCKSSTUDiOS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: #050505; color: #fff; font-family: 'Courier New', Courier, monospace; line-height: 1.6; padding: 40px 20px; }
-        
-        .container { max-width: 900px; margin: 0 auto; }
-        h1 { text-align: center; letter-spacing: 10px; color: #FF8C00; margin-bottom: 10px; text-transform: uppercase; }
-        .sub-header { text-align: center; color: #666; font-size: 12px; margin-bottom: 50px; letter-spacing: 3px; }
-
-        /* PRICING TABLE */
-        .pricing-table { width: 100%; border-collapse: collapse; margin-bottom: 50px; background: #0a0a0a; border: 1px solid #1a1a1a; }
-        .pricing-table th { padding: 20px; text-align: left; border-bottom: 2px solid #FF8C00; color: #888; font-size: 12px; }
-        .pricing-table td { padding: 20px; border-bottom: 1px solid #1a1a1a; font-size: 14px; }
-        .tier-name { color: #FF8C00; font-weight: bold; letter-spacing: 1px; }
-        .highlight { color: #00FF00; }
-
-        /* FORM STYLING */
-        .signup-box { background: #000; border: 1px solid #FF8C00; padding: 40px; max-width: 500px; margin: 0 auto; box-shadow: 0 0 30px rgba(255, 140, 0, 0.1); }
-        .signup-box h2 { color: #fff; font-size: 18px; margin-bottom: 30px; text-align: center; letter-spacing: 2px; }
-        
-        label { display: block; color: #888; font-size: 10px; margin-bottom: 5px; margin-top: 20px; letter-spacing: 1px; }
-        input, select { width: 100%; background: #0a0a0a; border: 1px solid #333; padding: 12px; color: #fff; font-family: 'Courier New', monospace; outline: none; }
-        input:focus, select:focus { border-color: #FF8C00; }
-
-        .submit-btn { width: 100%; background: #FF8C00; color: #000; border: none; padding: 15px; margin-top: 30px; font-weight: bold; cursor: pointer; letter-spacing: 2px; transition: 0.3s; }
-        .submit-btn:hover { background: #fff; box-shadow: 0 0 20px #fff; }
-        :focus-visible { outline: 2px solid #FF8C00; outline-offset: 2px; }
-
-        .bonus-tag { text-align: center; color: #00FF00; font-size: 12px; margin-top: 20px; font-weight: bold; }
-
-        /* FREE TIER HIGHLIGHT */
-        .free-highlight { background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); }
-        .free-badge { display: inline-block; background: #00FF00; color: #000; font-size: 9px; font-weight: bold; padding: 3px 8px; letter-spacing: 1px; margin-left: 8px; }
-        .free-promo { background: #0a0a0a; border: 1px solid #00FF00; padding: 30px; text-align: center; margin-bottom: 40px; }
-        .free-promo h3 { color: #00FF00; font-size: 16px; letter-spacing: 3px; margin-bottom: 10px; }
-        .free-promo p { color: #999; font-size: 12px; letter-spacing: 1px; line-height: 1.8; }
-        .free-promo .big-number { font-size: 48px; color: #00FF00; font-weight: bold; display: block; margin: 15px 0 5px; }
-        .free-promo .sub-detail { color: #666; font-size: 11px; letter-spacing: 2px; }
-        /* Auto-preview background */
-        .preview-bg {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background: radial-gradient(circle at 20% 30%, rgba(0,255,0,0.04) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 70%, rgba(255,140,0,0.04) 0%, transparent 50%);
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
-        .preview-scanline {
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,255,242,0.05) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 0% 100%, rgba(188,19,254,0.03) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .scanline {
             position: fixed; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, #00FF00, transparent);
-            animation: scanDown 5s ease-in-out infinite;
-            opacity: 0.3; z-index: 0; pointer-events: none;
+            background: linear-gradient(90deg, transparent, #00fff2, transparent);
+            z-index: 0; animation: scanDown 6s linear infinite; opacity: 0.2; pointer-events: none;
         }
-        @keyframes scanDown { 0% { top: 0; } 100% { top: 100%; } }
-        .preview-render-box {
-            position: fixed; bottom: 30px; right: 30px; width: 180px; height: 100px;
-            border: 1px solid rgba(255,140,0,0.15); border-radius: 4px;
-            background: rgba(0,0,0,0.8); z-index: 0; pointer-events: none;
-            display: flex; align-items: center; justify-content: center; flex-direction: column;
-            animation: floatPreview 6s ease-in-out infinite;
+        @keyframes scanDown { 0% { top: -2px; } 100% { top: 100%; } }
+
+        .page-container { max-width: 1100px; margin: 0 auto; padding: 60px 20px 80px; position: relative; z-index: 1; }
+
+        .page-header { text-align: center; margin-bottom: 60px; }
+        .brand-link { text-decoration: none; display: inline-block; margin-bottom: 30px; }
+        .brand-name {
+            font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 14px; letter-spacing: 5px;
+            background: linear-gradient(270deg, #00fff2, #bc13fe, #ffd700, #00fff2);
+            background-size: 600% 600%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; animation: brandShift 8s ease infinite;
         }
-        @keyframes floatPreview { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(-10px); opacity: 0.7; } }
-        .preview-render-box span { font-size: 8px; color: #FF8C00; letter-spacing: 3px; }
-        .preview-render-box .bar-demo { width: 80%; height: 2px; background: #111; margin-top: 8px; overflow: hidden; border-radius: 1px; }
-        .preview-render-box .bar-fill { width: 0%; height: 100%; background: #FF8C00; animation: barLoop 3s ease-in-out infinite; }
-        @keyframes barLoop { 0% { width: 0%; } 50% { width: 100%; } 100% { width: 0%; } }
-        .container { position: relative; z-index: 1; }
+        @keyframes brandShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .page-title {
+            font-family: 'Orbitron', sans-serif; font-weight: 800;
+            font-size: clamp(1.8rem, 4vw, 3rem); margin-bottom: 12px;
+        }
+        .page-subtitle { color: #444; font-size: 14px; letter-spacing: 1px; }
+
+        /* PRICING CARDS */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        .pricing-card {
+            background: rgba(5,5,5,0.9);
+            border: 1px solid #1a1a1a;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .pricing-card:hover { border-color: var(--tier-color, #333); transform: translateY(-5px); }
+        .pricing-card.featured {
+            border-color: #00fff2;
+            box-shadow: 0 0 40px rgba(0,255,242,0.1);
+        }
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            background: linear-gradient(90deg, #00fff2, #00bcd4);
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            padding: 6px;
+            text-align: center;
+        }
+        .tier-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: var(--tier-color, #555);
+            margin-bottom: 20px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .tier-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+        .tier-price .currency { font-size: 1.2rem; vertical-align: top; color: #555; }
+        .tier-period { font-size: 11px; color: #444; margin-bottom: 20px; letter-spacing: 1px; }
+        .tier-features { list-style: none; text-align: left; margin-bottom: 25px; }
+        .tier-features li {
+            padding: 8px 0;
+            font-size: 12px;
+            color: #666;
+            border-bottom: 1px solid #111;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tier-features li::before {
+            content: '';
+            width: 6px; height: 6px;
+            background: var(--tier-color, #333);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .tier-yearly { font-size: 10px; color: #00ff66; letter-spacing: 1px; margin-bottom: 20px; }
+        .tier-btn {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid var(--tier-color, #333);
+            color: var(--tier-color, #888);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .tier-btn:hover { background: var(--tier-color); color: #000; }
+        .pricing-card.featured .tier-btn {
+            background: linear-gradient(135deg, #00fff2, #00bcd4);
+            color: #000;
+            border: none;
+        }
+        .pricing-card.featured .tier-btn:hover { box-shadow: 0 0 20px rgba(0,255,242,0.4); }
+
+        /* SCHOOL BUNDLE */
+        .school-bundle {
+            background: rgba(5,5,5,0.9);
+            border: 1px solid #4a90d9;
+            padding: 40px;
+            margin-bottom: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .school-bundle::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, #4a90d9, #00fff2, #4a90d9);
+        }
+        .bundle-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #4a90d9;
+            letter-spacing: 2px;
+        }
+        .bundle-info p { color: #555; font-size: 13px; line-height: 1.8; margin-bottom: 15px; }
+        .bundle-features { list-style: none; }
+        .bundle-features li {
+            padding: 6px 0; font-size: 12px; color: #666; display: flex; align-items: center; gap: 10px;
+        }
+        .bundle-features li::before {
+            content: '';
+            width: 6px; height: 6px; background: #4a90d9; border-radius: 50%; flex-shrink: 0;
+        }
+        .bundle-pricing { text-align: center; }
+        .bundle-pricing .old-price { font-size: 14px; color: #444; text-decoration: line-through; margin-bottom: 5px; }
+        .bundle-pricing .new-price {
+            font-family: 'Orbitron', sans-serif; font-size: 2rem; font-weight: 900; color: #4a90d9; margin-bottom: 5px;
+        }
+        .bundle-pricing .save-tag {
+            font-size: 11px; color: #00ff66; letter-spacing: 1px; margin-bottom: 20px;
+        }
+        .bundle-btn {
+            width: 100%; padding: 16px; background: #4a90d9; color: #000;
+            font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 11px;
+            letter-spacing: 3px; border: none; cursor: pointer; transition: all 0.3s; text-transform: uppercase;
+        }
+        .bundle-btn:hover { background: #fff; box-shadow: 0 0 20px rgba(74,144,217,0.3); }
+
+        /* SIGNUP FORM */
+        .signup-section {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .signup-card {
+            background: rgba(5,5,5,0.9);
+            border: 1px solid #1a1a1a;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        .signup-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, #00fff2, #bc13fe, #ffd700);
+        }
+        .signup-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700; font-size: 1.2rem;
+            text-align: center; margin-bottom: 30px; letter-spacing: 2px;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-label {
+            display: block; font-family: 'Orbitron', sans-serif; font-size: 9px;
+            letter-spacing: 3px; color: #555; margin-bottom: 8px; text-transform: uppercase;
+        }
+        .form-input {
+            width: 100%; background: #0a0a0a; border: 1px solid #222;
+            padding: 14px 16px; color: #fff; font-family: 'Inter', sans-serif;
+            font-size: 14px; outline: none; transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-input:focus { border-color: #00fff2; box-shadow: 0 0 15px rgba(0,255,242,0.1); }
+        .form-input::placeholder { color: #333; }
+
+        .btn-signup {
+            width: 100%; padding: 16px;
+            background: linear-gradient(135deg, #00fff2, #00bcd4);
+            color: #000; font-family: 'Orbitron', sans-serif;
+            font-weight: 700; font-size: 12px; letter-spacing: 3px;
+            text-transform: uppercase; border: none; cursor: pointer;
+            transition: all 0.4s; margin-top: 10px;
+        }
+        .btn-signup:hover { box-shadow: 0 0 30px rgba(0,255,242,0.4); transform: translateY(-2px); }
+        .btn-signup:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .bonus-tag {
+            text-align: center; margin-top: 15px;
+            font-size: 11px; color: #00ff66; letter-spacing: 1px; font-weight: 600;
+        }
+        .login-link {
+            text-align: center; margin-top: 25px; font-size: 12px; color: #444;
+        }
+        .login-link a { color: #00fff2; text-decoration: none; font-weight: 600; transition: color 0.3s; }
+        .login-link a:hover { color: #fff; }
+
+        .error-msg {
+            background: rgba(255,50,50,0.1); border: 1px solid rgba(255,50,50,0.2);
+            color: #ff4444; font-size: 11px; padding: 12px;
+            text-align: center; letter-spacing: 1px; margin-bottom: 20px; display: none;
+        }
+        .success-msg {
+            background: rgba(0,255,100,0.1); border: 1px solid rgba(0,255,100,0.2);
+            color: #00ff66; font-size: 11px; padding: 12px;
+            text-align: center; letter-spacing: 1px; margin-bottom: 20px; display: none;
+        }
+
+        :focus-visible { outline: 2px solid #00fff2; outline-offset: 2px; }
+
+        @media (max-width: 768px) {
+            .school-bundle { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 520px) {
+            .pricing-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
-<div class="preview-bg" aria-hidden="true"></div>
-<div class="preview-scanline" aria-hidden="true"></div>
-<div class="preview-render-box" aria-hidden="true">
-    <span>ENGiNE_PREViEW</span>
-    <div class="bar-demo"><div class="bar-fill"></div></div>
-    <span style="margin-top:6px; font-size:7px; color:#444;">9K_RENDER_READY</span>
-</div>
+<div class="scanline" aria-hidden="true"></div>
 
-<div class="container">
-    <h1>SECURE_BRIEF</h1>
-    <p class="sub-header">SELECT ACCESS LEVEL & SYNC OPERATOR ID</p>
-
-    <table class="pricing-table">
-        <thead>
-            <tr>
-                <th>ACCESS_TIER</th>
-                <th>RENDER_LIMIT</th>
-                <th>MONTHLY</th>
-                <th>YEARLY (SAVE 20%)</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="free-highlight">
-                <td class="tier-name">FREE_OPERATOR <span class="free-badge">NO CARD</span></td>
-                <td>2 ViDEOS — 5 SEC EACH</td>
-                <td>$0.00</td>
-                <td>N/A</td>
-            </tr>
-            <tr>
-                <td class="tier-name">BASIC_CORE</td>
-                <td>15 MINUTES</td>
-                <td>$10.00</td>
-                <td class="highlight">$96.00</td>
-            </tr>
-            <tr>
-                <td class="tier-name">PRO_ENGINE</td>
-                <td>1 HOUR</td>
-                <td>$30.00</td>
-                <td class="highlight">$288.00</td>
-            </tr>
-            <tr>
-                <td class="tier-name">ULTRA_SOVEREIGN</td>
-                <td style="color: #FF8C00;">UNLIMITED</td>
-                <td>$60.00</td>
-                <td class="highlight">$576.00</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="free-promo">
-        <h3>START FREE — NO CREDiT CARD REQUiRED</h3>
-        <span class="big-number">2</span>
-        <p class="sub-detail">FREE 5-SECOND ViDEO RENDERS</p>
-        <p style="margin-top: 12px;">Sign up as FREE_OPERATOR and get 2 five-second video renders instantly.<br>No payment. No commitment. Just create and render.</p>
+<div class="page-container">
+    <div class="page-header">
+        <a href="index.html" class="brand-link"><span class="brand-name">KNOCKSSTUDiOS</span></a>
+        <h1 class="page-title">Choose Your Plan</h1>
+        <p class="page-subtitle">Start free. Upgrade when you're ready for unlimited cinematic power.</p>
     </div>
 
-    <div class="signup-box" role="main">
-        <h2>INITIATE_ONBOARDING</h2>
-        <form id="signup-form" onsubmit="handleSignup(event)">
-            <label for="signup-name">OPERATOR_NAME</label>
-            <input type="text" id="signup-name" name="name" required placeholder="FULL_NAME">
+    <!-- PRICING TIERS -->
+    <div class="pricing-grid">
+        <div class="pricing-card" style="--tier-color: #00ff66;">
+            <div class="tier-name">Free</div>
+            <div class="tier-price"><span class="currency">$</span>0</div>
+            <div class="tier-period">forever</div>
+            <ul class="tier-features">
+                <li>2 video renders (5 sec each)</li>
+                <li>Preview mode unlimited</li>
+                <li>Watermarked output</li>
+                <li>500 bonus credits</li>
+            </ul>
+            <button type="button" class="tier-btn" onclick="selectTier('free')">Get Started Free</button>
+        </div>
 
-            <label for="signup-email">OPERATOR_EMAIL</label>
-            <input type="email" id="signup-email" name="email" required placeholder="OPERATOR@DOMAIN.COM">
+        <div class="pricing-card" style="--tier-color: #FF8C00;">
+            <div class="tier-name">Basic Core</div>
+            <div class="tier-price"><span class="currency">$</span>10</div>
+            <div class="tier-period">per month</div>
+            <div class="tier-yearly">$96/year &mdash; save 20%</div>
+            <ul class="tier-features">
+                <li>15 minutes render time</li>
+                <li>Clean output (no watermark)</li>
+                <li>1,000 credits included</li>
+                <li>Standard resolution</li>
+            </ul>
+            <button type="button" class="tier-btn" onclick="selectTier('basic')">Select Basic</button>
+        </div>
 
-            <label for="signup-password">ACCESS_PASSCODE</label>
-            <input type="password" id="signup-password" name="password" required placeholder="********">
+        <div class="pricing-card featured" style="--tier-color: #00fff2;">
+            <div class="tier-name">Pro Engine</div>
+            <div class="tier-price"><span class="currency">$</span>30</div>
+            <div class="tier-period">per month</div>
+            <div class="tier-yearly">$288/year &mdash; save 20%</div>
+            <ul class="tier-features">
+                <li>1 hour render time</li>
+                <li>9K ultra-raw resolution</li>
+                <li>5,000 credits included</li>
+                <li>Priority neural rendering</li>
+            </ul>
+            <button type="button" class="tier-btn" onclick="selectTier('pro')">Select Pro</button>
+        </div>
 
-            <label for="signup-tier">ACCESS_TIER</label>
-            <select id="signup-tier" name="tier" onchange="updateTierInfo()">
-                <option value="free">FREE_OPERATOR — 2 ViDEOS (5 SEC)</option>
-                <option value="basic">BASIC_CORE — 15 MiN</option>
-                <option value="pro">PRO_ENGINE — 1 HOUR</option>
-                <option value="ultra">ULTRA_SOVEREiGN — UNLiMiTED</option>
-            </select>
+        <div class="pricing-card" style="--tier-color: #ffd700;">
+            <div class="tier-name">Ultra Sovereign</div>
+            <div class="tier-price"><span class="currency">$</span>60</div>
+            <div class="tier-period">per month</div>
+            <div class="tier-yearly">$576/year &mdash; save 20%</div>
+            <ul class="tier-features">
+                <li>Unlimited render time</li>
+                <li>9K cinematic + audio</li>
+                <li>Unlimited credits</li>
+                <li>CEO-level access</li>
+            </ul>
+            <button type="button" class="tier-btn" onclick="selectTier('ultra')">Select Ultra</button>
+        </div>
+    </div>
 
-            <div id="tier-info" style="margin-top: 15px; padding: 12px; background: #0a0a0a; border: 1px solid #333; font-size: 11px; color: #00FF00; letter-spacing: 1px;">
-                FREE TiER: 2 ViDEO RENDERS (5 SECONDS EACH) — NO PAYMENT REQUiRED
+    <!-- SCHOOL BUNDLE -->
+    <div class="school-bundle">
+        <div class="bundle-info">
+            <h3>SCHOOL STORE BUNDLE</h3>
+            <p>The ultimate rendering education pack. Built for students, teachers, and creative programs. Learn cinematic 3D rendering with guided tools and companion bots.</p>
+            <ul class="bundle-features">
+                <li>Pro Engine tier included (1 hour render time)</li>
+                <li>School companion bot pack (3 AI assistants)</li>
+                <li>Step-by-step cinematic render tutorials</li>
+                <li>5,000 bonus credits</li>
+                <li>Priority support for educators</li>
+                <li>Bulk licensing available</li>
+            </ul>
+        </div>
+        <div class="bundle-pricing">
+            <div class="old-price">$39.99/mo</div>
+            <div class="new-price">$24.99<span style="font-size: 0.8rem; color: #666;">/mo</span></div>
+            <div class="save-tag">SAVE 37% &mdash; EDUCATION DISCOUNT</div>
+            <button type="button" class="bundle-btn" onclick="selectTier('school')">Get School Bundle</button>
+        </div>
+    </div>
+
+    <!-- RENDERING BUNDLE -->
+    <div class="school-bundle" style="border-color: #ff4500;">
+        <div class="bundle-info">
+            <h3 style="color: #ff4500;">RENDERiNG MEGA BUNDLE</h3>
+            <p>For professionals and studios. Unlimited rendering with all companion packs, priority GPU processing, and full cinematic toolset.</p>
+            <ul class="bundle-features">
+                <li>Ultra Sovereign tier (unlimited everything)</li>
+                <li>All 9 companion bots unlocked</li>
+                <li>20,000 bonus credits</li>
+                <li>Rendering pack + Store pack + School pack</li>
+                <li>Dedicated rendering queue</li>
+                <li>Commercial license included</li>
+            </ul>
+        </div>
+        <div class="bundle-pricing">
+            <div class="old-price">$81.97/mo</div>
+            <div class="new-price" style="color: #ff4500;">$49.99<span style="font-size: 0.8rem; color: #666;">/mo</span></div>
+            <div class="save-tag">SAVE 39% &mdash; STUDIO BUNDLE</div>
+            <button type="button" class="bundle-btn" style="background: #ff4500;" onclick="selectTier('studio')">Get Studio Bundle</button>
+        </div>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div class="signup-section" id="signup-section">
+        <div class="signup-card">
+            <h2 class="signup-title">Create Your Account</h2>
+            <div id="error-msg" class="error-msg" role="alert"></div>
+            <div id="success-msg" class="success-msg" role="status"></div>
+
+            <form id="signup-form" onsubmit="handleSignup(event)" novalidate>
+                <div class="form-group">
+                    <label for="signup-name" class="form-label">Full Name</label>
+                    <input type="text" id="signup-name" class="form-input" placeholder="Your full name" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="signup-email" class="form-label">Email Address</label>
+                    <input type="email" id="signup-email" class="form-input" placeholder="you@example.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="signup-password" class="form-label">Password</label>
+                    <input type="password" id="signup-password" class="form-input" placeholder="Create a strong password" required autocomplete="new-password" minlength="6">
+                </div>
+                <input type="hidden" id="selected-tier" value="free">
+                <div id="tier-display" style="margin-bottom: 15px; padding: 12px; background: #0a0a0a; border: 1px solid #00ff66; font-size: 11px; color: #00ff66; letter-spacing: 1px; text-align: center; font-family: 'Orbitron', sans-serif;">
+                    SELECTED: FREE TIER &mdash; 2 VIDEO RENDERS (5 SEC EACH)
+                </div>
+                <button type="submit" class="btn-signup" id="signup-btn">Create Account</button>
+            </form>
+            <div class="bonus-tag">+500 BONUS CREDITS ON SIGNUP</div>
+            <div class="login-link">
+                Already have an account? <a href="login.html">Log in</a>
             </div>
-
-            <button type="submit" class="submit-btn">REGISTER_OPERATOR</button>
-        </form>
-        <div class="bonus-tag">+500 BONUS COINS ON SIGNUP</div>
-    </div>
-
-    <div style="text-align: center; margin-top: 40px;">
-        <p style="color: #444; font-size: 10px; letter-spacing: 3px;">NEED MORE COiNS? <a href="store.html" style="color: #00f2ff; text-decoration: none; letter-spacing: 2px;">ViSiT THE ARCHiVE STORE →</a></p>
-        <p style="color: #444; font-size: 10px; letter-spacing: 3px; margin-top: 10px;">WANT COMPANiON BOTS? <a href="companions.html" style="color: #FF8C00; text-decoration: none; letter-spacing: 2px;">UNLOCK THEMED SQUADS →</a></p>
+        </div>
     </div>
 </div>
 
-<script>
-    function updateTierInfo() {
-        const tier = document.getElementById('signup-tier').value;
-        const info = document.getElementById('tier-info');
-        const tierDetails = {
-            free: 'FREE TiER: 2 ViDEO RENDERS (5 SECONDS EACH) — NO PAYMENT REQUiRED',
-            basic: 'BASiC CORE: 15 MiNUTES OF RENDER TiME — $10.00/MONTH',
-            pro: 'PRO ENGiNE: 1 HOUR OF RENDER TiME — $30.00/MONTH',
-            ultra: 'ULTRA SOVEREiGN: UNLiMiTED RENDER TiME — $60.00/MONTH'
-        };
-        info.innerText = tierDetails[tier] || '';
-        info.style.borderColor = tier === 'free' ? '#00FF00' : '#FF8C00';
-        info.style.color = tier === 'free' ? '#00FF00' : '#FF8C00';
+<script type="module">
+import { signup, handleAuthCallback, AuthError, MissingIdentityError } from '@netlify/identity';
+
+// Handle auth callbacks on load
+try {
+    const result = await handleAuthCallback();
+    if (result && result.type === 'confirmation') {
+        showSuccess('Email confirmed! You are now logged in.');
+        setTimeout(() => { window.location.href = 'engine.html'; }, 1500);
+    }
+} catch (err) {
+    if (err instanceof AuthError) showError(err.message);
+}
+
+function showError(msg) {
+    const el = document.getElementById('error-msg');
+    el.textContent = msg;
+    el.style.display = 'block';
+    document.getElementById('success-msg').style.display = 'none';
+}
+function showSuccess(msg) {
+    const el = document.getElementById('success-msg');
+    el.textContent = msg;
+    el.style.display = 'block';
+    document.getElementById('error-msg').style.display = 'none';
+}
+
+const tierLabels = {
+    free: 'FREE TIER \u2014 2 VIDEO RENDERS (5 SEC EACH)',
+    basic: 'BASIC CORE \u2014 15 MIN RENDER TIME \u2014 $10/MO',
+    pro: 'PRO ENGINE \u2014 1 HOUR RENDER TIME \u2014 $30/MO',
+    ultra: 'ULTRA SOVEREIGN \u2014 UNLIMITED \u2014 $60/MO',
+    school: 'SCHOOL STORE BUNDLE \u2014 $24.99/MO',
+    studio: 'RENDERING MEGA BUNDLE \u2014 $49.99/MO'
+};
+const tierColors = {
+    free: '#00ff66', basic: '#FF8C00', pro: '#00fff2', ultra: '#ffd700', school: '#4a90d9', studio: '#ff4500'
+};
+
+window.selectTier = function(tier) {
+    document.getElementById('selected-tier').value = tier;
+    const display = document.getElementById('tier-display');
+    display.textContent = 'SELECTED: ' + (tierLabels[tier] || tier.toUpperCase());
+    display.style.borderColor = tierColors[tier] || '#333';
+    display.style.color = tierColors[tier] || '#888';
+    document.getElementById('signup-section').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.handleSignup = async function(e) {
+    e.preventDefault();
+    const name = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const tier = document.getElementById('selected-tier').value;
+    const btn = document.getElementById('signup-btn');
+
+    if (!name || !email || !password) {
+        showError('Please fill in all fields.');
+        return;
+    }
+    if (password.length < 6) {
+        showError('Password must be at least 6 characters.');
+        return;
     }
 
-    // COMPANiON BOT NAME GENERATOR
-    const COMPANION_NAMES = [
-        'AXION', 'CIPHER', 'DRIFT', 'ECHO', 'FLARE', 'GHOST', 'HAZE', 'ION',
-        'JETT', 'KODA', 'LYRIC', 'MAKO', 'NEON', 'ONYX', 'PRISM', 'QUAKE',
-        'RAZE', 'SHARD', 'TRACE', 'UMBRA', 'VOLT', 'WREN', 'XERO', 'ZENITH',
-        'APEX', 'BYTE', 'CRUX', 'DUSK', 'EMBER', 'FUSE', 'GRID', 'HELIX',
-        'INK', 'JAX', 'KNOX', 'LUMEN', 'MATRIX', 'NEXUS', 'ORBIT', 'PHASE',
-        'QUARTZ', 'RIFT', 'SPARK', 'TITAN', 'UNIT', 'VEGA', 'WAVE', 'ZION'
-    ];
-    const COMPANION_ROLES = [
-        'PERSONAL ASSiSTANT', 'ENGINE GUiDE', 'CREATiVE ALLY',
-        'RENDER PARTNER', 'SYSTEM NAViGATOR', 'PROJECT BUDDY'
-    ];
-    const COMPANION_ICONS = [
-        '\u{1F916}', '\u{1F47E}', '\u{2728}', '\u{1F4AB}', '\u{1F30A}', '\u{1F525}',
-        '\u{26A1}', '\u{1F680}', '\u{1F3AF}', '\u{1F4A0}', '\u{1F300}', '\u{2B50}'
-    ];
+    btn.disabled = true;
+    btn.textContent = 'CREATING ACCOUNT...';
 
-    function generateCompanion(operatorName) {
-        const nameIdx = Math.floor(Math.random() * COMPANION_NAMES.length);
-        const roleIdx = Math.floor(Math.random() * COMPANION_ROLES.length);
-        const iconIdx = Math.floor(Math.random() * COMPANION_ICONS.length);
-        return {
-            name: COMPANION_NAMES[nameIdx] + '_' + operatorName.split(' ')[0].toUpperCase().slice(0, 4),
-            role: COMPANION_ROLES[roleIdx],
-            icon: COMPANION_ICONS[iconIdx],
-            createdAt: new Date().toISOString()
-        };
-    }
+    try {
+        const user = await signup(email, password, { full_name: name, tier: tier });
 
-    function handleSignup(e) {
-        e.preventDefault();
-        const name = document.getElementById('signup-name').value;
-        const email = document.getElementById('signup-email').value;
-        const tier = document.getElementById('signup-tier').value;
-
-        // Store user profile in localStorage
-        const userProfile = {
-            name: name,
-            email: email,
-            tier: tier,
-            signupDate: new Date().toISOString(),
-            freeRendersUsed: 0,
-            freeRendersMax: tier === 'free' ? 2 : 0,
-            maxDuration: tier === 'free' ? 5 : null
-        };
-        localStorage.setItem('knocks_user', JSON.stringify(userProfile));
-
-        // Give bonus credits
-        const currentCredits = parseInt(localStorage.getItem('knocks_credits')) || 0;
-        localStorage.setItem('knocks_credits', currentCredits + 500);
-
-        // Assign personal companion bot
-        const companion = generateCompanion(name);
-        localStorage.setItem('knocks_companion', JSON.stringify(companion));
-
+        // Store tier info locally for engine UI
+        localStorage.setItem('knocks_tier', tier);
+        localStorage.setItem('knocks_credits', tier === 'free' ? '500' : '5000');
         if (tier === 'free') {
-            // Track free renders separately
             localStorage.setItem('knocks_free_renders', '2');
-            localStorage.setItem('knocks_free_duration', '5');
-            alert('WELCOME, ' + name.toUpperCase() + '! FREE_OPERATOR ACTiVATED.\n\nYour personal companion bot ' + companion.name + ' (' + companion.icon + ') is now online!\n\nYou have 2 FREE 5-second video renders ready.\n+500 BONUS COiNS added to your account.\n\nVisit the Companion Bots page to unlock themed squads!');
-        } else {
-            alert('WELCOME, ' + name.toUpperCase() + '! ' + tier.toUpperCase() + ' TiER ACTiVATED.\n\nYour personal companion bot ' + companion.name + ' (' + companion.icon + ') is now online!\n+500 BONUS COiNS added.\n\nVisit the Companion Bots page to unlock themed squads!');
         }
 
-        // Mark that user just signed up so engine auto-previews
-        localStorage.setItem('knocks_auto_preview', 'true');
-        window.location.href = 'render.html';
+        if (user.emailVerified) {
+            showSuccess('Account created! Redirecting to the engine...');
+            setTimeout(() => { window.location.href = 'engine.html'; }, 1500);
+        } else {
+            showSuccess('Account created! Check your email to confirm, then log in.');
+            btn.textContent = 'CHECK YOUR EMAIL';
+        }
+    } catch (error) {
+        if (error instanceof MissingIdentityError) {
+            showError('Identity service not configured. Please try again later.');
+        } else if (error instanceof AuthError) {
+            if (error.status === 403) {
+                showError('Signups are not currently available.');
+            } else if (error.status === 422) {
+                showError('Invalid email or password too weak. Use at least 6 characters.');
+            } else {
+                showError(error.message);
+            }
+        } else {
+            showError('An unexpected error occurred. Please try again.');
+        }
+        btn.disabled = false;
+        btn.textContent = 'CREATE ACCOUNT';
     }
+};
 </script>
 
 </body>
