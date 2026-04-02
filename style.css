@@ -1,22 +1,31 @@
 /* THE SOVEREIGN PULSE - GLOBAL CORE STYLES */
+/* KNOCKSSTUDiOS - THE OMNIPOTENT ENGINE */
 
 :root {
-  --primary-glow: #00ffcc;
-  --bg-dark: #0a0a0a;
-  --surface-dark: #151515;
+  --primary-glow: #00fff2;
+  --secondary-glow: #bc13fe;
+  --tertiary-glow: #ffd700;
+  --bg-dark: #000;
+  --surface-dark: #050505;
+  --surface-mid: #0a0a0a;
+  --border-subtle: #1a1a1a;
   --text-main: #e0e0e0;
-  --accent-pulse: rgba(0, 255, 204, 0.15);
+  --text-muted: #555;
+  --text-dim: #333;
+  --accent-pulse: rgba(0, 255, 242, 0.15);
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   background-color: var(--bg-dark);
   color: var(--text-main);
   font-family: 'Inter', system-ui, sans-serif;
   margin: 0;
-  display: flex;
-  flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* THE EYE IN THE CENTER */
@@ -26,21 +35,14 @@ body::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
+  width: 600px;
+  height: 600px;
   background: radial-gradient(circle, var(--accent-pulse) 0%, transparent 70%);
   z-index: -1;
   pointer-events: none;
 }
 
-/* THE PULSE ANIMATION */
-@keyframes pulse-glow {
-  0% { box-shadow: 0 0 5px var(--primary-glow); }
-  50% { box-shadow: 0 0 20px var(--primary-glow); }
-  100% { box-shadow: 0 0 5px var(--primary-glow); }
-}
-
-/* KNOCKSSTUDiOS BRAND ANIMATION — colorful metallic fade */
+/* KNOCKSSTUDiOS BRAND ANIMATION */
 @keyframes brand-color-fade {
   0%   { background-position: 0% 50%; }
   50%  { background-position: 100% 50%; }
@@ -71,25 +73,9 @@ body::before {
   letter-spacing: 0.15em;
 }
 
-button, .action-card {
-  background: var(--surface-dark);
-  border: 1px solid #333;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  border-color: var(--primary-glow);
-  animation: pulse-glow 2s infinite;
-  transform: translateY(-2px);
-}
-
 /* GLOBAL FOCUS STYLES FOR ACCESSIBILITY */
 :focus-visible {
-  outline: 2px solid var(--primary-glow, #00ffcc);
+  outline: 2px solid var(--primary-glow, #00fff2);
   outline-offset: 2px;
 }
 
@@ -98,7 +84,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid var(--primary-glow, #00ffcc);
+  outline: 2px solid var(--primary-glow, #00fff2);
   outline-offset: 2px;
 }
 
@@ -118,25 +104,23 @@ textarea:focus-visible {
   top: 0;
 }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 5%;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #222;
+/* SELECTION STYLING */
+::selection {
+  background: rgba(0, 255, 242, 0.3);
+  color: #fff;
 }
 
-.welcome-banner {
-  text-align: center;
-  margin-top: 10vh;
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 6px;
 }
-
-.welcome-banner h1 {
-  font-size: 3rem;
-  letter-spacing: -1px;
-  background: linear-gradient(to right, #fff, var(--primary-glow));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+::-webkit-scrollbar-track {
+  background: #000;
 }
-
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}

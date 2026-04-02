@@ -3,140 +3,743 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V | SOVEREiGN_OS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>KNOCKSSTUDiOS | THE OMNiPOTENT ENGiNE</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --win-gray: #c0c0c0; --win-blue: #000080; --cyan: #00fff2; --gold: #ffd700; --purple: #a855f7; --void: #010103; }
-        body { background-color: #008080; font-family: 'Inter', sans-serif; height: 100vh; margin: 0; overflow: hidden; display: flex; flex-direction: column; }
-        .monolith { font-family: 'Syncopate', sans-serif; text-transform: uppercase; font-weight: 900; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* THE V-SHELL TABLET */
-        main.v-shell {
-            background: var(--win-gray);
-            border: 3px solid;
-            border-color: #fff #404040 #404040 #fff;
-            width: 98vw; height: 90vh; margin: auto;
-            display: flex; flex-direction: column;
-            box-shadow: 20px 20px 0px rgba(0,0,0,0.5);
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
 
-        .title-bar {
-            background: linear-gradient(90deg, var(--win-blue), #1084d0);
-            padding: 10px 15px; display: flex; justify-content: space-between;
-            color: white; font-weight: 900; font-size: 12px;
+        /* CINEMATIC HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
-        /* THE BLACK MECH ASSISTANT (downloadfile-65.mp4) */
-        .mech-live-pin {
-            position: fixed; bottom: 80px; right: 40px;
-            width: 280px; height: 190px; z-index: 9999;
-            border: 2px solid var(--cyan); background: #000;
-            box-shadow: 0 0 50px rgba(0, 255, 242, 0.4);
-            border-radius: 4px; overflow: hidden;
-            animation: tablet-float 5s ease-in-out infinite;
-        }
-        @keyframes tablet-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-
-        .workspace {
-            background: var(--void); margin: 4px; border: 4px inset #fff;
-            flex-grow: 1; padding: 40px; position: relative;
-            background-image: linear-gradient(rgba(0, 255, 242, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 242, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0, 255, 242, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 20% 80%, rgba(188, 19, 254, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(255, 215, 0, 0.06) 0%, transparent 60%);
+            z-index: 0;
         }
 
-        /* SHOWCASE CARDS (ENGINE_01, NEURAL_02, MATRIX_03) */
-        .showcase-card {
-            position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
-            background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 100%);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer; height: 160px;
-        }
-        .showcase-card:hover { border-color: var(--cyan); transform: translateY(-5px); }
-        .showcase-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; transition: 0.4s; }
-        .card-cyan:hover::after { width: 100%; background: var(--cyan); box-shadow: 0 0 15px var(--cyan); }
-        .card-purple:hover::after { width: 100%; background: var(--purple); box-shadow: 0 0 15px var(--purple); }
-        .card-gold:hover::after { width: 100%; background: var(--gold); box-shadow: 0 0 15px var(--gold); }
-
-        .status-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        .metallic-v {
-            background: linear-gradient(180deg, #FFFFFF 0%, #718096 50%, #FFFFFF 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            font-size: 6rem; filter: drop-shadow(0 0 20px rgba(0,255,242,0.4));
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, transparent 60%, #000 100%);
+            z-index: 1;
         }
 
-        .taskbar { height: 50px; background: var(--win-gray); border-top: 3px solid #fff; display: flex; align-items: center; padding: 0 10px; }
+        /* PARTICLE GRID */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 255, 242, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 242, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* SCAN LINE */
+        .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00fff2, transparent);
+            z-index: 2;
+            animation: scanDown 6s linear infinite;
+            opacity: 0.4;
+        }
+        @keyframes scanDown {
+            0% { top: -2px; }
+            100% { top: 100%; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            border: 1px solid rgba(0, 255, 242, 0.3);
+            padding: 8px 24px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 6px;
+            color: #00fff2;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            background: rgba(0, 255, 242, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3rem, 8vw, 8rem);
+            line-height: 0.95;
+            margin-bottom: 30px;
+            background: linear-gradient(180deg, #FFFFFF 0%, #a0a0a0 40%, #FFFFFF 60%, #606060 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 40px rgba(0, 255, 242, 0.3));
+        }
+
+        .hero-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.6rem, 1.5vw, 0.9rem);
+            letter-spacing: 8px;
+            color: #555;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle .accent {
+            background: linear-gradient(90deg, #00fff2, #bc13fe, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(135deg, #00fff2, #00bcd4);
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .btn-primary:hover::after { transform: translateX(100%); }
+        .btn-primary:hover { box-shadow: 0 0 40px rgba(0, 255, 242, 0.5); transform: translateY(-3px); }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 18px 50px;
+            background: transparent;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-decoration: none;
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        .btn-secondary:hover { border-color: #ffd700; color: #ffd700; box-shadow: 0 0 30px rgba(255,215,0,0.2); }
+
+        /* ENGINE SHOWCASE SECTION */
+        .section { padding: 120px 5% 80px; position: relative; }
+        .section-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 8px;
+            color: #00fff2;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.8rem, 4vw, 3.5rem);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        .section-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 60px;
+        }
+
+        /* ENGINE CARDS */
+        .engine-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .engine-card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(10,10,10,0.9) 0%, rgba(0,0,0,0.95) 100%);
+            border: 1px solid #1a1a1a;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .engine-card:hover { border-color: var(--card-color); transform: translateY(-8px); }
+        .engine-card:hover .card-glow { opacity: 1; }
+
+        .card-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: radial-gradient(ellipse at 50% 0%, var(--card-color-alpha) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+        .card-visual {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #050505;
+        }
+        .card-visual-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--card-color);
+            opacity: 0.15;
+            letter-spacing: 10px;
+        }
+        .card-status-dot {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--card-color);
+            box-shadow: 0 0 12px var(--card-color);
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+        .card-body { padding: 30px; position: relative; z-index: 1; }
+        .card-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: var(--card-color);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        .card-desc { color: #555; font-size: 12px; line-height: 1.7; }
+
+        /* VIDEO SHOWCASE */
+        .showcase-section { background: #050505; }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .video-card {
+            position: relative;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+        .video-card:hover { border-color: #00fff2; transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .video-preview {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .video-preview-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.3;
+        }
+        .play-icon {
+            width: 60px;
+            height: 60px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.3);
+        }
+        .play-icon::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 4px;
+        }
+        .video-card:hover .play-icon { border-color: #00fff2; box-shadow: 0 0 20px rgba(0,255,242,0.3); }
+        .video-info { padding: 20px; }
+        .video-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8px;
+            letter-spacing: 3px;
+            color: #555;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .video-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; letter-spacing: 1px; }
+        .video-desc { color: #444; font-size: 11px; line-height: 1.5; }
+
+        /* STATS BAR */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: #111;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .stat-item {
+            background: #050505;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 900;
+            color: #00fff2;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #444;
+            text-transform: uppercase;
+        }
+
+        /* SUBSCRIPTION CTA */
+        .cta-section {
+            text-align: center;
+            padding: 120px 5%;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 80px;
+            background: linear-gradient(180deg, transparent, #00fff2);
+        }
+
+        /* FOOTER NAV */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 4px;
+            background: linear-gradient(270deg, #00fff2, #bc13fe, #ffd700, #00fff2);
+            background-size: 600% 600%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: brandShift 8s ease infinite;
+            text-decoration: none;
+        }
+        @keyframes brandShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: #555;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-auth {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .nav-login {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #888;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .nav-login:hover { color: #fff; }
+        .nav-signup {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #000;
+            background: #00fff2;
+            padding: 8px 20px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .nav-signup:hover { background: #fff; box-shadow: 0 0 20px rgba(0,255,242,0.3); }
+
+        .footer {
+            border-top: 1px solid #111;
+            padding: 60px 5% 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 3px;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        .footer-desc { color: #333; font-size: 12px; line-height: 1.8; }
+        .footer-col h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: #555;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .footer-col a {
+            display: block;
+            color: #333;
+            text-decoration: none;
+            font-size: 12px;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: #00fff2; }
+        .footer-bottom {
+            border-top: 1px solid #111;
+            padding: 20px 5%;
+            text-align: center;
+            font-size: 10px;
+            color: #222;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .footer { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .site-nav { padding: 15px 20px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="mech-live-pin">
-        <video autoplay muted loop playsinline class="w-full h-full object-cover">
-            <source src="downloadfile-65.mp4" type="video/mp4">
-        </video>
+    <!-- NAVIGATION -->
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-brand">KNOCKSSTUDiOS</a>
+        <div class="nav-links">
+            <a href="engine.html">Engine</a>
+            <a href="render.html">Render</a>
+            <a href="store.html">Store</a>
+        </div>
+        <div class="nav-auth">
+            <a href="login.html" class="nav-login">Log In</a>
+            <a href="signup.html" class="nav-signup">Sign Up</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" role="banner">
+        <div class="grid-overlay" aria-hidden="true"></div>
+        <div class="scanline" aria-hidden="true"></div>
+        <div class="hero-content">
+            <div class="hero-badge">9K CINEMATIC RENDER ENGINE</div>
+            <h1 class="hero-title">THE<br>OMNiPOTENT<br>ENGiNE</h1>
+            <p class="hero-subtitle">
+                <span class="accent">Cinematic 3D Rendering</span> &mdash; Beyond What You Thought Possible
+            </p>
+            <div class="hero-cta">
+                <a href="signup.html" class="btn-primary">Start Rendering Free</a>
+                <a href="#showcase" class="btn-secondary">Watch Examples</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number">9K</div>
+            <div class="stat-label">Max Resolution</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">3D</div>
+            <div class="stat-label">Cinematic Rendering</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">AI</div>
+            <div class="stat-label">Neural Processing</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Engine Online</div>
+        </div>
     </div>
 
-    <main class="v-shell">
-        <div class="title-bar">
-            <span class="monolith">KNOCKSSTiUDiOS_VIVID_VEO_SYSTEMS</span>
-            <div class="flex gap-2">
-                <button class="w-6 h-6 bg-gray-300 border border-black shadow-[inset_1px_1px_#fff]">_</button>
-                <button class="w-6 h-6 bg-gray-300 border border-black shadow-[inset_1px_1px_#fff] text-xs">X</button>
+    <!-- ENGINE SHOWCASE -->
+    <section class="section">
+        <div class="section-label">Core Systems</div>
+        <h2 class="section-title">Three Engines. One Vision.</h2>
+        <p class="section-desc">
+            Our rendering pipeline combines neural AI, photorealistic physics, and cinematic post-processing to deliver visuals that redefine what a browser-based engine can do.
+        </p>
+        <div class="engine-grid">
+            <a href="engine.html" class="engine-card" style="--card-color: #00fff2; --card-color-alpha: rgba(0,255,242,0.1); text-decoration:none; color:inherit;">
+                <div class="card-glow"></div>
+                <div class="card-visual">
+                    <div class="card-visual-label">01</div>
+                    <div class="card-status-dot"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tag">Engine_01</div>
+                    <h3 class="card-title">9K CORE ENGINE</h3>
+                    <p class="card-desc">Ultra-high resolution rendering at 9K. Cinematic camera angles, dynamic lighting, and real-time physics simulation for photorealistic 3D output.</p>
+                </div>
+            </a>
+            <a href="render.html" class="engine-card" style="--card-color: #bc13fe; --card-color-alpha: rgba(188,19,254,0.1); text-decoration:none; color:inherit;">
+                <div class="card-glow"></div>
+                <div class="card-visual">
+                    <div class="card-visual-label">02</div>
+                    <div class="card-status-dot"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tag">Neural_02</div>
+                    <h3 class="card-title">NEURAL RENDER</h3>
+                    <p class="card-desc">AI-driven scene composition with hand-drawn cell-shading, stylized 3D, and adaptive frame generation. From concept to cinematic in seconds.</p>
+                </div>
+            </a>
+            <a href="store.html" class="engine-card" style="--card-color: #ffd700; --card-color-alpha: rgba(255,215,0,0.1); text-decoration:none; color:inherit;">
+                <div class="card-glow"></div>
+                <div class="card-visual">
+                    <div class="card-visual-label">03</div>
+                    <div class="card-status-dot"></div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tag">Matrix_03</div>
+                    <h3 class="card-title">ARCHiVE STORE</h3>
+                    <p class="card-desc">Credits, subscription bundles, school packs, and rendering theme packs. Everything you need to power unlimited cinematic renders.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- VIDEO EXAMPLES -->
+    <section class="section showcase-section" id="showcase">
+        <div class="section-label">Render Examples</div>
+        <h2 class="section-title">See The Engine In Action</h2>
+        <p class="section-desc">
+            Real-time 3D cinematic renders powered by the 9K Core Engine. From photorealistic environments to stylized animation — every frame is crafted by AI.
+        </p>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-preview" style="background: linear-gradient(135deg, #001a1a, #000);">
+                    <div class="video-preview-bg" style="background: radial-gradient(circle at 30% 40%, rgba(0,255,242,0.15), transparent 60%);" aria-hidden="true"></div>
+                    <div class="play-icon"></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-tag">3D Cinematic &mdash; 9K Resolution</div>
+                    <div class="video-title">Cyberpunk Cityscape Flythrough</div>
+                    <div class="video-desc">Real-time neural rendering with volumetric fog, neon reflections, and dynamic camera movement at 9K ultra-raw resolution.</div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-preview" style="background: linear-gradient(135deg, #0d001a, #000);">
+                    <div class="video-preview-bg" style="background: radial-gradient(circle at 70% 30%, rgba(188,19,254,0.15), transparent 60%);" aria-hidden="true"></div>
+                    <div class="play-icon"></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-tag">Neural AI &mdash; Cell Shaded</div>
+                    <div class="video-title">Mech Warrior Combat Sequence</div>
+                    <div class="video-desc">Hand-drawn cell-shaded animation rendered with HAND-DRAWN_CELL_v4 engine. Cinematic action with dynamic particle effects.</div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-preview" style="background: linear-gradient(135deg, #1a0f00, #000);">
+                    <div class="video-preview-bg" style="background: radial-gradient(circle at 50% 60%, rgba(255,215,0,0.15), transparent 60%);" aria-hidden="true"></div>
+                    <div class="play-icon"></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-tag">Photorealistic &mdash; Physics Engine</div>
+                    <div class="video-title">Cinematic Nature Documentary</div>
+                    <div class="video-desc">Photorealistic physics simulation with real-time global illumination, subsurface scattering, and atmospheric rendering.</div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-preview" style="background: linear-gradient(135deg, #001a0a, #000);">
+                    <div class="video-preview-bg" style="background: radial-gradient(circle at 40% 50%, rgba(0,255,100,0.12), transparent 60%);" aria-hidden="true"></div>
+                    <div class="play-icon"></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-tag">3D Animation &mdash; Stylized</div>
+                    <div class="video-title">Character Motion Reel</div>
+                    <div class="video-desc">Stylized 3D character animation with procedural motion capture, expressive shading, and cinematic camera transitions.</div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-preview" style="background: linear-gradient(135deg, #0a0a1a, #000);">
+                    <div class="video-preview-bg" style="background: radial-gradient(circle at 60% 40%, rgba(0,100,255,0.12), transparent 60%);" aria-hidden="true"></div>
+                    <div class="play-icon"></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-tag">VFX &mdash; Particle Systems</div>
+                    <div class="video-title">Space Station Explosion VFX</div>
+                    <div class="video-desc">Cinematic VFX with million-particle destruction simulation, debris physics, volumetric fire, and shockwave propagation.</div>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-preview" style="background: linear-gradient(135deg, #1a0005, #000);">
+                    <div class="video-preview-bg" style="background: radial-gradient(circle at 50% 50%, rgba(255,50,50,0.12), transparent 60%);" aria-hidden="true"></div>
+                    <div class="play-icon"></div>
+                </div>
+                <div class="video-info">
+                    <div class="video-tag">Automotive &mdash; Product Viz</div>
+                    <div class="video-title">Hypercar Reveal Cinematic</div>
+                    <div class="video-desc">Product visualization with ray-traced reflections, HDRI environment lighting, and cinematic depth-of-field at 9K resolution.</div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="workspace">
-            <div class="flex justify-between items-start mb-12">
-                <h1 class="monolith metallic-v leading-none">V_OS</h1>
-                <div class="p-6 border-l-4 border-cyan-400 bg-white/5 backdrop-blur-sm">
-                    <span class="monolith text-cyan-400 text-[10px] block mb-2 tracking-[0.5em]">BYPASS_0736</span>
-                    <p class="text-4xl font-black text-white italic">CEO_LEVEL</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="showcase-card card-cyan p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="status-dot bg-cyan-400 mr-2"></div>
-                        <span class="monolith text-cyan-400 text-[9px]">ENGINE_01</span>
-                    </div>
-                    <p class="text-white text-xs font-black tracking-[0.3em] uppercase">9K_CORE_ENGINE</p>
-                </div>
-
-                <div class="showcase-card card-purple p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="status-dot bg-purple-500 mr-2"></div>
-                        <span class="monolith text-purple-400 text-[9px]">NEURAL_02</span>
-                    </div>
-                    <p class="text-white text-xs font-black tracking-[0.3em] uppercase">NEURAL_RENDER</p>
-                </div>
-
-                <div class="showcase-card card-gold p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="status-dot bg-yellow-500 mr-2"></div>
-                        <span class="monolith text-yellow-400 text-[9px]">MATRIX_03</span>
-                    </div>
-                    <p class="text-white text-xs font-black tracking-[0.3em] uppercase">ARCHiVE_STORE</p>
-                </div>
-            </div>
-
-            <div class="mt-12 text-[10px] monolith text-gray-500 tracking-[0.6em] uppercase">
-                Status: KNOCKSSTiUDiOS_VEO_Core_Synced // 100%
-            </div>
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="section-label">Get Started</div>
+        <h2 class="section-title">Start Rendering Today</h2>
+        <p class="section-desc" style="margin: 20px auto 50px; text-align: center;">
+            Sign up free and get 2 cinematic video renders instantly. No credit card required.
+            Upgrade anytime for unlimited 9K rendering power.
+        </p>
+        <div class="hero-cta">
+            <a href="signup.html" class="btn-primary">Create Free Account</a>
+            <a href="store.html" class="btn-secondary">View Subscriptions</a>
         </div>
-    </main>
+    </section>
 
-    <footer class="taskbar">
-        <button class="bg-gray-300 border-2 border-outset border-white px-6 py-1 font-black text-black">START</button>
-        <div class="ml-4 flex gap-2">
-            <div class="bg-gray-400 border-2 border-inset px-4 py-1 text-black text-[9px] font-black">SOVEREiGN_DASH</div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div>
+            <div class="footer-brand">KNOCKSSTUDiOS</div>
+            <p class="footer-desc">The Omnipotent Engine. Cinematic 3D rendering powered by neural AI. Built for creators, filmmakers, and visionaries.</p>
         </div>
-        <div class="ml-auto px-5 py-2 text-black font-mono text-[10px] border-2 border-inset bg-gray-400">
-            ENGINE_01_ONLiNE
+        <div class="footer-col">
+            <h4>Engine</h4>
+            <a href="engine.html">9K Core Engine</a>
+            <a href="render.html">Neural Render</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="footer-col">
+            <h4>Store</h4>
+            <a href="store.html">Credit Packs</a>
+            <a href="store.html">Subscriptions</a>
+            <a href="companions.html">Companion Bots</a>
+            <a href="promo.html">Companion V Promo</a>
+        </div>
+        <div class="footer-col">
+            <h4>Account</h4>
+            <a href="login.html">Log In</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="settings.html">Settings</a>
         </div>
     </footer>
+    <div class="footer-bottom">
+        KNOCKSSTUDiOS &copy; 2026 &mdash; ALL RIGHTS RESERVED &mdash; THE OMNIPOTENT ENGINE
+    </div>
 
 </body>
 </html>
