@@ -3,81 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | INITIATE ACCESS CORE</title>
+    <title>KNOCKSSTUDiOS | 9K ACCESS CORE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --obsidian: #020202; --rare-cyan: #00f2ff; --glass: rgba(255,255,255,0.03); }
-        body { background: var(--obsidian); color: #fff; font-family: 'Inter', sans-serif; }
-        .glow-cyan { color: var(--rare-cyan); text-shadow: 0 0 15px var(--rare-cyan); }
-        .glass-gate { background: var(--glass); backdrop-filter: blur(50px); border: 1px solid rgba(255,255,255,0.05); }
-        .plan-card { border: 1px solid rgba(255,255,255,0.1); cursor: pointer; transition: 0.3s; }
-        .plan-card:hover, .plan-card.selected { border-color: var(--rare-cyan); background: rgba(0,242,255,0.05); }
-        .btn-elite { background: var(--rare-cyan); color: #000; font-weight: 900; letter-spacing: 0.1em; }
-        input[type="checkbox"]:checked { background-color: var(--rare-cyan); }
+        :root { 
+            --obsidian: #050505; 
+            --rare-cyan: #00f2ff; 
+            --rare-cyan-dim: rgba(0, 242, 255, 0.2);
+            --glass: rgba(10, 10, 10, 0.65); 
+        }
+        
+        body { 
+            background-color: var(--obsidian);
+            background-image: radial-gradient(circle at 50% 0%, var(--rare-cyan-dim) 0%, transparent 40%);
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* 9K Typography & Glows */
+        .syncopate { font-family: 'Syncopate', sans-serif; }
+        .space-mono { font-family: 'Space Mono', monospace; }
+        .glow-cyan { 
+            color: var(--rare-cyan); 
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.6), 0 0 40px rgba(0, 242, 255, 0.2); 
+        }
+        
+        /* High-End Glass Architecture */
+        .glass-gate { 
+            background: var(--glass); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 242, 255, 0.15); 
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 242, 255, 0.05);
+        }
+
+        /* Interactive Elements */
+        .plan-card { 
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            cursor: pointer; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .plan-card:hover {
+            border-color: rgba(0, 242, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px var(--rare-cyan-dim);
+        }
+        .plan-card.selected { 
+            border-color: var(--rare-cyan); 
+            background: linear-gradient(180deg, rgba(0,242,255,0.1) 0%, rgba(0,0,0,0) 100%);
+            box-shadow: 0 0 20px var(--rare-cyan-dim) inset;
+        }
+
+        /* Custom Inputs */
+        .input-9k {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+        .input-9k:focus {
+            outline: none;
+            border-color: var(--rare-cyan);
+            box-shadow: 0 0 15px var(--rare-cyan-dim);
+            background: rgba(0, 242, 255, 0.02);
+        }
+        .input-9k::placeholder { color: rgba(255, 255, 255, 0.3); }
+
+        /* Custom Checkboxes */
+        input[type="checkbox"] {
+            appearance: none;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            display: grid;
+            place-content: center;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+        input[type="checkbox"]::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--obsidian);
+            background-color: var(--obsidian);
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        input[type="checkbox"]:checked {
+            background-color: var(--rare-cyan);
+            border-color: var(--rare-cyan);
+            box-shadow: 0 0 10px var(--rare-cyan);
+        }
+        input[type="checkbox"]:checked::before { transform: scale(1); }
+
+        /* Elite Button */
+        .btn-elite { 
+            background: linear-gradient(90deg, #00b3cc 0%, var(--rare-cyan) 100%);
+            color: var(--obsidian); 
+            font-weight: 900; 
+            letter-spacing: 0.2em;
+            transition: all 0.3s ease;
+            text-shadow: none;
+        }
+        .btn-elite:hover {
+            box-shadow: 0 0 25px var(--rare-cyan-dim);
+            transform: scale(1.02);
+        }
+
+        /* Smooth Step Transitions */
+        .step-container {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .hidden-step {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            visibility: hidden;
+        }
+        .active-step {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+            visibility: visible;
+        }
     </style>
 </head>
 <body class="p-4 md:p-12 min-h-screen flex items-center justify-center">
 
-    <main id="access-gate" class="max-w-3xl w-full glass-gate p-10 md:p-16 rounded-3xl relative overflow-hidden">
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] opacity-20" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, #00f2ff 1px, #00f2ff 2px); background-size: 100% 4px;"></div>
+
+    <main id="access-gate" class="max-w-4xl w-full glass-gate p-8 md:p-14 rounded-2xl relative overflow-hidden z-10">
         
-        <div class="text-center mb-16">
-            <h1 style="font-family: 'Syncopate'" class="text-2xl md:text-3xl tracking-[0.5em] glow-cyan">KNOCKSSTUD<span class="text-lowercase animate-pulse">i</span>OS</h1>
-            <p class="text-[0.55rem] text-zinc-600 tracking-[0.6em] mt-4 uppercase">Universal Onboarding Protocol | Jurupa Valley Core</p>
+        <div class="text-center mb-12 border-b border-white/5 pb-8 relative">
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-[#00f2ff] to-transparent"></div>
+            <h1 class="syncopate text-3xl md:text-5xl tracking-[0.3em] glow-cyan">
+                KNOCKSSTUD<span style="text-transform: lowercase;">i</span>OS
+            </h1>
+            <p class="space-mono text-[0.65rem] text-zinc-500 tracking-[0.4em] mt-5 uppercase">
+                Universal Onboarding Protocol <span class="text-[#00f2ff] mx-2">|</span> Titangine Core
+            </p>
         </div>
 
-        <section id="step-1" class="space-y-10">
-            <h3 class="text-sm font-black uppercase tracking-widest text-center">Step 1: Select Your Access Protocol</h3>
-            
+        <section id="step-1" class="step-container active-step space-y-10">
+            <h3 class="space-mono text-xs font-bold uppercase tracking-[0.3em] text-center text-zinc-400">
+                [ Step 1: Select Access Protocol ]
+            </h3>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="plan-card p-6 rounded-xl space-y-3" onclick="selectBase('monthly')">
-                    <p class="text-[0.5rem] text-zinc-600 uppercase">Monthly Pulse</p>
-                    <h4 class="text-xl font-bold">$19<span class="text-xs text-zinc-500">/mo</span></h4>
-                    <p class="text-[0.5rem] text-zinc-400 uppercase tracking-tighter">600 Coins, Standard AI Companion</p>
+                <div class="plan-card p-8 rounded-xl space-y-4 relative overflow-hidden" onclick="selectBase('monthly')">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-[#00f2ff] opacity-5 blur-2xl"></div>
+                    <p class="space-mono text-[0.6rem] text-[#00f2ff] uppercase font-bold tracking-widest">Sovereign Pulse</p>
+                    <h4 class="text-3xl font-black">$19<span class="text-sm text-zinc-500 font-normal">/mo</span></h4>
+                    <div class="w-8 h-[2px] bg-zinc-800"></div>
+                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-wider space-y-2">
+                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> 2,000 Coins for the Legends</li>
+                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> Standard AI Companion</li>
+                    </ul>
                 </div>
-                <div class="plan-card p-6 rounded-xl space-y-3" onclick="selectBase('family')">
-                    <div class="flex justify-between items-center"><p class="text-[0.5rem] text-zinc-600 uppercase">Family Access</p><span class="text-[0.4rem] bg-zinc-800 px-1.5 py-0.5">3 INITIATES</span></div>
-                    <h4 class="text-xl font-bold">$49<span class="text-xs text-zinc-500">/mo</span></h4>
-                    <p class="text-[0.5rem] text-zinc-400 uppercase tracking-tighter">1,500 Shared Coins, All Companions</p>
+
+                <div class="plan-card p-8 rounded-xl space-y-4 relative overflow-hidden" onclick="selectBase('family')">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-[#00f2ff] opacity-5 blur-2xl"></div>
+                    <div class="flex justify-between items-center">
+                        <p class="space-mono text-[0.6rem] text-[#00f2ff] uppercase font-bold tracking-widest">Legend Hive</p>
+                        <span class="text-[0.5rem] bg-white/10 text-white px-2 py-1 rounded font-bold tracking-widest border border-white/20">3 INITIATES</span>
+                    </div>
+                    <h4 class="text-3xl font-black">$49<span class="text-sm text-zinc-500 font-normal">/mo</span></h4>
+                    <div class="w-8 h-[2px] bg-zinc-800"></div>
+                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-wider space-y-2">
+                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> 1,500 Shared Coins</li>
+                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> All AI Companions Unlocked</li>
+                    </ul>
                 </div>
             </div>
 
-            <div id="family-config" class="hidden p-6 bg-black/40 border border-zinc-900 rounded-xl space-y-4">
-                <p class="text-[0.5rem] text-zinc-500 uppercase tracking-widest">Configure Family Hive (Add Jr. / Sr. Architect)</p>
-                <div class="flex items-center gap-4">
-                    <input type="number" min="0" max="5" class="w-20 bg-transparent border-b border-zinc-800 p-2 text-xs" placeholder="0">
-                    <p class="text-[0.5rem] text-zinc-400 uppercase">Add Member (+ $10/mo each)</p>
+            <div id="family-config" class="hidden overflow-hidden transition-all duration-500 max-h-0">
+                <div class="p-6 bg-black/60 border border-white/10 rounded-xl space-y-5 shadow-inner">
+                    <p class="space-mono text-[0.6rem] text-[#00f2ff] uppercase tracking-widest">Configure Architect Hive</p>
+                    <div class="flex items-center gap-4">
+                        <input type="number" min="0" max="5" class="input-9k w-24 p-3 text-sm text-center rounded-md" placeholder="0">
+                        <p class="text-[0.65rem] text-zinc-400 uppercase tracking-wider">Add Member <span class="text-zinc-600">(+$10/mo each)</span></p>
+                    </div>
                 </div>
             </div>
 
-            <button onclick="nextStep()" class="btn-elite w-full py-5 text-[0.6rem] uppercase tracking-widest font-black">Continue to Profile</button>
+            <button onclick="nextStep()" class="btn-elite w-full py-5 rounded-md text-[0.7rem] uppercase font-black mt-4">
+                Initialize Profile Sequence
+            </button>
         </section>
 
-        <section id="step-2" class="hidden space-y-8">
-            <h3 class="text-sm font-black uppercase tracking-widest text-center">Step 2: Authenticate Identity</h3>
-            
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6 text-xs" action="/finalize-signup" method="POST">
-                <input type="text" name="name" required class="bg-transparent border-b border-zinc-800 p-3" placeholder="First Name">
-                <input type="text" name="last_name" required class="bg-transparent border-b border-zinc-800 p-3" placeholder="Last Name">
-                <input type="email" name="email" required class="col-span-1 md:col-span-2 bg-transparent border-b border-zinc-800 p-3" placeholder="Sovereign Outlook or Professional Email">
-                <input type="password" name="password" required class="col-span-1 md:col-span-2 bg-transparent border-b border-zinc-800 p-3" placeholder="Create Strong Password (All Platforms)">
+        <section id="step-2" class="step-container hidden-step space-y-8">
+            <h3 class="space-mono text-xs font-bold uppercase tracking-[0.3em] text-center text-zinc-400">
+                [ Step 2: Authenticate Identity ]
+            </h3>
 
-                <select name="gender" class="bg-transparent border-b border-zinc-800 p-3 text-zinc-500">
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6" action="/finalize-signup" method="POST" onsubmit="event.preventDefault(); alert('9K Engine Activated.');">
+                
+                <input type="text" name="name" required class="input-9k rounded-md p-4 text-xs tracking-wider" placeholder="First Name">
+                <input type="text" name="last_name" required class="input-9k rounded-md p-4 text-xs tracking-wider" placeholder="Last Name">
+                
+                <input type="email" name="email" required class="input-9k col-span-1 md:col-span-2 rounded-md p-4 text-xs tracking-wider" placeholder="Sovereign Outlook or Professional Email">
+                <input type="password" name="password" required class="input-9k col-span-1 md:col-span-2 rounded-md p-4 text-xs tracking-wider font-mono" placeholder="Create Titangine Password (All Platforms)">
+
+                <select name="gender" class="input-9k rounded-md p-4 text-xs tracking-wider text-zinc-400 appearance-none">
                     <option value="" disabled selected>Identify (Optional)</option>
                     <option value="him/her">Him/Her (Binary)</option>
                     <option value="they/them">They/Them</option>
                     <option value="prefer_not">Prefer not to say</option>
-                </div>
-                <input type="text" name="religion" class="bg-transparent border-b border-zinc-800 p-3" placeholder="Religion (Optional/Multicultural)">
+                </select>
+                <input type="text" name="religion" class="input-9k rounded-md p-4 text-xs tracking-wider" placeholder="Religion (Optional)">
 
-                <div class="col-span-1 md:col-span-2 space-y-4 border-t border-zinc-900 pt-8 mt-4 text-[0.6rem] text-zinc-500 uppercase">
-                    <label class="flex items-center gap-3"><input type="checkbox" required class="w-4 h-4 bg-transparent border border-zinc-800">I confirm I am 18 years of age or older (Age Verification Mandatory).</label>
-                    <label class="flex items-center gap-3"><input type="checkbox" required class="w-4 h-4 bg-transparent border border-zinc-800">I agree to the Music Copyright & Sovereign IP verification protocols.</label>
-                    <label class="flex items-center gap-3"><input type="checkbox" required class="w-4 h-4 bg-transparent border border-zinc-800">I agree to the 9K Privacy Policy, Rules, & Cookie usage mandate.</label>
-                    <label class="flex items-center gap-3"><input type="checkbox" required class="w-4 h-4 bg-transparent border border-zinc-800">I verify I am a human user and not a hostile bot architecture.</label>
+                <div class="col-span-1 md:col-span-2 space-y-4 border-t border-white/5 pt-8 mt-2 text-[0.65rem] text-zinc-400 uppercase tracking-wider">
+                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
+                        <input type="checkbox" required class="mt-0.5 shrink-0">
+                        <span>I confirm I am 18 years of age or older (Age Verification Mandatory).</span>
+                    </label>
+                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
+                        <input type="checkbox" required class="mt-0.5 shrink-0">
+                        <span>I agree to the Music Copyright & Sovereign IP verification protocols.</span>
+                    </label>
+                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
+                        <input type="checkbox" required class="mt-0.5 shrink-0">
+                        <span>I agree to the 9K Privacy Policy, Rules, & Cookie usage mandate.</span>
+                    </label>
+                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
+                        <input type="checkbox" required class="mt-0.5 shrink-0">
+                        <span>I verify I am a human user and not a hostile bot architecture.</span>
+                    </label>
                 </div>
 
-                <button type="submit" class="btn-elite col-span-1 md:col-span-2 w-full py-5 text-[0.6rem] uppercase tracking-widest font-black mt-8">Activate 9K Access Core</button>
+                <div class="col-span-1 md:col-span-2 flex gap-4 mt-8">
+                    <button type="button" onclick="prevStep()" class="w-1/3 py-5 rounded-md text-[0.7rem] uppercase tracking-widest font-bold border border-white/10 hover:border-white/30 hover:bg-white/5 transition-all text-zinc-400">
+                        Back
+                    </button>
+                    <button type="submit" class="btn-elite w-2/3 py-5 rounded-md text-[0.7rem] uppercase font-black">
+                        Activate 9K Core
+                    </button>
+                </div>
             </form>
         </section>
 
@@ -85,23 +255,56 @@
 
     <script>
         function selectBase(plan) {
-            // Visual feedback for selection
             document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
 
-            // Show family config if chosen
             const familyBox = document.getElementById('family-config');
             if (plan === 'family') {
                 familyBox.classList.remove('hidden');
+                // slight delay to allow display:block to register before expanding height
+                setTimeout(() => {
+                    familyBox.style.maxHeight = "200px";
+                }, 10);
             } else {
-                familyBox.classList.add('hidden');
+                familyBox.style.maxHeight = "0px";
+                setTimeout(() => {
+                    familyBox.classList.add('hidden');
+                }, 500);
             }
         }
 
         function nextStep() {
-            // Move from Step 1 (Plans) to Step 2 (Form)
-            document.getElementById('step-1').classList.add('hidden');
-            document.getElementById('step-2').classList.remove('hidden');
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            
+            step1.classList.remove('active-step');
+            step1.classList.add('hidden-step');
+            
+            setTimeout(() => {
+                step1.style.display = 'none';
+                step2.style.display = 'block';
+                // Trigger reflow
+                void step2.offsetWidth;
+                step2.classList.remove('hidden-step');
+                step2.classList.add('active-step');
+            }, 500);
+        }
+
+        function prevStep() {
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            
+            step2.classList.remove('active-step');
+            step2.classList.add('hidden-step');
+            
+            setTimeout(() => {
+                step2.style.display = 'none';
+                step1.style.display = 'block';
+                // Trigger reflow
+                void step1.offsetWidth;
+                step1.classList.remove('hidden-step');
+                step1.classList.add('active-step');
+            }, 500);
         }
     </script>
 </body>
