@@ -5,247 +5,332 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KNOCKSSTUDiOS | 9K ACCESS CORE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --obsidian: #050505; 
+            --void: #020202; 
+            --obsidian: #0a0a0c;
+            --titanium: #8f959c;
             --rare-cyan: #00f2ff; 
-            --rare-cyan-dim: rgba(0, 242, 255, 0.2);
-            --glass: rgba(10, 10, 10, 0.65); 
+            --rare-cyan-dim: rgba(0, 242, 255, 0.15);
+            --rare-cyan-intense: rgba(0, 242, 255, 0.8);
+            --glass: rgba(10, 10, 12, 0.5); 
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
         
         body { 
-            background-color: var(--obsidian);
-            background-image: radial-gradient(circle at 50% 0%, var(--rare-cyan-dim) 0%, transparent 40%);
+            background-color: var(--void);
             color: #fff; 
             font-family: 'Inter', sans-serif; 
             margin: 0;
             overflow-x: hidden;
+            /* Deep cinematic radial lighting */
+            background-image: 
+                radial-gradient(circle at 50% -20%, var(--rare-cyan-dim) 0%, transparent 50%),
+                radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
         }
 
-        /* 9K Typography & Glows */
+        /* Ambient Environment Mesh */
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+        }
+
+        /* 9K Typography */
         .syncopate { font-family: 'Syncopate', sans-serif; }
         .space-mono { font-family: 'Space Mono', monospace; }
-        .glow-cyan { 
-            color: var(--rare-cyan); 
-            text-shadow: 0 0 20px rgba(0, 242, 255, 0.6), 0 0 40px rgba(0, 242, 255, 0.2); 
-        }
         
-        /* High-End Glass Architecture */
-        .glass-gate { 
-            background: var(--glass); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 242, 255, 0.15); 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 242, 255, 0.05);
+        /* 4D Metallic Render */
+        .text-metallic {
+            background: linear-gradient(180deg, #ffffff 0%, #b8c0c9 30%, #5d636b 50%, #9ca3af 70%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0px 4px 15px rgba(0,0,0,0.9));
         }
 
-        /* Interactive Elements */
+        .glow-cyan-core { 
+            color: var(--rare-cyan); 
+            text-shadow: 
+                0 0 10px var(--rare-cyan), 
+                0 0 30px var(--rare-cyan-dim),
+                0 0 60px rgba(0, 242, 255, 0.1); 
+        }
+        
+        /* High-Fidelity Glass Architecture */
+        .heavy-glass-gate { 
+            background: var(--glass); 
+            backdrop-filter: blur(30px) saturate(150%); 
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+            border-left: 1px solid var(--glass-border);
+            border-right: 1px solid var(--glass-border);
+            box-shadow: 
+                0 40px 100px -20px rgba(0, 0, 0, 0.9), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -20px 40px -20px var(--rare-cyan-dim);
+        }
+
+        /* Tactical Plan Cards */
         .plan-card { 
-            background: rgba(255, 255, 255, 0.02);
+            background: linear-gradient(145deg, rgba(20,20,22,0.8) 0%, rgba(5,5,5,0.9) 100%);
             border: 1px solid rgba(255, 255, 255, 0.05); 
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 10px 20px rgba(0,0,0,0.5);
             cursor: pointer; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
         }
         .plan-card:hover {
-            border-color: rgba(0, 242, 255, 0.5);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px var(--rare-cyan-dim);
+            border-color: rgba(0, 242, 255, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 
+                inset 0 1px 0 rgba(255,255,255,0.1), 
+                0 20px 40px rgba(0,0,0,0.7),
+                0 0 30px -10px var(--rare-cyan-dim);
         }
         .plan-card.selected { 
             border-color: var(--rare-cyan); 
-            background: linear-gradient(180deg, rgba(0,242,255,0.1) 0%, rgba(0,0,0,0) 100%);
-            box-shadow: 0 0 20px var(--rare-cyan-dim) inset;
+            background: linear-gradient(145deg, rgba(0, 242, 255, 0.05) 0%, rgba(5,5,5,0.9) 100%);
+            box-shadow: 
+                0 0 20px rgba(0, 242, 255, 0.15),
+                inset 0 0 20px rgba(0, 242, 255, 0.1);
         }
 
-        /* Custom Inputs */
+        /* Sovereign Inputs */
         .input-9k {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
         }
         .input-9k:focus {
             outline: none;
             border-color: var(--rare-cyan);
-            box-shadow: 0 0 15px var(--rare-cyan-dim);
             background: rgba(0, 242, 255, 0.02);
+            box-shadow: 
+                inset 0 2px 10px rgba(0,0,0,0.8),
+                0 0 15px rgba(0, 242, 255, 0.1);
         }
-        .input-9k::placeholder { color: rgba(255, 255, 255, 0.3); }
+        .input-9k::placeholder { color: rgba(255, 255, 255, 0.2); }
 
-        /* Custom Checkboxes */
+        /* Hardware Checkboxes */
         input[type="checkbox"] {
             appearance: none;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 16px;
-            height: 16px;
-            border-radius: 2px;
+            background-color: #050505;
+            border: 1px solid #333;
+            width: 18px;
+            height: 18px;
+            border-radius: 3px;
             display: grid;
             place-content: center;
             transition: 0.2s;
             cursor: pointer;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,1);
         }
         input[type="checkbox"]::before {
             content: "";
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             transform: scale(0);
-            transition: 120ms transform ease-in-out;
-            box-shadow: inset 1em 1em var(--obsidian);
-            background-color: var(--obsidian);
-            transform-origin: center;
+            transition: 120ms transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background-color: var(--rare-cyan);
+            box-shadow: 0 0 10px var(--rare-cyan);
             clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
         }
         input[type="checkbox"]:checked {
-            background-color: var(--rare-cyan);
             border-color: var(--rare-cyan);
-            box-shadow: 0 0 10px var(--rare-cyan);
+            background-color: rgba(0, 242, 255, 0.05);
         }
         input[type="checkbox"]:checked::before { transform: scale(1); }
 
-        /* Elite Button */
+        /* Physical Trigger Buttons */
         .btn-elite { 
-            background: linear-gradient(90deg, #00b3cc 0%, var(--rare-cyan) 100%);
-            color: var(--obsidian); 
+            background: linear-gradient(180deg, #00f2ff 0%, #009db3 100%);
+            color: #000; 
             font-weight: 900; 
             letter-spacing: 0.2em;
             transition: all 0.3s ease;
-            text-shadow: none;
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 
+                0 5px 15px rgba(0, 242, 255, 0.3),
+                inset 0 -3px 10px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.3);
         }
         .btn-elite:hover {
-            box-shadow: 0 0 25px var(--rare-cyan-dim);
-            transform: scale(1.02);
+            background: linear-gradient(180deg, #33f5ff 0%, #00b8cc 100%);
+            box-shadow: 
+                0 8px 25px rgba(0, 242, 255, 0.4),
+                inset 0 -3px 10px rgba(0,0,0,0.2);
+            transform: translateY(-1px);
+        }
+        .btn-elite:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 10px rgba(0, 242, 255, 0.3);
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
 
-        /* Smooth Step Transitions */
+        /* Smooth Engine Transitions */
         .step-container {
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .hidden-step {
             opacity: 0;
-            transform: translateY(20px);
+            transform: scale(0.98) translateY(10px);
             pointer-events: none;
             position: absolute;
             visibility: hidden;
         }
         .active-step {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1) translateY(0);
             position: relative;
             visibility: visible;
+        }
+
+        /* Sovereign Pulse Animation */
+        @keyframes pulse-core {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+        .pulse-indicator {
+            animation: pulse-core 3s infinite ease-in-out;
         }
     </style>
 </head>
 <body class="p-4 md:p-12 min-h-screen flex items-center justify-center">
 
-    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] opacity-20" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 1px, #00f2ff 1px, #00f2ff 2px); background-size: 100% 4px;"></div>
+    <div class="grid-overlay"></div>
 
-    <main id="access-gate" class="max-w-4xl w-full glass-gate p-8 md:p-14 rounded-2xl relative overflow-hidden z-10">
+    <main id="access-gate" class="max-w-4xl w-full heavy-glass-gate p-8 md:p-14 rounded-2xl relative overflow-hidden z-10">
         
+        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00f2ff] to-transparent opacity-70 pulse-indicator"></div>
+
         <div class="text-center mb-12 border-b border-white/5 pb-8 relative">
-            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-[1px] bg-gradient-to-r from-transparent via-[#00f2ff] to-transparent"></div>
-            <h1 class="syncopate text-3xl md:text-5xl tracking-[0.3em] glow-cyan">
-                KNOCKSSTUD<span style="text-transform: lowercase;">i</span>OS
+            <h1 class="syncopate text-4xl md:text-6xl tracking-[0.25em] text-metallic mb-2">
+                KNOCKSSTUD<span style="text-transform: lowercase; font-size: 0.9em;" class="glow-cyan-core">i</span>OS
             </h1>
-            <p class="space-mono text-[0.65rem] text-zinc-500 tracking-[0.4em] mt-5 uppercase">
-                Universal Onboarding Protocol <span class="text-[#00f2ff] mx-2">|</span> Titangine Core
+            <p class="space-mono text-[0.65rem] text-zinc-400 tracking-[0.5em] mt-6 uppercase">
+                Universal Onboarding Protocol <span class="text-[#00f2ff] mx-3 opacity-50">|</span> Titangine Core
             </p>
         </div>
 
         <section id="step-1" class="step-container active-step space-y-10">
-            <h3 class="space-mono text-xs font-bold uppercase tracking-[0.3em] text-center text-zinc-400">
-                [ Step 1: Select Access Protocol ]
-            </h3>
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <div class="w-12 h-[1px] bg-zinc-800"></div>
+                <h3 class="space-mono text-[0.65rem] font-bold uppercase tracking-[0.4em] text-zinc-500">
+                    Step 1: Select Protocol
+                </h3>
+                <div class="w-12 h-[1px] bg-zinc-800"></div>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="plan-card p-8 rounded-xl space-y-4 relative overflow-hidden" onclick="selectBase('monthly')">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-[#00f2ff] opacity-5 blur-2xl"></div>
-                    <p class="space-mono text-[0.6rem] text-[#00f2ff] uppercase font-bold tracking-widest">Sovereign Pulse</p>
-                    <h4 class="text-3xl font-black">$19<span class="text-sm text-zinc-500 font-normal">/mo</span></h4>
-                    <div class="w-8 h-[2px] bg-zinc-800"></div>
-                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-wider space-y-2">
-                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> 2,000 Coins for the Legends</li>
-                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> Standard AI Companion</li>
+                <div class="plan-card p-8 rounded-xl space-y-5 relative overflow-hidden" onclick="selectBase('monthly')">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#00f2ff] opacity-[0.03] blur-3xl rounded-full"></div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-[#00f2ff] shadow-[0_0_8px_#00f2ff]"></div>
+                        <p class="space-mono text-[0.65rem] text-white uppercase font-bold tracking-widest">Sovereign Pulse</p>
+                    </div>
+                    <h4 class="text-4xl font-black text-metallic tracking-tight">$19<span class="text-sm text-zinc-600 font-normal tracking-normal">/mo</span></h4>
+                    <div class="w-12 h-[2px] bg-gradient-to-r from-zinc-700 to-transparent"></div>
+                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-widest space-y-3 font-mono">
+                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> 2,000 Coins for the Legends</li>
+                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> Standard AI Companion</li>
                     </ul>
                 </div>
 
-                <div class="plan-card p-8 rounded-xl space-y-4 relative overflow-hidden" onclick="selectBase('family')">
-                    <div class="absolute top-0 right-0 w-16 h-16 bg-[#00f2ff] opacity-5 blur-2xl"></div>
+                <div class="plan-card p-8 rounded-xl space-y-5 relative overflow-hidden" onclick="selectBase('family')">
+                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#00f2ff] opacity-[0.03] blur-3xl rounded-full"></div>
                     <div class="flex justify-between items-center">
-                        <p class="space-mono text-[0.6rem] text-[#00f2ff] uppercase font-bold tracking-widest">Legend Hive</p>
-                        <span class="text-[0.5rem] bg-white/10 text-white px-2 py-1 rounded font-bold tracking-widest border border-white/20">3 INITIATES</span>
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full border border-[#00f2ff] shadow-[0_0_8px_rgba(0,242,255,0.5)]"></div>
+                            <p class="space-mono text-[0.65rem] text-white uppercase font-bold tracking-widest">Legend Hive</p>
+                        </div>
+                        <span class="text-[0.45rem] bg-black text-zinc-300 px-2 py-1 rounded font-bold tracking-[0.2em] border border-zinc-800">3 INITIATES</span>
                     </div>
-                    <h4 class="text-3xl font-black">$49<span class="text-sm text-zinc-500 font-normal">/mo</span></h4>
-                    <div class="w-8 h-[2px] bg-zinc-800"></div>
-                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-wider space-y-2">
-                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> 1,500 Shared Coins</li>
-                        <li class="flex items-center gap-2"><div class="w-1 h-1 rounded-full bg-[#00f2ff]"></div> All AI Companions Unlocked</li>
+                    <h4 class="text-4xl font-black text-metallic tracking-tight">$49<span class="text-sm text-zinc-600 font-normal tracking-normal">/mo</span></h4>
+                    <div class="w-12 h-[2px] bg-gradient-to-r from-zinc-700 to-transparent"></div>
+                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-widest space-y-3 font-mono">
+                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> 1,500 Shared Coins</li>
+                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> All AI Companions Unlocked</li>
                     </ul>
                 </div>
             </div>
 
-            <div id="family-config" class="hidden overflow-hidden transition-all duration-500 max-h-0">
-                <div class="p-6 bg-black/60 border border-white/10 rounded-xl space-y-5 shadow-inner">
-                    <p class="space-mono text-[0.6rem] text-[#00f2ff] uppercase tracking-widest">Configure Architect Hive</p>
+            <div id="family-config" class="hidden overflow-hidden transition-all duration-700 max-h-0">
+                <div class="p-6 bg-[#030303] border border-zinc-800 rounded-xl space-y-5 shadow-[inset_0_10px_20px_rgba(0,0,0,0.5)]">
+                    <p class="space-mono text-[0.6rem] text-zinc-400 uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-1 h-1 bg-zinc-600 rounded-full"></span> Configure Architect Hive
+                    </p>
                     <div class="flex items-center gap-4">
-                        <input type="number" min="0" max="5" class="input-9k w-24 p-3 text-sm text-center rounded-md" placeholder="0">
-                        <p class="text-[0.65rem] text-zinc-400 uppercase tracking-wider">Add Member <span class="text-zinc-600">(+$10/mo each)</span></p>
+                        <input type="number" min="0" max="5" class="input-9k w-24 p-3 text-sm text-center rounded bg-black font-mono" placeholder="0">
+                        <p class="text-[0.65rem] text-zinc-400 uppercase tracking-widest">Add Member <span class="text-zinc-600 ml-2">+$10/mo</span></p>
                     </div>
                 </div>
             </div>
 
-            <button onclick="nextStep()" class="btn-elite w-full py-5 rounded-md text-[0.7rem] uppercase font-black mt-4">
-                Initialize Profile Sequence
+            <button onclick="nextStep()" class="btn-elite w-full py-5 rounded text-[0.75rem] uppercase tracking-[0.2em] mt-6">
+                Initialize Sequence
             </button>
         </section>
 
         <section id="step-2" class="step-container hidden-step space-y-8">
-            <h3 class="space-mono text-xs font-bold uppercase tracking-[0.3em] text-center text-zinc-400">
-                [ Step 2: Authenticate Identity ]
-            </h3>
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <div class="w-12 h-[1px] bg-zinc-800"></div>
+                <h3 class="space-mono text-[0.65rem] font-bold uppercase tracking-[0.4em] text-zinc-500">
+                    Step 2: Authentication
+                </h3>
+                <div class="w-12 h-[1px] bg-zinc-800"></div>
+            </div>
 
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-6" action="/finalize-signup" method="POST" onsubmit="event.preventDefault(); alert('9K Engine Activated.');">
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-5" action="/finalize-signup" method="POST" onsubmit="event.preventDefault(); alert('9K Core Engaged.');">
                 
-                <input type="text" name="name" required class="input-9k rounded-md p-4 text-xs tracking-wider" placeholder="First Name">
-                <input type="text" name="last_name" required class="input-9k rounded-md p-4 text-xs tracking-wider" placeholder="Last Name">
+                <input type="text" name="name" required class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono" placeholder="First Name">
+                <input type="text" name="last_name" required class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono" placeholder="Last Name">
                 
-                <input type="email" name="email" required class="input-9k col-span-1 md:col-span-2 rounded-md p-4 text-xs tracking-wider" placeholder="Sovereign Outlook or Professional Email">
-                <input type="password" name="password" required class="input-9k col-span-1 md:col-span-2 rounded-md p-4 text-xs tracking-wider font-mono" placeholder="Create Titangine Password (All Platforms)">
+                <input type="email" name="email" required class="input-9k col-span-1 md:col-span-2 rounded p-4 text-[0.75rem] tracking-widest font-mono" placeholder="Sovereign Outlook or Comm Link">
+                <input type="password" name="password" required class="input-9k col-span-1 md:col-span-2 rounded p-4 text-[0.75rem] tracking-widest font-mono" placeholder="Titangine Access Key (Password)">
 
-                <select name="gender" class="input-9k rounded-md p-4 text-xs tracking-wider text-zinc-400 appearance-none">
-                    <option value="" disabled selected>Identify (Optional)</option>
-                    <option value="him/her">Him/Her (Binary)</option>
+                <select name="gender" class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono text-zinc-400 appearance-none">
+                    <option value="" disabled selected>Identify</option>
+                    <option value="him/her">Him/Her</option>
                     <option value="they/them">They/Them</option>
-                    <option value="prefer_not">Prefer not to say</option>
+                    <option value="prefer_not">Classified</option>
                 </select>
-                <input type="text" name="religion" class="input-9k rounded-md p-4 text-xs tracking-wider" placeholder="Religion (Optional)">
+                <input type="text" name="religion" class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono" placeholder="Belief System (Opt)">
 
-                <div class="col-span-1 md:col-span-2 space-y-4 border-t border-white/5 pt-8 mt-2 text-[0.65rem] text-zinc-400 uppercase tracking-wider">
-                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
-                        <input type="checkbox" required class="mt-0.5 shrink-0">
-                        <span>I confirm I am 18 years of age or older (Age Verification Mandatory).</span>
+                <div class="col-span-1 md:col-span-2 space-y-5 border-t border-zinc-800/50 pt-8 mt-4 text-[0.6rem] text-zinc-400 uppercase tracking-widest font-mono">
+                    <label class="flex items-start gap-5 cursor-pointer hover:text-[#00f2ff] transition-colors group">
+                        <input type="checkbox" required class="mt-0.5 shrink-0 group-hover:border-[#00f2ff]">
+                        <span class="leading-relaxed">Age verification: Confirmed 18 cycles or older.</span>
                     </label>
-                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
-                        <input type="checkbox" required class="mt-0.5 shrink-0">
-                        <span>I agree to the Music Copyright & Sovereign IP verification protocols.</span>
+                    <label class="flex items-start gap-5 cursor-pointer hover:text-[#00f2ff] transition-colors group">
+                        <input type="checkbox" required class="mt-0.5 shrink-0 group-hover:border-[#00f2ff]">
+                        <span class="leading-relaxed">Agreement logged: Sovereign IP & Audio Protocols.</span>
                     </label>
-                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
-                        <input type="checkbox" required class="mt-0.5 shrink-0">
-                        <span>I agree to the 9K Privacy Policy, Rules, & Cookie usage mandate.</span>
-                    </label>
-                    <label class="flex items-start gap-4 cursor-pointer hover:text-white transition-colors">
-                        <input type="checkbox" required class="mt-0.5 shrink-0">
-                        <span>I verify I am a human user and not a hostile bot architecture.</span>
+                    <label class="flex items-start gap-5 cursor-pointer hover:text-[#00f2ff] transition-colors group">
+                        <input type="checkbox" required class="mt-0.5 shrink-0 group-hover:border-[#00f2ff]">
+                        <span class="leading-relaxed">Architect clearance: Not a hostile bot array.</span>
                     </label>
                 </div>
 
                 <div class="col-span-1 md:col-span-2 flex gap-4 mt-8">
-                    <button type="button" onclick="prevStep()" class="w-1/3 py-5 rounded-md text-[0.7rem] uppercase tracking-widest font-bold border border-white/10 hover:border-white/30 hover:bg-white/5 transition-all text-zinc-400">
-                        Back
+                    <button type="button" onclick="prevStep()" class="w-1/3 py-5 rounded text-[0.7rem] uppercase tracking-[0.2em] font-bold border border-zinc-700 bg-[#050505] hover:border-zinc-500 transition-all text-zinc-400 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]">
+                        Abort
                     </button>
-                    <button type="submit" class="btn-elite w-2/3 py-5 rounded-md text-[0.7rem] uppercase font-black">
-                        Activate 9K Core
+                    <button type="submit" class="btn-elite w-2/3 py-5 rounded text-[0.75rem] uppercase tracking-[0.2em]">
+                        Engage Engine
                     </button>
                 </div>
             </form>
@@ -261,15 +346,16 @@
             const familyBox = document.getElementById('family-config');
             if (plan === 'family') {
                 familyBox.classList.remove('hidden');
-                // slight delay to allow display:block to register before expanding height
                 setTimeout(() => {
-                    familyBox.style.maxHeight = "200px";
+                    familyBox.style.maxHeight = "250px";
+                    familyBox.style.opacity = "1";
                 }, 10);
             } else {
                 familyBox.style.maxHeight = "0px";
+                familyBox.style.opacity = "0";
                 setTimeout(() => {
                     familyBox.classList.add('hidden');
-                }, 500);
+                }, 700);
             }
         }
 
@@ -283,11 +369,10 @@
             setTimeout(() => {
                 step1.style.display = 'none';
                 step2.style.display = 'block';
-                // Trigger reflow
-                void step2.offsetWidth;
+                void step2.offsetWidth; 
                 step2.classList.remove('hidden-step');
                 step2.classList.add('active-step');
-            }, 500);
+            }, 600);
         }
 
         function prevStep() {
@@ -300,11 +385,10 @@
             setTimeout(() => {
                 step2.style.display = 'none';
                 step1.style.display = 'block';
-                // Trigger reflow
-                void step1.offsetWidth;
+                void step1.offsetWidth; 
                 step1.classList.remove('hidden-step');
                 step1.classList.add('active-step');
-            }, 500);
+            }, 600);
         }
     </script>
 </body>
