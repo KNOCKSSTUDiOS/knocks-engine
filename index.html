@@ -3,393 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KNOCKSSTUDiOS | 9K ACCESS CORE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700;900&family=Inter:wght@300;400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>KNOCKSSTUDiOS | HOLLYWOOD IMAGING STUDIO</title>
     <style>
-        :root { 
-            --void: #020202; 
-            --obsidian: #0a0a0c;
-            --titanium: #8f959c;
-            --rare-cyan: #00f2ff; 
-            --rare-cyan-dim: rgba(0, 242, 255, 0.15);
-            --rare-cyan-intense: rgba(0, 242, 255, 0.8);
-            --glass: rgba(10, 10, 12, 0.5); 
-            --glass-border: rgba(255, 255, 255, 0.08);
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap');
+
+        :root {
+            /* 9K Standard Palette */
+            --cyan: #00f3ff;
+            --neon-pink: #ff00ea;
+            --gold: #ffea00;
+            --neon-green: #00ff66;
+            --bg-dark: #010206;
+            --glass: rgba(10, 15, 30, 0.8);
+            --border: rgba(0, 243, 255, 0.4);
         }
-        
-        body { 
-            background-color: var(--void);
-            color: #fff; 
-            font-family: 'Inter', sans-serif; 
+
+        /* INTERNATIONAL THEME OVERRIDES */
+        body.theme-mexico { --cyan: #006341; --neon-pink: #c8102e; --gold: #ffffff; }
+        body.theme-africa { --cyan: #af272f; --neon-pink: #ffcd00; --gold: #00843d; }
+        body.theme-hawaii { --cyan: #00d2ff; --neon-pink: #ff69b4; --gold: #fff700; }
+        body.theme-northpole { --cyan: #e0f7fa; --neon-pink: #81d4fa; --gold: #ffffff; }
+        body.theme-sports { --cyan: #fb8c00; --neon-pink: #1e88e5; --gold: #ffffff; }
+
+        body {
             margin: 0;
-            overflow-x: hidden;
-            /* Deep cinematic radial lighting */
-            background-image: 
-                radial-gradient(circle at 50% -20%, var(--rare-cyan-dim) 0%, transparent 50%),
-                radial-gradient(circle at 50% 120%, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
-        }
-
-        /* Ambient Environment Mesh */
-        .grid-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
-        }
-
-        /* 9K Typography */
-        .syncopate { font-family: 'Syncopate', sans-serif; }
-        .space-mono { font-family: 'Space Mono', monospace; }
-        
-        /* 4D Metallic Render */
-        .text-metallic {
-            background: linear-gradient(180deg, #ffffff 0%, #b8c0c9 30%, #5d636b 50%, #9ca3af 70%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0px 4px 15px rgba(0,0,0,0.9));
-        }
-
-        .glow-cyan-core { 
-            color: var(--rare-cyan); 
-            text-shadow: 
-                0 0 10px var(--rare-cyan), 
-                0 0 30px var(--rare-cyan-dim),
-                0 0 60px rgba(0, 242, 255, 0.1); 
-        }
-        
-        /* High-Fidelity Glass Architecture */
-        .heavy-glass-gate { 
-            background: var(--glass); 
-            backdrop-filter: blur(30px) saturate(150%); 
-            -webkit-backdrop-filter: blur(30px) saturate(150%);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-            border-left: 1px solid var(--glass-border);
-            border-right: 1px solid var(--glass-border);
-            box-shadow: 
-                0 40px 100px -20px rgba(0, 0, 0, 0.9), 
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 -20px 40px -20px var(--rare-cyan-dim);
-        }
-
-        /* Tactical Plan Cards */
-        .plan-card { 
-            background: linear-gradient(145deg, rgba(20,20,22,0.8) 0%, rgba(5,5,5,0.9) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05); 
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 10px 20px rgba(0,0,0,0.5);
-            cursor: pointer; 
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
-        }
-        .plan-card:hover {
-            border-color: rgba(0, 242, 255, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 
-                inset 0 1px 0 rgba(255,255,255,0.1), 
-                0 20px 40px rgba(0,0,0,0.7),
-                0 0 30px -10px var(--rare-cyan-dim);
-        }
-        .plan-card.selected { 
-            border-color: var(--rare-cyan); 
-            background: linear-gradient(145deg, rgba(0, 242, 255, 0.05) 0%, rgba(5,5,5,0.9) 100%);
-            box-shadow: 
-                0 0 20px rgba(0, 242, 255, 0.15),
-                inset 0 0 20px rgba(0, 242, 255, 0.1);
-        }
-
-        /* Sovereign Inputs */
-        .input-9k {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            background: var(--bg-dark);
             color: #fff;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
-        }
-        .input-9k:focus {
-            outline: none;
-            border-color: var(--rare-cyan);
-            background: rgba(0, 242, 255, 0.02);
-            box-shadow: 
-                inset 0 2px 10px rgba(0,0,0,0.8),
-                0 0 15px rgba(0, 242, 255, 0.1);
-        }
-        .input-9k::placeholder { color: rgba(255, 255, 255, 0.2); }
-
-        /* Hardware Checkboxes */
-        input[type="checkbox"] {
-            appearance: none;
-            background-color: #050505;
-            border: 1px solid #333;
-            width: 18px;
-            height: 18px;
-            border-radius: 3px;
-            display: grid;
-            place-content: center;
-            transition: 0.2s;
-            cursor: pointer;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,1);
-        }
-        input[type="checkbox"]::before {
-            content: "";
-            width: 10px;
-            height: 10px;
-            transform: scale(0);
-            transition: 120ms transform cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background-color: var(--rare-cyan);
-            box-shadow: 0 0 10px var(--rare-cyan);
-            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
-        }
-        input[type="checkbox"]:checked {
-            border-color: var(--rare-cyan);
-            background-color: rgba(0, 242, 255, 0.05);
-        }
-        input[type="checkbox"]:checked::before { transform: scale(1); }
-
-        /* Physical Trigger Buttons */
-        .btn-elite { 
-            background: linear-gradient(180deg, #00f2ff 0%, #009db3 100%);
-            color: #000; 
-            font-weight: 900; 
-            letter-spacing: 0.2em;
-            transition: all 0.3s ease;
-            border: none;
-            border-top: 1px solid rgba(255,255,255,0.6);
-            box-shadow: 
-                0 5px 15px rgba(0, 242, 255, 0.3),
-                inset 0 -3px 10px rgba(0,0,0,0.3);
-            text-shadow: 0 1px 0 rgba(255,255,255,0.3);
-        }
-        .btn-elite:hover {
-            background: linear-gradient(180deg, #33f5ff 0%, #00b8cc 100%);
-            box-shadow: 
-                0 8px 25px rgba(0, 242, 255, 0.4),
-                inset 0 -3px 10px rgba(0,0,0,0.2);
-            transform: translateY(-1px);
-        }
-        .btn-elite:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 10px rgba(0, 242, 255, 0.3);
-            border-top: 1px solid rgba(255,255,255,0.2);
+            font-family: 'Rajdhani', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            perspective: 1500px;
+            transition: all 0.5s ease;
         }
 
-        /* Smooth Engine Transitions */
-        .step-container {
-            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .hidden-step {
-            opacity: 0;
-            transform: scale(0.98) translateY(10px);
-            pointer-events: none;
+        /* LIVE STUDIO TV WALL BACKGROUND */
+        #tv-wall {
             position: absolute;
-            visibility: hidden;
-        }
-        .active-step {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            position: relative;
-            visibility: visible;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-auto-rows: 100px;
+            gap: 5px;
+            z-index: -2;
+            opacity: 0.15;
+            transform: scale(1.1);
         }
 
-        /* Sovereign Pulse Animation */
-        @keyframes pulse-core {
-            0% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.05); }
-            100% { opacity: 0.3; transform: scale(1); }
+        .monitor { background: #050a15; border: 1px solid rgba(255,255,255,0.05); }
+
+        /* HUD & NAVIGATION */
+        #radio-hud {
+            position: fixed; top: 20px; right: 20px;
+            width: 260px; background: var(--glass);
+            border: 1px solid var(--cyan); border-radius: 8px;
+            padding: 15px; backdrop-filter: blur(10px); z-index: 100;
+            box-shadow: 0 0 15px var(--cyan);
         }
-        .pulse-indicator {
-            animation: pulse-core 3s infinite ease-in-out;
+
+        .radio-title { font-family: 'Orbitron'; font-size: 10px; color: var(--neon-pink); letter-spacing: 2px; }
+        .live-dot { height: 8px; width: 8px; background: var(--neon-green); border-radius: 50%; display: inline-block; animation: pulse 1s infinite; }
+
+        /* THEME SELECTOR */
+        #theme-dock {
+            position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 15px; z-index: 100;
         }
+
+        .theme-icon {
+            width: 50px; height: 50px; border-radius: 50%;
+            background: var(--glass); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 24px; transition: 0.3s;
+        }
+
+        .theme-icon:hover { transform: scale(1.2) rotate(10deg); border-color: #fff; }
+
+        /* MAIN ENGINE INTERFACE */
+        #engine-stage {
+            height: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
+
+        .brand-logo {
+            font-family: 'Orbitron', sans-serif; font-size: 5.5rem; font-weight: 900;
+            background: linear-gradient(to right, var(--cyan), var(--neon-pink), var(--gold));
+            -webkit-background-clip: text; color: transparent;
+            filter: drop-shadow(0 0 25px var(--cyan));
+            margin-bottom: 0;
+        }
+
+        .lower-i { text-transform: lowercase; }
+
+        .bot-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+            margin-top: 40px; transform-style: preserve-3d;
+        }
+
+        .bot-tile {
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 20px; border-radius: 12px; width: 220px; text-align: center;
+            transition: 0.4s; position: relative;
+        }
+
+        .bot-tile:hover { transform: translateZ(50px); border-color: #fff; box-shadow: 0 0 30px var(--cyan); }
+        .bot-label { font-family: 'Orbitron'; font-size: 12px; letter-spacing: 1px; }
+        .bot-status { font-size: 10px; margin-top: 10px; color: var(--neon-green); }
+
+        /* FOOTER DOMAIN & PRINTIFY */
+        .footer {
+            position: fixed; bottom: 0; width: 100%;
+            padding: 20px; background: rgba(0,0,0,0.9);
+            display: flex; justify-content: space-around; align-items: center;
+            border-top: 1px solid var(--border); font-family: 'Orbitron'; font-size: 11px;
+        }
+
+        .printify-btn { color: var(--gold); border: 1px solid var(--gold); padding: 8px 20px; border-radius: 5px; cursor: pointer; }
+
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
-<body class="p-4 md:p-12 min-h-screen flex items-center justify-center">
+<body class="theme-default">
 
-    <div class="grid-overlay"></div>
+    <div id="tv-wall"></div>
 
-    <main id="access-gate" class="max-w-4xl w-full heavy-glass-gate p-8 md:p-14 rounded-2xl relative overflow-hidden z-10">
-        
-        <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00f2ff] to-transparent opacity-70 pulse-indicator"></div>
+    <div id="radio-hud">
+        <div class="radio-title">KNOCKSSTUDiOS RADIO</div>
+        <div style="font-weight: 900; font-size: 18px; margin: 5px 0;">AIRTIME PRO LIVE</div>
+        <div class="bot-status"><span class="live-dot"></span> BROADCASTING 9K FREQUENCY</div>
+    </div>
 
-        <div class="text-center mb-12 border-b border-white/5 pb-8 relative">
-            <h1 class="syncopate text-4xl md:text-6xl tracking-[0.25em] text-metallic mb-2">
-                KNOCKSSTUD<span style="text-transform: lowercase; font-size: 0.9em;" class="glow-cyan-core">i</span>OS
-            </h1>
-            <p class="space-mono text-[0.65rem] text-zinc-400 tracking-[0.5em] mt-6 uppercase">
-                Universal Onboarding Protocol <span class="text-[#00f2ff] mx-3 opacity-50">|</span> Titangine Core
-            </p>
+    <div id="theme-dock">
+        <div class="theme-icon" onclick="switchTheme('mexico')">🇲🇽</div>
+        <div class="theme-icon" onclick="switchTheme('africa')">🌍</div>
+        <div class="theme-icon" onclick="switchTheme('hawaii')">🌺</div>
+        <div class="theme-icon" onclick="switchTheme('northpole')">❄️</div>
+        <div class="theme-icon" onclick="switchTheme('sports')">🏀</div>
+        <div class="theme-icon" onclick="switchTheme('default')">🔄</div>
+    </div>
+
+    <div id="engine-stage">
+        <h1 class="brand-logo">KNOCKSS<span class="lower-i">i</span>OS</h1>
+        <p style="letter-spacing: 8px; font-weight: 700; color: var(--gold);">THE SOVEREIGN PULSE ENGINE</p>
+
+        <div class="bot-grid">
+            <div class="bot-tile"><div class="bot-label">PROMPT ARCHITECT</div><div class="bot-status">ACTIVE [A/B]</div></div>
+            <div class="bot-tile"><div class="bot-label">VISUAL RENDER</div><div class="bot-status">ACTIVE [A/B]</div></div>
+            <div class="bot-tile"><div class="bot-label">IMAGE TRANSFORM</div><div class="bot-status">ACTIVE [A/B]</div></div>
+            <div class="bot-tile"><div class="bot-label">CREATION GUIDE</div><div class="bot-status">ACTIVE [A/B]</div></div>
+            <div class="bot-tile"><div class="bot-label">VIDEO SYNTH</div><div class="bot-status">ACTIVE [A/B]</div></div>
+            <div class="bot-tile"><div class="bot-label">BOT MENTOR</div><div class="bot-status">ACTIVE [A/B]</div></div>
         </div>
+    </div>
 
-        <section id="step-1" class="step-container active-step space-y-10">
-            <div class="flex items-center justify-center gap-4 mb-6">
-                <div class="w-12 h-[1px] bg-zinc-800"></div>
-                <h3 class="space-mono text-[0.65rem] font-bold uppercase tracking-[0.4em] text-zinc-500">
-                    Step 1: Select Protocol
-                </h3>
-                <div class="w-12 h-[1px] bg-zinc-800"></div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="plan-card p-8 rounded-xl space-y-5 relative overflow-hidden" onclick="selectBase('monthly')">
-                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#00f2ff] opacity-[0.03] blur-3xl rounded-full"></div>
-                    <div class="flex items-center gap-3">
-                        <div class="w-2 h-2 rounded-full bg-[#00f2ff] shadow-[0_0_8px_#00f2ff]"></div>
-                        <p class="space-mono text-[0.65rem] text-white uppercase font-bold tracking-widest">Sovereign Pulse</p>
-                    </div>
-                    <h4 class="text-4xl font-black text-metallic tracking-tight">$19<span class="text-sm text-zinc-600 font-normal tracking-normal">/mo</span></h4>
-                    <div class="w-12 h-[2px] bg-gradient-to-r from-zinc-700 to-transparent"></div>
-                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-widest space-y-3 font-mono">
-                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> 2,000 Coins for the Legends</li>
-                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> Standard AI Companion</li>
-                    </ul>
-                </div>
-
-                <div class="plan-card p-8 rounded-xl space-y-5 relative overflow-hidden" onclick="selectBase('family')">
-                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#00f2ff] opacity-[0.03] blur-3xl rounded-full"></div>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-3">
-                            <div class="w-2 h-2 rounded-full border border-[#00f2ff] shadow-[0_0_8px_rgba(0,242,255,0.5)]"></div>
-                            <p class="space-mono text-[0.65rem] text-white uppercase font-bold tracking-widest">Legend Hive</p>
-                        </div>
-                        <span class="text-[0.45rem] bg-black text-zinc-300 px-2 py-1 rounded font-bold tracking-[0.2em] border border-zinc-800">3 INITIATES</span>
-                    </div>
-                    <h4 class="text-4xl font-black text-metallic tracking-tight">$49<span class="text-sm text-zinc-600 font-normal tracking-normal">/mo</span></h4>
-                    <div class="w-12 h-[2px] bg-gradient-to-r from-zinc-700 to-transparent"></div>
-                    <ul class="text-[0.65rem] text-zinc-400 uppercase tracking-widest space-y-3 font-mono">
-                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> 1,500 Shared Coins</li>
-                        <li class="flex items-center gap-3"><span class="text-[#00f2ff] opacity-50">▹</span> All AI Companions Unlocked</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div id="family-config" class="hidden overflow-hidden transition-all duration-700 max-h-0">
-                <div class="p-6 bg-[#030303] border border-zinc-800 rounded-xl space-y-5 shadow-[inset_0_10px_20px_rgba(0,0,0,0.5)]">
-                    <p class="space-mono text-[0.6rem] text-zinc-400 uppercase tracking-widest flex items-center gap-2">
-                        <span class="w-1 h-1 bg-zinc-600 rounded-full"></span> Configure Architect Hive
-                    </p>
-                    <div class="flex items-center gap-4">
-                        <input type="number" min="0" max="5" class="input-9k w-24 p-3 text-sm text-center rounded bg-black font-mono" placeholder="0">
-                        <p class="text-[0.65rem] text-zinc-400 uppercase tracking-widest">Add Member <span class="text-zinc-600 ml-2">+$10/mo</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <button onclick="nextStep()" class="btn-elite w-full py-5 rounded text-[0.75rem] uppercase tracking-[0.2em] mt-6">
-                Initialize Sequence
-            </button>
-        </section>
-
-        <section id="step-2" class="step-container hidden-step space-y-8">
-            <div class="flex items-center justify-center gap-4 mb-6">
-                <div class="w-12 h-[1px] bg-zinc-800"></div>
-                <h3 class="space-mono text-[0.65rem] font-bold uppercase tracking-[0.4em] text-zinc-500">
-                    Step 2: Authentication
-                </h3>
-                <div class="w-12 h-[1px] bg-zinc-800"></div>
-            </div>
-
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-5" action="/finalize-signup" method="POST" onsubmit="event.preventDefault(); alert('9K Core Engaged.');">
-                
-                <input type="text" name="name" required class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono" placeholder="First Name">
-                <input type="text" name="last_name" required class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono" placeholder="Last Name">
-                
-                <input type="email" name="email" required class="input-9k col-span-1 md:col-span-2 rounded p-4 text-[0.75rem] tracking-widest font-mono" placeholder="Sovereign Outlook or Comm Link">
-                <input type="password" name="password" required class="input-9k col-span-1 md:col-span-2 rounded p-4 text-[0.75rem] tracking-widest font-mono" placeholder="Titangine Access Key (Password)">
-
-                <select name="gender" class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono text-zinc-400 appearance-none">
-                    <option value="" disabled selected>Identify</option>
-                    <option value="him/her">Him/Her</option>
-                    <option value="they/them">They/Them</option>
-                    <option value="prefer_not">Classified</option>
-                </select>
-                <input type="text" name="religion" class="input-9k rounded p-4 text-[0.75rem] tracking-widest uppercase font-mono" placeholder="Belief System (Opt)">
-
-                <div class="col-span-1 md:col-span-2 space-y-5 border-t border-zinc-800/50 pt-8 mt-4 text-[0.6rem] text-zinc-400 uppercase tracking-widest font-mono">
-                    <label class="flex items-start gap-5 cursor-pointer hover:text-[#00f2ff] transition-colors group">
-                        <input type="checkbox" required class="mt-0.5 shrink-0 group-hover:border-[#00f2ff]">
-                        <span class="leading-relaxed">Age verification: Confirmed 18 cycles or older.</span>
-                    </label>
-                    <label class="flex items-start gap-5 cursor-pointer hover:text-[#00f2ff] transition-colors group">
-                        <input type="checkbox" required class="mt-0.5 shrink-0 group-hover:border-[#00f2ff]">
-                        <span class="leading-relaxed">Agreement logged: Sovereign IP & Audio Protocols.</span>
-                    </label>
-                    <label class="flex items-start gap-5 cursor-pointer hover:text-[#00f2ff] transition-colors group">
-                        <input type="checkbox" required class="mt-0.5 shrink-0 group-hover:border-[#00f2ff]">
-                        <span class="leading-relaxed">Architect clearance: Not a hostile bot array.</span>
-                    </label>
-                </div>
-
-                <div class="col-span-1 md:col-span-2 flex gap-4 mt-8">
-                    <button type="button" onclick="prevStep()" class="w-1/3 py-5 rounded text-[0.7rem] uppercase tracking-[0.2em] font-bold border border-zinc-700 bg-[#050505] hover:border-zinc-500 transition-all text-zinc-400 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]">
-                        Abort
-                    </button>
-                    <button type="submit" class="btn-elite w-2/3 py-5 rounded text-[0.75rem] uppercase tracking-[0.2em]">
-                        Engage Engine
-                    </button>
-                </div>
-            </form>
-        </section>
-
-    </main>
+    <div class="footer">
+        <div>🌐 hollywoodimaging.studio</div>
+        <div class="printify-btn">🛠️ PRINTIFY CONNECTED</div>
+        <div>✉️ hollywoodimaging.studio@outlook.com</div>
+    </div>
 
     <script>
-        function selectBase(plan) {
-            document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
-
-            const familyBox = document.getElementById('family-config');
-            if (plan === 'family') {
-                familyBox.classList.remove('hidden');
-                setTimeout(() => {
-                    familyBox.style.maxHeight = "250px";
-                    familyBox.style.opacity = "1";
-                }, 10);
-            } else {
-                familyBox.style.maxHeight = "0px";
-                familyBox.style.opacity = "0";
-                setTimeout(() => {
-                    familyBox.classList.add('hidden');
-                }, 700);
-            }
+        // TV Wall Init
+        const wall = document.getElementById('tv-wall');
+        for(let i=0; i<40; i++) {
+            const div = document.createElement('div');
+            div.className = 'monitor';
+            wall.appendChild(div);
         }
 
-        function nextStep() {
-            const step1 = document.getElementById('step-1');
-            const step2 = document.getElementById('step-2');
-            
-            step1.classList.remove('active-step');
-            step1.classList.add('hidden-step');
-            
-            setTimeout(() => {
-                step1.style.display = 'none';
-                step2.style.display = 'block';
-                void step2.offsetWidth; 
-                step2.classList.remove('hidden-step');
-                step2.classList.add('active-step');
-            }, 600);
+        // Theme Switcher
+        function switchTheme(t) {
+            document.body.className = t === 'default' ? '' : 'theme-' + t;
+            console.log(">> SYSTEM THEME SHIFTED TO: " + t.toUpperCase());
         }
 
-        function prevStep() {
-            const step1 = document.getElementById('step-1');
-            const step2 = document.getElementById('step-2');
-            
-            step2.classList.remove('active-step');
-            step2.classList.add('hidden-step');
-            
-            setTimeout(() => {
-                step2.style.display = 'none';
-                step1.style.display = 'block';
-                void step1.offsetWidth; 
-                step1.classList.remove('hidden-step');
-                step1.classList.add('active-step');
-            }, 600);
-        }
+        // 4D Mouse Tracking
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 40;
+            const y = (window.innerHeight / 2 - e.pageY) / 40;
+            document.querySelector('.bot-grid').style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
     </script>
 </body>
 </html>
+
